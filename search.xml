@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>java守护线程与非守护线程</title>
+      <link href="/2019/03/28/java%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%9D%9E%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B/"/>
+      <url>/2019/03/28/java%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B%E4%B8%8E%E9%9D%9E%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="java守护线程与非守护线程窥探"><a href="#java守护线程与非守护线程窥探" class="headerlink" title="java守护线程与非守护线程窥探"></a>java守护线程与非守护线程窥探</h1><hr><h2 id="两个线程的基本概念"><a href="#两个线程的基本概念" class="headerlink" title="两个线程的基本概念"></a>两个线程的基本概念</h2><ul><li>守护线程即在后台为用户提供一些基本保障的线程，例如java中的gc线程[垃圾处理机制],他会自动清理一些没有用处的变量空间，处理空间溢出等问题。守护线程会随着main函数的结束而结束。</li><li>非守护线程，也成为用户线程，他是可以由用户自己定义，不会随着main函数的结束而结束，这个特性和守护线程恰恰相反。</li></ul><a id="more"></a><hr><h2 id="守护线程的机制"><a href="#守护线程的机制" class="headerlink" title="守护线程的机制"></a>守护线程的机制</h2><blockquote><p>举一个实例，当手机游览器正在下载文件的时候，如果你将游览器退出，但是那个文件还在继续下载，那个文件还在继续下载，这个下载文件线程就是守护线程。</p></blockquote><ul><li>值得注意的是，当程序的所有用户线程都结束的时候，并且程序中仅仅剩下了一个守护线程，那么JVM就会退出，因为守护线程已经没有什么可以守护的了。</li><li>但是需要一提的是，java中的main函数属于用户线程，并不属于守护线程!!!!</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java架构 </tag>
+            
+            <tag> 多线程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>java多线程初窥探</title>
       <link href="/2019/03/27/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%88%9D%E7%AA%A5%E6%8E%A2/"/>
       <url>/2019/03/27/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%88%9D%E7%AA%A5%E6%8E%A2/</url>
@@ -13,7 +42,7 @@
       
       <categories>
           
-          <category> 代码 </category>
+          <category> 技术 </category>
           
           <category> java </category>
           
