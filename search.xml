@@ -136,22 +136,22 @@
     
     
     <entry>
-      <title>读书</title>
-      <link href="/reading/index.html"/>
-      <url>/reading/index.html</url>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><h2 id="逝痕"><a href="#逝痕" class="headerlink" title="逝痕"></a>逝痕</h2><h4 id="随笔杂记"><a href="#随笔杂记" class="headerlink" title="随笔杂记"></a>随笔杂记</h4>]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>读书</title>
+      <link href="/reading/index.html"/>
+      <url>/reading/index.html</url>
       
-        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><h2 id="逝痕"><a href="#逝痕" class="headerlink" title="逝痕"></a>逝痕</h2><h4 id="随笔杂记"><a href="#随笔杂记" class="headerlink" title="随笔杂记"></a>随笔杂记</h4>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
