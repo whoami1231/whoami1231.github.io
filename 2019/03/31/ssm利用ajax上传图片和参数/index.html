@@ -160,7 +160,15 @@ bootstrap 前端渲染">
 
             <li class="collapse-level-0" collapse-level="0">
                 <a class="no-padding" href="/categories/技术/">
-                    技术 <span class="right">5 篇</span></a>
+                    技术 <span class="right">6 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/java/">
+                    java <span class="right">5 篇</span></a>
                 
             </li>
 
@@ -169,14 +177,6 @@ bootstrap 前端渲染">
             <li class="collapse-level-1" collapse-level="1">
                 <a class="no-padding" href="/categories/技术/j2EE/">
                     j2EE <span class="right">1 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/java/">
-                    java <span class="right">4 篇</span></a>
                 
             </li>
 
@@ -254,7 +254,7 @@ bootstrap 前端渲染">
 
 
             <div class="toc pink-link-context hide-on-med-and-down">
-    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Ajax选择性上传图片"><span class="section table-of-contents-text">Ajax选择性上传图片</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#技术需求"><span class="section table-of-contents-text">技术需求</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#具体实现"><span class="section table-of-contents-text">具体实现</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#前端代码部分"><span class="section table-of-contents-text">前端代码部分</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#后台代码部分"><span class="section table-of-contents-text">后台代码部分</span></a></li></ol></li></ol>
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Ajax选择性上传图片"><span class="section table-of-contents-text">Ajax选择性上传图片</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#技术需求"><span class="section table-of-contents-text">技术需求</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#具体实现"><span class="section table-of-contents-text">具体实现</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#前端代码部分"><span class="section table-of-contents-text">前端代码部分</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#后台代码部分"><span class="section table-of-contents-text">后台代码部分</span></a></li></ol></li></ol></li></ol>
 </div>
 
 
@@ -280,12 +280,18 @@ bootstrap 前端渲染">
 <li>关于那个图片到底有没有上传的功能,前端不需要考虑</li>
 </ul>
 <hr>
-<h2 id="后台代码部分"><a href="#后台代码部分" class="headerlink" title="后台代码部分"></a>后台代码部分</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;FILE_URL&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span>  String FILE_URL;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * function:更新商品</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> tbContent</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pic</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pic2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/updateContent.do"</span>)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String,String&gt; <span class="title">updateContent</span><span class="params">(TbContent tbContent, @RequestParam(value = <span class="string">"picFile"</span>,required = <span class="keyword">false</span>)</span>MultipartFile pic, @<span class="title">RequestParam</span><span class="params">(value = <span class="string">"pic2File"</span>,required = <span class="keyword">false</span>)</span>MultipartFile pic2) <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">        HashMap&lt;String,String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        System.out.println(pic + <span class="string">":"</span>+FILE_URL);</span><br><span class="line"></span><br><span class="line">        String picFileID = <span class="keyword">new</span> String();</span><br><span class="line">        String pic2FileID =<span class="keyword">new</span> String();</span><br><span class="line">        <span class="keyword">if</span>(!pic.isEmpty())&#123;</span><br><span class="line">             picFileID = FastDFSClient.uploadFile(pic.getInputStream(),pic.getOriginalFilename());</span><br><span class="line">            <span class="keyword">if</span>(picFileID == <span class="keyword">null</span>)&#123;</span><br><span class="line">                map.put(<span class="string">"result"</span>,<span class="string">"failed"</span>);</span><br><span class="line">                <span class="keyword">return</span> map;</span><br><span class="line">            &#125;</span><br><span class="line">            tbContent.setPic(FILE_URL+picFileID);</span><br><span class="line">            System.out.println(tbContent.getPic());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!pic2.isEmpty())&#123;</span><br><span class="line">            pic2FileID = FastDFSClient.uploadFile(pic2.getInputStream(),pic2.getOriginalFilename());</span><br><span class="line">            <span class="keyword">if</span>(pic2FileID == <span class="keyword">null</span>)&#123;</span><br><span class="line">                map.put(<span class="string">"result"</span>,<span class="string">"failed"</span>);</span><br><span class="line">                <span class="keyword">return</span> map;</span><br><span class="line">            &#125;</span><br><span class="line">            tbContent.setPic2(pic2FileID);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            contentService.updateContent(tbContent);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            map.put(<span class="string">"result"</span>,<span class="string">"failed"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(<span class="string">"result"</span>,<span class="string">"success"</span>);</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="后台代码部分"><a href="#后台代码部分" class="headerlink" title="后台代码部分"></a>后台代码部分</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;FILE_URL&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span>  String FILE_URL;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * function:更新商品</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> tbContent</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pic</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pic2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/updateContent.do"</span>)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String,String&gt; <span class="title">updateContent</span><span class="params">(TbContent tbContent, @RequestParam(value = <span class="string">"picFile"</span>,required = <span class="keyword">false</span>)</span>MultipartFile pic, @<span class="title">RequestParam</span><span class="params">(value = <span class="string">"pic2File"</span>,required = <span class="keyword">false</span>)</span>MultipartFile pic2) <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">        HashMap&lt;String,String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        System.out.println(pic + <span class="string">":"</span>+FILE_URL);</span><br><span class="line"></span><br><span class="line">        String picFileID = <span class="keyword">new</span> String();</span><br><span class="line">        String pic2FileID =<span class="keyword">new</span> String();</span><br><span class="line">        <span class="keyword">if</span>(!pic.isEmpty())&#123;</span><br><span class="line">             picFileID = FastDFSClient.uploadFile(pic.getInputStream(),pic.getOriginalFilename());</span><br><span class="line">            <span class="keyword">if</span>(picFileID == <span class="keyword">null</span>)&#123;</span><br><span class="line">                map.put(<span class="string">"result"</span>,<span class="string">"failed"</span>);</span><br><span class="line">                <span class="keyword">return</span> map;</span><br><span class="line">            &#125;</span><br><span class="line">            tbContent.setPic(FILE_URL+picFileID);</span><br><span class="line">            System.out.println(tbContent.getPic());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!pic2.isEmpty())&#123;</span><br><span class="line">            pic2FileID = FastDFSClient.uploadFile(pic2.getInputStream(),pic2.getOriginalFilename());</span><br><span class="line">            <span class="keyword">if</span>(pic2FileID == <span class="keyword">null</span>)&#123;</span><br><span class="line">                map.put(<span class="string">"result"</span>,<span class="string">"failed"</span>);</span><br><span class="line">                <span class="keyword">return</span> map;</span><br><span class="line">            &#125;</span><br><span class="line">            tbContent.setPic2(pic2FileID);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            contentService.updateContent(tbContent);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            map.put(<span class="string">"result"</span>,<span class="string">"failed"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(<span class="string">"result"</span>,<span class="string">"success"</span>);</span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>之前我用TbContent实体类去接收前端参数的时候，会加上@RequestBody,但是会报出400/415错误，因为FormData的编码并不是application/json;charset = utf-8 ，需要把这个注解删除。</p>
 </blockquote>
 
                 
+<p class="pink-link-context">
+    <a href="/2019/03/31/java多线程通信/" rel="next" title="java多线程通信">
+    上一篇：java多线程通信
+  </a>
+</p>
+
 
 
 <p class="pink-link-context">
@@ -322,13 +328,29 @@ bootstrap 前端渲染">
     <footer class="page-footer indigo darken-1">
     
 
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
     <div class="footer-copyright pink-link-context">
         <div class="container">
             © 2019 WHOAMI&#39;s Blog, All rights reserved.
-            <p class="right" style="margin-top: 0;">本博客由 <a href="https://hexo.io">Hexo</a> 强力驱动 | 主题 <a href="https://github.com/raytaylorlin/hexo-theme-raytaylorism">raytaylorism</a></p>
+            <div class="right">
+                <span>
+                    <i class="fa fa-user"></i>
+                    <span class="busuanzi-value" id="busuanzi_value_site_uv">
+                    </span>
+                </span>
+                <span>&nbsp;|&nbsp;</span>
+                <span>
+                    <i class="fa fa-eye"></i>
+                    <span id="busuanzi_value_site_pv">
+                    </span>
+                </span>
+            </div>
+          <!--  <p class="right" style="margin-top: 0;"> 欢迎访问我的个人主页 <a href="https://github.com/whoami1231">WHOAMI</a></p>
+              -->
         </div>
-    </div>
-</footer>
+
+</div></footer>
 
 
     <noscript>
@@ -423,7 +445,7 @@ bootstrap 前端渲染">
 
             
             // 添加new标签
-            $('.menu-reading, .menu-about').append('<span class="new badge pink"></span>');
+            $('').append('<span class="new badge pink"></span>');
             
 
             // 搜索功能
