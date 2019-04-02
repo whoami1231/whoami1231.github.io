@@ -161,7 +161,7 @@
 
             <li class="collapse-level-0" collapse-level="0">
                 <a class="no-padding" href="/categories/技术/">
-                    技术 <span class="right">8 篇</span></a>
+                    技术 <span class="right">9 篇</span></a>
                 
             </li>
 
@@ -169,7 +169,7 @@
 
             <li class="collapse-level-1" collapse-level="1">
                 <a class="no-padding" href="/categories/技术/java/">
-                    java <span class="right">7 篇</span></a>
+                    java <span class="right">8 篇</span></a>
                 
             </li>
 
@@ -275,6 +275,12 @@
 <p>get方法源码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      Thread t = Thread.currentThread();</span><br><span class="line">      ThreadLocalMap map = getMap(t);</span><br><span class="line">      <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">          ThreadLocalMap.Entry e = map.getEntry(<span class="keyword">this</span>);</span><br><span class="line">          <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">              <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">              T result = (T)e.value;</span><br><span class="line">              <span class="keyword">return</span> result;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> setInitialValue();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
 
                 
+<p class="pink-link-context">
+    <a href="/2019/04/02/java并发队列/" rel="next" title="java并发队列">
+    上一篇：java并发队列
+  </a>
+</p>
+
 
 
 <p class="pink-link-context">
