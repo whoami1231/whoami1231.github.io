@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>java队列</title>
+      <link href="/2019/04/02/java%E9%98%9F%E5%88%97/"/>
+      <url>/2019/04/02/java%E9%98%9F%E5%88%97/</url>
+      
+        <content type="html"><![CDATA[<h1 id="java队列具体分类"><a href="#java队列具体分类" class="headerlink" title="java队列具体分类"></a>java队列具体分类</h1><p><img src="https://s2.ax1x.com/2019/04/02/AywLb6.png" alt="Java队列"></p><ul><li>BlockingQueue阻塞队列:当添加队列的时候，可以去设置等待时间。即当队列满的时候，可以等待，超过等待时间返回false。取队列的时候也可以等待。</li><li>ConcurrentLinkedQueue非阻塞队列，添加和取队列的时候不去等待。<blockquote><p>Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的</p></blockquote></li></ul><a id="more"></a><hr><h2 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h2><h3 id="ConcurrentLinkedQueue的常用方法"><a href="#ConcurrentLinkedQueue的常用方法" class="headerlink" title="ConcurrentLinkedQueue的常用方法"></a>ConcurrentLinkedQueue<e>的常用方法</e></h3><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer</td><td style="text-align:left">将Object添加到队列的尾部</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><h2 id="非阻塞队列"><a href="#非阻塞队列" class="headerlink" title="非阻塞队列"></a>非阻塞队列</h2><h3 id="ArrayBlockingQueue-Size"><a href="#ArrayBlockingQueue-Size" class="headerlink" title="ArrayBlockingQueue(Size)"></a>ArrayBlockingQueue<e>(Size)</e></h3><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer()</td><td style="text-align:left">将Object添加到队列的尾部&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">offer(Object,time,timeUtil)</td><td style="text-align:left">将Object添加到队列的尾部&lt;阻塞式&gt;,设定队满的时候等待时间</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">poll(Object,time,timeUtil)</td><td style="text-align:left">队列头取Object并且将其在队列中删除&lt;阻塞式&gt;,设定队空的时候等待时间</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><h2 id="双端队列"><a href="#双端队列" class="headerlink" title="双端队列"></a>双端队列</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>java多线程通信</title>
       <link href="/2019/03/31/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
       <url>/2019/03/31/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/</url>
@@ -22,9 +51,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java架构 </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -82,9 +111,9 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -140,9 +169,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java架构 </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -169,9 +198,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java架构 </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
