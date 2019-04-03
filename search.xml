@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>centos7下设置静态ip</title>
+      <link href="/2019/04/03/centos7%E4%B8%8B%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/"/>
+      <url>/2019/04/03/centos7%E4%B8%8B%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux设置固定IP"><a href="#Linux设置固定IP" class="headerlink" title="Linux设置固定IP"></a>Linux设置固定IP</h1><blockquote><p>一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法</p></blockquote><p>我们要设置ip，要知道VM的网络适配器有三种原则</p><ul><li>桥接模式</li><li>主机模式</li><li>NAT模式</li></ul><p>我们的真实主机有两块对应的网卡</p><ul><li>VMnet0</li><li>VMnet8<a id="more"></a></li></ul><p>由于我们这里只固定ip，所以别的我们现在先不了解。</p><hr><h2 id="首先设置网关，打开VM的虚拟网络适配器"><a href="#首先设置网关，打开VM的虚拟网络适配器" class="headerlink" title="首先设置网关，打开VM的虚拟网络适配器"></a>首先设置网关，打开VM的虚拟网络适配器</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag94FH.png" alt="网络适配器"></p><p>修改我们的子网ip和子网掩码，注意！上面的框只有里面的3你可以自行修改！</p><h2 id="修改主机的VM网卡-VMnet8"><a href="#修改主机的VM网卡-VMnet8" class="headerlink" title="修改主机的VM网卡 VMnet8"></a>修改主机的VM网卡 VMnet8</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag9pqO.png" alt></p><h2 id="按照下图操作"><a href="#按照下图操作" class="headerlink" title="按照下图操作"></a>按照下图操作</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag9bOf.png" alt="操作"></p><p>其中也是建议只有3更改</p><hr><h2 id="注意linux选择NAT链接后，开始修改IP！"><a href="#注意linux选择NAT链接后，开始修改IP！" class="headerlink" title="注意linux选择NAT链接后，开始修改IP！"></a>注意linux选择NAT链接后，开始修改IP！</h2><hr><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br><span class="line">#记住画圈的这个文件名，之后会用到</span><br></pre></td></tr></table></figure><p><img src="https://s2.ax1x.com/2019/04/03/AgClnK.png" alt></p><h2 id="打开下面的文件"><a href="#打开下面的文件" class="headerlink" title="打开下面的文件"></a>打开下面的文件</h2><hr><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/sysconfig/network-scripts</span><br></pre></td></tr></table></figure><p><img src="https://s2.ax1x.com/2019/04/03/AgPGrV.png" alt></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim ifcfg-ens33</span><br><span class="line"># 修改下面的两处为</span><br><span class="line">#BOOTPROTO=static</span><br><span class="line">#ONBOOT=yes</span><br><span class="line"></span><br><span class="line">#并在下面添加网址等信息</span><br><span class="line">IPADDR=192.168.3.135#静态IP</span><br><span class="line">GATEWAY=192.168.3.2 #默认网关</span><br><span class="line">NETMASK=255.255.255.0 #子网掩码</span><br></pre></td></tr></table></figure><p><img src="https://s2.ax1x.com/2019/04/03/AgPTqf.png" alt></p><h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><hr><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>java并发队列</title>
       <link href="/2019/04/02/java%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97/"/>
       <url>/2019/04/02/java%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97/</url>
@@ -80,9 +107,9 @@
       
         <tags>
             
-            <tag> 数据结构 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 数据结构 </tag>
             
         </tags>
       

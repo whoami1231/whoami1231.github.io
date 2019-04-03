@@ -7,13 +7,27 @@
 
     
 
-    <title>线程安全 | </title>
+    <title>centos7下设置静态ip | </title>
     <meta name="author" content="WHOAMI">
+    
+    <meta name="description" content="Linux设置固定IP
+一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法
+
+我们要设置ip，要知道VM的网络适配器有三种原则
+
+桥接模式
+主机模式
+NAT模式
+
+我们的真实主机有两块对应的网卡
+
+VMnet0
+VMnet8">
     
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+    <meta property="og:title" content="centos7下设置静态ip">
     <meta property="og:site_name" content="逝痕">
 
     
@@ -207,30 +221,112 @@
 
     <main>
         <div class="container main-container">
-    
-
-<nav class="page-nav hide-on-small-only">
+    <nav class="page-nav hide-on-small-only">
     <div class="nav-wrapper indigo">
-        <span class="breadcrumb">当前位置（标签）</span>
+        <span class="breadcrumb">当前位置（分类目录）</span>
         
+            
+    
+    
+    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/linux/">linux</a>
+
 
         
-            <a class="breadcrumb" href="/tags/线程安全/">线程安全</a>
+
         
     </div>
 </nav>
 
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>centos7下设置静态ip</h1>
+    
 
 
-    <div class="collection mt-0">
+            </div>
+            <time class="pink-link-context" datetime="2019-04-03T08:55:58.000Z"><a href="/2019/04/03/centos7下设置静态ip/">2019-04-03</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
         
-            <a href="/2019/03/29/java线程安全初窥探/" class="collection-item grey-text text-darken-1">
-                <time datetime="2019-03-29T02:08:37.000Z">2019-03-29</time>
-                <span>&nbsp;&nbsp;&nbsp;</span>
-                java线程安全初窥探
-            </a>
+            <a href="/tags/linux/" class="chip pink lighten-1">linux</a>
         
     </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Linux设置固定IP"><span class="section table-of-contents-text">Linux设置固定IP</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#首先设置网关，打开VM的虚拟网络适配器"><span class="section table-of-contents-text">首先设置网关，打开VM的虚拟网络适配器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#修改主机的VM网卡-VMnet8"><span class="section table-of-contents-text">修改主机的VM网卡 VMnet8</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#按照下图操作"><span class="section table-of-contents-text">按照下图操作</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#注意linux选择NAT链接后，开始修改IP！"><span class="section table-of-contents-text">注意linux选择NAT链接后，开始修改IP！</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#打开下面的文件"><span class="section table-of-contents-text">打开下面的文件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#重启网络服务"><span class="section table-of-contents-text">重启网络服务</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="Linux设置固定IP"><a href="#Linux设置固定IP" class="headerlink" title="Linux设置固定IP"></a>Linux设置固定IP</h1><blockquote>
+<p>一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法</p>
+</blockquote>
+<p>我们要设置ip，要知道VM的网络适配器有三种原则</p>
+<ul>
+<li>桥接模式</li>
+<li>主机模式</li>
+<li>NAT模式</li>
+</ul>
+<p>我们的真实主机有两块对应的网卡</p>
+<ul>
+<li>VMnet0</li>
+<li>VMnet8<a id="more"></a>
+</li>
+</ul>
+<p>由于我们这里只固定ip，所以别的我们现在先不了解。</p>
+<hr>
+<h2 id="首先设置网关，打开VM的虚拟网络适配器"><a href="#首先设置网关，打开VM的虚拟网络适配器" class="headerlink" title="首先设置网关，打开VM的虚拟网络适配器"></a>首先设置网关，打开VM的虚拟网络适配器</h2><hr>
+<p><img src="https://s2.ax1x.com/2019/04/03/Ag94FH.png" alt="网络适配器"></p>
+<p>修改我们的子网ip和子网掩码，注意！上面的框只有里面的3你可以自行修改！</p>
+<h2 id="修改主机的VM网卡-VMnet8"><a href="#修改主机的VM网卡-VMnet8" class="headerlink" title="修改主机的VM网卡 VMnet8"></a>修改主机的VM网卡 VMnet8</h2><hr>
+<p><img src="https://s2.ax1x.com/2019/04/03/Ag9pqO.png" alt></p>
+<h2 id="按照下图操作"><a href="#按照下图操作" class="headerlink" title="按照下图操作"></a>按照下图操作</h2><hr>
+<p><img src="https://s2.ax1x.com/2019/04/03/Ag9bOf.png" alt="操作"></p>
+<p>其中也是建议只有3更改</p>
+<hr>
+<h2 id="注意linux选择NAT链接后，开始修改IP！"><a href="#注意linux选择NAT链接后，开始修改IP！" class="headerlink" title="注意linux选择NAT链接后，开始修改IP！"></a>注意linux选择NAT链接后，开始修改IP！</h2><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br><span class="line">#记住画圈的这个文件名，之后会用到</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/04/03/AgClnK.png" alt></p>
+<h2 id="打开下面的文件"><a href="#打开下面的文件" class="headerlink" title="打开下面的文件"></a>打开下面的文件</h2><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/sysconfig/network-scripts</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/04/03/AgPGrV.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim ifcfg-ens33</span><br><span class="line"># 修改下面的两处为</span><br><span class="line">#BOOTPROTO=static</span><br><span class="line">#ONBOOT=yes</span><br><span class="line"></span><br><span class="line">#并在下面添加网址等信息</span><br><span class="line">IPADDR=192.168.3.135#静态IP</span><br><span class="line">GATEWAY=192.168.3.2 #默认网关</span><br><span class="line">NETMASK=255.255.255.0 #子网掩码</span><br></pre></td></tr></table></figure>
+<p><img src="https://s2.ax1x.com/2019/04/03/AgPTqf.png" alt></p>
+<h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
+
+                
+
+
+<p class="pink-link-context">
+    <a href="/2019/04/02/java并发队列/" rel="next" title="java并发队列">
+    下一篇：java并发队列
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
 
 
 </div>
