@@ -10,7 +10,7 @@
     <title>centos7下设置静态ip | </title>
     <meta name="author" content="WHOAMI">
     
-    <meta name="description" content="Linux设置固定IP
+    <meta name="description" content="Linux设置固定IP[并不能上网]
 一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法
 
 我们要设置ip，要知道VM的网络适配器有三种原则
@@ -168,7 +168,7 @@ VMnet8">
 
             <li class="collapse-level-0" collapse-level="0">
                 <a class="no-padding" href="/categories/技术/">
-                    技术 <span class="right">10 篇</span></a>
+                    技术 <span class="right">11 篇</span></a>
                 
             </li>
 
@@ -184,7 +184,7 @@ VMnet8">
 
             <li class="collapse-level-1" collapse-level="1">
                 <a class="no-padding" href="/categories/技术/linux/">
-                    linux <span class="right">1 篇</span></a>
+                    linux <span class="right">2 篇</span></a>
                 
             </li>
 
@@ -266,12 +266,12 @@ VMnet8">
 
 
             <div class="toc pink-link-context hide-on-med-and-down">
-    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Linux设置固定IP"><span class="section table-of-contents-text">Linux设置固定IP</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#首先设置网关，打开VM的虚拟网络适配器"><span class="section table-of-contents-text">首先设置网关，打开VM的虚拟网络适配器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#修改主机的VM网卡-VMnet8"><span class="section table-of-contents-text">修改主机的VM网卡 VMnet8</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#按照下图操作"><span class="section table-of-contents-text">按照下图操作</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#注意linux选择NAT链接后，开始修改IP！"><span class="section table-of-contents-text">注意linux选择NAT链接后，开始修改IP！</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#打开下面的文件"><span class="section table-of-contents-text">打开下面的文件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#重启网络服务"><span class="section table-of-contents-text">重启网络服务</span></a></li></ol></li></ol>
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#Linux设置固定IP-并不能上网"><span class="section table-of-contents-text">Linux设置固定IP[并不能上网]</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#首先设置网关，打开VM的虚拟网络适配器"><span class="section table-of-contents-text">首先设置网关，打开VM的虚拟网络适配器</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#修改主机的VM网卡-VMnet8"><span class="section table-of-contents-text">修改主机的VM网卡 VMnet8</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#按照下图操作"><span class="section table-of-contents-text">按照下图操作</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#注意linux选择NAT链接后，开始修改IP！"><span class="section table-of-contents-text">注意linux选择NAT链接后，开始修改IP！</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#打开下面的文件"><span class="section table-of-contents-text">打开下面的文件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#重启网络服务"><span class="section table-of-contents-text">重启网络服务</span></a></li></ol></li></ol>
 </div>
 
 
             <div class="entry pink-link-context">
-                <h1 id="Linux设置固定IP"><a href="#Linux设置固定IP" class="headerlink" title="Linux设置固定IP"></a>Linux设置固定IP</h1><blockquote>
+                <h1 id="Linux设置固定IP-并不能上网"><a href="#Linux设置固定IP-并不能上网" class="headerlink" title="Linux设置固定IP[并不能上网]"></a>Linux设置固定IP[并不能上网]</h1><blockquote>
 <p>一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法</p>
 </blockquote>
 <p>我们要设置ip，要知道VM的网络适配器有三种原则</p>
@@ -309,6 +309,12 @@ VMnet8">
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
 
                 
+<p class="pink-link-context">
+    <a href="/2019/04/07/centos7安装rabbitMQ/" rel="next" title="centos7安装rabbitMQ">
+    上一篇：centos7安装rabbitMQ
+  </a>
+</p>
+
 
 
 <p class="pink-link-context">
