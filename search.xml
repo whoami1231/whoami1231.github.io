@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>java自定义线程池</title>
+      <link href="/2019/04/08/java%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+      <url>/2019/04/08/java%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="java线程池"><a href="#java线程池" class="headerlink" title="java线程池"></a>java线程池</h1><h2 id="java初始定义线程"><a href="#java初始定义线程" class="headerlink" title="java初始定义线程"></a>java初始定义线程</h2><p><img src="https://s2.ax1x.com/2019/04/08/A4XAkF.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java架构 </tag>
+            
+            <tag> 线程池 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>centos7安装rabbitMQ</title>
       <link href="/2019/04/07/centos7%E5%AE%89%E8%A3%85rabbitMQ/"/>
       <url>/2019/04/07/centos7%E5%AE%89%E8%A3%85rabbitMQ/</url>
@@ -22,9 +51,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 安装教程 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -52,35 +81,6 @@
         <tags>
             
             <tag> linux </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>java并发队列</title>
-      <link href="/2019/04/02/java%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97/"/>
-      <url>/2019/04/02/java%E5%B9%B6%E5%8F%91%E9%98%9F%E5%88%97/</url>
-      
-        <content type="html"><![CDATA[<h1 id="java并发队列"><a href="#java并发队列" class="headerlink" title="java并发队列"></a>java并发队列</h1>]]></content>
-      
-      
-      <categories>
-          
-          <category> 技术 </category>
-          
-          <category> java </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> java架构 </tag>
-            
-            <tag> 多线程 </tag>
             
         </tags>
       
@@ -122,7 +122,7 @@
       <link href="/2019/04/02/java%E9%98%9F%E5%88%97/"/>
       <url>/2019/04/02/java%E9%98%9F%E5%88%97/</url>
       
-        <content type="html"><![CDATA[<h1 id="java队列具体分类"><a href="#java队列具体分类" class="headerlink" title="java队列具体分类"></a>java队列具体分类</h1><p><img src="https://s2.ax1x.com/2019/04/02/AywLb6.png" alt="Java队列"></p><ul><li>BlockingQueue阻塞队列:当添加队列的时候，可以去设置等待时间。即当队列满的时候，可以等待，超过等待时间返回false。取队列的时候也可以等待。</li><li>ConcurrentLinkedQueue非阻塞队列，添加和取队列的时候不去等待。<blockquote><p>Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的</p></blockquote></li></ul><a id="more"></a><hr><h2 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h2><h3 id="ConcurrentLinkedQueue的常用方法"><a href="#ConcurrentLinkedQueue的常用方法" class="headerlink" title="ConcurrentLinkedQueue的常用方法"></a>ConcurrentLinkedQueue<e>的常用方法</e></h3><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer</td><td style="text-align:left">将Object添加到队列的尾部</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><h2 id="非阻塞队列"><a href="#非阻塞队列" class="headerlink" title="非阻塞队列"></a>非阻塞队列</h2><h3 id="ArrayBlockingQueue-Size"><a href="#ArrayBlockingQueue-Size" class="headerlink" title="ArrayBlockingQueue(Size)"></a>ArrayBlockingQueue<e>(Size)</e></h3><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer()</td><td style="text-align:left">将Object添加到队列的尾部&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">offer(Object,time,timeUtil)</td><td style="text-align:left">将Object添加到队列的尾部&lt;阻塞式&gt;,设定队满的时候等待时间</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">poll(Object,time,timeUtil)</td><td style="text-align:left">队列头取Object并且将其在队列中删除&lt;阻塞式&gt;,设定队空的时候等待时间</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><h2 id="双端队列"><a href="#双端队列" class="headerlink" title="双端队列"></a>双端队列</h2>]]></content>
+        <content type="html"><![CDATA[<h1 id="java队列具体分类"><a href="#java队列具体分类" class="headerlink" title="java队列具体分类"></a>java队列具体分类</h1><p><img src="https://s2.ax1x.com/2019/04/02/AywLb6.png" alt="Java队列"></p><h2 id="Deque-amp-amp-Queue"><a href="#Deque-amp-amp-Queue" class="headerlink" title="Deque &amp;&amp; Queue"></a>Deque &amp;&amp; Queue</h2><ul><li><p>Queue是一个普通队列，详情见数据结构</p></li><li><p>Deque是Queue的子接口，他是一个双端队列，可以支持FIFO和LIFO原则。</p></li></ul><p>​    </p><h2 id="队列基础"><a href="#队列基础" class="headerlink" title="队列基础"></a>队列基础</h2><ul><li>BlockingQueue阻塞队列:当添加队列的时候，可以去设置等待时间。即当队列满的时候，可以等待，超过等待时间返回false。取队列的时候也可以等待。</li><li>ConcurrentLinkedQueue非阻塞队列，添加和取队列的时候不去等待。</li><li>队列原则</li><li><ul><li>先进先出（FIFO）：先插入的队列的元素也最先出队列，类似于排队的功能。从某种程度上来说这种队列也体现了一种公平性。</li></ul></li><li><ul><li>后进先出（LIFO）：后插入队列的元素最先出队列，这种队列优先处理最近发生的事件。　　<blockquote><p>Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的</p></blockquote></li></ul></li></ul><a id="more"></a><hr><h2 id="非阻塞队列"><a href="#非阻塞队列" class="headerlink" title="非阻塞队列"></a>非阻塞队列</h2><h3 id="ConcurrentLinkedQueue的常用方法"><a href="#ConcurrentLinkedQueue的常用方法" class="headerlink" title="ConcurrentLinkedQueue的常用方法"></a>ConcurrentLinkedQueue<e>的常用方法</e></h3><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer</td><td style="text-align:left">将Object添加到队列的尾部</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><h2 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h2><h3 id="BlockingQueue-Size"><a href="#BlockingQueue-Size" class="headerlink" title="BlockingQueue(Size)"></a>BlockingQueue<e>(Size)</e></h3><p><img src="https://s2.ax1x.com/2019/04/08/A4Oysx.png" alt="常用队列"></p><h4 id="ArrayBlockingQueue"><a href="#ArrayBlockingQueue" class="headerlink" title="ArrayBlockingQueue"></a>ArrayBlockingQueue</h4><ul><li>数组型队列，必须要指定size</li></ul><h4 id="linkedBlockingQueue"><a href="#linkedBlockingQueue" class="headerlink" title="linkedBlockingQueue"></a>linkedBlockingQueue</h4><ul><li>链表型无界队列，可以指定size</li></ul><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer()</td><td style="text-align:left">将Object添加到队列的尾部&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">offer(Object,time,timeUtil)</td><td style="text-align:left">将Object添加到队列的尾部&lt;阻塞式&gt;,设定队满的时候等待时间</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">poll(Object,time,timeUtil)</td><td style="text-align:left">队列头取Object并且将其在队列中删除&lt;阻塞式&gt;,设定队空的时候等待时间</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><blockquote><p>这里要注意： add()方法和offer方法的区别，add方法在队列满的情况下会抛出一个异常。而offer并不会。|</p></blockquote>]]></content>
       
       
       <categories>
