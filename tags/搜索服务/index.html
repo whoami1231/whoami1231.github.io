@@ -7,18 +7,13 @@
 
     
 
-    <title>java守护线程与非守护线程 | </title>
+    <title>搜索服务 | </title>
     <meta name="author" content="WHOAMI">
-    
-    <meta name="description" content="java守护线程与非守护线程窥探
-两个线程的基本概念
-守护线程即在后台为用户提供一些基本保障的线程，例如java中的gc线程[垃圾处理机制],他会自动清理一些没有用处的变量空间，处理空间溢出等问题。守护线程会随着main函数的结束而结束。
-非守护线程，也成为用户线程，他是可以由用户自己定义，不会随着main函数的结束而结束，这个特性和守护线程恰恰相反。">
     
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <meta property="og:title" content="java守护线程与非守护线程">
+    
     <meta property="og:site_name" content="逝痕">
 
     
@@ -212,98 +207,30 @@
 
     <main>
         <div class="container main-container">
-    <nav class="page-nav hide-on-small-only">
+    
+
+<nav class="page-nav hide-on-small-only">
     <div class="nav-wrapper indigo">
-        <span class="breadcrumb">当前位置（分类目录）</span>
-        
-            
-    
-    
-    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/java/">java</a>
-
-
+        <span class="breadcrumb">当前位置（标签）</span>
         
 
+        
+            <a class="breadcrumb" href="/tags/搜索服务/">搜索服务</a>
         
     </div>
 </nav>
 
-<article>
-    <div class="card">
-        <div class="card-content">
-            
-
-            <div class="article-title">
-                
-    
-        <h1>java守护线程与非守护线程</h1>
-    
 
 
-            </div>
-            <time class="pink-link-context" datetime="2019-03-28T06:04:47.000Z"><a href="/2019/03/28/java守护线程与非守护线程/">2019-03-28</a></time>
-
-            <span id="busuanzi_container_page_pv" class="read-times-container">
-    <i class="fa fa-eye"></i>
-    <span id="busuanzi_value_page_pv"></span>
-</span>
-
-            
-    <div class="tags-row">
+    <div class="collection mt-0">
         
-            <a href="/tags/java架构/" class="chip pink lighten-1">java架构</a>
-        
-            <a href="/tags/多线程/" class="chip pink lighten-1">多线程</a>
+            <a href="/2019/04/12/centos安装solr服务/" class="collection-item grey-text text-darken-1">
+                <time datetime="2019-04-12T02:54:33.000Z">2019-04-12</time>
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                centos安装solr服务
+            </a>
         
     </div>
-
-
-            <div class="toc pink-link-context hide-on-med-and-down">
-    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#java守护线程与非守护线程窥探"><span class="section table-of-contents-text">java守护线程与非守护线程窥探</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#两个线程的基本概念"><span class="section table-of-contents-text">两个线程的基本概念</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#守护线程的机制"><span class="section table-of-contents-text">守护线程的机制</span></a></li></ol></li></ol>
-</div>
-
-
-            <div class="entry pink-link-context">
-                <h1 id="java守护线程与非守护线程窥探"><a href="#java守护线程与非守护线程窥探" class="headerlink" title="java守护线程与非守护线程窥探"></a>java守护线程与非守护线程窥探</h1><hr>
-<h2 id="两个线程的基本概念"><a href="#两个线程的基本概念" class="headerlink" title="两个线程的基本概念"></a>两个线程的基本概念</h2><ul>
-<li>守护线程即在后台为用户提供一些基本保障的线程，例如java中的gc线程[垃圾处理机制],他会自动清理一些没有用处的变量空间，处理空间溢出等问题。守护线程会随着main函数的结束而结束。</li>
-<li>非守护线程，也成为用户线程，他是可以由用户自己定义，不会随着main函数的结束而结束，这个特性和守护线程恰恰相反。</li>
-</ul>
-<a id="more"></a>
-<hr>
-<h2 id="守护线程的机制"><a href="#守护线程的机制" class="headerlink" title="守护线程的机制"></a>守护线程的机制</h2><blockquote>
-<p>举一个实例，当手机游览器正在下载文件的时候，如果你将游览器退出，但是那个文件还在继续下载，那个文件还在继续下载，这个下载文件线程就是守护线程。</p>
-</blockquote>
-<ul>
-<li>值得注意的是，当程序的所有用户线程都结束的时候，并且程序中仅仅剩下了一个守护线程，那么JVM就会退出，因为守护线程已经没有什么可以守护的了。</li>
-<li>但是需要一提的是，java中的main函数属于用户线程，并不属于守护线程!!!!</li>
-</ul>
-
-                
-<p class="pink-link-context">
-    <a href="/2019/03/29/java线程安全初窥探/" rel="next" title="java线程安全初窥探">
-    上一篇：java线程安全初窥探
-  </a>
-</p>
-
-
-
-<p class="pink-link-context">
-    <a href="/2019/03/27/java多线程初窥探/" rel="next" title="java多线程初窥探">
-    下一篇：java多线程初窥探
-  </a>
-</p>
-
-
-            </div>
-			
-        </div>
-    </div>
-</article>
-
-
-
-
 
 
 </div>
