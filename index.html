@@ -161,16 +161,16 @@
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/java/">
-                    java <span class="right">8 篇</span></a>
+                <a class="no-padding" href="/categories/技术/linux/">
+                    linux <span class="right">3 篇</span></a>
                 
             </li>
 
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/linux/">
-                    linux <span class="right">3 篇</span></a>
+                <a class="no-padding" href="/categories/技术/java/">
+                    java <span class="right">8 篇</span></a>
                 
             </li>
 
@@ -265,9 +265,9 @@
             
     <div class="tags-row">
         
-            <a href="/tags/搜索服务/" class="chip pink lighten-1">搜索服务</a>
-        
             <a href="/tags/linux/" class="chip pink lighten-1">linux</a>
+        
+            <a href="/tags/搜索服务/" class="chip pink lighten-1">搜索服务</a>
         
             <a href="/tags/java/" class="chip pink lighten-1">java</a>
         
@@ -276,8 +276,28 @@
 
 
             
+                <div class="entry pink-link-context">
+                    <h1 id="centos7-下安装solr服务"><a href="#centos7-下安装solr服务" class="headerlink" title="centos7 下安装solr服务"></a>centos7 下安装solr服务</h1><h2 id="1-安装java环境"><a href="#1-安装java环境" class="headerlink" title="1. 安装java环境"></a>1. 安装java环境</h2><hr>
+<ul>
+<li><p>将jdk扔到linux下，解压</p>
+</li>
+<li><p>修改环境变量</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 打开配置文件</span><br><span class="line">vim /etc/profile </span><br><span class="line"></span><br><span class="line"># 在文件末尾添加</span><br><span class="line">JAVA_HOME=/usr/local/java/jdk1.8.0_201</span><br><span class="line">CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar</span><br><span class="line">PATH=$PATH:$JAVA_HOME/bin</span><br><span class="line">export JAVA_HOME CLASSPATH PATH</span><br><span class="line"></span><br><span class="line">#保存并关闭</span><br><span class="line"></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<h2 id="2-安装solr"><a href="#2-安装solr" class="headerlink" title="2. 安装solr"></a>2. 安装solr</h2><hr>
+<ol>
+<li><p>下载solr安装包 [官方网址]:(<a href="http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0" target="_blank" rel="noopener">http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0</a>)</p>
+</li>
+<li><p>扔到linux下，解压</p>
+                </li></ol></div>
+            
         </div>
 
+        
+        <div class="card-action pink-link-context">
+            <a href="/2019/04/12/centos安装solr服务/">阅读全文</a>
+        </div>
         
     </div>
 </article>

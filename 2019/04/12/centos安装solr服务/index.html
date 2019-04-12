@@ -17,7 +17,12 @@
 修改环境变量
 
 
-123456789101112# 打开配置文件vim /etc/profile # 在文件末尾添加JAVA_HOME=/usr/local/java/jdk1.8.0_201CLASSPA">
+123456789101112# 打开配置文件vim /etc/profile # 在文件末尾添加JAVA_HOME=/usr/local/java/jdk1.8.0_201CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jarPATH=$PATH:$JAVA_HOME/binexport JAVA_HOME CLASSPATH PATH#保存并关闭source /etc/profile
+2. 安装solr
+
+下载solr安装包 [官方网址]:(http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0)
+
+扔到linux下，解压">
     
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -170,16 +175,16 @@
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/java/">
-                    java <span class="right">8 篇</span></a>
+                <a class="no-padding" href="/categories/技术/linux/">
+                    linux <span class="right">3 篇</span></a>
                 
             </li>
 
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/linux/">
-                    linux <span class="right">3 篇</span></a>
+                <a class="no-padding" href="/categories/技术/java/">
+                    java <span class="right">8 篇</span></a>
                 
             </li>
 
@@ -255,9 +260,9 @@
             
     <div class="tags-row">
         
-            <a href="/tags/搜索服务/" class="chip pink lighten-1">搜索服务</a>
-        
             <a href="/tags/linux/" class="chip pink lighten-1">linux</a>
+        
+            <a href="/tags/搜索服务/" class="chip pink lighten-1">搜索服务</a>
         
             <a href="/tags/java/" class="chip pink lighten-1">java</a>
         
@@ -283,9 +288,8 @@
 <li><p>下载solr安装包 [官方网址]:(<a href="http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0" target="_blank" rel="noopener">http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0</a>)</p>
 </li>
 <li><p>扔到linux下，解压</p>
-</li>
-<li><p>cd到目录下\bin</p>
-</li>
+<a id="more"></a></li>
+<li>cd到目录下\bin</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./solr start -force #默认启动8983端口</span><br></pre></td></tr></table></figure>
 <blockquote>
