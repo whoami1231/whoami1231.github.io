@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>freemaker传输数据问题</title>
+      <link href="/2019/04/13/freemaker%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE%E9%97%AE%E9%A2%98/"/>
+      <url>/2019/04/13/freemaker%E4%BC%A0%E8%BE%93%E6%95%B0%E6%8D%AE%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h1 id="FreeMaker传输数据问题"><a href="#FreeMaker传输数据问题" class="headerlink" title="FreeMaker传输数据问题"></a>FreeMaker传输数据问题</h1><hr><ul><li>正常输出方程式 ${XXX}</li><li>如果页面需要字符串，那么我们需要 在变量两边加引号 ‘${XXX}’</li><li>如果传输的是数字，在超出100的时候，会自行加逗号，例如1,400,解决办法： ${XXX?c}</li></ul><a id="more"></a>]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂记 </category>
+          
+          <category> ssm错误笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 错误笔记 </tag>
+            
+            <tag> ssm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>centos安装solr服务</title>
       <link href="/2019/04/12/centos%E5%AE%89%E8%A3%85solr%E6%9C%8D%E5%8A%A1/"/>
       <url>/2019/04/12/centos%E5%AE%89%E8%A3%85solr%E6%9C%8D%E5%8A%A1/</url>
@@ -138,9 +167,9 @@
       
         <tags>
             
-            <tag> java架构 </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java架构 </tag>
             
         </tags>
       
@@ -196,9 +225,9 @@
       
         <tags>
             
-            <tag> java架构 </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java架构 </tag>
             
         </tags>
       
@@ -256,9 +285,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -314,9 +343,9 @@
       
         <tags>
             
-            <tag> java架构 </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java架构 </tag>
             
         </tags>
       
@@ -343,9 +372,9 @@
       
         <tags>
             
-            <tag> java架构 </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java架构 </tag>
             
         </tags>
       
