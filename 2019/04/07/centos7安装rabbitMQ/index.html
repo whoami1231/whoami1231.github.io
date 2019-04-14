@@ -10,12 +10,8 @@
     <title>centos7安装rabbitMQ | </title>
     <meta name="author" content="WHOAMI">
     
-    <meta name="description" content="centos安装RabbitMQ并配置环境安装编译环境erlang下载erlang的依赖环境
-1yum install gcc glibc-devel make ncurses-devel openssl-devel xmlto
-下载安装包
-这里我在官网直接下载文件后拖到centos上的
-
-接下来解压安装包">
+    <meta name="description" content="centos安装RabbitMQ并配置环境之前我在网上搜罗了很多教程，但是大多都很繁琐，要么就是版本太老。
+这里我提供了一个非常简单的方法">
     
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -269,80 +265,62 @@
             
     <div class="tags-row">
         
-            <a href="/tags/linux/" class="chip pink lighten-1">linux</a>
-        
             <a href="/tags/安装教程/" class="chip pink lighten-1">安装教程</a>
+        
+            <a href="/tags/linux/" class="chip pink lighten-1">linux</a>
         
     </div>
 
 
             <div class="toc pink-link-context hide-on-med-and-down">
-    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#centos安装RabbitMQ并配置环境"><span class="section table-of-contents-text">centos安装RabbitMQ并配置环境</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#安装编译环境erlang"><span class="section table-of-contents-text">安装编译环境erlang</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#下载erlang的依赖环境"><span class="section table-of-contents-text">下载erlang的依赖环境</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#下载安装包"><span class="section table-of-contents-text">下载安装包</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#编译安装"><span class="section table-of-contents-text">编译安装</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#检查是否安装成功"><span class="section table-of-contents-text">检查是否安装成功</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#配置环境变量"><span class="section table-of-contents-text">配置环境变量</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#安装rabbitmq"><span class="section table-of-contents-text">安装rabbitmq</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#下载安装包-1"><span class="section table-of-contents-text">下载安装包</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#配置环境变量-1"><span class="section table-of-contents-text">配置环境变量</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#启动rabbitmq"><span class="section table-of-contents-text">启动rabbitmq</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#操作rabbitmq"><span class="section table-of-contents-text">操作rabbitmq</span></a></li></ol></li></ol></li></ol>
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#centos安装RabbitMQ并配置环境"><span class="section table-of-contents-text">centos安装RabbitMQ并配置环境</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#下载安装包"><span class="section table-of-contents-text">下载安装包</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#安装"><span class="section table-of-contents-text">安装</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#启动"><span class="section table-of-contents-text">启动</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#配置rabbitmq"><span class="section table-of-contents-text">配置rabbitmq</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#命令行"><span class="section table-of-contents-text">命令行</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#ui模式"><span class="section table-of-contents-text">ui模式</span></a></li></ol></li></ol></li></ol>
 </div>
 
 
             <div class="entry pink-link-context">
-                <h1 id="centos安装RabbitMQ并配置环境"><a href="#centos安装RabbitMQ并配置环境" class="headerlink" title="centos安装RabbitMQ并配置环境"></a>centos安装RabbitMQ并配置环境</h1><h2 id="安装编译环境erlang"><a href="#安装编译环境erlang" class="headerlink" title="安装编译环境erlang"></a>安装编译环境erlang</h2><h3 id="下载erlang的依赖环境"><a href="#下载erlang的依赖环境" class="headerlink" title="下载erlang的依赖环境"></a>下载erlang的依赖环境</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc glibc-devel make ncurses-devel openssl-devel xmlto</span><br></pre></td></tr></table></figure>
-<h3 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h3><hr>
-<p>这里我在官网直接下载文件后拖到centos上的</p>
-<p><img src="https://s2.ax1x.com/2019/04/07/AfHSAA.png" alt="下载文件"></p>
-<p>接下来解压安装包</p>
+                <h1 id="centos安装RabbitMQ并配置环境"><a href="#centos安装RabbitMQ并配置环境" class="headerlink" title="centos安装RabbitMQ并配置环境"></a>centos安装RabbitMQ并配置环境</h1><p>之前我在网上搜罗了很多教程，但是大多都很繁琐，要么就是版本太老。</p>
+<p>这里我提供了一个非常简单的方法</p>
 <a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf otp_src_20.2.tar.gz</span><br><span class="line">cd otp_src_20.2/</span><br></pre></td></tr></table></figure>
-<h3 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/erlang  #我的安装路径是放在erlang下的，这个可以更换</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-<h3 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/erlang/bin/ </span><br><span class="line">./erl</span><br></pre></td></tr></table></figure>
-<p>若是出现下面的界面，则说明我们安装成功了</p>
-<p><img src="https://s2.ax1x.com/2019/04/07/AfHtE9.png" alt="测试结果"></p>
-<p>输入 halt().  退出控制台， 注意，halt后面有个点哈</p>
-<h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile #这里一般相当于我们win上的环境变量的配置文件</span><br><span class="line">export PATH=$PATH:/usr/local/erlang/bin　 #在文件的末尾加上</span><br><span class="line">source /etc/profile #更新环境变量</span><br></pre></td></tr></table></figure>
-<p>更新之后在任意地方输入erl能进入命令行， 那么就说明配置成功了。</p>
-<h2 id="安装rabbitmq"><a href="#安装rabbitmq" class="headerlink" title="安装rabbitmq"></a>安装rabbitmq</h2><h3 id="下载安装包-1"><a href="#下载安装包-1" class="headerlink" title="下载安装包"></a>下载安装包</h3><hr>
-<p>这里同样直接去官网</p>
-<p><a href="http://www.erlang.org/downloads" title="官网地址" target="_blank" rel="noopener">官网地址</a>: (<a href="https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.15/" target="_blank" rel="noopener">https://www.rabbitmq.com/releases/rabbitmq-server/v3.6.15/</a>)  “最新地址”</p>
-<p>注意！经过测试需要下载这个文件</p>
-<p><img src="https://s2.ax1x.com/2019/04/07/AfqJYR.png" alt="文件"></p>
-<p>下面下载数字签名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://www.rabbitmq.com/rabbitmq-release-signing-key.asc</span><br></pre></td></tr></table></figure>
-<p>然后执行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install rabbitmq-server-3.6.8-1.el7.noarch.rpm</span><br></pre></td></tr></table></figure>
+<h2 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h2><hr>
+<p>打开[官网地址]: (<a href="https://www.rabbitmq.com/releases/" target="_blank" rel="noopener">https://www.rabbitmq.com/releases/</a>)  </p>
+<p>如下图：</p>
+<p><img src="https://s2.ax1x.com/2019/04/14/AOb5kR.png" alt></p>
+<ul>
+<li>这里我们需要erlang和rabbitmq-server<ul>
+<li>打开对应网址下载最新的rpm安装包</li>
+</ul>
+</li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><hr>
 <blockquote>
-<p>注意这里会报错，他会提示erlang版本不对，但是你已经安装了，所以需要安装别的东西</p>
+<p>将安装包利用xftp传输到linux，注意不要直接拖拽，安装包容易出问题。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install epel-release.</span><br><span class="line">yum -y install socat</span><br></pre></td></tr></table></figure>
-<p>重新执行安装命令</p>
-<h3 id="配置环境变量-1"><a href="#配置环境变量-1" class="headerlink" title="配置环境变量"></a>配置环境变量</h3><hr>
-<p>这里需要注意，你要知道yum install的文件安装在哪里</p>
-<p>可以输入下面的命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql rabbitmq-server</span><br></pre></td></tr></table></figure>
-<p><img src="https://s2.ax1x.com/2019/04/07/AfXb9A.png" alt="查看地址"></p>
 <ul>
-<li>这样就会看到我的软件安装在了/usr/lib下</li>
+<li>在断网的时候安装erlang，因为我的centos7 的yum源会自动安装低版本的erlang。</li>
 </ul>
-<p>接下来开始配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/profile</span><br><span class="line">export PATH=$PATH:/usr/lib/rabbitmq/lib/rabbitmq_server-3.6.15/sbin #在末尾添加</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
-<h3 id="启动rabbitmq"><a href="#启动rabbitmq" class="headerlink" title="启动rabbitmq"></a>启动rabbitmq</h3><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install xxx  #安装软件</span><br><span class="line">yum list installed #查看利用yum安装的所有软件</span><br><span class="line">yum remove xxx #卸载软件</span><br><span class="line">rpm -ql [rabbitmq-server] #查看软件安装在那里</span><br></pre></td></tr></table></figure>
 <ul>
-<li><p>我采用的是通过web游览器操作rabbitmq,所以需要首先安装插件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>rabbitmq常用命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-server start #启动 端口默认为15672</span><br><span class="line">rabbitmqctl stop  #关闭</span><br><span class="line">rabbitmqctl status #查看状态</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这时候不能远程登陆，需要在你自己的Linux上输入 127.0.0.1：15672<br>打开之后出现下面的界面则证明启动成功</p>
-</li>
+<li>在联机的情况下安装rabbitmq，因为他需要安装socat依赖。</li>
 </ul>
-<p><img src="https://s2.ax1x.com/2019/04/07/AfjmEF.png" alt="界面"></p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><hr>
+<p>由于我这里是用来做javaweb的消息中间件，所以我需要他可以http访问，所以需要添加插件</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
+<p>启动rabbitmq程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-server start</span><br></pre></td></tr></table></figure>
+<p>其他命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-server restart #重启</span><br><span class="line">rabbitmq-server stop   #停止</span><br><span class="line">rabbitmqctl status  #状态</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>默认账号密码 guest guest</p>
+<p>这里插播一条linux命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; ps -ef|grep xxx  #查询所有xxx的进程</span><br><span class="line">&gt; kill -9 xxx #杀死进程端口号为xxx的进程</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
-<h3 id="操作rabbitmq"><a href="#操作rabbitmq" class="headerlink" title="操作rabbitmq"></a>操作rabbitmq</h3><hr>
 <ul>
-<li>首先需要让rabbitmq可以远程登陆，这时候需要添加管理员账号</li>
+<li>注意！默认guest guest账户已经不能允许在远程登陆，所以我们需要创建账号</li>
 </ul>
+<h2 id="配置rabbitmq"><a href="#配置rabbitmq" class="headerlink" title="配置rabbitmq"></a>配置rabbitmq</h2><hr>
+<p>下面我们创建账号，注意 这时候rabbitmq必须是启动状态</p>
+<h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3><hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user root 111111 #创建账号</span><br><span class="line">rabbitmqctl set_user_tags root administrator #设置root为管理员</span><br><span class="line">rabbitmqctl list_users #查询所有用户</span><br></pre></td></tr></table></figure>
+<h3 id="ui模式"><a href="#ui模式" class="headerlink" title="ui模式"></a>ui模式</h3><hr>
 <p><img src="https://s2.ax1x.com/2019/04/07/Afjlg1.png" alt="操作"></p>
 
                 

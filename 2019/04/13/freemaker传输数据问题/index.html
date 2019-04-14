@@ -272,6 +272,8 @@
         
             <a href="/tags/ssm/" class="chip pink lighten-1">ssm</a>
         
+            <a href="/tags/freemaker/" class="chip pink lighten-1">freemaker</a>
+        
     </div>
 
 
@@ -288,6 +290,12 @@
 <li>如果传输的是数字，在超出100的时候，会自行加逗号，例如1,400,解决办法： ${XXX?c}</li>
 </ul>
 <a id="more"></a>
+<ul>
+<li><p>如果你的字段是null的话，freemaker直接引用是会报错的<br><img src="https://s2.ax1x.com/2019/04/13/AL5JCF.png" alt></p>
+<p>这样需要你在可能出现错误的字段上加一个判断他是否为空，$(XXX!”啊，这是null”)</p>
+</li>
+</ul>
+
                 
 
 
