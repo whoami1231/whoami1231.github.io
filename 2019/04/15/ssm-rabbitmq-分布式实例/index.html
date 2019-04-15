@@ -1,0 +1,640 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>ssm+rabbitmq 分布式实例 | </title>
+    <meta name="author" content="WHOAMI">
+    
+    <meta name="description" content="在分布式架构下利用rabbitmq完成消息队列
+配置文件详解
+
+我们利用rabbit:admin直接代码绑定交换机和队列,这里是开发常用的方法最后我们会利用web端界面实现消息的分发实例">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="ssm+rabbitmq 分布式实例">
+    <meta property="og:site_name" content="逝痕">
+
+    
+    <meta property="og:image" content>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="逝痕" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class>
+            <a href="/" class="brand-logo hide-on-med-and-down">逝痕</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about/index.html">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="https://s2.ax1x.com/2019/04/01/AyEDs0.png" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">WHOAMI</p>
+                        <p class="desc">JAVA攻城狮</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about/index.html">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/技术/">
+                    技术 <span class="right">13 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/java/">
+                    java <span class="right">8 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/linux/">
+                    linux <span class="right">3 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/j2EE/">
+                    j2EE <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/杂记/">
+                    杂记 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/杂记/ssm错误笔记/">
+                    ssm错误笔记 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/j2EE/">j2EE</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>ssm+rabbitmq 分布式实例</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2019-04-15T10:39:54.000Z"><a href="/2019/04/15/ssm-rabbitmq-分布式实例/">2019-04-15</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/ssm/" class="chip pink lighten-1">ssm</a>
+        
+            <a href="/tags/rabbitmq/" class="chip pink lighten-1">rabbitmq</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#在分布式架构下利用rabbitmq完成消息队列"><span class="section table-of-contents-text">在分布式架构下利用rabbitmq完成消息队列</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#配置文件详解"><span class="section table-of-contents-text">配置文件详解</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#生产者"><span class="section table-of-contents-text">生产者</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#配置文件详解-1"><span class="section table-of-contents-text">配置文件详解</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#具体代码"><span class="section table-of-contents-text">具体代码</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#消费者"><span class="section table-of-contents-text">消费者</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#配置文件详解-2"><span class="section table-of-contents-text">配置文件详解</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#具体代码-1"><span class="section table-of-contents-text">具体代码</span></a></li></ol></li></ol></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="在分布式架构下利用rabbitmq完成消息队列"><a href="#在分布式架构下利用rabbitmq完成消息队列" class="headerlink" title="在分布式架构下利用rabbitmq完成消息队列"></a>在分布式架构下利用rabbitmq完成消息队列</h1><hr>
+<h2 id="配置文件详解"><a href="#配置文件详解" class="headerlink" title="配置文件详解"></a>配置文件详解</h2><hr>
+<blockquote>
+<p>我们利用rabbit:admin直接代码绑定交换机和队列,这里是开发常用的方法<br>最后我们会利用web端界面实现消息的分发实例</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h3><hr>
+<h4 id="配置文件详解-1"><a href="#配置文件详解-1" class="headerlink" title="配置文件详解"></a>配置文件详解</h4><hr>
+<ul>
+<li><p>下面是rabbitmq的基础设置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">&lt;!-- 定义连接工厂 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">rabbit:connection-factory</span> <span class="attr">id</span>=<span class="string">"connectionFactory"</span></span></span><br><span class="line"><span class="tag">                               <span class="attr">username</span>=<span class="string">"$&#123;mq.username&#125;"</span> <span class="attr">password</span>=<span class="string">"$&#123;mq.password&#125;"</span> <span class="attr">host</span>=<span class="string">"$&#123;mq.host&#125;"</span> <span class="attr">port</span>=<span class="string">"$&#123;mq.port&#125;"</span></span></span><br><span class="line"><span class="tag">                               <span class="attr">virtual-host</span>=<span class="string">"$&#123;mq.vh&#125;"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 定义rabbit template 用于数据的接收和发送 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:template</span> <span class="attr">id</span>=<span class="string">"amqpTemplate"</span> <span class="attr">connection-factory</span>=<span class="string">"connectionFactory"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">exchange</span>=<span class="string">"solrExChange"</span>&gt;</span><span class="tag">&lt;/<span class="name">rabbit:template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义队列</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--定义queue  说明：durable:是否持久化 exclusive: 仅创建者可以使用的私有队列，断开后自动删除 auto_delete: 当所有消费客户端连接断开后，是否自动删除队列--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">rabbit:queue</span> <span class="attr">name</span>=<span class="string">"chase1"</span> <span class="attr">durable</span>=<span class="string">"true"</span> <span class="attr">auto-delete</span>=<span class="string">"false"</span> <span class="attr">exclusive</span>=<span class="string">"false"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>定义交换机，这里我们定义topic模式,这里我们绑定队列</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">&lt;!--topic 模式：发送端不是按固定的routing key发送消息，而是按字符串“匹配”发送，接收端同样如此。 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--durable : 是否持久化 auto-delete：是否自动删除  --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:topic-exchange</span> <span class="attr">name</span>=<span class="string">"solrExChange"</span></span></span><br><span class="line"><span class="tag">                           <span class="attr">durable</span>=<span class="string">"true"</span> <span class="attr">auto-delete</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">rabbit:bindings</span>&gt;</span></span><br><span class="line">             <span class="comment">&lt;!-- 这个pattern是topic特有的通配符模式 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">rabbit:binding</span> <span class="attr">queue</span>=<span class="string">"chase1"</span> <span class="attr">pattern</span>=<span class="string">"item.#"</span>&gt;</span><span class="tag">&lt;/<span class="name">rabbit:binding</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rabbit:bindings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">rabbit:topic-exchange</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>利用代码同步队列和交换机</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 通过指定下面的admin信息，当前productor中的exchange和queue会在rabbitmq服务器上自动生成 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:admin</span> <span class="attr">id</span>=<span class="string">"amqpAdmin"</span> <span class="attr">connection-factory</span>=<span class="string">"connectionFactory"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意: 如果这里不写rabbit:admin,也就是说我们利用rabbitmq的web界面手动绑定的话,我们并不需要在交换机上绑定队列和定义队列</p>
+</blockquote>
+<ul>
+<li><p>完成的配置文件</p>
+<ul>
+<li>applicationContext-rabbit.xml</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:rabbit</span>=<span class="string">"http://www.springframework.org/schema/rabbit"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/rabbit</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 引入外部数据库的配置文件，location位置填写的是相对位置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">"classpath:properties/rabbit.properties"</span> <span class="attr">ignore-unresolvable</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:connection-factory</span> <span class="attr">id</span>=<span class="string">"connectionFactory"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">username</span>=<span class="string">"$&#123;mq.username&#125;"</span> <span class="attr">password</span>=<span class="string">"$&#123;mq.password&#125;"</span> <span class="attr">host</span>=<span class="string">"$&#123;mq.host&#125;"</span> <span class="attr">port</span>=<span class="string">"$&#123;mq.port&#125;"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">virtual-host</span>=<span class="string">"$&#123;mq.vh&#125;"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 定义rabbit template 用于数据的接收和发送 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:template</span> <span class="attr">id</span>=<span class="string">"amqpTemplate"</span> <span class="attr">connection-factory</span>=<span class="string">"connectionFactory"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">exchange</span>=<span class="string">"solrExChange"</span>&gt;</span><span class="tag">&lt;/<span class="name">rabbit:template</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--定义queue  说明：durable:是否持久化 exclusive: 仅创建者可以使用的私有队列，断开后自动删除 auto_delete: 当所有消费客户端连接断开后，是否自动删除队列--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:queue</span> <span class="attr">name</span>=<span class="string">"chase1"</span> <span class="attr">durable</span>=<span class="string">"true"</span> <span class="attr">auto-delete</span>=<span class="string">"false"</span> <span class="attr">exclusive</span>=<span class="string">"false"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--topic 模式：发送端不是按固定的routing key发送消息，而是按字符串“匹配”发送，接收端同样如此。 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:topic-exchange</span> <span class="attr">name</span>=<span class="string">"solrExChange"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">durable</span>=<span class="string">"false"</span> <span class="attr">auto-delete</span>=<span class="string">"false"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rabbit:bindings</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">rabbit:binding</span> <span class="attr">queue</span>=<span class="string">"chase1"</span> <span class="attr">pattern</span>=<span class="string">"item.#"</span>&gt;</span><span class="tag">&lt;/<span class="name">rabbit:binding</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">rabbit:bindings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">rabbit:topic-exchange</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 通过指定下面的admin信息，当前productor中的exchange和queue会在rabbitmq服务器上自动生成 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:admin</span> <span class="attr">id</span>=<span class="string">"amqpAdmin"</span> <span class="attr">connection-factory</span>=<span class="string">"connectionFactory"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="具体代码"><a href="#具体代码" class="headerlink" title="具体代码"></a>具体代码</h4><hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.rabbit.producer.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.core.AmqpTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resources;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created with IntelliJ IDEA.</span></span><br><span class="line"><span class="comment"> * User: WHOAMI</span></span><br><span class="line"><span class="comment"> * Date: 2019/4/15</span></span><br><span class="line"><span class="comment"> * Time: 8:46</span></span><br><span class="line"><span class="comment"> * Description: :/TODO_</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RabbitService</span>  </span>&#123;</span><br><span class="line">	<span class="comment">//注入模板</span></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AmqpTemplate amqpTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SendTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"开始发送消息"</span>);</span><br><span class="line">        <span class="comment">//这里是代码核心处</span></span><br><span class="line">       amqpTemplate.convertAndSend(<span class="string">"item.message"</span>,<span class="string">"发送消息"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h3><hr>
+<h4 id="配置文件详解-2"><a href="#配置文件详解-2" class="headerlink" title="配置文件详解"></a>配置文件详解</h4><hr>
+<ul>
+<li><p>下面是rabbitmq的基础设置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">&lt;!-- 定义连接工厂 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">rabbit:connection-factory</span> <span class="attr">id</span>=<span class="string">"connectionFactory"</span></span></span><br><span class="line"><span class="tag">                               <span class="attr">username</span>=<span class="string">"$&#123;mq.username&#125;"</span> <span class="attr">password</span>=<span class="string">"$&#123;mq.password&#125;"</span> <span class="attr">host</span>=<span class="string">"$&#123;mq.host&#125;"</span> <span class="attr">port</span>=<span class="string">"$&#123;mq.port&#125;"</span></span></span><br><span class="line"><span class="tag">                               <span class="attr">virtual-host</span>=<span class="string">"$&#123;mq.vh&#125;"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 定义rabbit template 用于数据的接收和发送 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:template</span> <span class="attr">id</span>=<span class="string">"amqpTemplate"</span> <span class="attr">connection-factory</span>=<span class="string">"connectionFactory"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">exchange</span>=<span class="string">"solrExChange"</span>&gt;</span><span class="tag">&lt;/<span class="name">rabbit:template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义队列</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--定义queue  说明：durable:是否持久化 exclusive: 仅创建者可以使用的私有队列，断开后自动删除 auto_delete: 当所有消费客户端连接断开后，是否自动删除队列--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">rabbit:queue</span> <span class="attr">name</span>=<span class="string">"chase1"</span> <span class="attr">durable</span>=<span class="string">"true"</span> <span class="attr">auto-delete</span>=<span class="string">"false"</span> <span class="attr">exclusive</span>=<span class="string">"false"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>利用代码同步队列和交换机</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 通过指定下面的admin信息，当前productor中的exchange和queue会在rabbitmq服务器上自动生成 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:admin</span> <span class="attr">id</span>=<span class="string">"amqpAdmin"</span> <span class="attr">connection-factory</span>=<span class="string">"connectionFactory"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>定义消费者</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 消息接收者 具体到特定类 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Consumer"</span> <span class="attr">class</span>=<span class="string">"com.rabbit.consumer.utils.Consumer"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义监听器</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- queue litener 观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象</span></span><br><span class="line"><span class="comment">    acknowledeg = "manual"，意为表示该消费者的ack方式为手动 默认为auto--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:listener-container</span> <span class="attr">connection-factory</span>=<span class="string">"connectionFactory"</span> <span class="attr">acknowledeg</span> = <span class="string">"manual"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rabbit:listener</span>  <span class="attr">queues</span>=<span class="string">"chase1"</span>  <span class="attr">ref</span>=<span class="string">"Consumer"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">rabbit:listener-container</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>完成配置文件</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:rabbit</span>=<span class="string">"http://www.springframework.org/schema/rabbit"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/rabbit</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 引入外部数据库的配置文件，location位置填写的是相对位置 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:property-placeholder</span> <span class="attr">location</span>=<span class="string">"classpath:properties/rabbit.properties"</span> <span class="attr">ignore-unresolvable</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:connection-factory</span> <span class="attr">id</span>=<span class="string">"connectionFactory"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">username</span>=<span class="string">"$&#123;mq.username&#125;"</span> <span class="attr">password</span>=<span class="string">"$&#123;mq.password&#125;"</span> <span class="attr">host</span>=<span class="string">"$&#123;mq.host&#125;"</span> <span class="attr">port</span>=<span class="string">"$&#123;mq.port&#125;"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">virtual-host</span>=<span class="string">"$&#123;mq.vh&#125;"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--定义queue  说明：durable:是否持久化 exclusive: 仅创建者可以使用的私有队列，断开后自动删除 auto_delete: 当所有消费客户端连接断开后，是否自动删除队列--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:queue</span> <span class="attr">name</span>=<span class="string">"chase1"</span> <span class="attr">durable</span>=<span class="string">"true"</span> <span class="attr">auto-delete</span>=<span class="string">"false"</span> <span class="attr">exclusive</span>=<span class="string">"false"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 消息接收者 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Consumer"</span> <span class="attr">class</span>=<span class="string">"com.rabbit.consumer.utils.Consumer"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- queue litener 观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象</span></span><br><span class="line"><span class="comment">    acknowledeg = "manual"，意为表示该消费者的ack方式为手动--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:listener-container</span> <span class="attr">connection-factory</span>=<span class="string">"connectionFactory"</span> <span class="attr">acknowledge</span>=<span class="string">"manual"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">rabbit:listener</span>  <span class="attr">queues</span>=<span class="string">"chase1"</span>  <span class="attr">ref</span>=<span class="string">"Consumer"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">rabbit:listener-container</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 通过指定下面的admin信息，当前productor中的exchange和queue会在rabbitmq服务器上自动生成 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rabbit:admin</span> <span class="attr">connection-factory</span>=<span class="string">"connectionFactory"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="具体代码-1"><a href="#具体代码-1" class="headerlink" title="具体代码"></a>具体代码</h4><hr>
+<p>我们要定义消费者，那么我们需要实现ChannelAwareMessageListener 和 MessageListener接口</p>
+<ul>
+<li>两个接口源码如下</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MessageListener</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(Message message)</span></span>;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ChannelAwareMessageListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(Message message, Channel channel)</span> <span class="keyword">throws</span> Exception</span>;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>个人说明： 这两个接口的区别就是 Channel 会手动进行ack</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.rabbit.consumer.utils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.rabbitmq.client.Channel;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.core.Message;</span><br><span class="line"><span class="keyword">import</span> org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created with IntelliJ IDEA.</span></span><br><span class="line"><span class="comment"> * User: WHOAMI</span></span><br><span class="line"><span class="comment"> * Date: 2019/4/15</span></span><br><span class="line"><span class="comment"> * Time: 9:01</span></span><br><span class="line"><span class="comment"> * Description: :/TODO_</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">implements</span> <span class="title">ChannelAwareMessageListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(Message message, Channel channel)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String msg = <span class="keyword">new</span> String(message.getBody(),<span class="string">"utf-8"</span>);</span><br><span class="line">        <span class="comment">//消息的标识，false只确认当前一个消息收到，true确认所有consumer获得的消息</span></span><br><span class="line">        channel.basicAck(message.getMessageProperties().getDeliveryTag(), <span class="keyword">false</span>);</span><br><span class="line">        <span class="comment">//ack返回false，并重新回到队列，api里面解释得很清楚</span></span><br><span class="line"><span class="comment">//        channel.basicNack(message.getMessageProperties().getDeliveryTag(), false, true);</span></span><br><span class="line">        <span class="comment">//true拒绝消息 false确认接受到消息</span></span><br><span class="line">        <span class="comment">//channel.basicReject(message.getMessageProperties().getDeliveryTag(), false);</span></span><br><span class="line">        System.out.println(<span class="string">"消费者消费掉了消息:"</span> + msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                
+
+
+<p class="pink-link-context">
+    <a href="/2019/04/13/freemaker传输数据问题/" rel="next" title="freemaker传输数据问题">
+    下一篇：freemaker传输数据问题
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2019 WHOAMI&#39;s Blog, All rights reserved.
+            <div class="right">
+                <span>
+                    <i class="fa fa-user"></i>
+                    <span class="busuanzi-value" id="busuanzi_value_site_uv">
+                    </span>
+                </span>
+                <span>&nbsp;|&nbsp;</span>
+                <span>
+                    <i class="fa fa-eye"></i>
+                    <span id="busuanzi_value_site_pv">
+                    </span>
+                </span>
+            </div>
+          <!--  <p class="right" style="margin-top: 0;"> 欢迎访问我的个人主页 <a href="https://github.com/whoami1231">WHOAMI</a></p>
+              -->
+        </div>
+
+</div></footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

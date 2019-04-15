@@ -154,7 +154,7 @@
 
             <li class="collapse-level-0" collapse-level="0">
                 <a class="no-padding" href="/categories/技术/">
-                    技术 <span class="right">12 篇</span></a>
+                    技术 <span class="right">13 篇</span></a>
                 
             </li>
 
@@ -178,7 +178,7 @@
 
             <li class="collapse-level-1" collapse-level="1">
                 <a class="no-padding" href="/categories/技术/j2EE/">
-                    j2EE <span class="right">1 篇</span></a>
+                    j2EE <span class="right">2 篇</span></a>
                 
             </li>
 
@@ -263,6 +263,51 @@
 
 
 <div id="article-list" class="container main-container">
+    
+        <article class="simple-article">
+    <div class="card">
+        <div class="card-content">
+            <div class="article-title">
+                
+    
+        <h1 class="indigo-link-context"><a href="/2019/03/30/java内存模型/">java内存模型</a></h1>
+    
+
+
+            </div>
+
+            <time class="pink-link-context" datetime="2019-03-30T03:27:44.000Z"><a href="/2019/03/30/java内存模型/">2019-03-30</a></time>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/多线程/" class="chip pink lighten-1">多线程</a>
+        
+            <a href="/tags/java/" class="chip pink lighten-1">java</a>
+        
+    </div>
+
+
+
+            
+                <div class="entry pink-link-context">
+                    <h1 id="java内存模型-JMM"><a href="#java内存模型-JMM" class="headerlink" title="java内存模型(JMM)"></a>java内存模型(JMM)</h1><p>+这里来复习一下java多线程的三大特性 ： 原子性，可见性，有序性。</p>
+<ul>
+<li><p><strong>什么是原子性</strong></p>
+</li>
+<li><p>即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。<br>一个很经典的例子就是银行账户转账问题：<br>比如从账户A向账户B转1000元，那么必然包括2个操作：从账户A减去1000元，往账户B加上1000元。这2个操作必须要具备原子性才能保证不出现一些意外的问题。<br>我们操作数据也是如此，比如i = i+1；其中就包括，读取i的值，计算i，写入i。这行代码在Java中是不具备原子性的，则多线程运行肯定会出问题，所以也需要我们使用同步和lock这些东西来确保这个特性了。<br>原子性其实就是保证数据一致、线程安全一部分，<br><strong>这个也可以理解为数据库的事务</strong></p>
+                </li></ul></div>
+            
+        </div>
+
+        
+        <div class="card-action pink-link-context">
+            <a href="/2019/03/30/java内存模型/">阅读全文</a>
+        </div>
+        
+    </div>
+</article>
+
     
         <article class="simple-article">
     <div class="card">
