@@ -10,11 +10,11 @@
     <title>java队列 | </title>
     <meta name="author" content="WHOAMI">
     
-    <meta name="description" content="java队列具体分类
+    <meta name="description" content="java队列具体分类和Collection的分析
 Deque &amp;amp;&amp;amp; Queue
 Queue是一个普通队列，详情见数据结构
 
-Deque是Queue的子接口，他是一个双端队列，可以支持FIFO和LIFO原则。
+Deque是Queue的子接口，他是一个双端队列，可以支持FIFO(First Input First Output)和LIFO原则。
 
 
 ​    
@@ -174,15 +174,7 @@ Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的">
 
             <li class="collapse-level-0" collapse-level="0">
                 <a class="no-padding" href="/categories/技术/">
-                    技术 <span class="right">15 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/java/">
-                    java <span class="right">10 篇</span></a>
+                    技术 <span class="right">16 篇</span></a>
                 
             </li>
 
@@ -191,6 +183,14 @@ Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的">
             <li class="collapse-level-1" collapse-level="1">
                 <a class="no-padding" href="/categories/技术/linux/">
                     linux <span class="right">3 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/java/">
+                    java <span class="right">11 篇</span></a>
                 
             </li>
 
@@ -290,16 +290,16 @@ Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的">
 
 
             <div class="toc pink-link-context hide-on-med-and-down">
-    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#java队列具体分类"><span class="section table-of-contents-text">java队列具体分类</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Deque-amp-amp-Queue"><span class="section table-of-contents-text">Deque &amp;&amp; Queue</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#队列基础"><span class="section table-of-contents-text">队列基础</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#非阻塞队列"><span class="section table-of-contents-text">非阻塞队列</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#ConcurrentLinkedQueue的常用方法"><span class="section table-of-contents-text">ConcurrentLinkedQueue的常用方法</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#阻塞队列"><span class="section table-of-contents-text">阻塞队列</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#BlockingQueue-Size"><span class="section table-of-contents-text">BlockingQueue(Size)</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#ArrayBlockingQueue"><span class="section table-of-contents-text">ArrayBlockingQueue</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#linkedBlockingQueue"><span class="section table-of-contents-text">linkedBlockingQueue</span></a></li></ol></li></ol></li></ol></li></ol>
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#java队列具体分类和Collection的分析"><span class="section table-of-contents-text">java队列具体分类和Collection的分析</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Deque-amp-amp-Queue"><span class="section table-of-contents-text">Deque &amp;&amp; Queue</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#队列基础"><span class="section table-of-contents-text">队列基础</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#非阻塞队列"><span class="section table-of-contents-text">非阻塞队列</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#ConcurrentLinkedQueue的常用方法"><span class="section table-of-contents-text">ConcurrentLinkedQueue的常用方法</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#阻塞队列"><span class="section table-of-contents-text">阻塞队列</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#BlockingQueue-Size"><span class="section table-of-contents-text">BlockingQueue(Size)</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#ArrayBlockingQueue"><span class="section table-of-contents-text">ArrayBlockingQueue</span></a></li><li class="section table-of-contents-item section table-of-contents-level-4"><a class="section table-of-contents-link" href="#linkedBlockingQueue"><span class="section table-of-contents-text">linkedBlockingQueue</span></a></li></ol></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#Collection-下的每个类型的异同"><span class="section table-of-contents-text">Collection 下的每个类型的异同</span></a></li></ol></li></ol>
 </div>
 
 
             <div class="entry pink-link-context">
-                <h1 id="java队列具体分类"><a href="#java队列具体分类" class="headerlink" title="java队列具体分类"></a>java队列具体分类</h1><p><img src="https://s2.ax1x.com/2019/04/02/AywLb6.png" alt="Java队列"></p>
+                <h1 id="java队列具体分类和Collection的分析"><a href="#java队列具体分类和Collection的分析" class="headerlink" title="java队列具体分类和Collection的分析"></a>java队列具体分类和Collection的分析</h1><p><img src="https://s2.ax1x.com/2019/04/02/AywLb6.png" alt="Java队列"></p>
 <h2 id="Deque-amp-amp-Queue"><a href="#Deque-amp-amp-Queue" class="headerlink" title="Deque &amp;&amp; Queue"></a>Deque &amp;&amp; Queue</h2><ul>
 <li><p>Queue是一个普通队列，详情见数据结构</p>
 </li>
-<li><p>Deque是Queue的子接口，他是一个双端队列，可以支持FIFO和LIFO原则。</p>
+<li><p>Deque是Queue的子接口，他是一个双端队列，可以支持FIFO(First Input First Output)和LIFO原则。</p>
 </li>
 </ul>
 <p>​    </p>
@@ -383,6 +383,33 @@ Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的">
 <blockquote>
 <p>这里要注意： add()方法和offer方法的区别，add方法在队列满的情况下会抛出一个异常。而offer并不会。|</p>
 </blockquote>
+<h2 id="Collection-下的每个类型的异同"><a href="#Collection-下的每个类型的异同" class="headerlink" title="Collection 下的每个类型的异同"></a>Collection 下的每个类型的异同</h2><ul>
+<li><p>List</p>
+<ul>
+<li>List是一个接口，而下面有ArrayList和LinkList两个实现类，关于Array和Linkd的区别，详见数据结构。</li>
+<li>List是有顺序的！</li>
+<li>Vector(同步) 非常类似ArrayList，但是Vector是同步的 </li>
+</ul>
+</li>
+<li><p>Set</p>
+<ul>
+<li>Set也是一个接口，下面有HashSet和TreeSet两个实现类</li>
+<li>HashSet: HashSet类按照哈希算法来存取集合中的对象，存取速度比较快</li>
+<li>TreeSet: TreeSet类实现了SortedSet接口，能够对集合中的对象进行排序。 </li>
+<li>Set里面没有重复数据<br>| 重要方法    | 作用                                                         |<br>| ———– | ———————————————————— |<br>| iterator( ) | 主要用于递归集合，返回一个Iterator()对象，利用Iterator()去接收 |<blockquote>
+<p>《后期添加》注意：这个Iterator是Collection下面的 。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>Queue</p>
+<ul>
+<li><p>注意他的子接口Deque下面有两个实现类ArrayDeque…</p>
+<p><img src="https://s2.ax1x.com/2019/04/28/EQg5N9.png" alt></p>
+</li>
+</ul>
+</li>
+</ul>
 
                 
 <p class="pink-link-context">
