@@ -4,6 +4,62 @@
   
     
     <entry>
+      <title>Centos7安装redis</title>
+      <link href="/2019/04/30/Centos7%E5%AE%89%E8%A3%85redis/"/>
+      <url>/2019/04/30/Centos7%E5%AE%89%E8%A3%85redis/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Centos7安装redis"><a href="#Centos7安装redis" class="headerlink" title="Centos7安装redis"></a>Centos7安装redis</h1><p>我的安装包版本是redis5.6</p><a id="more"></a><h2 id="准备安装"><a href="#准备安装" class="headerlink" title="准备安装"></a>准备安装</h2><hr><p>安装redis需要gcc环境</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc</span><br></pre></td></tr></table></figure><p>准备redis5.6的tar包，我这里离线下载的</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 这里我解压到了桌面 /root/桌面</span><br><span class="line">tar -zxvf redis...   #解压</span><br></pre></td></tr></table></figure><h2 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h2><hr><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">make MALLOC=libc</span><br><span class="line">make install  # 这里会将启动程序安装到 /usr/local/bin下面</span><br><span class="line">cd /usr/local/bin</span><br><span class="line">./redis-server #测试运行</span><br></pre></td></tr></table></figure><p>如果出现下面的图片则证明启动成功。<img src="https://s2.ax1x.com/2019/04/30/E8A5h6.png" alt></p><h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><hr><p>在/path/下 我这里则是/root/桌面/redis5.6/redis.conf修改下面的变量</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi redis.conf</span><br><span class="line">#下面是修改项</span><br><span class="line">daemonize yes</span><br><span class="line">requirepass 123  #这个是密码 可以自定义</span><br><span class="line">#注释下列选项 这样就可以远程连接</span><br><span class="line">bind 127.0.0.1</span><br></pre></td></tr></table></figure><p>移动redis.conf到/usr/local/bin下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp redis.conf /usr/local/bin</span><br></pre></td></tr></table></figure><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/bin</span><br><span class="line">./redis-server redis.conf &amp;</span><br></pre></td></tr></table></figure><p>利用本地电脑的redis可视化工具测试连接</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> linunx </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> redis </tag>
+            
+            <tag> centos </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mysql优化初探</title>
+      <link href="/2019/04/29/mysql%E4%BC%98%E5%8C%96%E5%88%9D%E6%8E%A2/"/>
+      <url>/2019/04/29/mysql%E4%BC%98%E5%8C%96%E5%88%9D%E6%8E%A2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="MySQL优化初探"><a href="#MySQL优化初探" class="headerlink" title="MySQL优化初探"></a>MySQL优化初探</h1><p>这里用的是Mysql5.6.34win64版本</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> mysql </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql优化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>java设计模式初探</title>
       <link href="/2019/04/24/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%88%9D%E6%8E%A2/"/>
       <url>/2019/04/24/java%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%88%9D%E6%8E%A2/</url>
@@ -165,9 +221,9 @@
             
             <tag> linux </tag>
             
-            <tag> 搜索服务 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 搜索服务 </tag>
             
         </tags>
       
@@ -223,9 +279,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 安装教程 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
