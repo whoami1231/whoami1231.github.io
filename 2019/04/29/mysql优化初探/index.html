@@ -10,7 +10,11 @@
     <title>mysql优化初探 | </title>
     <meta name="author" content="WHOAMI">
     
-    <meta name="description" content="MySQL优化初探这里用的是Mysql5.6.34win64版本">
+    <meta name="description" content="MySQL优化初探这里用的是Mysql5.6.34win64版本
+设计数据库3F范式
+分库分表垂直分割
+水平分割取模算法
+修改配置">
     
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -156,23 +160,7 @@
 
             <li class="collapse-level-0" collapse-level="0">
                 <a class="no-padding" href="/categories/技术/">
-                    技术 <span class="right">18 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/linunx/">
-                    linunx <span class="right">1 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/linux/">
-                    linux <span class="right">3 篇</span></a>
+                    技术 <span class="right">19 篇</span></a>
                 
             </li>
 
@@ -187,8 +175,8 @@
         
 
             <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/mysql/">
-                    mysql <span class="right">1 篇</span></a>
+                <a class="no-padding" href="/categories/技术/linux/">
+                    linux <span class="right">4 篇</span></a>
                 
             </li>
 
@@ -197,6 +185,22 @@
             <li class="collapse-level-1" collapse-level="1">
                 <a class="no-padding" href="/categories/技术/j2EE/">
                     j2EE <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/mysql/">
+                    mysql <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/linunx/">
+                    linunx <span class="right">1 篇</span></a>
                 
             </li>
 
@@ -286,12 +290,23 @@
 
 
             <div class="toc pink-link-context hide-on-med-and-down">
-    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#MySQL优化初探"><span class="section table-of-contents-text">MySQL优化初探</span></a></li></ol>
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#MySQL优化初探"><span class="section table-of-contents-text">MySQL优化初探</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#设计数据库"><span class="section table-of-contents-text">设计数据库</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#分库分表"><span class="section table-of-contents-text">分库分表</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#修改配置"><span class="section table-of-contents-text">修改配置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#索引"><span class="section table-of-contents-text">索引</span></a></li></ol></li></ol>
 </div>
 
 
             <div class="entry pink-link-context">
                 <h1 id="MySQL优化初探"><a href="#MySQL优化初探" class="headerlink" title="MySQL优化初探"></a>MySQL优化初探</h1><p>这里用的是Mysql5.6.34win64版本</p>
+<h2 id="设计数据库"><a href="#设计数据库" class="headerlink" title="设计数据库"></a>设计数据库</h2><p>3F范式</p>
+<h3 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h3><p>垂直分割</p>
+<p>水平分割取模算法</p>
+<h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><a id="more"></a>
+<hr>
+<p>下面是我的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"># For advice on how to change settings please see</span><br><span class="line"># http://dev.mysql.com/doc/refman/5.6/en/server-configuration-defaults.html</span><br><span class="line"># *** DO NOT EDIT THIS FILE. It&apos;s a template which will be copied to the</span><br><span class="line"># *** default location during install, and will be replaced if you</span><br><span class="line"># *** upgrade to a newer version of MySQL.</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line"></span><br><span class="line">character_set_server = utf8</span><br><span class="line"></span><br><span class="line"># Remove leading # and set to the amount of RAM for the most important data</span><br><span class="line"># cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.</span><br><span class="line"># innodb_buffer_pool_size = 128M</span><br><span class="line"></span><br><span class="line"># Remove leading # to turn on a very important data integrity option: logging</span><br><span class="line"># changes to the binary log between backups.</span><br><span class="line"># log_bin</span><br><span class="line">log_bin=ON</span><br><span class="line">#错误日志</span><br><span class="line">#log_error=D:\Program Files\mysql-5.6.34-winx64\data\logs\err.log</span><br><span class="line">#全查询日志 </span><br><span class="line">#log_output=FILE  </span><br><span class="line"></span><br><span class="line">#不启用的话慢日志查询会存在数据表中</span><br><span class="line">general_log=on</span><br><span class="line">general_log_file=query.log</span><br><span class="line"></span><br><span class="line">#慢查询日志</span><br><span class="line">slow_query_log=on   </span><br><span class="line">long_query_time=2</span><br><span class="line">#时间为2s</span><br><span class="line">slow_query_log_file=slowquery.log</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># These are commonly set, remove the # and set as required.</span><br><span class="line"> basedir = D:\Program Files\mysql-5.6.34-winx64</span><br><span class="line"># 日志存放目录</span><br><span class="line"> datadir = D:\Program Files\mysql-5.6.34-winx64\data</span><br><span class="line"> port = 3306</span><br><span class="line"># server_id = .....</span><br><span class="line"></span><br><span class="line">#二进制日志配置，第二、三行配置最后一个binlog-bin和binlog是不加后缀的文件名，不加后缀的话有妙用</span><br><span class="line">server_id=1</span><br><span class="line">#log_bin=D:\Program Files\mysql-5.6.34-winx64\data\bin_log\binlog-bin</span><br><span class="line">#log_bin_index=D:\Program Files\mysql-5.6.34-winx64\data\bin_log\binlog</span><br><span class="line"></span><br><span class="line"># Remove leading # to set options mainly useful for reporting servers.</span><br><span class="line"># The server defaults are faster for transactions and fast SELECTs.</span><br><span class="line"># Adjust sizes as needed, experiment to find the optimal values.</span><br><span class="line"># join_buffer_size = 128M</span><br><span class="line"># sort_buffer_size = 2M</span><br><span class="line"># read_rnd_buffer_size = 2M </span><br><span class="line"></span><br><span class="line">sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES</span><br></pre></td></tr></table></figure>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><blockquote>
+<p>当数据有重复的时候，如何降低幂等</p>
+<p>唯一索引</p>
+</blockquote>
 
                 
 <p class="pink-link-context">
