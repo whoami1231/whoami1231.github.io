@@ -1,0 +1,619 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+
+    <title>qt TCP UDP-多线程笔记 | </title>
+    <meta name="author" content="WHOAMI">
+    
+    <meta name="description" content="qt TCP UDP 多线程解决并发思路TCP解决思路
+目的：每一个客户端连接都需要QTCPSocket开辟一条新的线程
+解决方法：
+
+分别继承QTCPServer和QTCPSocket来分别实现Server和Socket（我这里是mTCPServer继承QTCPServer,mTCPSoket继承">
+    
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <meta property="og:title" content="qt TCP UDP-多线程笔记">
+    <meta property="og:site_name" content="逝痕">
+
+    
+    <meta property="og:image" content>
+    
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="alternate" href="/atom.xml" title="逝痕" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/lib/materialize.min.css">
+    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+
+    
+        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
+    
+    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+</html>
+
+<body>
+    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
+
+    <nav class="indigo">
+    <div class="nav-wrapper">
+        <a href="#" data-activates="main-menu" class="button-collapse">
+            <i class="fa fa-navicon"></i>
+        </a>
+        <div class>
+            <a href="/" class="brand-logo hide-on-med-and-down">逝痕</a>
+            <ul class="right hide-on-med-and-down">
+                
+                    <li>
+                        <a class="menu-home " href="/">
+                            <i class="fa fa-home "></i>
+                            
+                            首页
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-archive " href="/archives">
+                            <i class="fa fa-archive "></i>
+                            
+                            归档
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                            <i class="fa fa-bookmark "></i>
+                            
+                            分类
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-about " href="/about/index.html">
+                            <i class="fa fa-user "></i>
+                            
+                            关于
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a class="menu-search modal-trigger " href="#search">
+                            <i class="fa fa-search "></i>
+                            
+                            搜索
+                        </a>
+                    </li>
+                
+            </ul>
+            <div>
+    <ul class="side-nav indigo darken-1" id="main-menu">
+        
+        <li class="side-user">
+            <div class="row">
+                <div class="col s4 no-padding">
+                    <img class="avatar-image circle responsive-img" src="https://s2.ax1x.com/2019/04/01/AyEDs0.png" alt="User Avatar">
+                </div>
+                <div class="info col s8 valign-wrapper no-padding">
+                    <div class="valign">
+                        <p class="name">WHOAMI</p>
+                        <p class="desc">JAVA攻城狮</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        
+
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-home " href="/">
+                    <i class="fa fa-home "></i>
+                    
+                    首页
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-archive " href="/archives">
+                    <i class="fa fa-archive "></i>
+                    
+                    归档
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
+                    <i class="fa fa-bookmark "></i>
+                    
+                    分类
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-about " href="/about/index.html">
+                    <i class="fa fa-user "></i>
+                    
+                    关于
+                </a>
+            </li>
+        
+            <li class="no-padding">
+                <a class="waves-effect menu-search modal-trigger " href="#search">
+                    <i class="fa fa-search "></i>
+                    
+                    搜索
+                </a>
+            </li>
+        
+    </ul>
+
+    <ul class="side-nav indigo darken-1" id="category-menu">
+    
+
+            
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/技术/">
+                    技术 <span class="right">23 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/linux/">
+                    linux <span class="right">5 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/java/">
+                    java <span class="right">13 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/linunx/">
+                    linunx <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/mysql/">
+                    mysql <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/c/">
+                    c <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/技术/j2EE/">
+                    j2EE <span class="right">2 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-0" collapse-level="0">
+                <a class="no-padding" href="/categories/杂记/">
+                    杂记 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+            <li class="collapse-level-1" collapse-level="1">
+                <a class="no-padding" href="/categories/杂记/ssm错误笔记/">
+                    ssm错误笔记 <span class="right">1 篇</span></a>
+                
+            </li>
+
+        
+
+    </ul>
+</div>
+
+        </div>
+    </div>
+</nav>
+
+<div id="search" class="modal search-modal">
+    <div class="row">
+        <div class="input-field col s12">
+              <input id="search-input" type="text">
+              <label for="search-input">搜索</label>
+        </div>
+
+    </div>
+    <div id="search-result" class="search-result col s12">
+
+    </div>
+</div>
+
+
+    <main>
+        <div class="container main-container">
+    <nav class="page-nav hide-on-small-only">
+    <div class="nav-wrapper indigo">
+        <span class="breadcrumb">当前位置（分类目录）</span>
+        
+            
+    
+    
+    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/c/">c++</a>
+
+
+        
+
+        
+    </div>
+</nav>
+
+<article>
+    <div class="card">
+        <div class="card-content">
+            
+
+            <div class="article-title">
+                
+    
+        <h1>qt TCP UDP-多线程笔记</h1>
+    
+
+
+            </div>
+            <time class="pink-link-context" datetime="2019-05-08T00:40:06.000Z"><a href="/2019/05/08/qt-TCP-UDP-多线程笔记/">2019-05-08</a></time>
+
+            <span id="busuanzi_container_page_pv" class="read-times-container">
+    <i class="fa fa-eye"></i>
+    <span id="busuanzi_value_page_pv"></span>
+</span>
+
+            
+    <div class="tags-row">
+        
+            <a href="/tags/qt/" class="chip pink lighten-1">qt</a>
+        
+            <a href="/tags/TCP-UDP/" class="chip pink lighten-1">TCP UDP</a>
+        
+    </div>
+
+
+            <div class="toc pink-link-context hide-on-med-and-down">
+    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#qt-TCP-UDP-多线程解决并发思路"><span class="section table-of-contents-text">qt TCP UDP 多线程解决并发思路</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#TCP解决思路"><span class="section table-of-contents-text">TCP解决思路</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#多线程UDP解决思路"><span class="section table-of-contents-text">多线程UDP解决思路</span></a></li></ol></li></ol>
+</div>
+
+
+            <div class="entry pink-link-context">
+                <h1 id="qt-TCP-UDP-多线程解决并发思路"><a href="#qt-TCP-UDP-多线程解决并发思路" class="headerlink" title="qt TCP UDP 多线程解决并发思路"></a>qt TCP UDP 多线程解决并发思路</h1><h2 id="TCP解决思路"><a href="#TCP解决思路" class="headerlink" title="TCP解决思路"></a>TCP解决思路</h2><hr>
+<p>目的：每一个客户端连接都需要QTCPSocket开辟一条新的线程</p>
+<p>解决方法：</p>
+<ol>
+<li><p>分别继承QTCPServer和QTCPSocket来分别实现Server和Socket（我这里是mTCPServer继承QTCPServer,mTCPSoket继承QTCPSokcet）</p>
+</li>
+<li><p>mTCPServer重写incomingConnection来实现socket的自动连接，其实就是不需要connect等待连接，直接进入函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">incomingConnection</span><span class="params">(qintptr handle)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><img src="https://s2.ax1x.com/2019/05/09/Ecyj3Q.png" alt></p>
+<ol start="3">
+<li>重写incomingConnection()函数</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> MyTcpServer::incomingConnection( qint32 socketDescriptor)</span><br><span class="line">&#123;</span><br><span class="line">    qDebug()&lt;&lt;tr(<span class="string">"有新的连接 :-socketDescriptor-"</span>)&lt;&lt;socketDescriptor;</span><br><span class="line">	</span><br><span class="line">    <span class="function">emit <span class="title">displayAccount</span><span class="params">(<span class="literal">true</span>)</span></span>; <span class="comment">//这里是我给主界面发信号,有用户连接</span></span><br><span class="line">    MyTcpSocket *tcptemp = <span class="keyword">new</span> MyTcpSocket(socketDescriptor);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始化线程</span></span><br><span class="line">    QThread *thread = <span class="keyword">new</span> QThread(tcptemp);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//收到客户端发送的信息</span></span><br><span class="line">    connect(tcptemp,&amp;MyTcpSocket::receiveData,<span class="keyword">this</span>,&amp;MyTcpServer::receiveDataSlot);</span><br><span class="line">    <span class="comment">//客户端断开链接</span></span><br><span class="line">    connect(tcptemp,&amp;MyTcpSocket::socketDisconnect,<span class="keyword">this</span>,&amp;MyTcpServer::disconnectSlot);</span><br><span class="line">    <span class="comment">//客户端断开链接 关闭线程</span></span><br><span class="line">    connect(tcptemp,&amp;MyTcpSocket::disconnected,thread,&amp;QThread::quit);</span><br><span class="line">    <span class="comment">//向socket发送信息</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 发送注册信息</span></span><br><span class="line">    connect(<span class="keyword">this</span>,&amp;MyTcpServer::sendRegisterData,tcptemp,&amp;MyTcpSocket::sendRegisterData);</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将socket移动到子线程运行</span></span><br><span class="line">    tcptemp-&gt;moveToThread(thread);</span><br><span class="line">    thread-&gt;start();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将Qthread放到Map控制</span></span><br><span class="line">    clients-&gt;insert(socketDescriptor,tcptemp);</span><br><span class="line"></span><br><span class="line">    qDebug()&lt;&lt;tr(<span class="string">"目前客户端数量："</span>)&lt;&lt;clients-&gt;size();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>mTCPSokcet解决相应的信号即可</li>
+</ol>
+<h2 id="多线程UDP解决思路"><a href="#多线程UDP解决思路" class="headerlink" title="多线程UDP解决思路"></a>多线程UDP解决思路</h2><hr>
+<p>UDP的话就比较简单了,最核心的代码是这个</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * function:监听端口</span></span><br><span class="line"><span class="comment"> * @brief MyUDPServer::startService</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">void</span> MyUDPServer::startService()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//这里监听端口</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;mUdpSocket = <span class="keyword">new</span> QUdpSocket(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">int</span> error =<span class="keyword">this</span>-&gt;mUdpSocket-&gt;bind(QHostAddress::Any,<span class="number">9999</span>);</span><br><span class="line">    qDebug()&lt;&lt;error;</span><br><span class="line">    QObject::connect(mUdpSocket,SIGNAL(readyRead()),<span class="keyword">this</span>,SLOT(readData()));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MyUDPServer::MyUDPServer(QObject *parent):QObject(parent)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * function: 多线程读取数据</span></span><br><span class="line"><span class="comment"> * @brief MyUDPServer::readData</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">void</span> MyUDPServer::readData()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//获取到传来的数据</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">this</span>-&gt;mUdpSocket-&gt;hasPendingDatagrams())&#123;</span><br><span class="line">        <span class="comment">//获取数据</span></span><br><span class="line">        QByteArray <span class="built_in">array</span>;</span><br><span class="line">        QHostAddress address;</span><br><span class="line">        quint16 port;</span><br><span class="line">   		<span class="comment">//根据可读数据来设置空间大小</span></span><br><span class="line">        <span class="built_in">array</span>.resize(<span class="keyword">this</span>-&gt;mUdpSocket-&gt;pendingDatagramSize());</span><br><span class="line">        <span class="keyword">this</span>-&gt;mUdpSocket-&gt;readDatagram(<span class="built_in">array</span>.data(),<span class="built_in">array</span>.size(),&amp;address,&amp;port); <span class="comment">//读取数据</span></span><br><span class="line">      </span><br><span class="line">        <span class="comment">//创建线程</span></span><br><span class="line">        MsgAction *msgAction = <span class="keyword">new</span> MsgAction(<span class="built_in">array</span>,address,port);</span><br><span class="line">        QThread *thread = <span class="keyword">new</span> QThread(msgAction);</span><br><span class="line">        <span class="comment">//需要封装</span></span><br><span class="line"></span><br><span class="line">        qDebug()&lt;&lt;QThread::currentThread();</span><br><span class="line">        <span class="comment">//移动到线程中</span></span><br><span class="line">        msgAction-&gt;moveToThread(thread);</span><br><span class="line"></span><br><span class="line">        thread-&gt;start();</span><br><span class="line">        msgAction-&gt;run();</span><br><span class="line">       <span class="comment">//发送反馈数据</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                
+<p class="pink-link-context">
+    <a href="/2019/05/09/java的一些常用编程思想/" rel="next" title="java的一些常用编程思想">
+    上一篇：java的一些常用编程思想
+  </a>
+</p>
+
+
+
+<p class="pink-link-context">
+    <a href="/2019/05/03/centos7安装fastDFS/" rel="next" title="centos7安装fastDFS">
+    下一篇：centos7安装fastDFS
+  </a>
+</p>
+
+
+            </div>
+			
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+</div>
+
+        <div class="fixed-action-btn float-sitemap">
+    <a class="btn-floating btn-large pink">
+      <i class="fa fa-caret-square-o-up"></i>
+    </a>
+    <ul>
+      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
+      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
+    </ul>
+  </div>
+
+    </main>
+    <footer class="page-footer indigo darken-1">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <div class="footer-copyright pink-link-context">
+        <div class="container">
+            © 2019 WHOAMI&#39;s Blog, All rights reserved.
+            <div class="right">
+                <span>
+                    <i class="fa fa-user"></i>
+                    <span class="busuanzi-value" id="busuanzi_value_site_uv">
+                    </span>
+                </span>
+                <span>&nbsp;|&nbsp;</span>
+                <span>
+                    <i class="fa fa-eye"></i>
+                    <span id="busuanzi_value_site_pv">
+                    </span>
+                </span>
+            </div>
+          <!--  <p class="right" style="margin-top: 0;"> 欢迎访问我的个人主页 <a href="https://github.com/whoami1231">WHOAMI</a></p>
+              -->
+        </div>
+
+</div></footer>
+
+
+    <noscript>
+    <div class="noscript">
+        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    </div>
+</noscript>
+<div class="noscript">
+    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+</div>
+
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/materialize.min.js"></script>
+
+<script>
+    (function($) {
+        $(document).ready(function() {
+            // 隐藏禁用javascript（针对微信内置浏览器）的提示
+            $('.noscript').hide();
+
+            // 图片缩放效果
+            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
+
+            // 给图片加上点击放大效果（materialbox插件）
+            $imgs.addClass('materialboxed').each(function(i, el) {
+                $(this).attr('data-caption', $(this).attr('alt') || ' ');
+            }).materialbox();
+
+            // 优化表格的显示
+            $('table').each(function() {
+                var $table = $(this);
+                // 除去多行代码的情况
+                if ($table.find('pre').length == 0) {
+                    $table.addClass('responsive-table striped bordered');
+                }
+            });
+
+            // 首页幻灯片
+            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
+
+            $(".button-collapse").sideNav();
+            $(".category-menu").sideNav();
+
+            // 针对gallery post
+            $('.carousel').carousel({full_width: true});
+            $('.carousel-control.prev').click(function() {
+                $('.carousel').carousel('prev');
+            });
+            $('.carousel-control.next').click(function() {
+                $('.carousel').carousel('next');
+            });
+
+            // 文章目录
+            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
+
+            // 目录随屏幕滚动（防止目录过长越过footer）
+            var $toc = $('.toc');
+            var scrollTargetTop = 0;
+            $(window).scroll(function() {
+                var $activeLink = $toc.find('a.active.section');
+                if ($(window).scrollTop() < 100) {
+                    scrollTargetTop = 0;
+                } else {
+                    if ($activeLink[0]) {
+                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
+                    }
+                }
+                $toc.css('top', '-' + scrollTargetTop + 'px');
+            });
+
+            // 修正文章目录的left-border颜色
+            var color = $('.table-of-contents-text').css('color');
+            $('.table-of-contents-link').css('border-left-color', color);
+
+            // 针对移动端做的优化：FAB按钮点击一下收回
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('.fixed-action-btn').addClass('click-to-toggle');
+            }
+            // 回到顶部
+            $('.btn-return-top').click(function() {
+                $('body, html').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+
+            // 重置读书页面的Tab标签页的颜色
+            $('li.tab a').hover(function() {
+                $(this).toggleClass('text-lighten-4');
+            });
+            $('.indicator').addClass('pink lighten-2');
+
+            
+            // 添加new标签
+            $('').append('<span class="new badge pink"></span>');
+            
+
+            // 搜索功能
+            $('.modal-trigger').leanModal({
+                // 打开搜索框时自动聚焦
+                ready: function() {
+                    if ($('#search').is(":visible")) {
+                        $('#search-input').focus();
+                    }
+                }
+            });
+            var searchXml = "search.xml";
+            if (searchXml.length == 0) {
+             	searchXml = "search.xml";
+            }
+            var searchPath = "/" + searchXml;
+            initSearch(searchPath, 'search-input', 'search-result');
+        });
+
+        // 初始化搜索与匹配函数
+        var initSearch = function(path, search_id, content_id) {
+            'use strict';
+            $.ajax({
+                url: path,
+                dataType: "xml",
+                success: function(xmlResponse) {
+                    // get the contents from search data
+                    var datas = $("entry", xmlResponse).map(function() {
+                        return {
+                            title: $("title", this).text(),
+                            content: $("content", this).text(),
+                            url: $("url", this).text()
+                        };
+                    }).get();
+                    var $input = document.getElementById(search_id);
+                    var $resultContent = document.getElementById(content_id);
+                    $input.addEventListener('input', function() {
+                        var str = '<ul class=\"search-result-list\">';
+                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                        $resultContent.innerHTML = "";
+                        if (this.value.trim().length <= 0) {
+                            return;
+                        }
+                        // perform local searching
+                        datas.forEach(function(data) {
+                            var isMatch = true;
+                            var content_index = [];
+                            var data_title = data.title.trim().toLowerCase();
+                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                            var data_url = data.url;
+                            var index_title = -1;
+                            var index_content = -1;
+                            var first_occur = -1;
+                            // only match artiles with not empty titles and contents
+                            if (data_title != '' && data_content != '') {
+                                keywords.forEach(function(keyword, i) {
+                                    index_title = data_title.indexOf(keyword);
+                                    index_content = data_content.indexOf(keyword);
+                                    if (index_title < 0 && index_content < 0) {
+                                        isMatch = false;
+                                    } else {
+                                        if (index_content < 0) {
+                                            index_content = 0;
+                                        }
+                                        if (i == 0) {
+                                            first_occur = index_content;
+                                        }
+                                    }
+                                });
+                            }
+                            // show search results
+                            if (isMatch) {
+                                keywords.forEach(function(keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                });
+
+                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                                if (first_occur >= 0) {
+                                    // cut out 100 characters
+                                    var start = first_occur - 20;
+                                    var end = first_occur + 80;
+                                    if (start < 0) {
+                                        start = 0;
+                                    }
+                                    if (start == 0) {
+                                        end = 100;
+                                    }
+                                    if (end > content.length) {
+                                        end = content.length;
+                                    }
+                                    var match_content = content.substring(start, end);
+                                    // highlight all keywords
+                                    keywords.forEach(function(keyword) {
+                                        var regS = new RegExp(keyword, "gi");
+                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
+                                    });
+
+                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
+                                }
+                                str += "</li>";
+                            }
+                        });
+                        str += "</ul>";
+                        $resultContent.innerHTML = str;
+                    });
+                }
+            });
+        }
+    })(jQuery);
+</script>
+
+
+<script src="/js/prettify.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("pre").addClass("prettyprint");
+        prettyPrint();
+    });
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>
