@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>mariadb做读写分离</title>
+      <link href="/2019/05/13/mariadb%E5%81%9A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/"/>
+      <url>/2019/05/13/mariadb%E5%81%9A%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/</url>
+      
+        <content type="html"><![CDATA[<h1 id="mariadb读写分离"><a href="#mariadb读写分离" class="headerlink" title="mariadb读写分离"></a>mariadb读写分离</h1><p>上一次文章我在centos7上安装了mariadb并开启了主从复制模式，这一篇打算利用mycat做读写分离</p><p>mycat现在可以相称像是nginx一样的反向代理，他可以不暴露数据库的ip</p><p>环境：</p><table><thead><tr><th>IP地址</th><th>作用</th></tr></thead><tbody><tr><td>192.168.3.137</td><td>mycat服务器，主数据库</td></tr><tr><td>192.168.3.136</td><td>从数据库</td></tr></tbody></table><h2 id="安装mycat"><a href="#安装mycat" class="headerlink" title="安装mycat"></a>安装mycat</h2><hr><ul><li><p>打开mycat<a href="http://www.mycat.io/" target="_blank" rel="noopener">官网</a>,选择版本下载，我这里是1.6.6</p></li><li><p>将tar包解压到centos下的/usr/local/下</p></li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">添加环境变量</span><br><span class="line">vi /etc/profile</span><br><span class="line">export MYCAT_HOME=/usr/local/mycat</span><br><span class="line"># 退出</span><br><span class="line">source /etc/profile #使之生效</span><br><span class="line">cd /usr/local/mycat/bin</span><br><span class="line">./mycat start #启动</span><br><span class="line">./mycat status #查看是否启动</span><br></pre></td></tr></table></figure><p><img src="https://s2.ax1x.com/2019/05/13/E4b7VA.png" alt></p><p>一般没什么问题</p><h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><hr><p>首先备份一下两个重要文件，如果弄坏了还可以还原</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mycat/conf</span><br><span class="line">cp ./server.xml ./server.xml.bak</span><br><span class="line">cp ./schema.xml ./schema.xml.bak</span><br></pre></td></tr></table></figure><p>配置用户供远程登陆 <strong>server.xml</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/conf/server.xml</span><br></pre></td></tr></table></figure><p><img src="https://s2.ax1x.com/2019/05/13/E4qP5q.png" alt></p><p>拉到最后，修改里面的用户就行了</p><p>配置需要管理的表 <strong>schema.xml</strong></p><p><img src="https://s2.ax1x.com/2019/05/13/E4LkTA.png" alt></p><h2 id="测试连接"><a href="#测试连接" class="headerlink" title="测试连接"></a>测试连接</h2><hr><p>重启一下mycat,查看一下状态是否运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./mycat restart</span><br><span class="line">./mycat status</span><br></pre></td></tr></table></figure></p><p>打开window上的navicat 选择连接 注意 这里一定是mysql 不然会报错</p><blockquote><p>注意 mycat的默认端口是8066</p></blockquote><p><img src="https://s2.ax1x.com/2019/05/13/E4Llwj.png" alt></p><p>交易成功！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+          <category> mysql </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql优化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>centos7 安装mariadb 并配置主从复制</title>
       <link href="/2019/05/12/centos7%E4%B8%8B%E5%AE%89%E8%A3%85mariadb%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/"/>
       <url>/2019/05/12/centos7%E4%B8%8B%E5%AE%89%E8%A3%85mariadb%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</url>
@@ -464,9 +491,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 安装教程 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
