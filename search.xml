@@ -149,9 +149,9 @@
             
             <tag> linux </tag>
             
-            <tag> 文件服务器 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 文件服务器 </tag>
             
         </tags>
       
@@ -200,7 +200,7 @@
           
           <category> 技术 </category>
           
-          <category> linunx </category>
+          <category> linux </category>
           
       </categories>
       
@@ -406,9 +406,9 @@
             
             <tag> linux </tag>
             
-            <tag> java </tag>
-            
             <tag> 搜索服务 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -609,9 +609,9 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
