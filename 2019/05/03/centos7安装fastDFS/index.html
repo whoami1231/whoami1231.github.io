@@ -1,15 +1,10 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="zh-CN">
+
+
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-    
-
-    <title>centos7安装fastDFS | </title>
-    <meta name="author" content="WHOAMI">
-    
+    <meta name="keywords" content="centos7安装fastDFS, 逝痕">
     <meta name="description" content="centos7安装fastDFS环境准备
 使用的系统软件
 
@@ -33,293 +28,414 @@ FastDFS
 FastDFS本体
 
 
-fastdfs-nginx-module
-FastDFS和nginx的关联模块
-">
-    
-    
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <meta property="og:title" content="centos7安装fastDFS">
-    <meta property="og:site_name" content="逝痕">
-
-    
-    <meta property="og:image" content>
-    
-
+fastdfs-ng">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>centos7安装fastDFS | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="alternate" href="/atom.xml" title="逝痕" type="application/atom+xml">
-    <link rel="stylesheet" href="/css/lib/materialize.min.css">
-    <link rel="stylesheet" href="/css/lib/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
 
-    
-        <link rel="stylesheet" href="/css/lib/prettify-tomorrow-night-eighties.css" type="text/css">
-    
-    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <link rel="stylesheet" type="text/css" href="/code-highlight/prettify.css">
+    <script src="/code-highlight/prettify.js" type="text/javascript"></script>
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script>
+        $(window).load(function(){
+         $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
+           prettyPrint();
+       })
+    </script>
+
 </head>
-</html>
+
 
 <body>
-    <img src="/weixin_favicon.png" style="position: absolute; left: -9999px; opacity: 0; filter: alpha(opacity=0);">
 
-    <nav class="indigo">
-    <div class="nav-wrapper">
-        <a href="#" data-activates="main-menu" class="button-collapse">
-            <i class="fa fa-navicon"></i>
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">逝痕</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
         </a>
-        <div class>
-            <a href="/" class="brand-logo hide-on-med-and-down">逝痕</a>
-            <ul class="right hide-on-med-and-down">
-                
-                    <li>
-                        <a class="menu-home " href="/">
-                            <i class="fa fa-home "></i>
-                            
-                            首页
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-archive " href="/archives">
-                            <i class="fa fa-archive "></i>
-                            
-                            归档
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-category category-menu" href="javascript:;" data-activates="category-menu">
-                            <i class="fa fa-bookmark "></i>
-                            
-                            分类
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-about " href="/about/index.html">
-                            <i class="fa fa-user "></i>
-                            
-                            关于
-                        </a>
-                    </li>
-                
-                    <li>
-                        <a class="menu-search modal-trigger " href="#search">
-                            <i class="fa fa-search "></i>
-                            
-                            搜索
-                        </a>
-                    </li>
-                
-            </ul>
-            <div>
-    <ul class="side-nav indigo darken-1" id="main-menu">
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
         
-        <li class="side-user">
-            <div class="row">
-                <div class="col s4 no-padding">
-                    <img class="avatar-image circle responsive-img" src="https://s2.ax1x.com/2019/04/01/AyEDs0.png" alt="User Avatar">
-                </div>
-                <div class="info col s8 valign-wrapper no-padding">
-                    <div class="valign">
-                        <p class="name">WHOAMI</p>
-                        <p class="desc">JAVA攻城狮</p>
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">逝痕</div>
+        <div class="logo-desc">
+            
+            浮华世界,我们仗剑前行//无惧艰险，誓为除旧布新。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/whoami1231" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/whoami1231" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        centos7安装fastDFS
                     </div>
                 </div>
             </div>
-        </li>
-        
-
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-home " href="/">
-                    <i class="fa fa-home "></i>
-                    
-                    首页
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-archive " href="/archives">
-                    <i class="fa fa-archive "></i>
-                    
-                    归档
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-category category-menu" href="javascript:;" data-activates="category-menu">
-                    <i class="fa fa-bookmark "></i>
-                    
-                    分类
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-about " href="/about/index.html">
-                    <i class="fa fa-user "></i>
-                    
-                    关于
-                </a>
-            </li>
-        
-            <li class="no-padding">
-                <a class="waves-effect menu-search modal-trigger " href="#search">
-                    <i class="fa fa-search "></i>
-                    
-                    搜索
-                </a>
-            </li>
-        
-    </ul>
-
-    <ul class="side-nav indigo darken-1" id="category-menu">
-    
-
-            
-
-            <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/技术/">
-                    技术 <span class="right">24 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/linux/">
-                    linux <span class="right">6 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/java/">
-                    java <span class="right">13 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/mysql/">
-                    mysql <span class="right">2 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/c/">
-                    c <span class="right">1 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/技术/j2EE/">
-                    j2EE <span class="right">2 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-0" collapse-level="0">
-                <a class="no-padding" href="/categories/杂记/">
-                    杂记 <span class="right">1 篇</span></a>
-                
-            </li>
-
-        
-
-            <li class="collapse-level-1" collapse-level="1">
-                <a class="no-padding" href="/categories/杂记/ssm错误笔记/">
-                    ssm错误笔记 <span class="right">1 篇</span></a>
-                
-            </li>
-
-        
-
-    </ul>
-</div>
-
         </div>
-    </div>
-</nav>
-
-<div id="search" class="modal search-modal">
-    <div class="row">
-        <div class="input-field col s12">
-              <input id="search-input" type="text">
-              <label for="search-input">搜索</label>
-        </div>
-
-    </div>
-    <div id="search-result" class="search-result col s12">
-
     </div>
 </div>
 
 
-    <main>
-        <div class="container main-container">
-    <nav class="page-nav hide-on-small-only">
-    <div class="nav-wrapper indigo">
-        <span class="breadcrumb">当前位置（分类目录）</span>
-        
-            
+
+<main class="post-container content">
+
     
-    
-    <a class="breadcrumb" href="/categories/技术/">技术</a><a class="breadcrumb" href="/categories/技术/linux/">linux</a>
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
 
+    #articleContent :focus {
+        outline: none;
+    }
 
-        
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
 
-        
-    </div>
-</nav>
+    .toc-widget {
+        padding-left: 20px;
+    }
 
-<article>
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
     <div class="card">
-        <div class="card-content">
-            
-
-            <div class="article-title">
-                
-    
-        <h1>centos7安装fastDFS</h1>
-    
-
-
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/linux/" target="_blank">
+                                <span class="chip bg-color">linux</span>
+                            </a>
+                        
+                            <a href="/tags/文件服务器/" target="_blank">
+                                <span class="chip bg-color">文件服务器</span>
+                            </a>
+                        
+                            <a href="/tags/java/" target="_blank">
+                                <span class="chip bg-color">java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/linux/" class="post-category" target="_blank">
+                                linux
+                            </a>
+                        
+                    </div>
+                    
+                </div>
             </div>
-            <time class="pink-link-context" datetime="2019-05-03T03:36:04.000Z"><a href="/2019/05/03/centos7安装fastDFS/">2019-05-03</a></time>
 
-            <span id="busuanzi_container_page_pv" class="read-times-container">
-    <i class="fa fa-eye"></i>
-    <span id="busuanzi_value_page_pv"></span>
-</span>
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-05-03
+                </div>
 
-            
-    <div class="tags-row">
-        
-            <a href="/tags/linux/" class="chip pink lighten-1">linux</a>
-        
-            <a href="/tags/java/" class="chip pink lighten-1">java</a>
-        
-            <a href="/tags/文件服务器/" class="chip pink lighten-1">文件服务器</a>
-        
-    </div>
+                
 
-
-            <div class="toc pink-link-context hide-on-med-and-down">
-    <ol class="section table-of-contents"><li class="section table-of-contents-item section table-of-contents-level-1"><a class="section table-of-contents-link" href="#centos7安装fastDFS"><span class="section table-of-contents-text">centos7安装fastDFS</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#环境准备"><span class="section table-of-contents-text">环境准备</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#使用的系统软件"><span class="section table-of-contents-text">使用的系统软件</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#编译环境"><span class="section table-of-contents-text">编译环境</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#磁盘目录"><span class="section table-of-contents-text">磁盘目录</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#安装libfatscommon"><span class="section table-of-contents-text">安装libfatscommon</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#安装FastDFS"><span class="section table-of-contents-text">安装FastDFS</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#安装fastdfs-nginx-module"><span class="section table-of-contents-text">安装fastdfs-nginx-module</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#安装nginx"><span class="section table-of-contents-text">安装nginx</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#单机部署"><span class="section table-of-contents-text">单机部署</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#tracker配置"><span class="section table-of-contents-text">tracker配置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#storage配置"><span class="section table-of-contents-text">storage配置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#client测试"><span class="section table-of-contents-text">client测试</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#配置nginx访问"><span class="section table-of-contents-text">配置nginx访问</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#分布式部署"><span class="section table-of-contents-text">分布式部署</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#tracker配置-1"><span class="section table-of-contents-text">tracker配置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#storage配置-1"><span class="section table-of-contents-text">storage配置</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#client测试-1"><span class="section table-of-contents-text">client测试</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#配置nginx访问-1"><span class="section table-of-contents-text">配置nginx访问</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#启动"><span class="section table-of-contents-text">启动</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#防火墙"><span class="section table-of-contents-text">防火墙</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#tracker"><span class="section table-of-contents-text">tracker</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#storage"><span class="section table-of-contents-text">storage</span></a></li><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#nginx"><span class="section table-of-contents-text">nginx</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#检测集群"><span class="section table-of-contents-text">检测集群</span></a></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#说明"><span class="section table-of-contents-text">说明</span></a><ol class="section table-of-contents-child"><li class="section table-of-contents-item section table-of-contents-level-3"><a class="section table-of-contents-link" href="#配置文件"><span class="section table-of-contents-text">配置文件</span></a></li></ol></li><li class="section table-of-contents-item section table-of-contents-level-2"><a class="section table-of-contents-link" href="#可能遇到的问题"><span class="section table-of-contents-text">可能遇到的问题</span></a></li></ol></li></ol>
-</div>
-
-
-            <div class="entry pink-link-context">
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
                 <h1 id="centos7安装fastDFS"><a href="#centos7安装fastDFS" class="headerlink" title="centos7安装fastDFS"></a>centos7安装fastDFS</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><hr>
 <h3 id="使用的系统软件"><a href="#使用的系统软件" class="headerlink" title="使用的系统软件"></a>使用的系统软件</h3><hr>
 <table>
@@ -353,8 +469,8 @@ FastDFS和nginx的关联模块
 </tbody>
 </table>
 <h3 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install git gcc gcc-c++ make automake autoconf libtool pcre pcre-devel zlib zlib-devel openssl-devel wget vim -y</span><br></pre></td></tr></table></figure>
-<h3 id="磁盘目录"><a href="#磁盘目录" class="headerlink" title="磁盘目录"></a>磁盘目录</h3><hr>
+<pre><code>yum install git gcc gcc-c++ make automake autoconf libtool pcre pcre-devel zlib zlib-devel openssl-devel wget vim -y
+</code></pre><h3 id="磁盘目录"><a href="#磁盘目录" class="headerlink" title="磁盘目录"></a>磁盘目录</h3><hr>
 <table>
 <thead>
 <tr>
@@ -376,336 +492,486 @@ FastDFS和nginx的关联模块
 </tr>
 </tbody>
 </table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/dfs #创建数据存储目录</span><br><span class="line">cd /usr/local/src #切换到安装目录准备下载安装包</span><br></pre></td></tr></table></figure>
-<h3 id="安装libfatscommon"><a href="#安装libfatscommon" class="headerlink" title="安装libfatscommon"></a>安装libfatscommon</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/happyfish100/libfastcommon.git --depth 1</span><br><span class="line">cd libfastcommon/</span><br><span class="line">./make.sh &amp;&amp; ./make.sh install #编译安装</span><br></pre></td></tr></table></figure>
-<h3 id="安装FastDFS"><a href="#安装FastDFS" class="headerlink" title="安装FastDFS"></a>安装FastDFS</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd ../ #返回上一级目录</span><br><span class="line">git clone https://github.com/happyfish100/fastdfs.git --depth 1</span><br><span class="line">cd fastdfs/</span><br><span class="line">./make.sh &amp;&amp; ./make.sh install #编译安装</span><br><span class="line">#配置文件准备</span><br><span class="line">cp /etc/fdfs/tracker.conf.sample /etc/fdfs/tracker.conf</span><br><span class="line">cp /etc/fdfs/storage.conf.sample /etc/fdfs/storage.conf</span><br><span class="line">cp /etc/fdfs/client.conf.sample /etc/fdfs/client.conf #客户端文件，测试用</span><br><span class="line">cp /usr/local/src/fastdfs/conf/http.conf /etc/fdfs/ #供nginx访问使用</span><br><span class="line">cp /usr/local/src/fastdfs/conf/mime.types /etc/fdfs/ #供nginx访问使用</span><br></pre></td></tr></table></figure>
-<h3 id="安装fastdfs-nginx-module"><a href="#安装fastdfs-nginx-module" class="headerlink" title="安装fastdfs-nginx-module"></a>安装fastdfs-nginx-module</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ../ #返回上一级目录</span><br><span class="line">git clone https://github.com/happyfish100/fastdfs-nginx-module.git --depth 1</span><br><span class="line">cp /usr/local/src/fastdfs-nginx-module/src/mod_fastdfs.conf /etc/fdfs</span><br></pre></td></tr></table></figure>
-<h3 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget http://nginx.org/download/nginx-1.15.4.tar.gz #下载nginx压缩包</span><br><span class="line">tar -zxvf nginx-1.15.4.tar.gz #解压</span><br><span class="line">cd nginx-1.15.4/</span><br><span class="line">#添加fastdfs-nginx-module模块</span><br><span class="line">./configure --add-module=/usr/local/src/fastdfs-nginx-module/src/ </span><br><span class="line">make &amp;&amp; make install #编译安装</span><br></pre></td></tr></table></figure>
-<h2 id="单机部署"><a href="#单机部署" class="headerlink" title="单机部署"></a>单机部署</h2><hr>
+<pre><code>mkdir /home/dfs #创建数据存储目录
+cd /usr/local/src #切换到安装目录准备下载安装包
+</code></pre><h3 id="安装libfatscommon"><a href="#安装libfatscommon" class="headerlink" title="安装libfatscommon"></a>安装libfatscommon</h3><hr>
+<pre><code>git clone https://github.com/happyfish100/libfastcommon.git --depth 1
+cd libfastcommon/
+./make.sh &amp;&amp; ./make.sh install #编译安装
+</code></pre><h3 id="安装FastDFS"><a href="#安装FastDFS" class="headerlink" title="安装FastDFS"></a>安装FastDFS</h3><hr>
+<pre><code>cd ../ #返回上一级目录
+git clone https://github.com/happyfish100/fastdfs.git --depth 1
+cd fastdfs/
+./make.sh &amp;&amp; ./make.sh install #编译安装
+#配置文件准备
+cp /etc/fdfs/tracker.conf.sample /etc/fdfs/tracker.conf
+cp /etc/fdfs/storage.conf.sample /etc/fdfs/storage.conf
+cp /etc/fdfs/client.conf.sample /etc/fdfs/client.conf #客户端文件，测试用
+cp /usr/local/src/fastdfs/conf/http.conf /etc/fdfs/ #供nginx访问使用
+cp /usr/local/src/fastdfs/conf/mime.types /etc/fdfs/ #供nginx访问使用
+</code></pre><h3 id="安装fastdfs-nginx-module"><a href="#安装fastdfs-nginx-module" class="headerlink" title="安装fastdfs-nginx-module"></a>安装fastdfs-nginx-module</h3><hr>
+<pre><code>cd ../ #返回上一级目录
+git clone https://github.com/happyfish100/fastdfs-nginx-module.git --depth 1
+cp /usr/local/src/fastdfs-nginx-module/src/mod_fastdfs.conf /etc/fdfs
+</code></pre><h3 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><hr>
+<pre><code>wget http://nginx.org/download/nginx-1.15.4.tar.gz #下载nginx压缩包
+tar -zxvf nginx-1.15.4.tar.gz #解压
+cd nginx-1.15.4/
+#添加fastdfs-nginx-module模块
+./configure --add-module=/usr/local/src/fastdfs-nginx-module/src/ 
+make &amp;&amp; make install #编译安装
+</code></pre><h2 id="单机部署"><a href="#单机部署" class="headerlink" title="单机部署"></a>单机部署</h2><hr>
 <h3 id="tracker配置"><a href="#tracker配置" class="headerlink" title="tracker配置"></a>tracker配置</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#服务器ip为 192.168.52.1</span><br><span class="line">#我建议用ftp下载下来这些文件 本地修改</span><br><span class="line">vim /etc/fdfs/tracker.conf</span><br><span class="line">#需要修改的内容如下</span><br><span class="line">port=22122  # tracker服务器端口（默认22122,一般不修改）</span><br><span class="line">base_path=/home/dfs  # 存储日志和数据的根目录</span><br></pre></td></tr></table></figure>
-<h3 id="storage配置"><a href="#storage配置" class="headerlink" title="storage配置"></a>storage配置</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/fdfs/storage.conf</span><br><span class="line">#需要修改的内容如下</span><br><span class="line">port=23000  # storage服务端口（默认23000,一般不修改）</span><br><span class="line">base_path=/home/dfs  # 数据和日志文件存储根目录</span><br><span class="line">store_path0=/home/dfs  # 第一个存储目录</span><br><span class="line">tracker_server=192.168.52.1:22122  # tracker服务器IP和端口</span><br><span class="line">http.server_port=8888  # http访问文件的端口(默认8888,看情况修改,和nginx中保持一致)</span><br></pre></td></tr></table></figure>
-<h3 id="client测试"><a href="#client测试" class="headerlink" title="client测试"></a>client测试</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/fdfs/client.conf</span><br><span class="line">#需要修改的内容如下</span><br><span class="line">base_path=/home/dfs</span><br><span class="line">tracker_server=192.168.52.1:22122    #tracker服务器IP和端口</span><br><span class="line">#保存后测试,返回ID表示成功 如：group1/M00/00/00/xx.tar.gz</span><br><span class="line">fdfs_upload_file /etc/fdfs/client.conf /usr/local/src/nginx-1.15.4.tar.gz</span><br></pre></td></tr></table></figure>
-<h3 id="配置nginx访问"><a href="#配置nginx访问" class="headerlink" title="配置nginx访问"></a>配置nginx访问</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/fdfs/mod_fastdfs.conf</span><br><span class="line">#需要修改的内容如下</span><br><span class="line">tracker_server=192.168.52.1:22122  #tracker服务器IP和端口</span><br><span class="line">url_have_group_name=true</span><br><span class="line">store_path0=/home/dfs</span><br><span class="line">#配置nginx.config</span><br><span class="line">vim /usr/local/nginx/conf/nginx.conf</span><br><span class="line">#添加如下配置</span><br><span class="line">server &#123;</span><br><span class="line">    listen       8888;    ## 该端口为storage.conf中的http.server_port相同</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    location ~/group[0-9]/ &#123;</span><br><span class="line">        ngx_fastdfs_module;</span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">    root   html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">#测试下载，用外部浏览器访问刚才已传过的nginx安装包,引用返回的ID</span><br><span class="line">http://192.168.52.1:8888/group1/M00/00/00/wKgAQ1pysxmAaqhAAA76tz-dVgg.tar.gz</span><br><span class="line">#弹出下载单机部署全部跑通</span><br></pre></td></tr></table></figure>
-<h2 id="分布式部署"><a href="#分布式部署" class="headerlink" title="分布式部署"></a>分布式部署</h2><hr>
+<pre><code>#服务器ip为 192.168.52.1
+#我建议用ftp下载下来这些文件 本地修改
+vim /etc/fdfs/tracker.conf
+#需要修改的内容如下
+port=22122  # tracker服务器端口（默认22122,一般不修改）
+base_path=/home/dfs  # 存储日志和数据的根目录
+</code></pre><h3 id="storage配置"><a href="#storage配置" class="headerlink" title="storage配置"></a>storage配置</h3><hr>
+<pre><code>vim /etc/fdfs/storage.conf
+#需要修改的内容如下
+port=23000  # storage服务端口（默认23000,一般不修改）
+base_path=/home/dfs  # 数据和日志文件存储根目录
+store_path0=/home/dfs  # 第一个存储目录
+tracker_server=192.168.52.1:22122  # tracker服务器IP和端口
+http.server_port=8888  # http访问文件的端口(默认8888,看情况修改,和nginx中保持一致)
+</code></pre><h3 id="client测试"><a href="#client测试" class="headerlink" title="client测试"></a>client测试</h3><hr>
+<pre><code>vim /etc/fdfs/client.conf
+#需要修改的内容如下
+base_path=/home/dfs
+tracker_server=192.168.52.1:22122    #tracker服务器IP和端口
+#保存后测试,返回ID表示成功 如：group1/M00/00/00/xx.tar.gz
+fdfs_upload_file /etc/fdfs/client.conf /usr/local/src/nginx-1.15.4.tar.gz
+</code></pre><h3 id="配置nginx访问"><a href="#配置nginx访问" class="headerlink" title="配置nginx访问"></a>配置nginx访问</h3><hr>
+<pre><code>vim /etc/fdfs/mod_fastdfs.conf
+#需要修改的内容如下
+tracker_server=192.168.52.1:22122  #tracker服务器IP和端口
+url_have_group_name=true
+store_path0=/home/dfs
+#配置nginx.config
+vim /usr/local/nginx/conf/nginx.conf
+#添加如下配置
+server {
+    listen       8888;    ## 该端口为storage.conf中的http.server_port相同
+    server_name  localhost;
+    location ~/group[0-9]/ {
+        ngx_fastdfs_module;
+    }
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+    root   html;
+    }
+}
+#测试下载，用外部浏览器访问刚才已传过的nginx安装包,引用返回的ID
+http://192.168.52.1:8888/group1/M00/00/00/wKgAQ1pysxmAaqhAAA76tz-dVgg.tar.gz
+#弹出下载单机部署全部跑通
+</code></pre><h2 id="分布式部署"><a href="#分布式部署" class="headerlink" title="分布式部署"></a>分布式部署</h2><hr>
 <h3 id="tracker配置-1"><a href="#tracker配置-1" class="headerlink" title="tracker配置"></a>tracker配置</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#服务器ip为 192.168.52.2,192.168.52.3,192.168.52.4</span><br><span class="line">#我建议用ftp下载下来这些文件 本地修改</span><br><span class="line">vim /etc/fdfs/tracker.conf</span><br><span class="line">#需要修改的内容如下</span><br><span class="line">port=22122  # tracker服务器端口（默认22122,一般不修改）</span><br><span class="line">base_path=/home/dfs  # 存储日志和数据的根目录</span><br></pre></td></tr></table></figure>
-<h3 id="storage配置-1"><a href="#storage配置-1" class="headerlink" title="storage配置"></a>storage配置</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/fdfs/storage.conf</span><br><span class="line">#需要修改的内容如下</span><br><span class="line">port=23000  # storage服务端口（默认23000,一般不修改）</span><br><span class="line">base_path=/home/dfs  # 数据和日志文件存储根目录</span><br><span class="line">store_path0=/home/dfs  # 第一个存储目录</span><br><span class="line">tracker_server=192.168.52.2:22122  # 服务器1</span><br><span class="line">tracker_server=192.168.52.3:22122  # 服务器2</span><br><span class="line">tracker_server=192.168.52.4:22122  # 服务器3</span><br><span class="line">http.server_port=8888  # http访问文件的端口(默认8888,看情况修改,和nginx中保持一致)</span><br></pre></td></tr></table></figure>
-<h3 id="client测试-1"><a href="#client测试-1" class="headerlink" title="client测试"></a>client测试</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/fdfs/client.conf</span><br><span class="line">#需要修改的内容如下</span><br><span class="line">base_path=/home/moe/dfs</span><br><span class="line">tracker_server=192.168.52.2:22122  # 服务器1</span><br><span class="line">tracker_server=192.168.52.3:22122  # 服务器2</span><br><span class="line">tracker_server=192.168.52.4:22122  # 服务器3</span><br><span class="line">#保存后测试,返回ID表示成功 如：group1/M00/00/00/xx.tar.gz</span><br><span class="line">fdfs_upload_file /etc/fdfs/client.conf /usr/local/src/nginx-1.15.4.tar.gz</span><br></pre></td></tr></table></figure>
-<h2 id="配置nginx访问-1"><a href="#配置nginx访问-1" class="headerlink" title="配置nginx访问"></a>配置nginx访问</h2><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/fdfs/mod_fastdfs.conf</span><br><span class="line">#需要修改的内容如下</span><br><span class="line">tracker_server=192.168.52.2:22122  # 服务器1</span><br><span class="line">tracker_server=192.168.52.3:22122  # 服务器2</span><br><span class="line">tracker_server=192.168.52.4:22122  # 服务器3</span><br><span class="line">url_have_group_name=true</span><br><span class="line">store_path0=/home/dfs</span><br><span class="line">#配置nginx.config</span><br><span class="line">vim /usr/local/nginx/conf/nginx.conf</span><br><span class="line">#添加如下配置</span><br><span class="line">server &#123;</span><br><span class="line">    listen       8888;    ## 该端口为storage.conf中的http.server_port相同</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    location ~/group[0-9]/ &#123;</span><br><span class="line">        ngx_fastdfs_module;</span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">    root   html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><hr>
+<pre><code>
+#服务器ip为 192.168.52.2,192.168.52.3,192.168.52.4
+#我建议用ftp下载下来这些文件 本地修改
+vim /etc/fdfs/tracker.conf
+#需要修改的内容如下
+port=22122  # tracker服务器端口（默认22122,一般不修改）
+base_path=/home/dfs  # 存储日志和数据的根目录
+</code></pre><h3 id="storage配置-1"><a href="#storage配置-1" class="headerlink" title="storage配置"></a>storage配置</h3><hr>
+<pre><code>vim /etc/fdfs/storage.conf
+#需要修改的内容如下
+port=23000  # storage服务端口（默认23000,一般不修改）
+base_path=/home/dfs  # 数据和日志文件存储根目录
+store_path0=/home/dfs  # 第一个存储目录
+tracker_server=192.168.52.2:22122  # 服务器1
+tracker_server=192.168.52.3:22122  # 服务器2
+tracker_server=192.168.52.4:22122  # 服务器3
+http.server_port=8888  # http访问文件的端口(默认8888,看情况修改,和nginx中保持一致)
+</code></pre><h3 id="client测试-1"><a href="#client测试-1" class="headerlink" title="client测试"></a>client测试</h3><hr>
+<pre><code>vim /etc/fdfs/client.conf
+#需要修改的内容如下
+base_path=/home/moe/dfs
+tracker_server=192.168.52.2:22122  # 服务器1
+tracker_server=192.168.52.3:22122  # 服务器2
+tracker_server=192.168.52.4:22122  # 服务器3
+#保存后测试,返回ID表示成功 如：group1/M00/00/00/xx.tar.gz
+fdfs_upload_file /etc/fdfs/client.conf /usr/local/src/nginx-1.15.4.tar.gz
+</code></pre><h2 id="配置nginx访问-1"><a href="#配置nginx访问-1" class="headerlink" title="配置nginx访问"></a>配置nginx访问</h2><hr>
+<pre><code>vim /etc/fdfs/mod_fastdfs.conf
+#需要修改的内容如下
+tracker_server=192.168.52.2:22122  # 服务器1
+tracker_server=192.168.52.3:22122  # 服务器2
+tracker_server=192.168.52.4:22122  # 服务器3
+url_have_group_name=true
+store_path0=/home/dfs
+#配置nginx.config
+vim /usr/local/nginx/conf/nginx.conf
+#添加如下配置
+server {
+    listen       8888;    ## 该端口为storage.conf中的http.server_port相同
+    server_name  localhost;
+    location ~/group[0-9]/ {
+        ngx_fastdfs_module;
+    }
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+    root   html;
+    }
+}
+</code></pre><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><hr>
 <h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#不关闭防火墙的话无法使用</span><br><span class="line">systemctl stop firewalld.service #关闭</span><br><span class="line">systemctl restart firewalld.service #重启</span><br></pre></td></tr></table></figure>
-<h3 id="tracker"><a href="#tracker" class="headerlink" title="tracker"></a>tracker</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/fdfs_trackerd start #启动tracker服务</span><br><span class="line">/etc/init.d/fdfs_trackerd restart #重启动tracker服务</span><br><span class="line">/etc/init.d/fdfs_trackerd stop #停止tracker服务</span><br><span class="line">chkconfig fdfs_trackerd on #自启动tracker服务</span><br></pre></td></tr></table></figure>
-<h3 id="storage"><a href="#storage" class="headerlink" title="storage"></a>storage</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/fdfs_storaged start #启动storage服务</span><br><span class="line">/etc/init.d/fdfs_storaged restart #重动storage服务</span><br><span class="line">/etc/init.d/fdfs_storaged stop #停止动storage服务</span><br><span class="line">chkconfig fdfs_storaged on #自启动storage服务</span><br></pre></td></tr></table></figure>
-<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx #启动nginx</span><br><span class="line">/usr/local/nginx/sbin/nginx -s reload #重启nginx</span><br><span class="line">/usr/local/nginx/sbin/nginx -s stop #停止nginx</span><br></pre></td></tr></table></figure>
-<h2 id="检测集群"><a href="#检测集群" class="headerlink" title="检测集群"></a>检测集群</h2><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/fdfs_monitor /etc/fdfs/storage.conf</span><br><span class="line"># 会显示会有几台服务器 有3台就会 显示 Storage 1-Storage 3的详细信息</span><br></pre></td></tr></table></figure>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><hr>
+<pre><code>#不关闭防火墙的话无法使用
+systemctl stop firewalld.service #关闭
+systemctl restart firewalld.service #重启
+</code></pre><h3 id="tracker"><a href="#tracker" class="headerlink" title="tracker"></a>tracker</h3><hr>
+<pre><code>/etc/init.d/fdfs_trackerd start #启动tracker服务
+/etc/init.d/fdfs_trackerd restart #重启动tracker服务
+/etc/init.d/fdfs_trackerd stop #停止tracker服务
+chkconfig fdfs_trackerd on #自启动tracker服务
+</code></pre><h3 id="storage"><a href="#storage" class="headerlink" title="storage"></a>storage</h3><hr>
+<pre><code>/etc/init.d/fdfs_storaged start #启动storage服务
+/etc/init.d/fdfs_storaged restart #重动storage服务
+/etc/init.d/fdfs_storaged stop #停止动storage服务
+chkconfig fdfs_storaged on #自启动storage服务
+</code></pre><h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><hr>
+<pre><code>/usr/local/nginx/sbin/nginx #启动nginx
+/usr/local/nginx/sbin/nginx -s reload #重启nginx
+/usr/local/nginx/sbin/nginx -s stop #停止nginx
+</code></pre><h2 id="检测集群"><a href="#检测集群" class="headerlink" title="检测集群"></a>检测集群</h2><hr>
+<pre><code>/usr/bin/fdfs_monitor /etc/fdfs/storage.conf
+# 会显示会有几台服务器 有3台就会 显示 Storage 1-Storage 3的详细信息
+</code></pre><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><hr>
 <h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tracker_server #有几台服务器写几个</span><br><span class="line">group_name #地址的名称的命名</span><br><span class="line">bind_addr #服务器ip绑定</span><br><span class="line">store_path_count #store_path(数字)有几个写几个</span><br><span class="line">store_path(数字) #设置几个储存地址写几个 从0开始</span><br></pre></td></tr></table></figure>
-<h2 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h2><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">如果不是root 用户 你必须在除了cd的命令之外 全部加sudo</span><br><span class="line">如果不是root 用户 编译和安装分开进行 先编译再安装</span><br><span class="line">如果上传成功 但是nginx报错404 先检查mod_fastdfs.conf文件中的store_path0是否一致</span><br><span class="line">如果nginx无法访问 先检查防火墙 和 mod_fastdfs.conf文件tracker_server是否一致</span><br><span class="line">如果不是在/usr/local/src文件夹下安装 可能会编译出错</span><br></pre></td></tr></table></figure>
-
-                
-<p class="pink-link-context">
-    <a href="/2019/05/08/qt-TCP-UDP-多线程笔记/" rel="next" title="qt TCP UDP-多线程笔记">
-    上一篇：qt TCP UDP-多线程笔记
-  </a>
-</p>
-
-
-
-<p class="pink-link-context">
-    <a href="/2019/05/03/java集合详解/" rel="next" title="java集合详解">
-    下一篇：java集合详解
-  </a>
-</p>
-
-
+<pre><code>tracker_server #有几台服务器写几个
+group_name #地址的名称的命名
+bind_addr #服务器ip绑定
+store_path_count #store_path(数字)有几个写几个
+store_path(数字) #设置几个储存地址写几个 从0开始
+</code></pre><h2 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h2><hr>
+<pre><code>如果不是root 用户 你必须在除了cd的命令之外 全部加sudo
+如果不是root 用户 编译和安装分开进行 先编译再安装
+如果上传成功 但是nginx报错404 先检查mod_fastdfs.conf文件中的store_path0是否一致
+如果nginx无法访问 先检查防火墙 和 mod_fastdfs.conf文件tracker_server是否一致
+如果不是在/usr/local/src文件夹下安装 可能会编译出错
+</code></pre>
             </div>
-			
+            
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<!--
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+-->
+<script src="/libs/share/js/social-share.min.js"></script>
+
+
+            
+
+
         </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/05/08/qt-TCP-UDP-多线程笔记/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="qt TCP UDP-多线程笔记">
+                        
+                        <span class="card-title">qt TCP UDP-多线程笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            qt TCP UDP 多线程解决并发思路TCP解决思路
+目的：每一个客户端连接都需要QTCPSocket开辟一条新的线程
+解决方法：
+
+分别继承QTCPServer和QTCPSocket来分别实现Server和Socket（我这里是mTCP
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-08
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/c/" class="post-category" target="_blank">
+                                    c++
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/qt/" target="_blank">
+                        <span class="chip bg-color">qt</span>
+                    </a>
+                    
+                    <a href="/tags/TCP-UDP/" target="_blank">
+                        <span class="chip bg-color">TCP UDP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/05/03/java集合详解/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="java集合详解">
+                        
+                        <span class="card-title">java集合详解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+这里我们分析Collection和Map大图查看详情
+
+javaCollection的分析Collection是在java.util里面
+
+
+集合里面是一定是存放对象的，不能存放基本数据类型，像是int,也是先转换成Integer然后在放
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/javaSE/" class="post-category" target="_blank">
+                                    javaSE
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/数据结构/" target="_blank">
+                        <span class="chip bg-color">数据结构</span>
+                    </a>
+                    
+                    <a href="/tags/javase/" target="_blank">
+                        <span class="chip bg-color">javase</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
     </div>
 </article>
-
-
-
-
-
-
 </div>
 
-        <div class="fixed-action-btn float-sitemap">
-    <a class="btn-floating btn-large pink">
-      <i class="fa fa-caret-square-o-up"></i>
-    </a>
-    <ul>
-      <li><a class="btn-return-top btn-floating waves-effect green" title="回到顶部"><i class="fa fa-arrow-circle-o-up"></i></a></li>
-      <li><a class="btn-floating waves-effect button-collapse yellow darken-1" data-activates="main-menu" title="菜单"><i class="fa fa-navicon"></i></a></li>
-    </ul>
-  </div>
-
-    </main>
-    <footer class="page-footer indigo darken-1">
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
-    </script>
-    <div class="footer-copyright pink-link-context">
-        <div class="container">
-            © 2019 WHOAMI&#39;s Blog, All rights reserved.
-            <div class="right">
-                <span>
-                    <i class="fa fa-user"></i>
-                    <span class="busuanzi-value" id="busuanzi_value_site_uv">
-                    </span>
-                </span>
-                <span>&nbsp;|&nbsp;</span>
-                <span>
-                    <i class="fa fa-eye"></i>
-                    <span id="busuanzi_value_site_pv">
-                    </span>
-                </span>
-            </div>
-          <!--  <p class="right" style="margin-top: 0;"> 欢迎访问我的个人主页 <a href="https://github.com/whoami1231">WHOAMI</a></p>
-              -->
-        </div>
-
-</div></footer>
 
 
-    <noscript>
-    <div class="noscript">
-        <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
     </div>
-</noscript>
-<div class="noscript">
-    <p class="center-align">当前网速较慢或者你使用的浏览器不支持博客特定功能，请尝试刷新或换用Chrome、Firefox等现代浏览器</p>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
 </div>
 
 
-<script src="/js/jquery.min.js"></script>
-<script src="/js/materialize.min.js"></script>
-
+<script src="/libs/tocbot/tocbot.min.js"></script>
 <script>
-    (function($) {
-        $(document).ready(function() {
-            // 隐藏禁用javascript（针对微信内置浏览器）的提示
-            $('.noscript').hide();
-
-            // 图片缩放效果
-            var $imgs = $('img').not('.slider-image').not('.avatar-image').not('.carousel-image').not('.card-cover-image').not('.qrcode');
-
-            // 给图片加上点击放大效果（materialbox插件）
-            $imgs.addClass('materialboxed').each(function(i, el) {
-                $(this).attr('data-caption', $(this).attr('alt') || ' ');
-            }).materialbox();
-
-            // 优化表格的显示
-            $('table').each(function() {
-                var $table = $(this);
-                // 除去多行代码的情况
-                if ($table.find('pre').length == 0) {
-                    $table.addClass('responsive-table striped bordered');
-                }
-            });
-
-            // 首页幻灯片
-            $('.slider').slider({indicators: true, full_width: true, interval: 8000});
-
-            $(".button-collapse").sideNav();
-            $(".category-menu").sideNav();
-
-            // 针对gallery post
-            $('.carousel').carousel({full_width: true});
-            $('.carousel-control.prev').click(function() {
-                $('.carousel').carousel('prev');
-            });
-            $('.carousel-control.next').click(function() {
-                $('.carousel').carousel('next');
-            });
-
-            // 文章目录
-            $('article').not('.simple-article').find('h1').add('h2').add('h3').add('h4').add('h5').add('h6').scrollSpy();
-
-            // 目录随屏幕滚动（防止目录过长越过footer）
-            var $toc = $('.toc');
-            var scrollTargetTop = 0;
-            $(window).scroll(function() {
-                var $activeLink = $toc.find('a.active.section');
-                if ($(window).scrollTop() < 100) {
-                    scrollTargetTop = 0;
-                } else {
-                    if ($activeLink[0]) {
-                        scrollTargetTop = $activeLink.offset().top - $toc.offset().top;
-                    }
-                }
-                $toc.css('top', '-' + scrollTargetTop + 'px');
-            });
-
-            // 修正文章目录的left-border颜色
-            var color = $('.table-of-contents-text').css('color');
-            $('.table-of-contents-link').css('border-left-color', color);
-
-            // 针对移动端做的优化：FAB按钮点击一下收回
-            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                $('.fixed-action-btn').addClass('click-to-toggle');
-            }
-            // 回到顶部
-            $('.btn-return-top').click(function() {
-                $('body, html').animate({
-                    scrollTop: 0
-                }, 500);
-            });
-
-            // 重置读书页面的Tab标签页的颜色
-            $('li.tab a').hover(function() {
-                $(this).toggleClass('text-lighten-4');
-            });
-            $('.indicator').addClass('pink lighten-2');
-
-            
-            // 添加new标签
-            $('').append('<span class="new badge pink"></span>');
-            
-
-            // 搜索功能
-            $('.modal-trigger').leanModal({
-                // 打开搜索框时自动聚焦
-                ready: function() {
-                    if ($('#search').is(":visible")) {
-                        $('#search-input').focus();
-                    }
-                }
-            });
-            var searchXml = "search.xml";
-            if (searchXml.length == 0) {
-             	searchXml = "search.xml";
-            }
-            var searchPath = "/" + searchXml;
-            initSearch(searchPath, 'search-input', 'search-result');
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
         });
 
-        // 初始化搜索与匹配函数
-        var initSearch = function(path, search_id, content_id) {
-            'use strict';
-            $.ajax({
-                url: path,
-                dataType: "xml",
-                success: function(xmlResponse) {
-                    // get the contents from search data
-                    var datas = $("entry", xmlResponse).map(function() {
-                        return {
-                            title: $("title", this).text(),
-                            content: $("content", this).text(),
-                            url: $("url", this).text()
-                        };
-                    }).get();
-                    var $input = document.getElementById(search_id);
-                    var $resultContent = document.getElementById(content_id);
-                    $input.addEventListener('input', function() {
-                        var str = '<ul class=\"search-result-list\">';
-                        var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                        $resultContent.innerHTML = "";
-                        if (this.value.trim().length <= 0) {
-                            return;
-                        }
-                        // perform local searching
-                        datas.forEach(function(data) {
-                            var isMatch = true;
-                            var content_index = [];
-                            var data_title = data.title.trim().toLowerCase();
-                            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
-                            var data_url = data.url;
-                            var index_title = -1;
-                            var index_content = -1;
-                            var first_occur = -1;
-                            // only match artiles with not empty titles and contents
-                            if (data_title != '' && data_content != '') {
-                                keywords.forEach(function(keyword, i) {
-                                    index_title = data_title.indexOf(keyword);
-                                    index_content = data_content.indexOf(keyword);
-                                    if (index_title < 0 && index_content < 0) {
-                                        isMatch = false;
-                                    } else {
-                                        if (index_content < 0) {
-                                            index_content = 0;
-                                        }
-                                        if (i == 0) {
-                                            first_occur = index_content;
-                                        }
-                                    }
-                                });
-                            }
-                            // show search results
-                            if (isMatch) {
-                                keywords.forEach(function(keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    data_title = data_title.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
-                                });
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
 
-                                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                                var content = data.content.trim().replace(/<[^>]+>/g, "");
-                                if (first_occur >= 0) {
-                                    // cut out 100 characters
-                                    var start = first_occur - 20;
-                                    var end = first_occur + 80;
-                                    if (start < 0) {
-                                        start = 0;
-                                    }
-                                    if (start == 0) {
-                                        end = 100;
-                                    }
-                                    if (end > content.length) {
-                                        end = content.length;
-                                    }
-                                    var match_content = content.substring(start, end);
-                                    // highlight all keywords
-                                    keywords.forEach(function(keyword) {
-                                        var regS = new RegExp(keyword, "gi");
-                                        match_content = match_content.replace(regS, "<span class=\"search-keyword pink lighten-2\">" + keyword + "</span>");
-                                    });
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
 
-                                    str += "<p class=\"search-result\">..." + match_content + "...</p>"
-                                }
-                                str += "</li>";
-                            }
-                        });
-                        str += "</ul>";
-                        $resultContent.innerHTML = str;
-                    });
-                }
-            });
-        }
-    })(jQuery);
-</script>
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
 
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
 
-<script src="/js/prettify.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("pre").addClass("prettyprint");
-        prettyPrint();
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
     });
 </script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l10 copy-right">
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
 
-
-
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
 </body>
