@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>html自适应界面</title>
+      <link href="/2019/05/19/html%E8%87%AA%E9%80%82%E5%BA%94%E7%95%8C%E9%9D%A2/"/>
+      <url>/2019/05/19/html%E8%87%AA%E9%80%82%E5%BA%94%E7%95%8C%E9%9D%A2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="html自适应界面"><a href="#html自适应界面" class="headerlink" title="html自适应界面"></a>html自适应界面</h1><hr><p>学习过bootStarp之后，一直最自适应布局很感兴趣，尤其是BootStarp的栅格系统，所以做了一个html小demo，来记录一下自适应的过程</p><h2 id="重要的css属性-弹性盒子"><a href="#重要的css属性-弹性盒子" class="headerlink" title="重要的css属性 弹性盒子"></a>重要的css属性 弹性盒子</h2><ul><li>display:flex;</li><li>flex-wrap:wrap;</li><li>justify-content:center;</li></ul><p>接下来看一段代码</p><pre><code class="html">&lt;!-- html --&gt;&lt;div class=&quot;container&quot;&gt;  &lt;div class=&quot;service-box&quot;&gt;      &lt;div class=&quot;service-icon&quot;&gt;          &lt;i class=&quot;fa fa-window-restore&quot;&gt;&lt;/i&gt;        &lt;/div&gt;      &lt;div class=&quot;service-title&quot;&gt;          &lt;span&gt;网站商品管理&lt;/span&gt;      &lt;/div&gt;      &lt;div class=&quot;service-desc&quot;&gt;          &lt;span&gt;这是管理网站所有商品功能，在这里可以管理用户上架的所有商品&lt;/span&gt;      &lt;/div&gt;  &lt;/div&gt;&lt;/div&gt;&lt;!-- css --&gt;&lt;style&gt;.container{  display: flex;  flex-wrap: wrap;  justify-content: center;}.service-box{  max-width: 33.33%;  padding: 10px;  text-align: center;  cursor: pointer;}&lt;/style&gt;</code></pre><p>这是没有加弹性盒子的效果<br><img src="https://s2.ax1x.com/2019/05/19/EjiQln.png" alt></p><p>这是加了弹性盒子的效果 [注意:这里截图的时候屏幕尺寸小于960px]<br><img src="https://s2.ax1x.com/2019/05/19/EjiiQI.png" alt></p><p><strong>分析原因</strong><br>在我看来,这个弹性盒子其实就是让子类可以像是block一样排列起来,并且子类的max-width的百分比决定着他们一排能排几个</p><h2 id="重要的属性-media-and-screen-max-width-960px"><a href="#重要的属性-media-and-screen-max-width-960px" class="headerlink" title="重要的属性 @media and screen(max-width:960px)"></a>重要的属性 @media and screen(max-width:960px)</h2><p>这个语句的意思是 如果屏幕尺寸小于960px那么就执行下面的代码</p><blockquote><p>这个语句由一个前提,那就是这一定是个html:5文件</p></blockquote><pre><code class="html">&lt;!-- html5 必须的属性 --&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code></pre><p>下面看一下实例</p><p>承接上面的css代码</p><pre><code class="css">@media screen and (max-width:960px) {  .service-box{    max-width: 45%;  }}</code></pre><p>因为盒子最大是占据45%,也就是一行只能两行,就能看到上面的图的情况,正常来说,如果用电脑打开那个网页的话,一行会出现三个盒子的</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自适应 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>ps改变图片特定颜色</title>
       <link href="/2019/05/18/ps%E6%94%B9%E5%8F%98%E5%9B%BE%E7%89%87%E7%89%B9%E5%AE%9A%E9%A2%9C%E8%89%B2/"/>
       <url>/2019/05/18/ps%E6%94%B9%E5%8F%98%E5%9B%BE%E7%89%87%E7%89%B9%E5%AE%9A%E9%A2%9C%E8%89%B2/</url>
@@ -179,7 +204,7 @@
       <link href="/2019/05/09/java%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/"/>
       <url>/2019/05/09/java%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>这一个文章单纯的是常见的一些编程思想的总结</p></blockquote><a id="more"></a><p><strong>让一个变量重复的 非零即一</strong></p><pre><code class="java">nt test = 1;test = test %2;</code></pre><p><strong>取三个数中间值</strong></p><pre><code class="java">if ((b - a) * (a - c) &gt;= 0) { //如果a是中间数的话 b-a 和 a-c一定是相反数            return a;} else if ((a - b) * (b - c) &gt;= 0) {        return b;} else {        return c;}</code></pre><p> <strong>循环队列</strong></p><pre><code class="java">//加入一个队列rear有固定的空间，我现在让他循环存储可以用取模算法rear = (rear +1)%MAX</code></pre><p><strong>数据库分表</strong></p><p>假如现在有非常多数据，需要让他们放到不同的表中，可以用到取模算法</p><p>比如  我们有三个表， 在我们知道需要插入的具体id的时候，id%3就是他要存的表。</p>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>这一个文章单纯的是常见的一些编程思想的总结</p></blockquote><a id="more"></a><p><strong>让一个变量重复的 非零即一</strong></p><pre><code class="java">nt test = 1;test = test %2;</code></pre><p><strong>取三个数中间值</strong></p><pre><code class="java">if ((b - a) * (a - c) &gt;= 0) { //如果a是中间数的话 b-a 和 a-c一定是相反数            return a;} else if ((a - b) * (b - c) &gt;= 0) {        return b;} else {        return c;}</code></pre><p> <strong>循环队列</strong></p><pre><code class="java">//加入一个队列rear有固定的空间，我现在让他循环存储可以用取模算法rear = (rear +1)%MAX</code></pre><p><strong>数据库分表</strong></p><p>假如现在有非常多数据，需要让他们放到不同的表中，可以用到取模算法</p><p>比如  我们有三个表， 在我们知道需要插入的具体id的时候，id%3就是他要存的表。</p><p><strong>判断是否是奇数</strong></p><p>我们通常用的是取模算法，但是还有一种是位与算法</p><pre><code class="java">if(n&amp;1 == 1){    //n就是奇数}</code></pre>]]></content>
       
       
       <categories>
