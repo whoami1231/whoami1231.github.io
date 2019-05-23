@@ -4,12 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="html自适应界面, 逝痕">
-    <meta name="description" content="html自适应界面
-学习过bootStarp之后，一直最自适应布局很感兴趣，尤其是BootStarp的栅格系统，所以做了一个html小demo，来记录一下自适应的过程
-重要的css属性 弹性盒子
-display:flex;
-flex-wra">
+    <meta name="keywords" content="java.io知识点整理, 逝痕">
+    <meta name="description" content="java io 流的一些知识点整理
+java流类图总结
+
+字节流和字符流的区别字节流处理的是二进制文件，也就是说,二进制文件什么也能处理，比如文字和图片视频什么的。而字符流则只能处理文本类型，但是它可以处理编码问题，例如我们的字节流读取出来">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +16,7 @@ flex-wra">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>html自适应界面 | 逝痕</title>
+    <title>java.io知识点整理 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -252,13 +251,13 @@ flex-wra">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        html自适应界面
+                        java.io知识点整理
                     </div>
                 </div>
             </div>
@@ -369,8 +368,8 @@ flex-wra">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/自适应/" target="_blank">
-                                <span class="chip bg-color">自适应</span>
+                            <a href="/tags/javaSE/" target="_blank">
+                                <span class="chip bg-color">javaSE</span>
                             </a>
                         
                     </div>
@@ -381,8 +380,8 @@ flex-wra">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/前端/" class="post-category" target="_blank">
-                                前端
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                java
                             </a>
                         
                     </div>
@@ -393,7 +392,7 @@ flex-wra">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-05-19
+                    2019-05-23
                 </div>
 
                 
@@ -409,63 +408,34 @@ flex-wra">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="html自适应界面"><a href="#html自适应界面" class="headerlink" title="html自适应界面"></a>html自适应界面</h1><hr>
-<p>学习过bootStarp之后，一直最自适应布局很感兴趣，尤其是BootStarp的栅格系统，所以做了一个html小demo，来记录一下自适应的过程</p>
-<h2 id="重要的css属性-弹性盒子"><a href="#重要的css属性-弹性盒子" class="headerlink" title="重要的css属性 弹性盒子"></a>重要的css属性 弹性盒子</h2><ul>
-<li>display:flex;</li>
-<li>flex-wrap:wrap;</li>
-<li>justify-content:center;</li>
-</ul>
-<p>接下来看一段代码</p>
-<pre><code class="html">&lt;!-- html --&gt;
-&lt;div class=&quot;container&quot;&gt;
-  &lt;div class=&quot;service-box&quot;&gt;
-      &lt;div class=&quot;service-icon&quot;&gt;
-          &lt;i class=&quot;fa fa-window-restore&quot;&gt;&lt;/i&gt;
-        &lt;/div&gt;
-      &lt;div class=&quot;service-title&quot;&gt;
-          &lt;span&gt;网站商品管理&lt;/span&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;service-desc&quot;&gt;
-          &lt;span&gt;这是管理网站所有商品功能，在这里可以管理用户上架的所有商品&lt;/span&gt;
-      &lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;!-- css --&gt;
-&lt;style&gt;
-.container{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.service-box{
-  max-width: 33.33%;
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
-}
-&lt;/style&gt;
-</code></pre>
-<p>这是没有加弹性盒子的效果<br><img src="https://s2.ax1x.com/2019/05/19/EjiQln.png" alt></p>
-<p>这是加了弹性盒子的效果 [注意:这里截图的时候屏幕尺寸小于960px]<br><img src="https://s2.ax1x.com/2019/05/19/EjiiQI.png" alt></p>
-<p><strong>分析原因</strong><br>在我看来,这个弹性盒子其实就是让子类可以像是block一样排列起来,并且子类的max-width的百分比决定着他们一排能排几个</p>
-<h2 id="重要的属性-media-and-screen-max-width-960px"><a href="#重要的属性-media-and-screen-max-width-960px" class="headerlink" title="重要的属性 @media and screen(max-width:960px)"></a>重要的属性 @media and screen(max-width:960px)</h2><p>这个语句的意思是 如果屏幕尺寸小于960px那么就执行下面的代码</p>
+                <h1 id="java-io-流的一些知识点整理"><a href="#java-io-流的一些知识点整理" class="headerlink" title="java io 流的一些知识点整理"></a>java io 流的一些知识点整理</h1><hr>
+<h2 id="java流类图总结"><a href="#java流类图总结" class="headerlink" title="java流类图总结"></a>java流类图总结</h2><p><img src="https://s2.ax1x.com/2019/05/23/VPsDmt.png" alt></p>
+<a id="more"></a>
+<h2 id="字节流和字符流的区别"><a href="#字节流和字符流的区别" class="headerlink" title="字节流和字符流的区别"></a>字节流和字符流的区别</h2><p>字节流处理的是二进制文件，也就是说,二进制文件什么也能处理，比如文字和图片视频什么的。<br>而字符流则只能处理文本类型，但是它可以处理编码问题，例如我们的字节流读取出来的文件是乱码的，就是因为文件的编码问题。</p>
 <blockquote>
-<p>这个语句由一个前提,那就是这一定是个html:5文件</p>
+<p>下面是一个读取中文文本的样例。</p>
 </blockquote>
-<pre><code class="html">&lt;!-- html5 必须的属性 --&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+<pre><code class="java">public static void main(String args[]){
+        int b; //这里的默认值是0
+        try {
+          //这里的f变量是为了后面建立char[]数组读取文件大小
+            File f = new File(&quot;D:\\\\test.txt&quot;);
+            //创建字符流
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(f),&quot;GBK&quot;);
+            //建立buf ,注意，如果文件中有中文的话，这里的buf里面会多建立空间，因为中文占两个字节空间
+            char[] buf = new char[(int) f.length()];
+            int len = isr.read(buf);
+            String rs = new String(buf,0,len);
+            System.out.println(new StringBuffer(rs).reverse());
+            isr.close();
+        }
+        catch (Exception e) {
+            System.out.println(&quot;出错了，原因是：&quot;);
+            System.out.println (e.toString());
+        }
+
+    }
 </code></pre>
-<p>下面看一下实例</p>
-<p>承接上面的css代码</p>
-<pre><code class="css">@media screen and (max-width:960px) {
-  .service-box{
-    max-width: 45%;
-  }
-}
-</code></pre>
-<p>因为盒子最大是占据45%,也就是一行只能两行,就能看到上面的图的情况,正常来说,如果用电脑打开那个网页的话,一行会出现三个盒子的</p>
 
             </div>
             
@@ -507,7 +477,8 @@ flex-wra">
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/05/23/java-io知识点整理/">
                     <div class="card-image">
@@ -528,9 +499,9 @@ java流类图总结
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-23
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-23
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -543,6 +514,7 @@ java流类图总结
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -561,44 +533,35 @@ java流类图总结
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/05/18/ps改变图片特定颜色/">
+                <a href="/2019/05/19/html自适应界面/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="ps改变图片特定颜色">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="html自适应界面">
                         
-                        <span class="card-title">ps改变图片特定颜色</span>
+                        <span class="card-title">html自适应界面</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            ps改变图片特定颜色
-
-首先我们看一下我们的原图片，对没错是看门狗的图片
-
-
-需求现在我们需要吧这个图片修改一下：
-
-删除图片上面的白边
-将背景色换成透明
-将中间白色logo变成黑色
-改变图片分辨率为200*200
-
-做法
-打开ps后Ctr
+                            html自适应界面
+学习过bootStarp之后，一直最自适应布局很感兴趣，尤其是BootStarp的栅格系统，所以做了一个html小demo，来记录一下自适应的过程
+重要的css属性 弹性盒子
+display:flex;
+flex-wra
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-18
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-19
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Photoshop/" class="post-category" target="_blank">
-                                    Photoshop
+                            <a href="/categories/前端/" class="post-category" target="_blank">
+                                    前端
                                 </a>
                             
                             
@@ -608,8 +571,8 @@ java流类图总结
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Photoshop/" target="_blank">
-                        <span class="chip bg-color">Photoshop</span>
+                    <a href="/tags/自适应/" target="_blank">
+                        <span class="chip bg-color">自适应</span>
                     </a>
                     
                 </div>

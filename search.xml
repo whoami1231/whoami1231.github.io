@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>java.io知识点整理</title>
+      <link href="/2019/05/23/java-io%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/"/>
+      <url>/2019/05/23/java-io%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="java-io-流的一些知识点整理"><a href="#java-io-流的一些知识点整理" class="headerlink" title="java io 流的一些知识点整理"></a>java io 流的一些知识点整理</h1><hr><h2 id="java流类图总结"><a href="#java流类图总结" class="headerlink" title="java流类图总结"></a>java流类图总结</h2><p><img src="https://s2.ax1x.com/2019/05/23/VPsDmt.png" alt></p><a id="more"></a><h2 id="字节流和字符流的区别"><a href="#字节流和字符流的区别" class="headerlink" title="字节流和字符流的区别"></a>字节流和字符流的区别</h2><p>字节流处理的是二进制文件，也就是说,二进制文件什么也能处理，比如文字和图片视频什么的。<br>而字符流则只能处理文本类型，但是它可以处理编码问题，例如我们的字节流读取出来的文件是乱码的，就是因为文件的编码问题。</p><blockquote><p>下面是一个读取中文文本的样例。</p></blockquote><pre><code class="java">public static void main(String args[]){        int b; //这里的默认值是0        try {          //这里的f变量是为了后面建立char[]数组读取文件大小            File f = new File(&quot;D:\\\\test.txt&quot;);            //创建字符流            InputStreamReader isr = new InputStreamReader(new FileInputStream(f),&quot;GBK&quot;);            //建立buf ,注意，如果文件中有中文的话，这里的buf里面会多建立空间，因为中文占两个字节空间            char[] buf = new char[(int) f.length()];            int len = isr.read(buf);            String rs = new String(buf,0,len);            System.out.println(new StringBuffer(rs).reverse());            isr.close();        }        catch (Exception e) {            System.out.println(&quot;出错了，原因是：&quot;);            System.out.println (e.toString());        }    }</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> javaSE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>html自适应界面</title>
       <link href="/2019/05/19/html%E8%87%AA%E9%80%82%E5%BA%94%E7%95%8C%E9%9D%A2/"/>
       <url>/2019/05/19/html%E8%87%AA%E9%80%82%E5%BA%94%E7%95%8C%E9%9D%A2/</url>
@@ -148,25 +173,6 @@
             <tag> linux </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>java Math包详解</title>
-      <link href="/2019/05/12/java-Math%E5%8C%85%E8%AF%A6%E8%A7%A3/"/>
-      <url>/2019/05/12/java-Math%E5%8C%85%E8%AF%A6%E8%A7%A3/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> javaSE </category>
-          
-      </categories>
-      
       
     </entry>
     
@@ -793,6 +799,17 @@
     
     
     <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -807,17 +824,6 @@
       <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
