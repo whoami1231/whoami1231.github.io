@@ -4,19 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="centos7安装solr服务, 逝痕">
-    <meta name="description" content="centos7 下安装solr服务1. 安装java环境
-
-将jdk扔到linux下，解压
-
-修改环境变量
-
-
-# 打开配置文件
-vim /etc/profile 
-
-# 在文件末尾添加
-JAVA_HOME=/usr/local/java/">
+    <meta name="keywords" content="java8中Optional的使用, 逝痕">
+    <meta name="description" content="java8中Optional的使用
+我们在之前的业务开发中，有时候会遇到搜查结果为空的情况，但是返回Null的时候，我们就必须要判断一下是否为null,如果是的话要么throw一个异常或者别的什么操作，例如账号登陆失败的时候。
+这样显得代码">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -24,7 +15,7 @@ JAVA_HOME=/usr/local/java/">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>centos7安装solr服务 | 逝痕</title>
+    <title>java8中Optional的使用 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,13 +250,13 @@ JAVA_HOME=/usr/local/java/">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        centos7安装solr服务
+                        java8中Optional的使用
                     </div>
                 </div>
             </div>
@@ -376,16 +367,8 @@ JAVA_HOME=/usr/local/java/">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/linux/" target="_blank">
-                                <span class="chip bg-color">linux</span>
-                            </a>
-                        
-                            <a href="/tags/搜索服务/" target="_blank">
-                                <span class="chip bg-color">搜索服务</span>
-                            </a>
-                        
-                            <a href="/tags/java/" target="_blank">
-                                <span class="chip bg-color">java</span>
+                            <a href="/tags/javaSE/" target="_blank">
+                                <span class="chip bg-color">javaSE</span>
                             </a>
                         
                     </div>
@@ -396,8 +379,8 @@ JAVA_HOME=/usr/local/java/">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                linux
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                java
                             </a>
                         
                     </div>
@@ -408,7 +391,7 @@ JAVA_HOME=/usr/local/java/">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-12
+                    2019-06-02
                 </div>
 
                 
@@ -424,101 +407,35 @@ JAVA_HOME=/usr/local/java/">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="centos7-下安装solr服务"><a href="#centos7-下安装solr服务" class="headerlink" title="centos7 下安装solr服务"></a>centos7 下安装solr服务</h1><h2 id="1-安装java环境"><a href="#1-安装java环境" class="headerlink" title="1. 安装java环境"></a>1. 安装java环境</h2><hr>
-<ul>
-<li><p>将jdk扔到linux下，解压</p>
-</li>
-<li><p>修改环境变量</p>
-</li>
-</ul>
-<pre><code># 打开配置文件
-vim /etc/profile 
+                <h1 id="java8中Optional的使用"><a href="#java8中Optional的使用" class="headerlink" title="java8中Optional的使用"></a>java8中Optional的使用</h1><hr>
+<p>我们在之前的业务开发中，有时候会遇到搜查结果为空的情况，但是返回Null的时候，我们就必须要判断一下是否为null,如果是的话要么throw一个异常或者别的什么操作，例如账号登陆失败的时候。</p>
+<p>这样显得代码非常臃肿，而java8得Optional完美解决了这个问题(主要是空指针问题)。</p>
+<h2 id="创建一个Optional实例"><a href="#创建一个Optional实例" class="headerlink" title="创建一个Optional实例"></a>创建一个Optional实例</h2><pre><code class="java">Optional&lt;String&gt; name2 = Optional.empty();
+Optional&lt;String&gt; name = Optional.ofNullable(null);
+Optional&lt;String&gt; name3 = Optional.of(&quot;111&quot;);
 
-# 在文件末尾添加
-JAVA_HOME=/usr/local/java/jdk1.8.0_201
-CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar
-PATH=$PATH:$JAVA_HOME/bin
-export JAVA_HOME CLASSPATH PATH
+</code></pre>
+<p>这三个其实区别就是 第一个只是创建一个Optional实例，相当于Null。第二个允许传入一个Null的对象，如果用第三个Optional.of(null)的话，直接会爆出空指针异常。</p>
+<h2 id="获取Optional的值"><a href="#获取Optional的值" class="headerlink" title="获取Optional的值"></a>获取Optional的值</h2><pre><code class="java">User user = new User(&quot;john@gmail.com&quot;,&quot;1234&quot;);
+User user2 = new User(&quot;anna@gmail.com&quot;, &quot;1234&quot;);
 
-#保存并关闭
 
-source /etc/profile
+User result = Optional.ofNullable(user).orElse(new User);
+User result2 = Optional.of(user).orElseGet(() -&gt; new User);
 
-</code></pre><h2 id="2-安装solr"><a href="#2-安装solr" class="headerlink" title="2. 安装solr"></a>2. 安装solr</h2><hr>
-<ol>
-<li><p>下载solr安装包 [官方网址]:(<a href="http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0" target="_blank" rel="noopener">http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0</a>)</p>
-</li>
-<li><p>扔到linux下，解压</p>
-<a id="more"></a></li>
-<li>cd到目录下\bin</li>
-</ol>
-<pre><code> ./solr start -force #默认启动8983端口
-</code></pre><blockquote>
-<p>注意 ，这里我并没有修改文件限制，linux会限制传输文件大小<br><img src="https://s2.ax1x.com/2019/04/12/AbujvF.png" alt></p>
-<ol start="4">
-<li>关闭防火墙<pre><code>systemctl stop firewalld
-</code></pre></li>
-</ol>
-</blockquote>
-<ol start="5">
-<li>打开游览器，访问 192.168.xx.xx.8983</li>
-</ol>
-<h2 id="3-solr功能介绍"><a href="#3-solr功能介绍" class="headerlink" title="3.solr功能介绍"></a>3.solr功能介绍</h2><hr>
-<p><img src="https://s2.ax1x.com/2019/04/12/AbajBt.png" alt></p>
-<p><img src="https://s2.ax1x.com/2019/04/12/Abdp4S.png" alt></p>
-<h2 id="4-配置solr"><a href="#4-配置solr" class="headerlink" title="4. 配置solr"></a>4. 配置solr</h2><hr>
-<h3 id="配置core环境"><a href="#配置core环境" class="headerlink" title="配置core环境"></a>配置core环境</h3><hr>
-<ul>
-<li><p>打开solr-admin</p>
-</li>
-<li><p>按照下图操作<br><img src="https://s2.ax1x.com/2019/04/12/AbKrxU.png" alt></p>
-</li>
-<li><p>之后会提示错误，因为找不到config和schema文件</p>
-</li>
-<li>打开linux，在%安装目录%/server/configsets/_default/下的conf文件copy到 %安装目录%/server/%core名称%/ 下</li>
-<li>重新创建core</li>
-<li>看到自己的core文件夹下面出现这几个文件，证明安装成功<br><img src="https://s2.ax1x.com/2019/04/12/AbMCLQ.png" alt></li>
-</ul>
-<h3 id="配置中文分词器"><a href="#配置中文分词器" class="headerlink" title="配置中文分词器"></a>配置中文分词器</h3><hr>
+User result3 = Optional.ofNullable(user)
+                .orElseThrow(() -&gt; new RuntimeExcetion(&quot;运行出错了&quot;));
+
+User result4 = Optional.ofNullable(user).Get();
+</code></pre>
+<p>下面来讲一下这几个方法的异同</p>
+<p>orElse:有值就返回值，不管有没有值都会执行后面的操作(new 一个对象等等)，如果没有值才会返回结果。</p>
+<p>orElseGet:有值就返回值，没有值才进行后面的表达式操作</p>
 <blockquote>
-<p>其实solr8.0已经自带了中文分词器<br><img src="https://s2.ax1x.com/2019/04/12/AbMuyF.png" alt></p>
+<p>如果传入的值都是Null的情况下，两个函数没有区别，但是不是空的情况下，orElseGet显然效率比较高</p>
 </blockquote>
-<ul>
-<li><p>但是为了业务要求，我们使用IK分词器</p>
-<p>ik可以去maven仓库去下载</p>
-<p><img src="https://s2.ax1x.com/2019/04/12/AbtyfH.png" alt></p>
-</li>
-<li><p>将三个jar包放到%solr安装包%/server/solr-webapp/webapp/WEB-INF/lib/下</p>
-</li>
-<li><p>将剩余的三个文件放到%solr安装包%/server/solr-webapp/webapp/WEB-INF/classes/下[如果没有，自己新建]</p>
-</li>
-<li><p>配置ik 打开%自己CORE%/conf/managed-schema.xml文件</p>
-</li>
-</ul>
-<pre><code>
-    &lt;!-- ik分词器 --&gt;
-        &lt;fieldType name=&quot;text_ik&quot; class=&quot;solr.TextField&quot;&gt;
-        &lt;!-- 索引分词器 --&gt;
-        &lt;analyzer type=&quot;index&quot; isMaxWordLength=&quot;false&quot; class=&quot;org.wltea.analyzer.lucene.IKAnalyzer&quot;/&gt;
-        &lt;!-- 查询分词器 --&gt;
-        &lt;analyzer type=&quot;query&quot; isMaxWordLength=&quot;true&quot; class=&quot;org.wltea.analyzer.lucene.IKAnalyzer&quot;/&gt;
-        &lt;/fieldType&gt;
-</code></pre><ul>
-<li>重启 ./solr restart -force</li>
-</ul>
-<h3 id="配置业务域FileType"><a href="#配置业务域FileType" class="headerlink" title="配置业务域FileType"></a>配置业务域FileType</h3><hr>
-<p>打开%自己CORE%/conf/managed-schema.xml文件</p>
-<pre><code>&lt;field name=&quot;item_title&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;
-&lt;field name=&quot;item_sell_point&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;
-&lt;field name=&quot;item_price&quot;  type=&quot;plong&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;
-&lt;field name=&quot;item_image&quot; type=&quot;string&quot; indexed=&quot;false&quot; stored=&quot;true&quot; /&gt;
-&lt;field name=&quot;item_category_name&quot; type=&quot;string&quot; indexed=&quot;true&quot; stored=&quot;true&quot; /&gt;
-&lt;field name=&quot;item_desc&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;false&quot; /&gt;
-
-&lt;field name=&quot;item_keywords&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;false&quot; multiValued=&quot;true&quot;/&gt;
-&lt;copyField source=&quot;item_title&quot; dest=&quot;item_keywords&quot;/&gt;
-&lt;copyField source=&quot;item_sell_point&quot; dest=&quot;item_keywords&quot;/&gt;
-</code></pre><p>重启 ./solr restart -forces</p>
+<p>orElseThrow:有值就返回值,没有值抛用户定义的异常</p>
+<p>Get:有值就返回值,没有值NoSuchElementException。</p>
 
             </div>
             
@@ -560,60 +477,48 @@ source /etc/profile
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/13/freemaker传输数据问题/">
+                <a href="/2019/06/02/java8中Optional的使用/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="freemaker传输数据问题">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="java8中Optional的使用">
                         
-                        <span class="card-title">freemaker传输数据问题</span>
+                        <span class="card-title">java8中Optional的使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            FreeMaker传输数据问题
-
-正常输出方程式 ${XXX}
-如果页面需要字符串，那么我们需要 在变量两边加引号 ‘${XXX}’
-如果传输的是数字，在超出100的时候，会自行加逗号，例如1,400,解决办法： ${XXX?c}
-
-
-
-如
+                            java8中Optional的使用
+我们在之前的业务开发中，有时候会遇到搜查结果为空的情况，但是返回Null的时候，我们就必须要判断一下是否为null,如果是的话要么throw一个异常或者别的什么操作，例如账号登陆失败的时候。
+这样显得代码
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-13
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/ssm错误笔记/" class="post-category" target="_blank">
-                                    ssm错误笔记
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/错误笔记/" target="_blank">
-                        <span class="chip bg-color">错误笔记</span>
-                    </a>
-                    
-                    <a href="/tags/ssm/" target="_blank">
-                        <span class="chip bg-color">ssm</span>
-                    </a>
-                    
-                    <a href="/tags/freemaker/" target="_blank">
-                        <span class="chip bg-color">freemaker</span>
+                    <a href="/tags/javaSE/" target="_blank">
+                        <span class="chip bg-color">javaSE</span>
                     </a>
                     
                 </div>
@@ -627,28 +532,27 @@ source /etc/profile
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/08/java自定义线程池/">
+                <a href="/2019/05/24/javaSE基础知识点/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="java自定义线程池">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="javaSE基础知识点">
                         
-                        <span class="card-title">java自定义线程池</span>
+                        <span class="card-title">javaSE基础知识点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java线程池java初始定义线程
-java线程池源码分析
-/**
-     * Creates a new {@code ThreadPoolExecutor} with the given initial
-     * paramete
+                            javaSE基础知识点汇总
+final关键字的理解final如果赋给了变量，证明这个变量是不能修改的但是，要注意，如果给数组附上了final关键字，他的数组元素是可以修改的
+例如：
+public static void main(Strin
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-08
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-24
                             </span>
                         <span class="publish-author">
                             
@@ -665,12 +569,8 @@ java线程池源码分析
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java架构/" target="_blank">
-                        <span class="chip bg-color">java架构</span>
-                    </a>
-                    
-                    <a href="/tags/线程池/" target="_blank">
-                        <span class="chip bg-color">线程池</span>
+                    <a href="/tags/javaSE/" target="_blank">
+                        <span class="chip bg-color">javaSE</span>
                     </a>
                     
                 </div>

@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>java.io知识点整理</title>
-      <link href="/2019/05/23/java-io%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/"/>
-      <url>/2019/05/23/java-io%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/</url>
+      <title>java8中Optional的使用</title>
+      <link href="/2019/06/02/java8%E4%B8%ADOptional%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+      <url>/2019/06/02/java8%E4%B8%ADOptional%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
       
-        <content type="html"><![CDATA[<h1 id="java-io-流的一些知识点整理"><a href="#java-io-流的一些知识点整理" class="headerlink" title="java io 流的一些知识点整理"></a>java io 流的一些知识点整理</h1><hr><h2 id="java流类图总结"><a href="#java流类图总结" class="headerlink" title="java流类图总结"></a>java流类图总结</h2><p><img src="https://s2.ax1x.com/2019/05/23/VPsDmt.png" alt></p><a id="more"></a><h2 id="字节流和字符流的区别"><a href="#字节流和字符流的区别" class="headerlink" title="字节流和字符流的区别"></a>字节流和字符流的区别</h2><p>字节流处理的是二进制文件，也就是说,二进制文件什么也能处理，比如文字和图片视频什么的。<br>而字符流则只能处理文本类型，但是它可以处理编码问题，例如我们的字节流读取出来的文件是乱码的，就是因为文件的编码问题。</p><blockquote><p>下面是一个读取中文文本的样例。</p></blockquote><pre><code class="java">public static void main(String args[]){        int b; //这里的默认值是0        try {          //这里的f变量是为了后面建立char[]数组读取文件大小            File f = new File(&quot;D:\\\\test.txt&quot;);            //创建字符流            InputStreamReader isr = new InputStreamReader(new FileInputStream(f),&quot;GBK&quot;);            //建立buf ,注意，如果文件中有中文的话，这里的buf里面会多建立空间，因为中文占两个字节空间            char[] buf = new char[(int) f.length()];            int len = isr.read(buf);            String rs = new String(buf,0,len);            System.out.println(new StringBuffer(rs).reverse());            isr.close();        }        catch (Exception e) {            System.out.println(&quot;出错了，原因是：&quot;);            System.out.println (e.toString());        }    }</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="java8中Optional的使用"><a href="#java8中Optional的使用" class="headerlink" title="java8中Optional的使用"></a>java8中Optional的使用</h1><hr><p>我们在之前的业务开发中，有时候会遇到搜查结果为空的情况，但是返回Null的时候，我们就必须要判断一下是否为null,如果是的话要么throw一个异常或者别的什么操作，例如账号登陆失败的时候。</p><p>这样显得代码非常臃肿，而java8得Optional完美解决了这个问题(主要是空指针问题)。</p><h2 id="创建一个Optional实例"><a href="#创建一个Optional实例" class="headerlink" title="创建一个Optional实例"></a>创建一个Optional实例</h2><pre><code class="java">Optional&lt;String&gt; name2 = Optional.empty();Optional&lt;String&gt; name = Optional.ofNullable(null);Optional&lt;String&gt; name3 = Optional.of(&quot;111&quot;);</code></pre><p>这三个其实区别就是 第一个只是创建一个Optional实例，相当于Null。第二个允许传入一个Null的对象，如果用第三个Optional.of(null)的话，直接会爆出空指针异常。</p><h2 id="获取Optional的值"><a href="#获取Optional的值" class="headerlink" title="获取Optional的值"></a>获取Optional的值</h2><pre><code class="java">User user = new User(&quot;john@gmail.com&quot;,&quot;1234&quot;);User user2 = new User(&quot;anna@gmail.com&quot;, &quot;1234&quot;);User result = Optional.ofNullable(user).orElse(new User);User result2 = Optional.of(user).orElseGet(() -&gt; new User);User result3 = Optional.ofNullable(user)                .orElseThrow(() -&gt; new RuntimeExcetion(&quot;运行出错了&quot;));User result4 = Optional.ofNullable(user).Get();</code></pre><p>下面来讲一下这几个方法的异同</p><p>orElse:有值就返回值，不管有没有值都会执行后面的操作(new 一个对象等等)，如果没有值才会返回结果。</p><p>orElseGet:有值就返回值，没有值才进行后面的表达式操作</p><blockquote><p>如果传入的值都是Null的情况下，两个函数没有区别，但是不是空的情况下，orElseGet显然效率比较高</p></blockquote><p>orElseThrow:有值就返回值,没有值抛用户定义的异常</p><p>Get:有值就返回值,没有值NoSuchElementException。</p>]]></content>
       
       
       <categories>
@@ -29,23 +29,48 @@
     
     
     <entry>
-      <title>html自适应界面</title>
-      <link href="/2019/05/19/html%E8%87%AA%E9%80%82%E5%BA%94%E7%95%8C%E9%9D%A2/"/>
-      <url>/2019/05/19/html%E8%87%AA%E9%80%82%E5%BA%94%E7%95%8C%E9%9D%A2/</url>
+      <title>javaSE基础知识点</title>
+      <link href="/2019/05/24/javaSE%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+      <url>/2019/05/24/javaSE%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
       
-        <content type="html"><![CDATA[<h1 id="html自适应界面"><a href="#html自适应界面" class="headerlink" title="html自适应界面"></a>html自适应界面</h1><hr><p>学习过bootStarp之后，一直最自适应布局很感兴趣，尤其是BootStarp的栅格系统，所以做了一个html小demo，来记录一下自适应的过程</p><h2 id="重要的css属性-弹性盒子"><a href="#重要的css属性-弹性盒子" class="headerlink" title="重要的css属性 弹性盒子"></a>重要的css属性 弹性盒子</h2><ul><li>display:flex;</li><li>flex-wrap:wrap;</li><li>justify-content:center;</li></ul><p>接下来看一段代码</p><pre><code class="html">&lt;!-- html --&gt;&lt;div class=&quot;container&quot;&gt;  &lt;div class=&quot;service-box&quot;&gt;      &lt;div class=&quot;service-icon&quot;&gt;          &lt;i class=&quot;fa fa-window-restore&quot;&gt;&lt;/i&gt;        &lt;/div&gt;      &lt;div class=&quot;service-title&quot;&gt;          &lt;span&gt;网站商品管理&lt;/span&gt;      &lt;/div&gt;      &lt;div class=&quot;service-desc&quot;&gt;          &lt;span&gt;这是管理网站所有商品功能，在这里可以管理用户上架的所有商品&lt;/span&gt;      &lt;/div&gt;  &lt;/div&gt;&lt;/div&gt;&lt;!-- css --&gt;&lt;style&gt;.container{  display: flex;  flex-wrap: wrap;  justify-content: center;}.service-box{  max-width: 33.33%;  padding: 10px;  text-align: center;  cursor: pointer;}&lt;/style&gt;</code></pre><p>这是没有加弹性盒子的效果<br><img src="https://s2.ax1x.com/2019/05/19/EjiQln.png" alt></p><p>这是加了弹性盒子的效果 [注意:这里截图的时候屏幕尺寸小于960px]<br><img src="https://s2.ax1x.com/2019/05/19/EjiiQI.png" alt></p><p><strong>分析原因</strong><br>在我看来,这个弹性盒子其实就是让子类可以像是block一样排列起来,并且子类的max-width的百分比决定着他们一排能排几个</p><h2 id="重要的属性-media-and-screen-max-width-960px"><a href="#重要的属性-media-and-screen-max-width-960px" class="headerlink" title="重要的属性 @media and screen(max-width:960px)"></a>重要的属性 @media and screen(max-width:960px)</h2><p>这个语句的意思是 如果屏幕尺寸小于960px那么就执行下面的代码</p><blockquote><p>这个语句由一个前提,那就是这一定是个html:5文件</p></blockquote><pre><code class="html">&lt;!-- html5 必须的属性 --&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code></pre><p>下面看一下实例</p><p>承接上面的css代码</p><pre><code class="css">@media screen and (max-width:960px) {  .service-box{    max-width: 45%;  }}</code></pre><p>因为盒子最大是占据45%,也就是一行只能两行,就能看到上面的图的情况,正常来说,如果用电脑打开那个网页的话,一行会出现三个盒子的</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="javaSE基础知识点汇总"><a href="#javaSE基础知识点汇总" class="headerlink" title="javaSE基础知识点汇总"></a>javaSE基础知识点汇总</h1><hr><h2 id="final关键字的理解"><a href="#final关键字的理解" class="headerlink" title="final关键字的理解"></a>final关键字的理解</h2><p>final如果赋给了变量，证明这个变量是不能修改的<br>但是，要注意，如果给数组附上了final关键字，他的数组元素是可以修改的</p><p>例如：</p><pre><code class="java">public static void main(String args[]){        final  int b[] = {5};        int a[] = {3};        b[0] = 2;        // b = a;  编译错误，因为是final类型        System.out.println(b[0]);    }</code></pre><h2 id="equals-和-之间的区别"><a href="#equals-和-之间的区别" class="headerlink" title="equals 和 == 之间的区别"></a>equals 和 == 之间的区别</h2><p>== 是直接比较地址，一般用来比较8大基本数据类型</p><p>equals则是一般由开发人员复写的，但是如果默认，则会比较他们的值是否一致，equals的源代码是：</p><pre><code class="java">public boolean equals(Object obj) {    return (this == obj);}</code></pre><blockquote><p>但是需要注意一点的是 java中对String的equals写法是这样的,他复写了原始的方法</p></blockquote><pre><code class="java">@Overridepublic boolean equals(Object anObject) {    if (this == anObject) {        return true;    }    if (anObject instanceof String) {        String anotherString = (String)anObject;        int n = count;        if (n == anotherString.count) {            char v1[] = value;            char v2[] = anotherString.value;            int i = offset;            int j = anotherString.offset;            while (n-- != 0) {                if (v1[i++] != v2[j++])                    return false;            }            return true;        }    }    return false;}</code></pre>]]></content>
       
       
       <categories>
           
-          <category> 前端 </category>
+          <category> java </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 自适应 </tag>
+            <tag> javaSE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>java.io知识点整理</title>
+      <link href="/2019/05/23/java-io%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/"/>
+      <url>/2019/05/23/java-io%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="java-io-流的一些知识点整理"><a href="#java-io-流的一些知识点整理" class="headerlink" title="java io 流的一些知识点整理"></a>java io 流的一些知识点整理</h1><hr><h2 id="java流类图总结"><a href="#java流类图总结" class="headerlink" title="java流类图总结"></a>java流类图总结</h2><p><img src="https://s2.ax1x.com/2019/05/23/VPsDmt.png" alt></p><a id="more"></a><h2 id="字节流和字符流的区别"><a href="#字节流和字符流的区别" class="headerlink" title="字节流和字符流的区别"></a>字节流和字符流的区别</h2><p>字节流处理的是二进制文件，也就是说,二进制文件什么也能处理，比如文字和图片视频什么的。<br>而字符流则只能处理文本类型，但是它可以处理编码问题，例如我们的字节流读取出来的文件是乱码的，就是因为文件的编码问题。</p><blockquote><p>下面是一个读取中文文本的样例。</p></blockquote><pre><code class="java">public static void main(String args[]){        int b; //这里的默认值是0        try {          //这里的f变量是为了后面建立char[]数组读取文件大小            File f = new File(&quot;D:\\\\test.txt&quot;);            //创建字符流            InputStreamReader isr = new InputStreamReader(new FileInputStream(f),&quot;GBK&quot;);            //建立buf ,注意，如果文件中有中文的话，这里的buf里面会多建立空间，因为中文占两个字节空间            char[] buf = new char[(int) f.length()];            int len = isr.read(buf);            String rs = new String(buf,0,len);            System.out.println(new StringBuffer(rs).reverse());            isr.close();        }        catch (Exception e) {            System.out.println(&quot;出错了，原因是：&quot;);            System.out.println (e.toString());        }    }</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> javaSE </tag>
             
         </tags>
       
@@ -276,9 +301,9 @@
             
             <tag> linux </tag>
             
-            <tag> 文件服务器 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 文件服务器 </tag>
             
         </tags>
       
@@ -515,9 +540,9 @@
             
             <tag> linux </tag>
             
-            <tag> java </tag>
-            
             <tag> 搜索服务 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -704,9 +729,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -799,6 +824,17 @@
     
     
     <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
@@ -815,17 +851,6 @@
       <url>/about/index.html</url>
       
         <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
