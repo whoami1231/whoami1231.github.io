@@ -510,6 +510,7 @@ public class TestAsp {
         System.out.println(&quot;进入aop&quot;);
 
         return joinPoint.proceed();
+        System.out.println(&quot;代码执行aop后&quot;);
     }
 }
 
@@ -518,10 +519,12 @@ public class TestAsp {
 <pre><code class="bash">&gt;进入aop
 &gt;代码执行中
 &gt;继续执行
+&gt;代码执行aop后
 </code></pre>
 <p>这里不需要PointCut，而是利用@annotation将所有有上面这个注解的方法都会进入这个AOP方法。</p>
 <p>其实这个@Around是一个环绕通知，你可以在这里通过jionPoint获得到访问者IP，变量参数等等。</p>
 <p>这个joinPoint.proceed()方法是让controller方法的必要条件。</p>
+<p>joinPoint.proceed()方法后的代码是处理完方法后需要执行的代码，这样就可以想象成这个Around将controller层的某个方法’包裹’起来了。</p>
 
             </div>
             
