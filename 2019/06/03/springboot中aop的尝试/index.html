@@ -478,8 +478,12 @@ public class WebLogAspect {
 <p><strong>After</strong><br>后置通知</p>
 <h2 id="下面是我常用的AOP方法"><a href="#下面是我常用的AOP方法" class="headerlink" title="下面是我常用的AOP方法"></a>下面是我常用的AOP方法</h2><p>利用自定义注解决定切点</p>
 <p>下面我们自定义一个注解</p>
-<pre><code class="java">
+<pre><code class="java">@Target(ElementType.METHOD)
+@Documented
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Cache {
+  boolean ifDelete() default false;
 }
 
 </code></pre>
@@ -525,6 +529,14 @@ public class TestAsp {
 <p>其实这个@Around是一个环绕通知，你可以在这里通过jionPoint获得到访问者IP，变量参数等等。</p>
 <p>这个joinPoint.proceed()方法是让controller方法的必要条件。</p>
 <p>joinPoint.proceed()方法后的代码是处理完方法后需要执行的代码，这样就可以想象成这个Around将controller层的某个方法’包裹’起来了。</p>
+<h2 id="JoinPoint的常用方法"><a href="#JoinPoint的常用方法" class="headerlink" title="JoinPoint的常用方法"></a>JoinPoint的常用方法</h2><ul>
+<li><p>获取到方法的注解</p>
+<pre><code class="java">MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+
+      Cache annotation = methodSignature.getMethod().getAnnotation(Cache.class);
+</code></pre>
+</li>
+</ul>
 
             </div>
             
@@ -566,43 +578,43 @@ public class TestAsp {
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/06/03/springboot中aop的尝试/">
+                <a href="/2019/06/04/java自定义注解/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="springboot中aop的尝试">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="java自定义注解">
                         
-                        <span class="card-title">springboot中aop的尝试</span>
+                        <span class="card-title">java自定义注解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            springboot中对AOP技术的了解和使用我们在项目中如果使用spring的框架的话，aop技术多多少少也接触过，所以打算在这里总结一下AOP的技术核心和常用方法。
+                            java自定义注解
+这次的文章是我在上次文章的AOP文章遇到一个坑，通过joinPoint得到签名后，获得到他的注解为空，后来发现自己没有加相应的注解，这里记录此次的坑。
+首先我们看一下正确的注释代码
 
-AOP的基本使用方法 –&gt; 全局AOP监听我们现在要在Cont
+@Target(ElementTyp
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-03
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-04
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/springboot/" class="post-category" target="_blank">
-                                    springboot
+                            <a href="/categories/java/" class="post-category" target="_blank">
+                                    java
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
