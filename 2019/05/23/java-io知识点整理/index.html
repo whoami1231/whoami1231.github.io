@@ -426,7 +426,6 @@ java流类图总结
             char[] buf = new char[(int) f.length()];
             int len = isr.read(buf);
             String rs = new String(buf,0,len);
-            System.out.println(new StringBuffer(rs).reverse());
             isr.close();
         }
         catch (Exception e) {
