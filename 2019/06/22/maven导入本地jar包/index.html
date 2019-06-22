@@ -4,12 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="java内存模型, 逝痕">
-    <meta name="description" content="java内存模型(JMM)+这里来复习一下java多线程的三大特性 ： 原子性，可见性，有序性。
-
-什么是原子性
-
-即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。一个很经典的例子就是银行账户转账问题：">
+    <meta name="keywords" content="maven导入本地jar包, 逝痕">
+    <meta name="description" content="maven导入本地jar包的方法我们有的时候会找不到maven仓库的地址，只能先下载jar包，然后保存到maven仓库中。或者自己开发的jar包，然后自己导入到maven仓库中。
+比如 我们现在在D盘由一个jar包，我们在命令行中输入
+# ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>java内存模型 | 逝痕</title>
+    <title>maven导入本地jar包 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -252,13 +250,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.JPG')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        java内存模型
+                        maven导入本地jar包
                     </div>
                 </div>
             </div>
@@ -369,12 +367,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/java/" target="_blank">
-                                <span class="chip bg-color">java</span>
-                            </a>
-                        
-                            <a href="/tags/多线程/" target="_blank">
-                                <span class="chip bg-color">多线程</span>
+                            <a href="/tags/maven/" target="_blank">
+                                <span class="chip bg-color">maven</span>
                             </a>
                         
                     </div>
@@ -385,8 +379,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/java/" class="post-category" target="_blank">
-                                java
+                            <a href="/categories/maven/" class="post-category" target="_blank">
+                                maven
                             </a>
                         
                     </div>
@@ -397,7 +391,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-03-30
+                    2019-06-22
                 </div>
 
                 
@@ -413,38 +407,17 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="java内存模型-JMM"><a href="#java内存模型-JMM" class="headerlink" title="java内存模型(JMM)"></a>java内存模型(JMM)</h1><p>+这里来复习一下java多线程的三大特性 ： 原子性，可见性，有序性。</p>
-<ul>
-<li><p><strong>什么是原子性</strong></p>
-</li>
-<li><p>即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。<br>一个很经典的例子就是银行账户转账问题：<br>比如从账户A向账户B转1000元，那么必然包括2个操作：从账户A减去1000元，往账户B加上1000元。这2个操作必须要具备原子性才能保证不出现一些意外的问题。<br>我们操作数据也是如此，比如i = i+1；其中就包括，读取i的值，计算i，写入i。这行代码在Java中是不具备原子性的，则多线程运行肯定会出问题，所以也需要我们使用同步和lock这些东西来确保这个特性了。<br>原子性其实就是保证数据一致、线程安全一部分，<br><strong>这个也可以理解为数据库的事务</strong></p>
-<a id="more"></a>
-</li>
-<li><p><strong>什么是可见性</strong></p>
-</li>
-<li><p>当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</p>
-</li>
-<li><p>若两个线程在不同的cpu，那么线程1改变了i的值还没刷新到主存，线程2又使用了i，那么这个i值肯定还是之前的，线程1对变量的修改线程没看到这就是可见性问题。 </p>
-</li>
-<li><p><strong>什么是有序性</strong></p>
-</li>
-<li><p>程序执行的顺序按照代码的先后顺序执行。</p>
-</li>
-<li><p>一般来说处理器为了提高程序运行效率，可能会对输入代码进行优化，它不保证程序中各个语句的执行先后顺序同代码中的顺序一致，但是它会保证程序最终执行结果和代码顺序执行的结果是一致的。如下：<br>int a = 10;    //语句1<br>int r = 2;    //语句2<br>a = a + 3;    //语句3<br>r = a*a;     //语句4<br>则因为重排序，他还可能执行顺序为 2-1-3-4，1-3-2-4<br>但绝不可能 2-1-4-3，因为这打破了依赖关系。<br>显然重排序对单线程运行是不会有任何问题，而多线程就不一定了，所以我们在多线程编程时就得考虑这个问题了。</p>
-</li>
-</ul>
-<ul>
-<li>注意不要将JMM和JVM的内存机制混淆在一起。</li>
-</ul>
-<h2 id="java可见性原理分析"><a href="#java可见性原理分析" class="headerlink" title="java可见性原理分析"></a>java可见性原理分析</h2><ul>
-<li>java多线程内存读写机制<ul>
-<li><img src="https://s2.ax1x.com/2019/03/30/ABcR00.png" alt="java多线程内存读写机制"></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>假如线程在同一时刻拿到副本，并且对这个副本就行自增操作，那么返回回来的变量并没有+2，而是+1，这就暴露了线程不同步问题。</p>
-</blockquote>
+                <h1 id="maven导入本地jar包的方法"><a href="#maven导入本地jar包的方法" class="headerlink" title="maven导入本地jar包的方法"></a>maven导入本地jar包的方法</h1><p>我们有的时候会找不到maven仓库的地址，只能先下载jar包，然后保存到maven仓库中。或者自己开发的jar包，然后自己导入到maven仓库中。</p>
+<p>比如 我们现在在D盘由一个jar包，我们在命令行中输入</p>
+<pre><code class="bash"># Dfile 文件路径
+
+# DgroupId DartifactId jar包信息
+
+# Dpackaging 打包方式
+
+mvn install:install-file -Dfile=D:\QRCode-3.0.0.jar -DgroupId=QRCode -DartifactId=QRCode -Dversion=3.0.0 -Dpackaging=jar
+
+</code></pre>
 
             </div>
             
@@ -486,61 +459,48 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/03/31/ssm利用ajax上传图片和参数/">
+                <a href="/2019/06/22/maven导入本地jar包/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="ssm利用ajax上传图片和参数">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="maven导入本地jar包">
                         
-                        <span class="card-title">ssm利用ajax上传图片和参数</span>
+                        <span class="card-title">maven导入本地jar包</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Ajax选择性上传图片
-技术选型:
-bootstrap-fileinput 渲染上传框
-FormData 用于传递参数
-bootstrap 前端渲染
-
-
-
-技术需求
-用于后台CMS更新商品的时候，需要上传图片和参数。但是为了节省流量，这里的
+                            maven导入本地jar包的方法我们有的时候会找不到maven仓库的地址，只能先下载jar包，然后保存到maven仓库中。或者自己开发的jar包，然后自己导入到maven仓库中。
+比如 我们现在在D盘由一个jar包，我们在命令行中输入
+# 
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-31
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/j2EE/" class="post-category" target="_blank">
-                                    j2EE
+                            <a href="/categories/maven/" class="post-category" target="_blank">
+                                    maven
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/文件服务器/" target="_blank">
-                        <span class="chip bg-color">文件服务器</span>
-                    </a>
-                    
-                    <a href="/tags/分布式/" target="_blank">
-                        <span class="chip bg-color">分布式</span>
-                    </a>
-                    
-                    <a href="/tags/nginx反向代理/" target="_blank">
-                        <span class="chip bg-color">nginx反向代理</span>
+                    <a href="/tags/maven/" target="_blank">
+                        <span class="chip bg-color">maven</span>
                     </a>
                     
                 </div>
@@ -554,31 +514,25 @@ bootstrap 前端渲染
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/03/29/java线程安全初窥探/">
+                <a href="/2019/06/07/java写投票脚本自动化初探/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="java线程安全初窥探">
+                        <img src="/medias/featureimages/5.png" class="responsive-img" alt="java写投票脚本自动化初探">
                         
-                        <span class="card-title">java线程安全初窥探</span>
+                        <span class="card-title">java写投票脚本自动化初探</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java线程安全
-知识点： 线程同步 线程并发
-问题描述：在当处理全局变量的时候，当两个或者以上的线程处理同一个 全局 变量的时候，可能会出现冲突问题。
-
-
-
-java 同步函数首先看一下问题场景
-package com.Thread.Te
+                            java写投票脚本自动化初探由于大学里面有一些任务需要投票，而又不想劳烦他人去帮我，所以打算自己写一个脚本来实现自动投票的功能。这里记录一下我的整个过程。
+技术选型java8selenium3 实现chrome自动化的jar包AUTolt 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-29
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-07
                             </span>
                         <span class="publish-author">
                             
@@ -588,6 +542,10 @@ package com.Thread.Te
                                     java
                                 </a>
                             
+                            <a href="/categories/java/自动化/" class="post-category" target="_blank">
+                                    自动化
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -595,12 +553,24 @@ package com.Thread.Te
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java架构/" target="_blank">
-                        <span class="chip bg-color">java架构</span>
+                    <a href="/tags/java/" target="_blank">
+                        <span class="chip bg-color">java</span>
                     </a>
                     
-                    <a href="/tags/线程安全/" target="_blank">
-                        <span class="chip bg-color">线程安全</span>
+                    <a href="/tags/selenium/" target="_blank">
+                        <span class="chip bg-color">selenium</span>
+                    </a>
+                    
+                    <a href="/tags/自动化/" target="_blank">
+                        <span class="chip bg-color">自动化</span>
+                    </a>
+                    
+                    <a href="/tags/orc/" target="_blank">
+                        <span class="chip bg-color">orc</span>
+                    </a>
+                    
+                    <a href="/tags/opencv/" target="_blank">
+                        <span class="chip bg-color">opencv</span>
                     </a>
                     
                 </div>
