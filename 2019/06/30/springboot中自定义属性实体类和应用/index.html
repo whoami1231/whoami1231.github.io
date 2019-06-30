@@ -4,15 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="java线程安全初窥探, 逝痕">
-    <meta name="description" content="java线程安全
-知识点： 线程同步 线程并发
-问题描述：在当处理全局变量的时候，当两个或者以上的线程处理同一个 全局 变量的时候，可能会出现冲突问题。
-
-
-
-java 同步函数首先看一下问题场景
-package com.Thread.Te">
+    <meta name="keywords" content="springboot中自定义属性实体类和应用, 逝痕">
+    <meta name="description" content="springboot中自定义属性实体类和应用我们在当初学习SSM的时候学习过@Value这个属性，可以将配置文件中的属性加载到想要加载的类中，这个当然是一个可行的办法,但是如果属性有很多一直写@Value也是一件很麻烦的事情，现在我们可以用">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +13,7 @@ package com.Thread.Te">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>java线程安全初窥探 | 逝痕</title>
+    <title>springboot中自定义属性实体类和应用 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -255,13 +248,13 @@ package com.Thread.Te">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.JPG')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        java线程安全初窥探
+                        springboot中自定义属性实体类和应用
                     </div>
                 </div>
             </div>
@@ -370,29 +363,12 @@ package com.Thread.Te">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/java架构/" target="_blank">
-                                <span class="chip bg-color">java架构</span>
-                            </a>
-                        
-                            <a href="/tags/线程安全/" target="_blank">
-                                <span class="chip bg-color">线程安全</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fa fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/java/" class="post-category" target="_blank">
-                                java
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -400,7 +376,7 @@ package com.Thread.Te">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-03-29
+                    2019-06-30
                 </div>
 
                 
@@ -416,287 +392,53 @@ package com.Thread.Te">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="java线程安全"><a href="#java线程安全" class="headerlink" title="java线程安全"></a>java线程安全</h1><ul>
-<li>知识点： 线程同步 线程并发</li>
-<li>问题描述：在当处理全局变量的时候，当两个或者以上的线程处理同一个<strong> 全局 </strong>变量的时候，可能会出现冲突问题。<a id="more"></a>
-</li>
+                <h1 id="springboot中自定义属性实体类和应用"><a href="#springboot中自定义属性实体类和应用" class="headerlink" title="springboot中自定义属性实体类和应用"></a>springboot中自定义属性实体类和应用</h1><p>我们在当初学习SSM的时候学习过@Value这个属性，可以将配置文件中的属性加载到想要加载的类中，这个当然是一个可行的办法,但是如果属性有很多一直写@Value也是一件很麻烦的事情，现在我们可以用<strong>@ConfigurationProperties</strong>和<strong>@EnableConfigurationProperties</strong>这两个注解完成这个问题。</p>
+<h2 id="具体应用"><a href="#具体应用" class="headerlink" title="具体应用"></a>具体应用</h2><ul>
+<li>配置文件如下:</li>
 </ul>
-<hr>
-<h2 id="java-同步函数"><a href="#java-同步函数" class="headerlink" title="java 同步函数"></a>java 同步函数</h2><p>首先看一下问题场景</p>
-<pre><code class="java">package com.Thread.Test;
+<pre><code class="yaml">whoami:
+  auto-scan: false
+  auto-del: true
 
-/**
- * 抢票问题的一个案例分析
- */
+</code></pre>
+<p>上面的配置文件就相当于一个例子，没有什么作用<br>下面我们写自定义的属性类</p>
+<ul>
+<li>属性类：</li>
+</ul>
+<p>@ConfigurationProperties(prefix = “whoami”)的作用就是将whoami的前缀的配置加载到这个实体类中</p>
+<pre><code class="java">@Data
+@ConfigurationProperties(&quot;whoami&quot;)
+public class AppProperties {
+    private Boolean autoDel = false;
 
-class ThreadTrain implements Runnable{
+    private Boolean autoScan = true;
 
-    private int TrainCount = 100;
-
-
-    @Override
-    public void run() {
-            while (TrainCount&gt;0){
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                sale();
-            }
-    }
-
-    private void sale(){
-        System.out.println(Thread.currentThread().getName()+&quot;：正在出售第&quot;+(100-TrainCount+1)+&quot;张票&quot;);
-        TrainCount--;
-    }
-}
-
-
-public class Main {
-
-    public static void main(String[] args) {
-    //开辟两个线程
-        ThreadTrain threadTrain = new ThreadTrain();
-        Thread t1 = new Thread(threadTrain, &quot;窗口一&quot;);
-        Thread t2 = new Thread(threadTrain, &quot;窗口二&quot;);
-
-        t1.start();
-
-        t2.start();
-
-    }
 }
 
 </code></pre>
 <blockquote>
-<p><img src="https://s2.ax1x.com/2019/03/29/A0Gqk6.png" alt="Console ："><br><img src="https://s2.ax1x.com/2019/03/29/A0GHTx.png" alt="Console :"><br>可以看到 上图 会出现两个线程同时贩卖一张票的情况，而且最后会出现贩卖101张票的时候</p>
+<p>在这里我们可以看出来，实体类里面的属性默认值和配置文件正相反，而且配置文件的属性写法是’-‘风格，而自定义文件里面的是驼峰写法，其实只要能对应就完全没问题。</p>
 </blockquote>
 <ul>
-<li>那么为什么会产生这样的问题呢？<ul>
-<li>原因分析： 是因为两个线程当时同时处于运行状态，那么他们接收的全局变量的value是相等的，那么就会出现贩卖同一张票的情况，这样就会产生线程不安全的情况！</li>
-<li>解决方案分析：就像是购票的原理一样，会对数据库进行锁表，来实现数据同步，java也有锁这种东西</li>
-<li><ul>
-<li>synchronize  —- &gt;自动锁</li>
+<li>验证一下是否导入</li>
 </ul>
-</li>
-<li><ul>
-<li>lock  –&gt; jdk1.5 手动锁</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="synchronize-解决代码："><a href="#synchronize-解决代码：" class="headerlink" title="synchronize 解决代码："></a>synchronize 解决代码：</h3><pre><code class="java">package com.Thread.Test;
+<p>先说一下@EnableConfigurationProperties的作用，其实就是让@ConfigurationProperties生效</p>
+<pre><code class="java">@Configuration
+@EnableConfigurationProperties(AppProperties.class)
+public class FilterConfiguration {
 
-/**
- * 抢票问题的一个案例分析
- */
+    @Autowired
+    AppProperties appProperties;
 
-class ThreadTrain implements Runnable{
-
-    private int TrainCount = 100;
-
-
-    @Override
-    public void run() {
-        while (TrainCount&gt;0){
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            sale();
-        }
-    }
-
-    //synchronized 分成 函数 和标识两个  
-    private synchronized void sale(){ //this锁
-//        synchronized (this){
-        //加一个判断 判断最后一张票的两个线程情况
-        if(TrainCount&gt;0){
-            System.out.println(Thread.currentThread().getName()+&quot;：正在出售第&quot;+(100-TrainCount+1)+&quot;张票&quot;);
-            TrainCount--;
-        }
-
-//        }
-    }
-}
-
-
-public class Main {
-
-    public static void main(String[] args) {
-        ThreadTrain threadTrain = new ThreadTrain();
-        Thread t1 = new Thread(threadTrain, &quot;窗口一&quot;);
-        Thread t2 = new Thread(threadTrain, &quot;窗口二&quot;);
-
-        t1.start();
-
-        t2.start();
-
-    }
-}
-</code></pre>
-<blockquote>
-<p>synchronize 方法 比较方便，但是拓展性不高，资源占用大</p>
-</blockquote>
-<h3 id="lock锁的解决办法"><a href="#lock锁的解决办法" class="headerlink" title="lock锁的解决办法"></a>lock锁的解决办法</h3><pre><code class="java">package com.Thread.Test;
-
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-class ThreadTrain implements Runnable{
-
-    private int TrainCount = 100;
-    private Lock lock = new ReentrantLock();
-
-    @Override
-    public void run() {
-
-        while (TrainCount&gt;0){
-            try {
-                Thread.sleep(50);
-                sale();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //synchronized 分成 函数 和标识两个
-    private  void sale(){ //this锁
-
-        try {
-            lock.lock();
-            if(TrainCount&gt;0){
-                System.out.println(Thread.currentThread().getName()+&quot;：正在出售第&quot;+(100-TrainCount+1)+&quot;张票&quot;);
-                TrainCount--;
-            }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            lock.unlock();
-        }
-
-    }
-}
-
-
-public class LockTest {
-    public static void main(String args[]) throws InterruptedException {
-        ThreadTrain threadTrain = new ThreadTrain();
-        Thread t1 = new Thread(threadTrain, &quot;窗口一&quot;);
-        Thread t2 = new Thread(threadTrain, &quot;窗口二&quot;);
-
-        t1.start();
-        Thread.sleep(40);
-        t2.start();
-    }
-}
+    @Bean
+    public FilterRegistrationBean&lt;LogFilter&gt; initLogFilter(){
+        log.info(&quot;属性配置；{}&quot;,appProperties.getAutoDel());
+        ...
 
 </code></pre>
-<hr>
-<p><img src="https://s2.ax1x.com/2019/03/29/A0RwV0.png" alt="result"></p>
-<ul>
-<li>值得注意的是 如果将函数标识成synchronized锁的话，这个函数只是一个this锁，但是如果使用synchronized函数的话，函数的变量可以定义任何Object类型</li>
-<li>如果是用lock锁的话，如果代码在加锁的过程中，程序崩溃报错，那么这个锁就一直会在锁定状态，所以应该用try catch的时候，在finally加上unlock保证锁的正常运行</li>
-<li>通过锁来实现数据同步，来解决一个像是抢票的并发问题。</li>
-</ul>
-<hr>
-<h2 id="java静态同步函数"><a href="#java静态同步函数" class="headerlink" title="java静态同步函数"></a>java静态同步函数</h2><ul>
-<li>如果将synchroized锁函数名前面加上static 标识限制的时候，那么这个函数不再是一个this锁，而是锁本类的java对象<br>例如<br><code>`</code> java<br>private static synchronized void sale(){ //this锁<br>//        synchronized (this){<pre><code>  //加一个判断 判断最后一张票的两个线程情况
-  if(TrainCount&gt;0){
-      System.out.println(Thread.currentThread().getName()+&quot;：正在出售第&quot;+(100-TrainCount+1)+&quot;张票&quot;);
-      TrainCount--;
-  }
-</code></pre></li>
-</ul>
-<p>//        }<br>    }</p>
-<pre><code>
-是和下面的功能是一样的
-
-```java
- private  void sale(){ //this锁
-        synchronized (ThreadTrain.class){
-        //加一个判断 判断最后一张票的两个线程情况
-        if(TrainCount&gt;0){
-            System.out.println(Thread.currentThread().getName()+&quot;：正在出售第&quot;+(100-TrainCount+1)+&quot;张票&quot;);
-            TrainCount--;
-        }
-
-        }
-    }
-</code></pre><h2 id="线程死锁"><a href="#线程死锁" class="headerlink" title="线程死锁"></a>线程死锁</h2><ul>
-<li>千万不要在数据同步的时候在嵌套一个数据锁，这样可能产生一个线程死锁</li>
-<li>具体代码如下<br><code>`</code>java<br>package com.Thread.Test;</li>
-</ul>
-<p>/**</p>
-<ul>
-<li>抢票问题的一个案例分析<br>*/</li>
-</ul>
-<p>class ThreadTrain implements Runnable{</p>
-<pre><code>private int TrainCount = 100;
-
-private Object oj = new Object();
-
-public boolean flag = true;
-
-@Override
-public void run() {
-    if(flag){
-        while (TrainCount&gt;0){
-
-            synchronized (oj){
-                //加一个判断 判断最后一张票的两个线程情况
-                sale();
-
-            }
-        }
-    }else{
-        while(TrainCount&gt;0){
-            sale();
-        }
-
-    }
-
-}
-
-private synchronized void sale(){
-    synchronized (oj){
-    //加一个判断 判断最后一张票的两个线程情况
-    if(TrainCount&gt;0){
-        try {
-            Thread.sleep(40);
-        } catch (Exception e) {
-
-        }
-
-        System.out.println(Thread.currentThread().getName()+&quot;：正在出售第&quot;+(100-TrainCount+1)+&quot;张票&quot;);
-        TrainCount--;
-    }
-
-    }
-}
-</code></pre><p>}</p>
-<p>public class Main {</p>
-<pre><code>public static void main(String[] args) throws InterruptedException {
-    ThreadTrain threadTrain = new ThreadTrain();
-    Thread t1 = new Thread(threadTrain, &quot;窗口一&quot;);
-    Thread t2 = new Thread(threadTrain, &quot;窗口二&quot;);
-
-    t1.start();
-    Thread.sleep(40);
-    threadTrain.flag = false;
-    t2.start();
-
-}
-</code></pre><p>}</p>
-<p><code>`</code></p>
-<p><img src="https://s2.ax1x.com/2019/03/30/AB6zyn.png" alt="运行结果"></p>
-<blockquote>
-<p>产生原因： 一个线程已经占用了Object锁之后，打算进入this锁。但是第二个线程从flag = false那里的代码块直接占用this锁，从而第一个线程进不去sale()方法，而第二个方法执行sale()方法需要解开Object锁，导致死锁的产生。<br>这就好比是两个好友分别有对方的密码盒，并且都有自己钥匙，但是都不会把钥匙给对方，从而会产生一个谁也打不就开密码盒的尴尬情况。</p>
-</blockquote>
+<p>上面的代码是一个配置类，我们可以看到，我们在初始化一个过滤器的时候顺便打印了AutoDel这个属性，，运行一下，可以看到打印台的信息</p>
+<p><img src="https://s2.ax1x.com/2019/06/30/ZlXeRs.png" alt></p>
+<p>在这里我们可以看到，打印出来的是我们配置文件的信息。</p>
 
             </div>
             
@@ -738,55 +480,37 @@ private synchronized void sale(){
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/03/30/java内存模型/">
+                <a href="/2019/06/30/springboot中自定义属性实体类和应用/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="java内存模型">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="springboot中自定义属性实体类和应用">
                         
-                        <span class="card-title">java内存模型</span>
+                        <span class="card-title">springboot中自定义属性实体类和应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java内存模型(JMM)+这里来复习一下java多线程的三大特性 ： 原子性，可见性，有序性。
-
-什么是原子性
-
-即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。一个很经典的例子就是银行账户转账问题：
+                            springboot中自定义属性实体类和应用我们在当初学习SSM的时候学习过@Value这个属性，可以将配置文件中的属性加载到想要加载的类中，这个当然是一个可行的办法,但是如果属性有很多一直写@Value也是一件很麻烦的事情，现在我们可以用
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-30
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/java/" class="post-category" target="_blank">
-                                    java
-                                </a>
-                            
+                            <i class="fa fa-user fa-fw"></i>
+                            WHOAMI
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/多线程/" target="_blank">
-                        <span class="chip bg-color">多线程</span>
-                    </a>
-                    
-                    <a href="/tags/java/" target="_blank">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -797,34 +521,33 @@ private synchronized void sale(){
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/03/28/java守护线程与非守护线程/">
+                <a href="/2019/06/22/maven导入本地jar包/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="java守护线程与非守护线程">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="maven导入本地jar包">
                         
-                        <span class="card-title">java守护线程与非守护线程</span>
+                        <span class="card-title">maven导入本地jar包</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java守护线程与非守护线程窥探
-两个线程的基本概念
-守护线程即在后台为用户提供一些基本保障的线程，例如java中的gc线程[垃圾处理机制],他会自动清理一些没有用处的变量空间，处理空间溢出等问题。守护线程会随着main函数的结束而结束。
-
+                            maven导入本地jar包的方法我们有的时候会找不到maven仓库的地址，只能先下载jar包，然后保存到maven仓库中。或者自己开发的jar包，然后自己导入到maven仓库中。
+比如 我们现在在D盘由一个jar包，我们在命令行中输入
+# 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-28
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-22
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category" target="_blank">
-                                    java
+                            <a href="/categories/maven/" class="post-category" target="_blank">
+                                    maven
                                 </a>
                             
                             
@@ -834,12 +557,8 @@ private synchronized void sale(){
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java架构/" target="_blank">
-                        <span class="chip bg-color">java架构</span>
-                    </a>
-                    
-                    <a href="/tags/多线程/" target="_blank">
-                        <span class="chip bg-color">多线程</span>
+                    <a href="/tags/maven/" target="_blank">
+                        <span class="chip bg-color">maven</span>
                     </a>
                     
                 </div>

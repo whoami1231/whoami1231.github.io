@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>springboot中自定义属性实体类和应用</title>
+      <link href="/2019/06/30/springboot%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%92%8C%E5%BA%94%E7%94%A8/"/>
+      <url>/2019/06/30/springboot%E4%B8%AD%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%92%8C%E5%BA%94%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="springboot中自定义属性实体类和应用"><a href="#springboot中自定义属性实体类和应用" class="headerlink" title="springboot中自定义属性实体类和应用"></a>springboot中自定义属性实体类和应用</h1><p>我们在当初学习SSM的时候学习过@Value这个属性，可以将配置文件中的属性加载到想要加载的类中，这个当然是一个可行的办法,但是如果属性有很多一直写@Value也是一件很麻烦的事情，现在我们可以用<strong>@ConfigurationProperties</strong>和<strong>@EnableConfigurationProperties</strong>这两个注解完成这个问题。</p><h2 id="具体应用"><a href="#具体应用" class="headerlink" title="具体应用"></a>具体应用</h2><ul><li>配置文件如下:</li></ul><pre><code class="yaml">whoami:  auto-scan: false  auto-del: true</code></pre><p>上面的配置文件就相当于一个例子，没有什么作用<br>下面我们写自定义的属性类</p><ul><li>属性类：</li></ul><p>@ConfigurationProperties(prefix = “whoami”)的作用就是将whoami的前缀的配置加载到这个实体类中</p><pre><code class="java">@Data@ConfigurationProperties(&quot;whoami&quot;)public class AppProperties {    private Boolean autoDel = false;    private Boolean autoScan = true;}</code></pre><blockquote><p>在这里我们可以看出来，实体类里面的属性默认值和配置文件正相反，而且配置文件的属性写法是’-‘风格，而自定义文件里面的是驼峰写法，其实只要能对应就完全没问题。</p></blockquote><ul><li>验证一下是否导入</li></ul><p>先说一下@EnableConfigurationProperties的作用，其实就是让@ConfigurationProperties生效</p><pre><code class="java">@Configuration@EnableConfigurationProperties(AppProperties.class)public class FilterConfiguration {    @Autowired    AppProperties appProperties;    @Bean    public FilterRegistrationBean&lt;LogFilter&gt; initLogFilter(){        log.info(&quot;属性配置；{}&quot;,appProperties.getAutoDel());        ...</code></pre><p>上面的代码是一个配置类，我们可以看到，我们在初始化一个过滤器的时候顺便打印了AutoDel这个属性，，运行一下，可以看到打印台的信息</p><p><img src="https://s2.ax1x.com/2019/06/30/ZlXeRs.png" alt></p><p>在这里我们可以看到，打印出来的是我们配置文件的信息。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>maven导入本地jar包</title>
       <link href="/2019/06/22/maven%E5%AF%BC%E5%85%A5%E6%9C%AC%E5%9C%B0jar%E5%8C%85/"/>
       <url>/2019/06/22/maven%E5%AF%BC%E5%85%A5%E6%9C%AC%E5%9C%B0jar%E5%8C%85/</url>
@@ -839,9 +852,9 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -934,6 +947,17 @@
     
     
     <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -948,17 +972,6 @@
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
