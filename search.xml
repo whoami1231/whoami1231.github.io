@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>关于vue导入的那些事</title>
+      <link href="/2019/07/15/%E5%85%B3%E4%BA%8Evue%E5%AF%BC%E5%85%A5%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
+      <url>/2019/07/15/%E5%85%B3%E4%BA%8Evue%E5%AF%BC%E5%85%A5%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="关于vue中import的那些事"><a href="#关于vue中import的那些事" class="headerlink" title="关于vue中import的那些事"></a>关于vue中import的那些事</h1><p>再写vue的项目的时候，import导入其他组件和export的组合是最常用的了。</p><p>那么就那我的项目为例子，我的项目导入了iview</p><pre><code class="javascript">import { Button, Table, Message, Input } from &#39;iview&#39;import &#39;iview/dist/styles/iview.css&#39;;</code></pre><p>可以看到 这个组件是从根路径出发的，而且这个路径是从node_moudle这个文件夹内找的，如果不熟悉node_moudle，可以看我之前的vue入门博客。</p><p>而且，我们可以看到，导入的组件是拿{}包裹这的，我们要知道，一般的组件像是vue官网上的那些，我们都是不拿{}包裹的。</p><blockquote><p>那么，这两种方式有区别么？</p></blockquote><p>答案是有的，{}导入的组件，需要用export ‘xxx’导出，而不需要{}的则需要用export default ‘xxx’导出，而且 default 不可以导出多个，也就是说，我们可以因为某些逻辑将一些组件写在一个js文件中，然后用{}导出</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前后端分离 </tag>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vue全家桶搭建项目和入门理解</title>
       <link href="/2019/07/07/vue%E5%85%A8%E5%AE%B6%E6%A1%B6%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%92%8C%E5%85%A5%E9%97%A8%E7%90%86%E8%A7%A3/"/>
       <url>/2019/07/07/vue%E5%85%A8%E5%AE%B6%E6%A1%B6%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%92%8C%E5%85%A5%E9%97%A8%E7%90%86%E8%A7%A3/</url>
@@ -463,9 +490,9 @@
             
             <tag> linux </tag>
             
-            <tag> java </tag>
-            
             <tag> 文件服务器 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -702,9 +729,9 @@
             
             <tag> linux </tag>
             
-            <tag> 搜索服务 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 搜索服务 </tag>
             
         </tags>
       
@@ -891,9 +918,9 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -986,6 +1013,17 @@
     
     
     <entry>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
@@ -1002,17 +1040,6 @@
       <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
       
     </entry>
     
