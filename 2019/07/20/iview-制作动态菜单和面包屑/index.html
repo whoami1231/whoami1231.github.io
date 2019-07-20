@@ -4,12 +4,17 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="java自定义线程池, 逝痕">
-    <meta name="description" content="java线程池java初始定义线程
-java线程池源码分析
-/**
-     * Creates a new {@code ThreadPoolExecutor} with the given initial
-     * paramete">
+    <meta name="keywords" content="iview 制作动态菜单和面包屑, 逝痕">
+    <meta name="description" content="iview 制作动态菜单和面包屑本次项目搭建的后台是这样的，可以动态生成菜单导航和面包屑，故此记录
+
+生成动态菜单
+
+首先我们直接粘贴iview官网的导航菜单的demo代码
+我的项目结构如下图所示:
+
+首先，菜单的路由表如下:
+
+expor">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +22,7 @@ java线程池源码分析
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>java自定义线程池 | 逝痕</title>
+    <title>iview 制作动态菜单和面包屑 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -252,13 +257,13 @@ java线程池源码分析
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        java自定义线程池
+                        iview 制作动态菜单和面包屑
                     </div>
                 </div>
             </div>
@@ -369,12 +374,8 @@ java线程池源码分析
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/java架构/" target="_blank">
-                                <span class="chip bg-color">java架构</span>
-                            </a>
-                        
-                            <a href="/tags/线程池/" target="_blank">
-                                <span class="chip bg-color">线程池</span>
+                            <a href="/tags/vue/" target="_blank">
+                                <span class="chip bg-color">vue</span>
                             </a>
                         
                     </div>
@@ -385,8 +386,8 @@ java线程池源码分析
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/java/" class="post-category" target="_blank">
-                                java
+                            <a href="/categories/vue/" class="post-category" target="_blank">
+                                vue
                             </a>
                         
                     </div>
@@ -397,7 +398,7 @@ java线程池源码分析
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-08
+                    2019-07-20
                 </div>
 
                 
@@ -413,54 +414,127 @@ java线程池源码分析
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="java线程池"><a href="#java线程池" class="headerlink" title="java线程池"></a>java线程池</h1><h2 id="java初始定义线程"><a href="#java初始定义线程" class="headerlink" title="java初始定义线程"></a>java初始定义线程</h2><p><img src="https://s2.ax1x.com/2019/04/08/A4XAkF.png" alt></p>
-<h2 id="java线程池源码分析"><a href="#java线程池源码分析" class="headerlink" title="java线程池源码分析"></a>java线程池源码分析</h2><p><img src="https://s2.ax1x.com/2019/04/08/A5iM28.png" alt></p>
-<pre><code class="java">/**
-     * Creates a new {@code ThreadPoolExecutor} with the given initial
-     * parameters and default rejected execution handler.
-     *
-     * @param corePoolSize the number of threads to keep in the pool, even
-     *        if they are idle, unless {@code allowCoreThreadTimeOut} is set
-     * @param maximumPoolSize the maximum number of threads to allow in the
-     *        pool
-     * @param keepAliveTime when the number of threads is greater than
-     *        the core, this is the maximum time that excess idle threads
-     *        will wait for new tasks before terminating.
-     * @param unit the time unit for the {@code keepAliveTime} argument
-     * @param workQueue the queue to use for holding tasks before they are
-     *        executed.  This queue will hold only the {@code Runnable}
-     *        tasks submitted by the {@code execute} method.
-     * @param threadFactory the factory to use when the executor
-     *        creates a new thread
-     * @throws IllegalArgumentException if one of the following holds:&lt;br&gt;
-     *         {@code corePoolSize &lt; 0}&lt;br&gt;
-     *         {@code keepAliveTime &lt; 0}&lt;br&gt;
-     *         {@code maximumPoolSize &lt;= 0}&lt;br&gt;
-     *         {@code maximumPoolSize &lt; corePoolSize}
-     * @throws NullPointerException if {@code workQueue}
-     *         or {@code threadFactory} is null
-     */
-    public ThreadPoolExecutor(int corePoolSize,
-                              int maximumPoolSize,
-                              long keepAliveTime,
-                              TimeUnit unit,
-                              BlockingQueue&lt;Runnable&gt; workQueue,
-                              ThreadFactory threadFactory) {
-        this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,
-             threadFactory, defaultHandler);
-    }
-
+                <h1 id="iview-制作动态菜单和面包屑"><a href="#iview-制作动态菜单和面包屑" class="headerlink" title="iview 制作动态菜单和面包屑"></a>iview 制作动态菜单和面包屑</h1><p>本次项目搭建的后台是这样的，可以动态生成菜单导航和面包屑，故此记录<br><img src="https://s2.ax1x.com/2019/07/20/ZzOSuq.png" alt></p>
+<ul>
+<li>生成动态菜单</li>
+</ul>
+<p>首先我们直接粘贴iview官网的导航菜单的demo代码</p>
+<p>我的项目结构如下图所示:</p>
+<p><img src="https://s2.ax1x.com/2019/07/20/ZzOV29.png" alt></p>
+<p>首先，菜单的路由表如下:</p>
+<pre><code class="javascript">
+export default new Router({
+    mode: &#39;history&#39;,
+    routes: [{
+            path: &#39;/index.html&#39;,
+            meta: { title: &#39;主页&#39; },
+            component: () =&gt;
+                import (&#39;@/ivews/index&#39;),
+            children: [{
+                path: &#39;status&#39;,
+                meta: [&quot;主页&quot;, &quot;状态面板&quot;],
+                component: () =&gt;
+                    import (&#39;@/components/status&#39;)
+            }]
+        },
+        {
+            path: &#39;/login.html&#39;,
+            meta: { title: &#39;登陆&#39; },
+            component: () =&gt;
+                import (&#39;@/ivews/login&#39;)
+        },
+        {
+            path: &#39;/&#39;,
+            redirect: &#39;/index.html&#39;
+        }
+    ]
+})
 </code></pre>
-<ol>
-<li>corePoolSize 表示常驻核心线程数。如果等于0，则任务执行完成后，没有任何请求进入时销毁线程池的线程；如果大于0，即使本地任务执行完毕，核心线程也不会被销毁。这个值的设置非常关键，设置过大会浪费资源，设置的过小会导致线程频繁地创建或销毁。再考虑到keepAliveTime和allowCoreThreadTimeOut超时参数的影响，所以没有任务需要执行的时候，线程池的大小不一定是corePoolSize。</li>
-<li>maximumPoolSize 线程池中允许的最大线程数。如果当前阻塞队列满了，且继续提交任务，则创建新的线程执行任务，前提是当前线程数小于maximumPoolSize；当阻塞队列是无界队列, 则maximumPoolSize则不起作用, 因为无法提交至核心线程池的线程会一直持续地放入workQueue.</li>
-</ol>
-<h2 id="合理配置线程数"><a href="#合理配置线程数" class="headerlink" title="合理配置线程数"></a>合理配置线程数</h2><hr>
-<h3 id="分析需求"><a href="#分析需求" class="headerlink" title="分析需求"></a>分析需求</h3><p>根据需求的不同，可以将技术分成IO密集和CPU密集两种类型。</p>
-<p>IO密集：</p>
-<p>线程中存在大量的阻塞，例如，请求，数据库连接，。。。线程会有大量的等待，这样会有等待时间，那么这个线程就是IO密集型，一般这种类型，配置核心线程数的规则是 core = 2*CPU内核</p>
-<p>CPU密集：</p>
-<p>线程中代码非常多，而且计算的内容非常多，阻塞少，这个就是CPU密集，配置规则是：core = CPU内核。</p>
+<p>vuex状态管理menu.js内容如下:</p>
+<pre><code class="javascript">
+const state = {
+    menu: [{
+            id: 1,
+            to: &#39;/index.html/status&#39;,
+            name: &#39;状态面板&#39;,
+            icon: &#39;md-desktop&#39;
+        },
+
+    ],
+
+}
+
+const getters = {
+    menus: state =&gt; state.menu
+}
+
+const mutations = {
+
+}
+
+const actions = {
+
+}
+
+
+export default { state, getters, mutations, actions }
+</code></pre>
+<p>header-manager.vue里面写的就是导航菜单，具体代码如下：</p>
+<pre><code class="html">&lt;template&gt;
+    &lt;div&gt;
+    &lt;Menu mode=&quot;horizontal&quot; :theme=&quot;theme1&quot; &gt;
+        &lt;MenuItem  v-for=&quot;(menu,index) in menus&quot; :key=&#39;index&#39; :name=&quot;menu.id&quot; :to=&quot;menu.to&quot;&gt;
+            &lt;Icon :type=&quot;menu.icon&quot; /&gt;
+            {{menu.name}}
+
+        &lt;/MenuItem&gt;
+    &lt;/Menu&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+
+ import {Menu,MenuItem,Submenu,MenuGroup} from &#39;iview&#39;
+ import {mapGetters} from &#39;vuex&#39;
+
+    export default {
+      name: &#39;Header&#39;,
+        data () {
+            return {
+                theme1: &#39;dark&#39;
+            }
+        },
+        components:{
+          Menu,
+          MenuItem,
+          MenuGroup,
+          Submenu
+        },
+        methods: {
+            query(){
+                console.log(menus);
+            }
+        },
+        computed: {
+            ...mapGetters({
+                menus: &#39;menus&#39;
+            })
+        },
+    }
+&lt;/script&gt;
+</code></pre>
+<blockquote>
+<p>总结一下思路就是，根据iview的MenuItem里面的to属性，来对应路由表的地址，从而做到点击之后跳转相应页面的效果，然后根据vuex动态生成当前菜单内容就好了</p>
+</blockquote>
+<ul>
+<li>动态生成面包屑</li>
+</ul>
+<p>本次项目的面包屑主要完成对象当前路径名称的功能，因此，我们可以根据对应当前路由路径来完成，重要代码如下:</p>
+<pre><code class="html">&lt;Breadcrumb  :style=&quot;{margin: &#39;20px 0&#39;}&quot;&gt;
+        &lt;BreadcrumbItem v-for=&quot;(item,index) in $route.meta&quot; :key=&#39;index&#39;&gt;
+          {{item}}
+&lt;/BreadcrumbItem&gt;
+</code></pre>
 
             </div>
             
@@ -502,63 +576,55 @@ java线程池源码分析
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/12/centos7安装solr服务/">
+                <a href="/2019/07/20/iview-制作动态菜单和面包屑/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.png" class="responsive-img" alt="centos7安装solr服务">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="iview 制作动态菜单和面包屑">
                         
-                        <span class="card-title">centos7安装solr服务</span>
+                        <span class="card-title">iview 制作动态菜单和面包屑</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            centos7 下安装solr服务1. 安装java环境
+                            iview 制作动态菜单和面包屑本次项目搭建的后台是这样的，可以动态生成菜单导航和面包屑，故此记录
 
-将jdk扔到linux下，解压
+生成动态菜单
 
-修改环境变量
+首先我们直接粘贴iview官网的导航菜单的demo代码
+我的项目结构如下图所示:
 
+首先，菜单的路由表如下:
 
-# 打开配置文件
-vim /etc/profile 
-
-# 在文件末尾添加
-JAVA_HOME=/usr/local/java/
+expor
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                    linux
+                            <a href="/categories/vue/" class="post-category" target="_blank">
+                                    vue
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/linux/" target="_blank">
-                        <span class="chip bg-color">linux</span>
-                    </a>
-                    
-                    <a href="/tags/java/" target="_blank">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                    <a href="/tags/搜索服务/" target="_blank">
-                        <span class="chip bg-color">搜索服务</span>
+                    <a href="/tags/vue/" target="_blank">
+                        <span class="chip bg-color">vue</span>
                     </a>
                     
                 </div>
@@ -572,35 +638,33 @@ JAVA_HOME=/usr/local/java/
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/07/centos7安装rabbitMQ/">
+                <a href="/2019/07/15/关于vue导入的那些事/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.png" class="responsive-img" alt="centos7安装rabbitMQ">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="关于vue导入的那些事">
                         
-                        <span class="card-title">centos7安装rabbitMQ</span>
+                        <span class="card-title">关于vue导入的那些事</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            centos安装RabbitMQ并配置环境之前我在网上搜罗了很多教程，但是大多都很繁琐，要么就是版本太老。
-这里我提供了一个非常简单的方法
-
-下载安装包
-打开[官网地址]: (https://www.rabbitmq.com/release
+                            关于vue中import的那些事再写vue的项目的时候，import导入其他组件和export的组合是最常用的了。
+那么就那我的项目为例子，我的项目导入了iview
+import { Button, Table, Message, Inpu
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-15
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                    linux
+                            <a href="/categories/vue/" class="post-category" target="_blank">
+                                    vue
                                 </a>
                             
                             
@@ -610,12 +674,12 @@ JAVA_HOME=/usr/local/java/
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/linux/" target="_blank">
-                        <span class="chip bg-color">linux</span>
+                    <a href="/tags/vue/" target="_blank">
+                        <span class="chip bg-color">vue</span>
                     </a>
                     
-                    <a href="/tags/安装教程/" target="_blank">
-                        <span class="chip bg-color">安装教程</span>
+                    <a href="/tags/前后端分离/" target="_blank">
+                        <span class="chip bg-color">前后端分离</span>
                     </a>
                     
                 </div>
