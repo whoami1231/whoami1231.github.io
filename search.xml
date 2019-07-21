@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>vue请求后端的一般思路</title>
+      <link href="/2019/07/22/vue%E8%AF%B7%E6%B1%82%E5%90%8E%E7%AB%AF%E7%9A%84%E4%B8%80%E8%88%AC%E6%80%9D%E8%B7%AF/"/>
+      <url>/2019/07/22/vue%E8%AF%B7%E6%B1%82%E5%90%8E%E7%AB%AF%E7%9A%84%E4%B8%80%E8%88%AC%E6%80%9D%E8%B7%AF/</url>
+      
+        <content type="html"><![CDATA[<h1 id="vue请求后端的一般思路"><a href="#vue请求后端的一般思路" class="headerlink" title="vue请求后端的一般思路"></a>vue请求后端的一般思路</h1><p>这里说的vue指的是利用vue-cli搭建的前端项目，并且后端的项目是利用springboot搭建。</p><p>做前后端分离的时候，我们不可避免的会和后端出现交互，那么如何结构化的进行交互是这篇文章的重点。</p><blockquote><p>这里没有采用ajax，而是利用了axios</p></blockquote><h2 id="axios-封装"><a href="#axios-封装" class="headerlink" title="axios 封装"></a>axios 封装</h2><p>首先如果进行交互，那么我们肯定不能只考虑交互成功的时候，肯定也要考虑因为各种因素导致的失败，但是如果每次访问都要考虑同一因素导致的失败就会产生代码冗杂。</p><p>因此，我们可以考虑利用axios的拦截器对一些信息进行统一处理。</p><p>并且如果进行交互，那么vuex也是必须的，所以，如果不熟悉vuex的，要先进行了解。</p><h2 id="下载相应的模块"><a href="#下载相应的模块" class="headerlink" title="下载相应的模块"></a>下载相应的模块</h2><p>首先，现在axios是必须的</p><pre><code class="bash">npm install axios --savenpm install vue-axios --save # vue版的axios的插件npm install qs.js --save # 可以对字符串进行json处理npm install  js-md5 # md5加密</code></pre><h2 id="service-js进行封装"><a href="#service-js进行封装" class="headerlink" title="service.js进行封装"></a>service.js进行封装</h2><p>在我的项目中，我新建了一个util工具包，并且新建了一个service.js来封装axios，具体代码如下:</p><pre><code class="javaScript">import axios from &#39;axios&#39;import qs from &quot;qs&quot;import store from &#39;../store&#39;;import { Message } from &#39;iview&#39;;// axios相应的封装const service = axios.create({    timeout: 5000,    baseURL: &quot;http://localhost:8099&quot;});service.interceptors.request.use(    config =&gt; {        const token = store.state.token;        if (token) {            config.headers[&quot;Authentication&quot;] = token        }        config.method === &#39;post&#39; ?            config.data = qs.stringify({...config.data }) :            config.params = {...config.params };        config.headers[&#39;Content-Type&#39;] = &#39;application/x-www-form-urlencoded&#39;        return config;    }, error =&gt; {        return Promise.reject(error);    })service.interceptors.response.use(    response =&gt; {        return response;    },    error =&gt; {      // 这里只是简单的判断了是不是超时，真实的项目肯定还复杂        if (error.message.includes(&#39;timeout&#39;)) { // 判断请求异常信息中是否含有超时timeout字符串            Message.error(&quot;网络连接超时&quot;);            //return Promise.reject(error); // reject这个错误信息        } else {            Message.error(&quot;服务异常！&quot;);        }        return Promise.reject(error);    });export default service</code></pre><h2 id="vuex进行相应的模块封装"><a href="#vuex进行相应的模块封装" class="headerlink" title="vuex进行相应的模块封装"></a>vuex进行相应的模块封装</h2><p>比如说本次的项目中，我们可以写一个user模块，来控制用户登陆。</p><p>代码如下:</p><pre><code class="javaScript">import axios from &#39;axios&#39;import userApi from &#39;@/api/user&#39;const state = {    username: &#39;&#39;,    password: &#39;&#39;,    token: null};const getters = {    getToken: state =&gt; state.token};const mutations = {    setToken: (state, token) =&gt; {        state.token = token    }};const actions = {    login({ commit }, { username, password }) {        return new Promise((resolve, reject) =&gt; {            userApi.login(username, password)                .then(response =&gt; {                    const token = response.data.token;                    commit(&#39;setToken&#39;, token);                    resolve(response)                })                .catch(error =&gt; {                    reject(error)                })        })    }};export default { state, getters, mutations, actions };</code></pre><p>上面的action里面的login方法是单独抽离出来的代码，用来实现登陆功能。</p><h1 id="方法的封装"><a href="#方法的封装" class="headerlink" title="方法的封装"></a>方法的封装</h1><p>为了对应结构化的处理，我们需要将方法单独抽离出来。</p><p>比如此次项目，我们新建一个api文件夹，里面新建一个user.js</p><p>里面具体代码如下:</p><pre><code class="javaScript">import service from &#39;@/util/service&#39;const userApi = {}// 登陆函数userApi.login = (username, password) =&gt; {    return service({        url: &#39;/login&#39;,        data: {            username: md5(username),            password: md5(password)        },        method: &#39;post&#39;    })}export default userApi</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+            <tag> 前后端分离 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>iview 制作动态菜单和面包屑</title>
       <link href="/2019/07/20/iview-%E5%88%B6%E4%BD%9C%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E9%9D%A2%E5%8C%85%E5%B1%91/"/>
       <url>/2019/07/20/iview-%E5%88%B6%E4%BD%9C%E5%8A%A8%E6%80%81%E8%8F%9C%E5%8D%95%E5%92%8C%E9%9D%A2%E5%8C%85%E5%B1%91/</url>
@@ -515,9 +542,9 @@
             
             <tag> linux </tag>
             
-            <tag> 文件服务器 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 文件服务器 </tag>
             
         </tags>
       
@@ -754,9 +781,9 @@
             
             <tag> linux </tag>
             
-            <tag> java </tag>
-            
             <tag> 搜索服务 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
