@@ -368,12 +368,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/vue/" target="_blank">
-                                <span class="chip bg-color">vue</span>
-                            </a>
-                        
                             <a href="/tags/前后端分离/" target="_blank">
                                 <span class="chip bg-color">前后端分离</span>
+                            </a>
+                        
+                            <a href="/tags/vue/" target="_blank">
+                                <span class="chip bg-color">vue</span>
                             </a>
                         
                     </div>
@@ -525,7 +525,7 @@ export default { state, getters, mutations, actions };
 <p>比如此次项目，我们新建一个api文件夹，里面新建一个user.js</p>
 <p>里面具体代码如下:</p>
 <pre><code class="javaScript">import service from &#39;@/util/service&#39;
-
+import md5 from &#39;js-md5&#39;
 const userApi = {}
 
 // 登陆函数
@@ -584,31 +584,29 @@ export default userApi
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/07/22/vue请求后端的一般思路/">
+                <a href="/2019/07/22/vue-springboot前后端分离中的跨域问题/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="vue请求后端的一般思路">
+                        <img src="/medias/featureimages/5.png" class="responsive-img" alt="vue+springboot前后端分离中的跨域问题">
                         
-                        <span class="card-title">vue请求后端的一般思路</span>
+                        <span class="card-title">vue+springboot前后端分离中的跨域问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            vue请求后端的一般思路这里说的vue指的是利用vue-cli搭建的前端项目，并且后端的项目是利用springboot搭建。
-做前后端分离的时候，我们不可避免的会和后端出现交互，那么如何结构化的进行交互是这篇文章的重点。
-
-这里没有采用aj
+                            vue+springboot前后端分离中的跨域问题如今前后端分离已经成为了热门，那么本次话题就是如何解决前后端分离中的跨域问题。
+首先，我们来看一下什么是前后端分离。
+前后端分离,其实无非来说就是因为项目越来越大，从而让前端工程师和后端工程
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-22
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-22
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -621,16 +619,15 @@ export default userApi
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/vue/" target="_blank">
-                        <span class="chip bg-color">vue</span>
-                    </a>
-                    
                     <a href="/tags/前后端分离/" target="_blank">
                         <span class="chip bg-color">前后端分离</span>
+                    </a>
+                    
+                    <a href="/tags/vue/" target="_blank">
+                        <span class="chip bg-color">vue</span>
                     </a>
                     
                 </div>

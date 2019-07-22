@@ -4,17 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="iview 制作动态菜单和面包屑, 逝痕">
-    <meta name="description" content="iview 制作动态菜单和面包屑本次项目搭建的后台是这样的，可以动态生成菜单导航和面包屑，故此记录
-
-生成动态菜单
-
-首先我们直接粘贴iview官网的导航菜单的demo代码
-我的项目结构如下图所示:
-
-首先，菜单的路由表如下:
-
-expor">
+    <meta name="keywords" content="vue+springboot前后端分离中的跨域问题, 逝痕">
+    <meta name="description" content="vue+springboot前后端分离中的跨域问题如今前后端分离已经成为了热门，那么本次话题就是如何解决前后端分离中的跨域问题。
+首先，我们来看一下什么是前后端分离。
+前后端分离,其实无非来说就是因为项目越来越大，从而让前端工程师和后端工程">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +15,7 @@ expor">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>iview 制作动态菜单和面包屑 | 逝痕</title>
+    <title>vue+springboot前后端分离中的跨域问题 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -257,13 +250,13 @@ expor">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.png')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        iview 制作动态菜单和面包屑
+                        vue+springboot前后端分离中的跨域问题
                     </div>
                 </div>
             </div>
@@ -374,6 +367,10 @@ expor">
                     
                     <div class="article-tag">
                         
+                            <a href="/tags/前后端分离/" target="_blank">
+                                <span class="chip bg-color">前后端分离</span>
+                            </a>
+                        
                             <a href="/tags/vue/" target="_blank">
                                 <span class="chip bg-color">vue</span>
                             </a>
@@ -398,7 +395,7 @@ expor">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-20
+                    2019-07-22
                 </div>
 
                 
@@ -414,126 +411,89 @@ expor">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="iview-制作动态菜单和面包屑"><a href="#iview-制作动态菜单和面包屑" class="headerlink" title="iview 制作动态菜单和面包屑"></a>iview 制作动态菜单和面包屑</h1><p>本次项目搭建的后台是这样的，可以动态生成菜单导航和面包屑，故此记录<br><img src="https://s2.ax1x.com/2019/07/20/ZzOSuq.png" alt></p>
-<ul>
-<li>生成动态菜单</li>
-</ul>
-<p>首先我们直接粘贴iview官网的导航菜单的demo代码</p>
-<p>我的项目结构如下图所示:</p>
-<p><img src="https://s2.ax1x.com/2019/07/20/ZzOV29.png" alt></p>
-<p>首先，菜单的路由表如下:</p>
-<pre><code class="javascript">
-export default new Router({
-    mode: &#39;history&#39;,
-    routes: [{
-            path: &#39;/index.html&#39;,
-            meta: { title: &#39;主页&#39; },
-            component: () =&gt;
-                import (&#39;@/ivews/index&#39;),
-            children: [{
-                path: &#39;status&#39;,
-                meta: [&quot;主页&quot;, &quot;状态面板&quot;],
-                component: () =&gt;
-                    import (&#39;@/components/status&#39;)
-            }]
-        },
-        {
-            path: &#39;/login.html&#39;,
-            meta: { title: &#39;登陆&#39; },
-            component: () =&gt;
-                import (&#39;@/ivews/login&#39;)
-        },
-        {
-            path: &#39;/&#39;,
-            redirect: &#39;/index.html&#39;
+                <h1 id="vue-springboot前后端分离中的跨域问题"><a href="#vue-springboot前后端分离中的跨域问题" class="headerlink" title="vue+springboot前后端分离中的跨域问题"></a>vue+springboot前后端分离中的跨域问题</h1><p>如今前后端分离已经成为了热门，那么本次话题就是如何解决前后端分离中的跨域问题。</p>
+<p>首先，我们来看一下什么是前后端分离。</p>
+<p><strong>前后端分离</strong>,其实无非来说就是因为项目越来越大，从而让前端工程师和后端工程师不得不分开成为两个具体项目,二者之间只需要按照api来约定，从而大大简化了开发的工程量。</p>
+<h2 id="如何做到前后端分离"><a href="#如何做到前后端分离" class="headerlink" title="如何做到前后端分离"></a>如何做到前后端分离</h2><p>一般来说，前端可以用vue-cli搭建，它可以用webpack进行打包，并且可以利用nginx进行访问。</p>
+<p>后端的话可以利用,spring全家桶，you know what I mean.</p>
+<h2 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h2><p>那么，问题来了，当我们没有用前后端分离的时候，跨域问题一般不存在，或者存在于分布式中，那时候我们可以利用js解决这个问题，但是现在我们可以在后端中着手这个问题。</p>
+<p>解决思路:</p>
+<p>  利用springboot的filter来解决这一问题</p>
+<pre><code class="java">package run.app.config;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: WHOAMI
+ * Time: 2019 2019/7/8 23:43
+ * Description: ://TODO ${END}
+ */
+
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.filter.GenericFilterBean;
+
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * Filter for CORS.
+ * 解决跨域问题
+ * @author johnniang
+ */
+@Slf4j
+public class CorsFilter extends GenericFilterBean {
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        log.info(&quot;进入&quot;);
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+
+        // Set customized header
+        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, httpServletRequest.getHeader(HttpHeaders.ORIGIN));
+        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, &quot;x-requested-with&quot;);
+        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, &quot;GET, POST, PUT, DELETE, OPTIONS&quot;);
+        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, &quot;true&quot;);
+        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_MAX_AGE, &quot;3600&quot;);
+
+//        todo 没看懂 好像是解决跨越问题
+        if (!CorsUtils.isPreFlightRequest(httpServletRequest)) {
+            chain.doFilter(httpServletRequest, httpServletResponse);
         }
-    ]
-})
-</code></pre>
-<p>vuex状态管理menu.js内容如下:</p>
-<pre><code class="javascript">
-const state = {
-    menu: [{
-            id: 1,
-            to: &#39;/index.html/status&#39;,
-            name: &#39;状态面板&#39;,
-            icon: &#39;md-desktop&#39;
-        },
-
-    ],
-
-}
-
-const getters = {
-    menus: state =&gt; state.menu
-}
-
-const mutations = {
-
-}
-
-const actions = {
-
-}
-
-
-export default { state, getters, mutations, actions }
-</code></pre>
-<p>header-manager.vue里面写的就是导航菜单，具体代码如下：</p>
-<pre><code class="html">&lt;template&gt;
-    &lt;div&gt;
-    &lt;Menu mode=&quot;horizontal&quot; :theme=&quot;theme1&quot; &gt;
-        &lt;MenuItem  v-for=&quot;(menu,index) in menus&quot; :key=&#39;index&#39; :name=&quot;menu.id&quot; :to=&quot;menu.to&quot;&gt;
-            &lt;Icon :type=&quot;menu.icon&quot; /&gt;
-            {{menu.name}}
-
-        &lt;/MenuItem&gt;
-    &lt;/Menu&gt;
-    &lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-
- import {Menu,MenuItem,Submenu,MenuGroup} from &#39;iview&#39;
- import {mapGetters} from &#39;vuex&#39;
-
-    export default {
-      name: &#39;Header&#39;,
-        data () {
-            return {
-                theme1: &#39;dark&#39;
-            }
-        },
-        components:{
-          Menu,
-          MenuItem,
-          MenuGroup,
-          Submenu
-        },
-        methods: {
-            query(){
-                console.log(menus);
-            }
-        },
-        computed: {
-            ...mapGetters({
-                menus: &#39;menus&#39;
-            })
-        },
     }
-&lt;/script&gt;
+}
+
 </code></pre>
-<blockquote>
-<p>总结一下思路就是，根据iview的MenuItem里面的to属性，来对应路由表的地址，从而做到点击之后跳转相应页面的效果，然后根据vuex动态生成当前菜单内容就好了</p>
-</blockquote>
-<ul>
-<li>动态生成面包屑</li>
-</ul>
-<p>本次项目的面包屑主要完成对象当前路径名称的功能，因此，我们可以根据对应当前路由路径来完成，重要代码如下:</p>
-<pre><code class="html">&lt;Breadcrumb  :style=&quot;{margin: &#39;20px 0&#39;}&quot;&gt;
-        &lt;BreadcrumbItem v-for=&quot;(item,index) in $route.meta&quot; :key=&#39;index&#39;&gt;
-          {{item}}
-&lt;/BreadcrumbItem&gt;
+<p>上面的是filter的写法，然后我们在注册中心注册一下就好了</p>
+<pre><code class="java">
+
+@Slf4j
+@Configuration
+@EnableConfigurationProperties(AppProperties.class)
+public class FilterConfiguration {
+
+    @Bean
+    public FilterRegistrationBean&lt;CorsFilter&gt; initCorsFilter(){
+        FilterRegistrationBean&lt;CorsFilter&gt; corsFilter = new FilterRegistrationBean&lt;&gt;();
+
+        corsFilter.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        corsFilter.setFilter(new CorsFilter());
+
+        corsFilter.addUrlPatterns(&quot;/*&quot;);
+
+        return corsFilter;
+    }
+}
+
+
 </code></pre>
 
             </div>
@@ -576,30 +536,30 @@ export default { state, getters, mutations, actions }
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/07/22/vue请求后端的一般思路/">
+                <a href="/2019/07/22/vue-springboot前后端分离中的跨域问题/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="vue请求后端的一般思路">
+                        <img src="/medias/featureimages/5.png" class="responsive-img" alt="vue+springboot前后端分离中的跨域问题">
                         
-                        <span class="card-title">vue请求后端的一般思路</span>
+                        <span class="card-title">vue+springboot前后端分离中的跨域问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            vue请求后端的一般思路这里说的vue指的是利用vue-cli搭建的前端项目，并且后端的项目是利用springboot搭建。
-做前后端分离的时候，我们不可避免的会和后端出现交互，那么如何结构化的进行交互是这篇文章的重点。
-
-这里没有采用aj
+                            vue+springboot前后端分离中的跨域问题如今前后端分离已经成为了热门，那么本次话题就是如何解决前后端分离中的跨域问题。
+首先，我们来看一下什么是前后端分离。
+前后端分离,其实无非来说就是因为项目越来越大，从而让前端工程师和后端工程
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -612,6 +572,7 @@ export default { state, getters, mutations, actions }
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -634,26 +595,27 @@ export default { state, getters, mutations, actions }
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/15/关于vue导入的那些事/">
+                <a href="/2019/07/22/vue请求后端的一般思路/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="关于vue导入的那些事">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="vue请求后端的一般思路">
                         
-                        <span class="card-title">关于vue导入的那些事</span>
+                        <span class="card-title">vue请求后端的一般思路</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            关于vue中import的那些事再写vue的项目的时候，import导入其他组件和export的组合是最常用的了。
-那么就那我的项目为例子，我的项目导入了iview
-import { Button, Table, Message, Inpu
+                            vue请求后端的一般思路这里说的vue指的是利用vue-cli搭建的前端项目，并且后端的项目是利用springboot搭建。
+做前后端分离的时候，我们不可避免的会和后端出现交互，那么如何结构化的进行交互是这篇文章的重点。
+
+这里没有采用aj
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-15
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-22
                             </span>
                         <span class="publish-author">
                             
