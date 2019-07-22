@@ -8,7 +8,7 @@
       <link href="/2019/07/22/vue-springboot%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E4%B8%AD%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/"/>
       <url>/2019/07/22/vue-springboot%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E4%B8%AD%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</url>
       
-        <content type="html"><![CDATA[<h1 id="vue-springboot前后端分离中的跨域问题"><a href="#vue-springboot前后端分离中的跨域问题" class="headerlink" title="vue+springboot前后端分离中的跨域问题"></a>vue+springboot前后端分离中的跨域问题</h1><p>如今前后端分离已经成为了热门，那么本次话题就是如何解决前后端分离中的跨域问题。</p><p>首先，我们来看一下什么是前后端分离。</p><p><strong>前后端分离</strong>,其实无非来说就是因为项目越来越大，从而让前端工程师和后端工程师不得不分开成为两个具体项目,二者之间只需要按照api来约定，从而大大简化了开发的工程量。</p><h2 id="如何做到前后端分离"><a href="#如何做到前后端分离" class="headerlink" title="如何做到前后端分离"></a>如何做到前后端分离</h2><p>一般来说，前端可以用vue-cli搭建，它可以用webpack进行打包，并且可以利用nginx进行访问。</p><p>后端的话可以利用,spring全家桶，you know what I mean.</p><h2 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h2><p>那么，问题来了，当我们没有用前后端分离的时候，跨域问题一般不存在，或者存在于分布式中，那时候我们可以利用js解决这个问题，但是现在我们可以在后端中着手这个问题。</p><p>解决思路:</p><p>  利用springboot的filter来解决这一问题</p><pre><code class="java">package run.app.config;/** * Created with IntelliJ IDEA. * User: WHOAMI * Time: 2019 2019/7/8 23:43 * Description: ://TODO ${END} */import lombok.extern.slf4j.Slf4j;import org.springframework.http.HttpHeaders;import org.springframework.web.cors.CorsUtils;import org.springframework.web.filter.GenericFilterBean;import javax.servlet.FilterChain;import javax.servlet.ServletException;import javax.servlet.ServletRequest;import javax.servlet.ServletResponse;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;import java.io.IOException;/** * Filter for CORS. * 解决跨域问题 * @author johnniang */@Slf4jpublic class CorsFilter extends GenericFilterBean {    @Override    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {        log.info(&quot;进入&quot;);        HttpServletRequest httpServletRequest = (HttpServletRequest) request;        HttpServletResponse httpServletResponse = (HttpServletResponse) response;        // Set customized header        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, httpServletRequest.getHeader(HttpHeaders.ORIGIN));        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, &quot;x-requested-with&quot;);        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, &quot;GET, POST, PUT, DELETE, OPTIONS&quot;);        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, &quot;true&quot;);        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_MAX_AGE, &quot;3600&quot;);//        todo 没看懂 好像是解决跨越问题        if (!CorsUtils.isPreFlightRequest(httpServletRequest)) {            chain.doFilter(httpServletRequest, httpServletResponse);        }    }}</code></pre><p>上面的是filter的写法，然后我们在注册中心注册一下就好了</p><pre><code class="java">@Slf4j@Configuration@EnableConfigurationProperties(AppProperties.class)public class FilterConfiguration {    @Bean    public FilterRegistrationBean&lt;CorsFilter&gt; initCorsFilter(){        FilterRegistrationBean&lt;CorsFilter&gt; corsFilter = new FilterRegistrationBean&lt;&gt;();        corsFilter.setOrder(Ordered.HIGHEST_PRECEDENCE);        corsFilter.setFilter(new CorsFilter());        corsFilter.addUrlPatterns(&quot;/*&quot;);        return corsFilter;    }}</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="vue-springboot前后端分离中的跨域问题"><a href="#vue-springboot前后端分离中的跨域问题" class="headerlink" title="vue+springboot前后端分离中的跨域问题"></a>vue+springboot前后端分离中的跨域问题</h1><p>如今前后端分离已经成为了热门，那么本次话题就是如何解决前后端分离中的跨域问题。</p><p>首先，我们来看一下什么是前后端分离。</p><p><strong>前后端分离</strong>,其实无非来说就是因为项目越来越大，从而让前端工程师和后端工程师不得不分开成为两个具体项目,二者之间只需要按照api来约定，从而大大简化了开发的工程量。</p><h2 id="如何做到前后端分离"><a href="#如何做到前后端分离" class="headerlink" title="如何做到前后端分离"></a>如何做到前后端分离</h2><p>一般来说，前端可以用vue-cli搭建，它可以用webpack进行打包，并且可以利用nginx进行访问。</p><p>后端的话可以利用,spring全家桶，you know what I mean.</p><h2 id="跨域问题"><a href="#跨域问题" class="headerlink" title="跨域问题"></a>跨域问题</h2><p>那么，问题来了，当我们没有用前后端分离的时候，跨域问题一般不存在，或者存在于分布式中，那时候我们可以利用js解决这个问题，但是现在我们可以在后端中着手这个问题。</p><p>解决思路:</p><p>  利用springboot的filter来解决这一问题</p><pre><code class="java">package run.app.config;/** * Created with IntelliJ IDEA. * User: WHOAMI * Time: 2019 2019/7/8 23:43 * Description: ://TODO ${END} */import lombok.extern.slf4j.Slf4j;import org.springframework.http.HttpHeaders;import org.springframework.web.cors.CorsUtils;import org.springframework.web.filter.GenericFilterBean;import javax.servlet.FilterChain;import javax.servlet.ServletException;import javax.servlet.ServletRequest;import javax.servlet.ServletResponse;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;import java.io.IOException;/** * Filter for CORS. * 解决跨域问题 * @author johnniang */@Slf4jpublic class CorsFilter extends GenericFilterBean {    @Override    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {        log.info(&quot;进入&quot;);        HttpServletRequest httpServletRequest = (HttpServletRequest) request;        HttpServletResponse httpServletResponse = (HttpServletResponse) response;        // Set customized header        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, httpServletRequest.getHeader(HttpHeaders.ORIGIN));        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, &quot;x-requested-with&quot;);        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS, &quot;GET, POST, PUT, DELETE, OPTIONS&quot;);        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, &quot;true&quot;);        httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_MAX_AGE, &quot;3600&quot;);//        todo 没看懂 好像是解决跨越问题        if (!CorsUtils.isPreFlightRequest(httpServletRequest)) {            chain.doFilter(httpServletRequest, httpServletResponse);        }    }}</code></pre><p>上面的是filter的写法，然后我们在注册中心注册一下就好了</p><pre><code class="java">@Slf4j@Configuration@EnableConfigurationProperties(AppProperties.class)public class FilterConfiguration {    @Bean    public FilterRegistrationBean&lt;CorsFilter&gt; initCorsFilter(){        FilterRegistrationBean&lt;CorsFilter&gt; corsFilter = new FilterRegistrationBean&lt;&gt;();        corsFilter.setOrder(Ordered.HIGHEST_PRECEDENCE);        corsFilter.setFilter(new CorsFilter());        corsFilter.addUrlPatterns(&quot;/*&quot;);        return corsFilter;    }}</code></pre><h2 id="后期修改-重要"><a href="#后期修改-重要" class="headerlink" title="后期修改(重要)"></a>后期修改(重要)</h2><p>由于vue默认请求编码格式是content-type为application/x-www-form-urlencoded的数据。<br>但是现在有一个需求是在post请求的时候将content-type修改为application/json; charset=utf-8格式，并且后台利用@RequestBody获取到参数，而且我们都知道这个参数并不能处理application/x-www-form-urlencoded的数据。<br>但是当我利用上面的过滤器的时候，还是出现了禁止访问的现象，跨域问题仍然存在，仔细查看发现是我并不允许application/json格式的对象，所以上面的filter中的请求头应该改成</p><pre><code class="java">httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, &quot;Origin, X-Requested-With, Content-Type, Accept&quot;);</code></pre><p>现在问题解决。</p>]]></content>
       
       
       <categories>
@@ -567,11 +567,11 @@
       
         <tags>
             
+            <tag> 文件服务器 </tag>
+            
             <tag> linux </tag>
             
             <tag> java </tag>
-            
-            <tag> 文件服务器 </tag>
             
         </tags>
       
@@ -808,9 +808,9 @@
             
             <tag> linux </tag>
             
-            <tag> 搜索服务 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 搜索服务 </tag>
             
         </tags>
       
@@ -997,9 +997,9 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       

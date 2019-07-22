@@ -495,6 +495,10 @@ public class FilterConfiguration {
 
 
 </code></pre>
+<h2 id="后期修改-重要"><a href="#后期修改-重要" class="headerlink" title="后期修改(重要)"></a>后期修改(重要)</h2><p>由于vue默认请求编码格式是content-type为application/x-www-form-urlencoded的数据。<br>但是现在有一个需求是在post请求的时候将content-type修改为application/json; charset=utf-8格式，并且后台利用@RequestBody获取到参数，而且我们都知道这个参数并不能处理application/x-www-form-urlencoded的数据。<br>但是当我利用上面的过滤器的时候，还是出现了禁止访问的现象，跨域问题仍然存在，仔细查看发现是我并不允许application/json格式的对象，所以上面的filter中的请求头应该改成</p>
+<pre><code class="java">httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, &quot;Origin, X-Requested-With, Content-Type, Accept&quot;);
+</code></pre>
+<p>现在问题解决。</p>
 
             </div>
             
