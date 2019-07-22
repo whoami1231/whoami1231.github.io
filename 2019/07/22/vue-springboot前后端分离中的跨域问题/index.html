@@ -367,12 +367,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/前后端分离/" target="_blank">
-                                <span class="chip bg-color">前后端分离</span>
-                            </a>
-                        
                             <a href="/tags/vue/" target="_blank">
                                 <span class="chip bg-color">vue</span>
+                            </a>
+                        
+                            <a href="/tags/前后端分离/" target="_blank">
+                                <span class="chip bg-color">前后端分离</span>
                             </a>
                         
                     </div>
@@ -499,6 +499,17 @@ public class FilterConfiguration {
 <pre><code class="java">httpServletResponse.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, &quot;Origin, X-Requested-With, Content-Type, Accept&quot;);
 </code></pre>
 <p>现在问题解决。</p>
+<h2 id="现象分析"><a href="#现象分析" class="headerlink" title="现象分析"></a>现象分析</h2><p>如果你打开你的控制台会发现，你的跨域请求会发出两次或者三次，但是只有一次是你真正想要的</p>
+<p>这是你真正的请求<br><img src="https://s2.ax1x.com/2019/07/22/eCyCy4.png" alt></p>
+<p>下面的多出来的请求</p>
+<p><img src="https://s2.ax1x.com/2019/07/22/eCy10A.png" alt></p>
+<h2 id="OPTIONS分析"><a href="#OPTIONS分析" class="headerlink" title="OPTIONS分析"></a>OPTIONS分析</h2><p>那么，这个OPTIONS是什么呢？<br>经过filter发现，我们是允许这个OPTIONS请求的，后来经过google发现，<br>W3C规范：跨域请求中，分为简单请求和复杂请求；所谓的简单请求，需要满足如下几个条件：</p>
+<ul>
+<li>GET，HEAD，POST请求中的一种；</li>
+<li>除了浏览器在请求头上增加的信息（如Connection，User-Agent等），开发者仅可以增加Accept，Accept-Language，Content-Type等；</li>
+<li>Content-Type的取值必须是以下三个：application/x-www-form-urlencoded，multipart/form-data，text/plain。</li>
+</ul>
+<p>在发出复杂请求的之前，就会出现一次OPTIONS请求。<br>OPTIONS请求可以被称作一次嗅探请求，通过这个方法，客户端可以在采取具体的资源请求之前，决定对资源采取何种必要措施。</p>
 
             </div>
             
@@ -580,12 +591,12 @@ public class FilterConfiguration {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/前后端分离/" target="_blank">
-                        <span class="chip bg-color">前后端分离</span>
-                    </a>
-                    
                     <a href="/tags/vue/" target="_blank">
                         <span class="chip bg-color">vue</span>
+                    </a>
+                    
+                    <a href="/tags/前后端分离/" target="_blank">
+                        <span class="chip bg-color">前后端分离</span>
                     </a>
                     
                 </div>
@@ -636,12 +647,12 @@ public class FilterConfiguration {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/前后端分离/" target="_blank">
-                        <span class="chip bg-color">前后端分离</span>
-                    </a>
-                    
                     <a href="/tags/vue/" target="_blank">
                         <span class="chip bg-color">vue</span>
+                    </a>
+                    
+                    <a href="/tags/前后端分离/" target="_blank">
+                        <span class="chip bg-color">前后端分离</span>
                     </a>
                     
                 </div>
