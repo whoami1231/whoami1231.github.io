@@ -436,6 +436,7 @@ User result4 = Optional.ofNullable(user).Get();
 </blockquote>
 <p>orElseThrow:有值就返回值,没有值抛用户定义的异常</p>
 <p>Get:有值就返回值,没有值NoSuchElementException。</p>
+<h2 id="需要注意的点"><a href="#需要注意的点" class="headerlink" title="需要注意的点"></a>需要注意的点</h2><p>如果对得到的Optional的函数不提前利用isPresent()函数判断里面是否有值的话，就Get函数，如果里面是空的话，会爆出NoSuchElementException，对代码的逻辑产生一定的影响，所以最好还是先判断一下。</p>
 
             </div>
             

@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title>springboot Filter中无法注入Bean对象的解决办法</title>
+      <link href="/2019/07/24/springboot-Filter%E4%B8%AD%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+      <url>/2019/07/24/springboot-Filter%E4%B8%AD%E6%97%A0%E6%B3%95%E6%B3%A8%E5%85%A5Bean%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="springboot-Filter中无法注入Bean对象的解决办法"><a href="#springboot-Filter中无法注入Bean对象的解决办法" class="headerlink" title="springboot Filter中无法注入Bean对象的解决办法"></a>springboot Filter中无法注入Bean对象的解决办法</h1><hr><p>这次在项目中编写Token代码逻辑的时候，遇到了一个空指针问题，经过排查发现，Filter里面无法利用@Autowired。<br>所以此次文章用来解决这一问题。</p><p>经过查阅资料发现，spring容器初始化Bean的顺序是Listener-&gt;Filter-&gt;servlet.<br>那么我可以在Listener里面预先加载我们想要的Bean对象，然后经过Filter构造函数将对象传进去。</p><p>下面是具体的代码:</p><p>这个是启动监听器。</p><pre><code class="java">@Slf4j@Configuration@Order(Ordered.HIGHEST_PRECEDENCE)public class StartLinster implements ApplicationListener&lt;ApplicationEvent&gt; {    @Autowired    TokenService tokenService;    @Override    public void onApplicationEvent(ApplicationEvent applicationEvent) {        log.info(&quot;提前注入token&quot;);    }}</code></pre><blockquote><p>里面TokenService是Service层，也是我们想要注入的对象。</p></blockquote><p>这个是Filter启动的相应代码，可以看到，Listener启动顺序是最高的。</p><pre><code class="java">@Bean   public FilterRegistrationBean&lt;AuthenticationFilter&gt; initAuthenticationFilter(TokenService tokenService){       FilterRegistrationBean&lt;AuthenticationFilter&gt; authenticationFilterFilter = new FilterRegistrationBean&lt;&gt;();       AuthenticationFilter authenticationFilter = new AuthenticationFilter(tokenService);       authenticationFilter.addExcludePatterns(&quot;/api/user/login&quot;);       authenticationFilterFilter.setFilter(authenticationFilter);       authenticationFilterFilter.setOrder(Ordered.LOWEST_PRECEDENCE);       authenticationFilterFilter.addUrlPatterns(&quot;/api/*&quot;);       return authenticationFilterFilter;   }</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> springboot </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> springboot </tag>
+            
+            <tag> 前后端分离 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>aop中获取请求消息和属性</title>
+      <link href="/2019/07/23/aop%E4%B8%AD%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E5%92%8C%E5%B1%9E%E6%80%A7/"/>
+      <url>/2019/07/23/aop%E4%B8%AD%E8%8E%B7%E5%8F%96%E8%AF%B7%E6%B1%82%E6%B6%88%E6%81%AF%E5%92%8C%E5%B1%9E%E6%80%A7/</url>
+      
+        <content type="html"><![CDATA[<h1 id="aop中获取请求消息和属性"><a href="#aop中获取请求消息和属性" class="headerlink" title="aop中获取请求消息和属性"></a>aop中获取请求消息和属性</h1><hr><p>这篇博客仅仅提供代码。</p><p>由于我们利用@interface并且搭配上Aspect里面的@annotation可以做到切面的效果，所以我在项目上运用了这项技术，他们的参数是ProceedingJoinPoint joinPoint,并没有HttpServletRequest,但是我们又需要请求头的信息，所以代码如下：</p><pre><code class="java">ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();       HttpServletRequest servletRequest = attributes.getRequest();</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> springboot </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> springboot </tag>
+            
+            <tag> 前后端分离 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vue+springboot前后端分离中的跨域问题</title>
       <link href="/2019/07/22/vue-springboot%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E4%B8%AD%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/"/>
       <url>/2019/07/22/vue-springboot%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E4%B8%AD%E7%9A%84%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</url>
@@ -20,9 +74,9 @@
       
         <tags>
             
-            <tag> vue </tag>
-            
             <tag> 前后端分离 </tag>
+            
+            <tag> vue </tag>
             
         </tags>
       
@@ -47,9 +101,9 @@
       
         <tags>
             
-            <tag> vue </tag>
-            
             <tag> 前后端分离 </tag>
+            
+            <tag> vue </tag>
             
         </tags>
       
@@ -99,9 +153,9 @@
       
         <tags>
             
-            <tag> vue </tag>
-            
             <tag> 前后端分离 </tag>
+            
+            <tag> vue </tag>
             
         </tags>
       
@@ -126,9 +180,9 @@
       
         <tags>
             
-            <tag> vue </tag>
-            
             <tag> 前后端分离 </tag>
+            
+            <tag> vue </tag>
             
         </tags>
       
@@ -276,7 +330,7 @@
       <link href="/2019/06/02/java8%E4%B8%ADOptional%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
       <url>/2019/06/02/java8%E4%B8%ADOptional%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
       
-        <content type="html"><![CDATA[<h1 id="java8中Optional的使用"><a href="#java8中Optional的使用" class="headerlink" title="java8中Optional的使用"></a>java8中Optional的使用</h1><hr><p>我们在之前的业务开发中，有时候会遇到搜查结果为空的情况，但是返回Null的时候，我们就必须要判断一下是否为null,如果是的话要么throw一个异常或者别的什么操作，例如账号登陆失败的时候。</p><p>这样显得代码非常臃肿，而java8得Optional完美解决了这个问题(主要是空指针问题)。</p><h2 id="创建一个Optional实例"><a href="#创建一个Optional实例" class="headerlink" title="创建一个Optional实例"></a>创建一个Optional实例</h2><pre><code class="java">Optional&lt;String&gt; name2 = Optional.empty();Optional&lt;String&gt; name = Optional.ofNullable(null);Optional&lt;String&gt; name3 = Optional.of(&quot;111&quot;);</code></pre><p>这三个其实区别就是 第一个只是创建一个Optional实例，相当于Null。第二个允许传入一个Null的对象，如果用第三个Optional.of(null)的话，直接会爆出空指针异常。</p><h2 id="获取Optional的值"><a href="#获取Optional的值" class="headerlink" title="获取Optional的值"></a>获取Optional的值</h2><pre><code class="java">User user = new User(&quot;john@gmail.com&quot;,&quot;1234&quot;);User user2 = new User(&quot;anna@gmail.com&quot;, &quot;1234&quot;);User result = Optional.ofNullable(user).orElse(new User);User result2 = Optional.of(user).orElseGet(() -&gt; new User);User result3 = Optional.ofNullable(user)                .orElseThrow(() -&gt; new RuntimeExcetion(&quot;运行出错了&quot;));User result4 = Optional.ofNullable(user).Get();</code></pre><p>下面来讲一下这几个方法的异同</p><p>orElse:有值就返回值，不管有没有值都会执行后面的操作(new 一个对象等等)，如果没有值才会返回结果。</p><p>orElseGet:有值就返回值，没有值才进行后面的表达式操作</p><blockquote><p>如果传入的值都是Null的情况下，两个函数没有区别，但是不是空的情况下，orElseGet显然效率比较高</p></blockquote><p>orElseThrow:有值就返回值,没有值抛用户定义的异常</p><p>Get:有值就返回值,没有值NoSuchElementException。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="java8中Optional的使用"><a href="#java8中Optional的使用" class="headerlink" title="java8中Optional的使用"></a>java8中Optional的使用</h1><hr><p>我们在之前的业务开发中，有时候会遇到搜查结果为空的情况，但是返回Null的时候，我们就必须要判断一下是否为null,如果是的话要么throw一个异常或者别的什么操作，例如账号登陆失败的时候。</p><p>这样显得代码非常臃肿，而java8得Optional完美解决了这个问题(主要是空指针问题)。</p><h2 id="创建一个Optional实例"><a href="#创建一个Optional实例" class="headerlink" title="创建一个Optional实例"></a>创建一个Optional实例</h2><pre><code class="java">Optional&lt;String&gt; name2 = Optional.empty();Optional&lt;String&gt; name = Optional.ofNullable(null);Optional&lt;String&gt; name3 = Optional.of(&quot;111&quot;);</code></pre><p>这三个其实区别就是 第一个只是创建一个Optional实例，相当于Null。第二个允许传入一个Null的对象，如果用第三个Optional.of(null)的话，直接会爆出空指针异常。</p><h2 id="获取Optional的值"><a href="#获取Optional的值" class="headerlink" title="获取Optional的值"></a>获取Optional的值</h2><pre><code class="java">User user = new User(&quot;john@gmail.com&quot;,&quot;1234&quot;);User user2 = new User(&quot;anna@gmail.com&quot;, &quot;1234&quot;);User result = Optional.ofNullable(user).orElse(new User);User result2 = Optional.of(user).orElseGet(() -&gt; new User);User result3 = Optional.ofNullable(user)                .orElseThrow(() -&gt; new RuntimeExcetion(&quot;运行出错了&quot;));User result4 = Optional.ofNullable(user).Get();</code></pre><p>下面来讲一下这几个方法的异同</p><p>orElse:有值就返回值，不管有没有值都会执行后面的操作(new 一个对象等等)，如果没有值才会返回结果。</p><p>orElseGet:有值就返回值，没有值才进行后面的表达式操作</p><blockquote><p>如果传入的值都是Null的情况下，两个函数没有区别，但是不是空的情况下，orElseGet显然效率比较高</p></blockquote><p>orElseThrow:有值就返回值,没有值抛用户定义的异常</p><p>Get:有值就返回值,没有值NoSuchElementException。</p><h2 id="需要注意的点"><a href="#需要注意的点" class="headerlink" title="需要注意的点"></a>需要注意的点</h2><p>如果对得到的Optional的函数不提前利用isPresent()函数判断里面是否有值的话，就Get函数，如果里面是空的话，会爆出NoSuchElementException，对代码的逻辑产生一定的影响，所以最好还是先判断一下。</p>]]></content>
       
       
       <categories>
@@ -569,9 +623,9 @@
             
             <tag> linux </tag>
             
-            <tag> 文件服务器 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 文件服务器 </tag>
             
         </tags>
       
@@ -808,9 +862,9 @@
             
             <tag> linux </tag>
             
-            <tag> java </tag>
-            
             <tag> 搜索服务 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -1103,9 +1157,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -1114,9 +1168,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
