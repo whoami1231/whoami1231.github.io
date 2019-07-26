@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>关于MyBatis自增主键那些事</title>
+      <link href="/2019/07/26/%E5%85%B3%E4%BA%8EMyBatis%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
+      <url>/2019/07/26/%E5%85%B3%E4%BA%8EMyBatis%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E9%82%A3%E4%BA%9B%E4%BA%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="关于MyBatis自增主键那些事"><a href="#关于MyBatis自增主键那些事" class="headerlink" title="关于MyBatis自增主键那些事"></a>关于MyBatis自增主键那些事</h1><p>有于当初利用SSM框架编写Mybatis的时候，mybatis的mapper文件等都是逆向生成的，所以用的时候非常方便，但是除了一点，就是插入数据的时候，主键是必须要写的，但是为了安全和方便(其实懒占主要因素)，否则就会爆出sql语句错误，最后解决办法如下:</p><ol><li>mysql表中要把自增主键的选项打开</li></ol><p>其实大部分人只要打开自增主键就已经OK了，但是有的时候电脑抽风还是报错，那么就需要更改逆向出来的源码了</p><p>找到你想插入的地方<insert id="xxx"></insert></p><p>然后添加这么一个关键字:</p><pre><code class="xml"> &lt;insert id=&quot;insertSelective&quot;   useGeneratedKeys=&quot;true&quot; parameterType=&quot;xxx&quot;&gt;</code></pre><p>这个useGeneratedKeys就是自增主键的意思</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> mybatis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+            <tag> mybatis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>RESETFUL四种方式提交区别</title>
       <link href="/2019/07/25/RESETFUL%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%8C%BA%E5%88%AB/"/>
       <url>/2019/07/25/RESETFUL%E5%9B%9B%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%8F%90%E4%BA%A4%E5%8C%BA%E5%88%AB/</url>
@@ -995,9 +1022,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java架构 </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -1022,9 +1049,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java架构 </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -1078,9 +1105,9 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -1132,9 +1159,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java架构 </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -1159,9 +1186,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java架构 </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -1173,22 +1200,22 @@
     
     
     <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
       
     </entry>
     
