@@ -4,6 +4,71 @@
   
     
     <entry>
+      <title>关于vue传参问题</title>
+      <link href="/2019/07/27/%E5%85%B3%E4%BA%8Evue%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98/"/>
+      <url>/2019/07/27/%E5%85%B3%E4%BA%8Evue%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<h1 id="关于vue传参问题"><a href="#关于vue传参问题" class="headerlink" title="关于vue传参问题"></a>关于vue传参问题</h1><p>传参的时候我比较喜欢利用params方式传参</p><p>比如 this.$router.push({<br>  name:’xxx’,<br>  params:{<br>    xx:xx,<br>    xx:xx<br>  }<br>  })</p><p>跳转过去的网页利用this.$route.params.xx接收。</p><p>但是一定要注意的一点是,this.$router和this.$route的区别！！！</p><ul><li>this.$router</li></ul><p>router 实例。</p><ul><li>this.$route</li></ul><p>当前激活的路由信息对象。这个属性是只读的，里面的属性是 immutable (不可变) 的，不过你可以 watch (监测变化) 它。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前后端分离 </tag>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>iview中table的使用经验</title>
+      <link href="/2019/07/26/iview%E4%B8%ADtable%E7%9A%84%E4%BD%BF%E7%94%A8%E7%BB%8F%E9%AA%8C/"/>
+      <url>/2019/07/26/iview%E4%B8%ADtable%E7%9A%84%E4%BD%BF%E7%94%A8%E7%BB%8F%E9%AA%8C/</url>
+      
+        <content type="html"><![CDATA[<h1 id="iview中table的使用经验"><a href="#iview中table的使用经验" class="headerlink" title="iview中table的使用经验"></a>iview中table的使用经验</h1><p>由于iview官网上面的讲解真的是非常的简单，所以像是我这种阿库娅用户真的很不友好，所以这个博客是讲解iview的Table如何和springboot进行后端交互，类似bootStrap-table的那种吧，注意这里没有用render去渲染，因为我是真的不会啊！！！</p><h2 id="前端代码框架编写"><a href="#前端代码框架编写" class="headerlink" title="前端代码框架编写"></a>前端代码框架编写</h2><pre><code class="html">&lt;Table :columns=&quot;managerColumns&quot; :data=&quot;articleData&quot; stripe &gt;            &lt;div slot-scope=&quot;{ row, index }&quot; slot=&quot;action&quot;&gt;                &lt;Button type=&quot;primary&quot;  style=&quot;margin-right: 5px&quot;&gt;编辑&lt;/Button&gt;                &lt;Button type=&quot;error&quot;  &gt;删除&lt;/Button&gt;            &lt;/div&gt;        &lt;/Table&gt;        &lt;!-- 分页列表 --&gt;        &lt;div style=&quot;margin: 10px;overflow: hidden&quot;&gt;            &lt;div style=&quot;float: right;&quot;&gt;                &lt;Page :total=&quot;total&quot;  :current=&quot;pageNum&quot; @on-change=&quot;changepage&quot;                @on-page-size-change=&quot;_nowPageSize&quot;                show-total show-sizer&gt;&lt;/Page&gt;            &lt;/div&gt;</code></pre><p>在前端渲染的是这种样子 =&gt;</p><p><img src="https://s2.ax1x.com/2019/07/26/eu11gO.png" alt></p><p>这里简明的说明里面的属性吧</p><p>首先是Table标签里面的columns是 表头属性  后台的数据是这样的</p><pre><code class="json">managerColumns: [{      title: &#39;标题&#39;,      key: &#39;title&#39;,  },  {      title: &#39;更新时间&#39;,      key: &#39;nearestModifyDate&#39;,  },  {      title: &quot;操作&quot;,      slot: &#39;action&#39;  }],</code></pre><p>然后是data属性，这个就是我们需要从后台需要渲染的数据了。</p><p>在<table>标签里面，我们如果需要进行操作的话，需要用到solt-scope这个属性，具体我也不太清楚，只能说是：可以对应表头的一个东西，其他的照抄就完事了。<br>需要注意的是，如果你用到了slot，那个表头的json一定不能用key,而是用slot.</table></p><p>接下来就是分页的按钮们了</p><p>样式不需要动，唯一确定的是page里面的属性</p><p>total =&gt; 其实就是你从后台获取到的数据总量</p><p>current =&gt; 这个是现在你所在的页数</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> iview </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue记录axios的get请求收不到消息的原因和结局办法</title>
+      <link href="/2019/07/26/vue%E8%AE%B0%E5%BD%95axios%E7%9A%84get%E8%AF%B7%E6%B1%82%E6%94%B6%E4%B8%8D%E5%88%B0%E6%B6%88%E6%81%AF%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%92%8C%E7%BB%93%E5%B1%80%E5%8A%9E%E6%B3%95/"/>
+      <url>/2019/07/26/vue%E8%AE%B0%E5%BD%95axios%E7%9A%84get%E8%AF%B7%E6%B1%82%E6%94%B6%E4%B8%8D%E5%88%B0%E6%B6%88%E6%81%AF%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%92%8C%E7%BB%93%E5%B1%80%E5%8A%9E%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于MyBatis自增主键那些事</title>
       <link href="/2019/07/26/%E5%85%B3%E4%BA%8EMyBatis%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
       <url>/2019/07/26/%E5%85%B3%E4%BA%8EMyBatis%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E9%82%A3%E4%BA%9B%E4%BA%8B/</url>
@@ -175,14 +240,14 @@
       
       <categories>
           
-          <category> vue </category>
+          <category> iview </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -677,9 +742,9 @@
             
             <tag> linux </tag>
             
-            <tag> 文件服务器 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 文件服务器 </tag>
             
         </tags>
       
@@ -916,9 +981,9 @@
             
             <tag> linux </tag>
             
-            <tag> java </tag>
-            
             <tag> 搜索服务 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       

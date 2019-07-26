@@ -4,12 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="java自定义线程池, 逝痕">
-    <meta name="description" content="java线程池java初始定义线程
-java线程池源码分析
-/**
-     * Creates a new {@code ThreadPoolExecutor} with the given initial
-     * paramete">
+    <meta name="keywords" content="关于vue传参问题, 逝痕">
+    <meta name="description" content="关于vue传参问题传参的时候我比较喜欢利用params方式传参
+比如 this.$router.push({  name:’xxx’,  params:{    xx:xx,    xx:xx  }  })
+跳转过去的网页利用this.$r">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +15,7 @@ java线程池源码分析
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>java自定义线程池 | 逝痕</title>
+    <title>关于vue传参问题 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -252,13 +250,13 @@ java线程池源码分析
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        java自定义线程池
+                        关于vue传参问题
                     </div>
                 </div>
             </div>
@@ -369,12 +367,12 @@ java线程池源码分析
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/java架构/" target="_blank">
-                                <span class="chip bg-color">java架构</span>
+                            <a href="/tags/前后端分离/" target="_blank">
+                                <span class="chip bg-color">前后端分离</span>
                             </a>
                         
-                            <a href="/tags/线程池/" target="_blank">
-                                <span class="chip bg-color">线程池</span>
+                            <a href="/tags/vue/" target="_blank">
+                                <span class="chip bg-color">vue</span>
                             </a>
                         
                     </div>
@@ -385,8 +383,8 @@ java线程池源码分析
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/java/" class="post-category" target="_blank">
-                                java
+                            <a href="/categories/vue/" class="post-category" target="_blank">
+                                vue
                             </a>
                         
                     </div>
@@ -397,7 +395,7 @@ java线程池源码分析
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-08
+                    2019-07-27
                 </div>
 
                 
@@ -413,54 +411,18 @@ java线程池源码分析
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="java线程池"><a href="#java线程池" class="headerlink" title="java线程池"></a>java线程池</h1><h2 id="java初始定义线程"><a href="#java初始定义线程" class="headerlink" title="java初始定义线程"></a>java初始定义线程</h2><p><img src="https://s2.ax1x.com/2019/04/08/A4XAkF.png" alt></p>
-<h2 id="java线程池源码分析"><a href="#java线程池源码分析" class="headerlink" title="java线程池源码分析"></a>java线程池源码分析</h2><p><img src="https://s2.ax1x.com/2019/04/08/A5iM28.png" alt></p>
-<pre><code class="java">/**
-     * Creates a new {@code ThreadPoolExecutor} with the given initial
-     * parameters and default rejected execution handler.
-     *
-     * @param corePoolSize the number of threads to keep in the pool, even
-     *        if they are idle, unless {@code allowCoreThreadTimeOut} is set
-     * @param maximumPoolSize the maximum number of threads to allow in the
-     *        pool
-     * @param keepAliveTime when the number of threads is greater than
-     *        the core, this is the maximum time that excess idle threads
-     *        will wait for new tasks before terminating.
-     * @param unit the time unit for the {@code keepAliveTime} argument
-     * @param workQueue the queue to use for holding tasks before they are
-     *        executed.  This queue will hold only the {@code Runnable}
-     *        tasks submitted by the {@code execute} method.
-     * @param threadFactory the factory to use when the executor
-     *        creates a new thread
-     * @throws IllegalArgumentException if one of the following holds:&lt;br&gt;
-     *         {@code corePoolSize &lt; 0}&lt;br&gt;
-     *         {@code keepAliveTime &lt; 0}&lt;br&gt;
-     *         {@code maximumPoolSize &lt;= 0}&lt;br&gt;
-     *         {@code maximumPoolSize &lt; corePoolSize}
-     * @throws NullPointerException if {@code workQueue}
-     *         or {@code threadFactory} is null
-     */
-    public ThreadPoolExecutor(int corePoolSize,
-                              int maximumPoolSize,
-                              long keepAliveTime,
-                              TimeUnit unit,
-                              BlockingQueue&lt;Runnable&gt; workQueue,
-                              ThreadFactory threadFactory) {
-        this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,
-             threadFactory, defaultHandler);
-    }
-
-</code></pre>
-<ol>
-<li>corePoolSize 表示常驻核心线程数。如果等于0，则任务执行完成后，没有任何请求进入时销毁线程池的线程；如果大于0，即使本地任务执行完毕，核心线程也不会被销毁。这个值的设置非常关键，设置过大会浪费资源，设置的过小会导致线程频繁地创建或销毁。再考虑到keepAliveTime和allowCoreThreadTimeOut超时参数的影响，所以没有任务需要执行的时候，线程池的大小不一定是corePoolSize。</li>
-<li>maximumPoolSize 线程池中允许的最大线程数。如果当前阻塞队列满了，且继续提交任务，则创建新的线程执行任务，前提是当前线程数小于maximumPoolSize；当阻塞队列是无界队列, 则maximumPoolSize则不起作用, 因为无法提交至核心线程池的线程会一直持续地放入workQueue.</li>
-</ol>
-<h2 id="合理配置线程数"><a href="#合理配置线程数" class="headerlink" title="合理配置线程数"></a>合理配置线程数</h2><hr>
-<h3 id="分析需求"><a href="#分析需求" class="headerlink" title="分析需求"></a>分析需求</h3><p>根据需求的不同，可以将技术分成IO密集和CPU密集两种类型。</p>
-<p>IO密集：</p>
-<p>线程中存在大量的阻塞，例如，请求，数据库连接，。。。线程会有大量的等待，这样会有等待时间，那么这个线程就是IO密集型，一般这种类型，配置核心线程数的规则是 core = 2*CPU内核</p>
-<p>CPU密集：</p>
-<p>线程中代码非常多，而且计算的内容非常多，阻塞少，这个就是CPU密集，配置规则是：core = CPU内核。</p>
+                <h1 id="关于vue传参问题"><a href="#关于vue传参问题" class="headerlink" title="关于vue传参问题"></a>关于vue传参问题</h1><p>传参的时候我比较喜欢利用params方式传参</p>
+<p>比如 this.$router.push({<br>  name:’xxx’,<br>  params:{<br>    xx:xx,<br>    xx:xx<br>  }<br>  })</p>
+<p>跳转过去的网页利用this.$route.params.xx接收。</p>
+<p>但是一定要注意的一点是,this.$router和this.$route的区别！！！</p>
+<ul>
+<li>this.$router</li>
+</ul>
+<p>router 实例。</p>
+<ul>
+<li>this.$route</li>
+</ul>
+<p>当前激活的路由信息对象。这个属性是只读的，里面的属性是 immutable (不可变) 的，不过你可以 watch (监测变化) 它。</p>
 
             </div>
             
@@ -502,63 +464,52 @@ java线程池源码分析
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/12/centos7安装solr服务/">
+                <a href="/2019/07/27/关于vue传参问题/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.png" class="responsive-img" alt="centos7安装solr服务">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="关于vue传参问题">
                         
-                        <span class="card-title">centos7安装solr服务</span>
+                        <span class="card-title">关于vue传参问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            centos7 下安装solr服务1. 安装java环境
-
-将jdk扔到linux下，解压
-
-修改环境变量
-
-
-# 打开配置文件
-vim /etc/profile 
-
-# 在文件末尾添加
-JAVA_HOME=/usr/local/java/
+                            关于vue传参问题传参的时候我比较喜欢利用params方式传参
+比如 this.$router.push({  name:’xxx’,  params:{    xx:xx,    xx:xx  }  })
+跳转过去的网页利用this.$r
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                    linux
+                            <a href="/categories/vue/" class="post-category" target="_blank">
+                                    vue
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/linux/" target="_blank">
-                        <span class="chip bg-color">linux</span>
+                    <a href="/tags/前后端分离/" target="_blank">
+                        <span class="chip bg-color">前后端分离</span>
                     </a>
                     
-                    <a href="/tags/搜索服务/" target="_blank">
-                        <span class="chip bg-color">搜索服务</span>
-                    </a>
-                    
-                    <a href="/tags/java/" target="_blank">
-                        <span class="chip bg-color">java</span>
+                    <a href="/tags/vue/" target="_blank">
+                        <span class="chip bg-color">vue</span>
                     </a>
                     
                 </div>
@@ -572,35 +523,31 @@ JAVA_HOME=/usr/local/java/
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/07/centos7安装rabbitMQ/">
+                <a href="/2019/07/26/iview中table的使用经验/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.png" class="responsive-img" alt="centos7安装rabbitMQ">
+                        <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="iview中table的使用经验">
                         
-                        <span class="card-title">centos7安装rabbitMQ</span>
+                        <span class="card-title">iview中table的使用经验</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            centos安装RabbitMQ并配置环境之前我在网上搜罗了很多教程，但是大多都很繁琐，要么就是版本太老。
-这里我提供了一个非常简单的方法
-
-下载安装包
-打开[官网地址]: (https://www.rabbitmq.com/release
+                            iview中table的使用经验由于iview官网上面的讲解真的是非常的简单，所以像是我这种阿库娅用户真的很不友好，所以这个博客是讲解iview的Table如何和springboot进行后端交互，类似bootStrap-table的那种吧，
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                    linux
+                            <a href="/categories/iview/" class="post-category" target="_blank">
+                                    iview
                                 </a>
                             
                             
@@ -610,12 +557,8 @@ JAVA_HOME=/usr/local/java/
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/linux/" target="_blank">
-                        <span class="chip bg-color">linux</span>
-                    </a>
-                    
-                    <a href="/tags/安装教程/" target="_blank">
-                        <span class="chip bg-color">安装教程</span>
+                    <a href="/tags/前端/" target="_blank">
+                        <span class="chip bg-color">前端</span>
                     </a>
                     
                 </div>
