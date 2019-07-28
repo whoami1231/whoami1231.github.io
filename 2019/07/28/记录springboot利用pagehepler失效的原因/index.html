@@ -422,7 +422,7 @@
 <p>在一开始，我查询的博客大多都是说什么版本不对啊，或者没有配置属性啊，这里我澄清一点，版本问题确实有，但是充其量是pagehepler版本太低的问题。而且，版本冲突的时候springboot本身就会报错！还有就是属性问题，根据我的测试，(本人mysql数据库)直接上默认属性就行，根本不需要任何配置。所以说那些博客真的很浪费大家时间。</p>
 <p>那么，这个失效的原因在哪里呢。经过反复的排查，发现了作者这句话，就是PageHepler.startstartPage(pageNum,pageSize);这句话，必须要后面紧跟查询语句，不能插任何逻辑语句，这就很蛋疼了，因为我只前利用SSM的时候就直接在函数的开头写上这句话，防止啥时候忘了。<br>然后加上这句话的时候，返回的数据正常了。。</p>
 <p>正当我以为这个问题解决了的时候，随之出现了第二个bug….</p>
-<h1 id="pageHepler返回的total不正确"><a href="#pageHepler返回的total不正确" class="headerlink" title="pageHepler返回的total不正确"></a>pageHepler返回的total不正确</h1><p>当我兴奋的打开我的网站乱搞的时候，突然发现，数据倒是对了，但是返回值完全对不上，根本就是当前页面的数据总量。吓得我赶紧去翻sql日志，结果日志也显示我已经查询过了。</p>
+<h2 id="pageHepler返回的total不正确"><a href="#pageHepler返回的total不正确" class="headerlink" title="pageHepler返回的total不正确"></a>pageHepler返回的total不正确</h2><p>当我兴奋的打开我的网站乱搞的时候，突然发现，数据倒是对了，但是返回值完全对不上，根本就是当前页面的数据总量。吓得我赶紧去翻sql日志，结果日志也显示我已经查询过了。</p>
 <p>得，还得去作者主页。。。</p>
 <p>经过盘了一下主页发现，原来是我查询完了之后，不想暴露一些关键属性，比如外键啊啥的，就利用lambda得stream进行了一次流操作。具体逻辑在这</p>
 <pre><code class="java">
