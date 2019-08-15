@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>mybtatis添加数据返回主键</title>
+      <link href="/2019/08/15/mybtatis%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E8%BF%94%E5%9B%9E%E4%B8%BB%E9%94%AE/"/>
+      <url>/2019/08/15/mybtatis%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E8%BF%94%E5%9B%9E%E4%B8%BB%E9%94%AE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="mybtatis添加数据返回主键"><a href="#mybtatis添加数据返回主键" class="headerlink" title="mybtatis添加数据返回主键"></a>mybtatis添加数据返回主键</h1><p>今天心血来潮，想用自己的项目来发布一些博客，可是当我提交成功后，想要访问的时候，突然告诉我找不到？！？<br>吓得我赶紧去查看一下数据库日志，结果发现主键对不上。<br>是这样，我的博客是放在数据库中的，而为了方便，我又将博客分成了两个表，一个表存放博客的基本信息，一个存放博客的内容信息，插入的时候，先存放基本信息返回主键id，然后将id和内容插入到内容表中，本来是没有问题的，后来才发现，逆向工程的insert的语句，返回的不是主键id，而是影响的行数。问题找到了，那么解决他就很简单了。</p><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>经过查阅资料发现，主键id是可以返回的，但是会返回给你当初insert进去的对象里面的属性中，不会返回。这也是当然的吧，万一主键约束有多个不就瞎了，你咋返回？</p><p>但是默认的insert是不会返回的，必须保证你的数据库主键是设置成了逐步递增的，而且，还需要下面三个属性：</p><ul><li>useGeneratedKeys=”true” (必要)</li><li>keyProperty=”xx” (必要，你想要返回给对象的属性名称)</li><li>keycolumn=”xx” (非必要，这个是指定数据库中那个是主键)</li></ul><p>将这三个属性写在xml的方法上，像是这样</p><pre><code class="xml">  &lt;insert id=&quot;insertSelective&quot; parameterType=&quot;run.app.entity.model.Blog&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot; &gt;</code></pre><p>然后你的主键就会返回给你这个Blog对象了，大功告成。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> mybatis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> springboot </tag>
+            
+            <tag> mybatis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>记录springboot利用pagehepler失效的原因</title>
       <link href="/2019/07/28/%E8%AE%B0%E5%BD%95springboot%E5%88%A9%E7%94%A8pagehepler%E5%A4%B1%E6%95%88%E7%9A%84%E5%8E%9F%E5%9B%A0/"/>
       <url>/2019/07/28/%E8%AE%B0%E5%BD%95springboot%E5%88%A9%E7%94%A8pagehepler%E5%A4%B1%E6%95%88%E7%9A%84%E5%8E%9F%E5%9B%A0/</url>
@@ -58,7 +85,7 @@
       <link href="/2019/07/27/%E5%85%B3%E4%BA%8Evue%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98/"/>
       <url>/2019/07/27/%E5%85%B3%E4%BA%8Evue%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98/</url>
       
-        <content type="html"><![CDATA[<h1 id="关于vue传参问题"><a href="#关于vue传参问题" class="headerlink" title="关于vue传参问题"></a>关于vue传参问题</h1><p>传参的时候我比较喜欢利用params方式传参</p><p>比如 this.$router.push({<br>  name:’xxx’,<br>  params:{<br>    xx:xx,<br>    xx:xx<br>  }<br>  })</p><p>跳转过去的网页利用this.$route.params.xx接收。</p><p>但是一定要注意的一点是,this.$router和this.$route的区别！！！</p><ul><li>this.$router</li></ul><p>router 实例。</p><ul><li>this.$route</li></ul><p>当前激活的路由信息对象。这个属性是只读的，里面的属性是 immutable (不可变) 的，不过你可以 watch (监测变化) 它。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="关于vue传参问题"><a href="#关于vue传参问题" class="headerlink" title="关于vue传参问题"></a>关于vue传参问题</h1><p>传参的时候我比较喜欢利用params方式传参</p><p>比如</p><blockquote><p>标签式传参</p></blockquote><pre><code class="html">&lt;router-link :to=&quot;{name:&#39;xx&#39;,params:{xxx:xxx}}&quot;&gt;&lt;/router-link&gt;</code></pre><blockquote><p>编程式传参</p></blockquote><pre><code class="javaScript">this.$router.push({  name:&#39;xxx&#39;,  params:{    xx:xx,    xx:xx  }  })</code></pre><p>跳转过去的网页利用this.$route.params.xx接收。</p><p>但是一定要注意的一点是,this.$router和this.$route的区别！！！</p><ul><li>this.$router</li></ul><p>router 实例。</p><ul><li>this.$route</li></ul><p>当前激活的路由信息对象。这个属性是只读的，里面的属性是 immutable (不可变) 的，不过你可以 watch (监测变化) 它。</p>]]></content>
       
       
       <categories>
@@ -106,19 +133,6 @@
     
     
     <entry>
-      <title>vue记录axios的get请求收不到消息的原因和结局办法</title>
-      <link href="/2019/07/26/vue%E8%AE%B0%E5%BD%95axios%E7%9A%84get%E8%AF%B7%E6%B1%82%E6%94%B6%E4%B8%8D%E5%88%B0%E6%B6%88%E6%81%AF%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%92%8C%E7%BB%93%E5%B1%80%E5%8A%9E%E6%B3%95/"/>
-      <url>/2019/07/26/vue%E8%AE%B0%E5%BD%95axios%E7%9A%84get%E8%AF%B7%E6%B1%82%E6%94%B6%E4%B8%8D%E5%88%B0%E6%B6%88%E6%81%AF%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%92%8C%E7%BB%93%E5%B1%80%E5%8A%9E%E6%B3%95/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>关于MyBatis自增主键那些事</title>
       <link href="/2019/07/26/%E5%85%B3%E4%BA%8EMyBatis%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
       <url>/2019/07/26/%E5%85%B3%E4%BA%8EMyBatis%E8%87%AA%E5%A2%9E%E4%B8%BB%E9%94%AE%E9%82%A3%E4%BA%9B%E4%BA%8B/</url>
@@ -135,9 +149,9 @@
       
         <tags>
             
-            <tag> mysql </tag>
-            
             <tag> mybatis </tag>
+            
+            <tag> mysql </tag>
             
         </tags>
       
@@ -337,7 +351,7 @@
       <link href="/2019/07/07/vue%E5%85%A8%E5%AE%B6%E6%A1%B6%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%92%8C%E5%85%A5%E9%97%A8%E7%90%86%E8%A7%A3/"/>
       <url>/2019/07/07/vue%E5%85%A8%E5%AE%B6%E6%A1%B6%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE%E5%92%8C%E5%85%A5%E9%97%A8%E7%90%86%E8%A7%A3/</url>
       
-        <content type="html"><![CDATA[<h1 id="vue全家桶搭建项目和入门理解"><a href="#vue全家桶搭建项目和入门理解" class="headerlink" title="vue全家桶搭建项目和入门理解"></a>vue全家桶搭建项目和入门理解</h1><hr><p>由于目前需要做一个博客项目，所以需要先搭建前端，springboot + vue是一个不错的选择，所以这篇博客写的是我目前对vue的理解。</p><h2 id="vue脚手架"><a href="#vue脚手架" class="headerlink" title="vue脚手架"></a>vue脚手架</h2><p>其实这里没有网上说的这么复杂。完全可以这么理解，他们说的一些vue知识属于框架,类似于bootstrap那种的(其实并不是，不过你可以先这么理解)，需要你去理解一些标签啊，语法啊那种东西，然后这个脚手架是你搭建的一个<strong>前端</strong>项目，这里你可以理解成java后端的那种搭环境，比如spring啊什么的。</p><h2 id="初始化vue脚手架"><a href="#初始化vue脚手架" class="headerlink" title="初始化vue脚手架"></a>初始化vue脚手架</h2><p>在保证自己电脑上安装了node.js前提下，我们需要安装vue环境和webpack.</p><pre><code class="bash">npm install vuenpm install -g vue-cli #安装脚手架</code></pre><p>这里的webpack其实就是一个工具将你写的vue打包成html,js,css文件</p><ul><li>安装一个vue-cli项目<pre><code class="bash">vue webpack init [ProjectName]</code></pre>这里会下载一大堆东西，然后出现一些让你确认的东西，比如说是项目名啊，作者啊，路由啊(这个一会讲)，一直敲回车就ok。</li></ul><ul><li>项目目录结构</li></ul><p>安装完成后，我们的项目结构是这个样子的<br><img src="https://s2.ax1x.com/2019/07/07/ZBb8zt.png" alt></p><p>package.json -&gt; 这个是项目必须的，每次安装插件什么的都需要这个json，你可以把它想象成gradle或者maven</p><p>index.html -&gt; 网页的门面，后面的初始化Vue对象也是初始在了这个地方</p><p>test -&gt; 单元测试，相当于Junit</p><p>static -&gt; 这个是在webpack打包后直接将里面的东西直接转移到了dist/static</p><p>src -&gt; 整个项目基本上你都要在里面写东西</p><p>node_modules -&gt; 你下载的一些插件都在里面，比如路由,jQuery</p><p>config -&gt;配置文件包</p><p>build -&gt;项目启动的一些包，比如端口什么的</p><ul><li>项目启动</li></ul><pre><code class="bash">npm run dev # 启动项目npm run build # 将你写的项目打包成html,一般都是在项目写完的时候这么干</code></pre><h2 id="安装必要插件"><a href="#安装必要插件" class="headerlink" title="安装必要插件"></a>安装必要插件</h2><ul><li>首先是路由和vuex,由于一开始创建项目的时候提示我们是否安装路由了，所以这里我不需要安装，直接安装vuex.</li></ul><pre><code class="bash">npm install vuex --save # save 是保存到本地的意思</code></pre><h3 id="vue路由器入门"><a href="#vue路由器入门" class="headerlink" title="vue路由器入门"></a>vue路由器入门</h3><p>我们要清楚，vue里面切换页面是用vue路由来实现的，我们初始创建的项目里面是存在src/router/router.js这个文件，这里面的文件是我们所有配置路由的文件，目前我的里面随便写了一个页面，具体代码如下:</p><p>首先是我们在compnents/下面随便创建一个页面</p><pre><code class="html">&lt;template&gt;    &lt;Input v-model=&quot;value&quot; placeholder=&quot;Enter something...&quot; style=&quot;width: 300px&quot; /&gt;&lt;/template&gt;&lt;script&gt;    export default {        data () {            return {                value: &#39;&#39;            }        }    }&lt;/script&gt;</code></pre><p>上面的代码是抄自iview官网的一个input标签</p><pre><code class="javascript">import Vue from &#39;vue&#39;import Router from &#39;vue-router&#39;import HelloWorld from &#39;@/components/HelloWorld&#39;Vue.use(Router)export default new Router({  mode: &#39;history&#39;,  routes: [    {      path: &#39;/&#39;,      name: &#39;HelloWorld&#39;,      component: ()  =&gt; import(&#39;@/components/HelloWorld&#39;)    },    {      path: &#39;/login&#39;,      name: &#39;login&#39;,      component: () =&gt; import(&#39;@/components/login&#39;)    }  ]})</code></pre><p>mode:’history’是将网页上的#删除掉。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="vue全家桶搭建项目和入门理解"><a href="#vue全家桶搭建项目和入门理解" class="headerlink" title="vue全家桶搭建项目和入门理解"></a>vue全家桶搭建项目和入门理解</h1><hr><p>由于目前需要做一个博客项目，所以需要先搭建前端，springboot + vue是一个不错的选择，所以这篇博客写的是我目前对vue的理解。</p><h2 id="vue脚手架"><a href="#vue脚手架" class="headerlink" title="vue脚手架"></a>vue脚手架</h2><p>其实这里没有网上说的这么复杂。完全可以这么理解，他们说的一些vue知识属于框架,类似于bootstrap那种的(其实并不是，不过你可以先这么理解)，需要你去理解一些标签啊，语法啊那种东西，然后这个脚手架是你搭建的一个<strong>前端</strong>项目，这里你可以理解成java后端的那种搭环境，比如spring啊什么的。</p><h2 id="初始化vue脚手架"><a href="#初始化vue脚手架" class="headerlink" title="初始化vue脚手架"></a>初始化vue脚手架</h2><p>在保证自己电脑上安装了node.js前提下，我们需要安装vue环境和webpack.</p><pre><code class="bash">npm install vuenpm install -g vue-cli #安装脚手架</code></pre><p>这里的webpack其实就是一个工具将你写的vue打包成html,js,css文件</p><ul><li>安装一个vue-cli项目<pre><code class="bash">vue webpack init [ProjectName]</code></pre>这里会下载一大堆东西，然后出现一些让你确认的东西，比如说是项目名啊，作者啊，路由啊(这个一会讲)，一直敲回车就ok。</li></ul><ul><li>项目目录结构</li></ul><p>安装完成后，我们的项目结构是这个样子的<br><img src="https://s2.ax1x.com/2019/07/07/ZBb8zt.png" alt></p><p>package.json -&gt; 这个是项目必须的，每次安装插件什么的都需要这个json，你可以把它想象成gradle或者maven</p><p>index.html -&gt; 网页的门面，后面的初始化Vue对象也是初始在了这个地方</p><p>test -&gt; 单元测试，相当于Junit</p><p>static -&gt; 这个是在webpack打包后直接将里面的东西直接转移到了dist/static</p><p>src -&gt; 整个项目基本上你都要在里面写东西</p><p>src-&gt; assets -&gt; 项目的静态资源，存放一些js,css,图片什么的。</p><p>node_modules -&gt; 你下载的一些插件都在里面，比如路由,jQuery</p><p>config -&gt;配置文件包</p><p>build -&gt;项目启动的一些包，比如端口什么的</p><ul><li>项目启动</li></ul><pre><code class="bash">npm run dev # 启动项目npm run build # 将你写的项目打包成html,一般都是在项目写完的时候这么干</code></pre><h2 id="安装必要插件"><a href="#安装必要插件" class="headerlink" title="安装必要插件"></a>安装必要插件</h2><ul><li>首先是路由和vuex,由于一开始创建项目的时候提示我们是否安装路由了，所以这里我不需要安装，直接安装vuex.</li></ul><pre><code class="bash">npm install vuex --save # save 是保存到本地的意思</code></pre><h3 id="vue路由器入门"><a href="#vue路由器入门" class="headerlink" title="vue路由器入门"></a>vue路由器入门</h3><p>我们要清楚，vue里面切换页面是用vue路由来实现的，我们初始创建的项目里面是存在src/router/router.js这个文件，这里面的文件是我们所有配置路由的文件，目前我的里面随便写了一个页面，具体代码如下:</p><p>首先是我们在compnents/下面随便创建一个页面</p><pre><code class="html">&lt;template&gt;    &lt;Input v-model=&quot;value&quot; placeholder=&quot;Enter something...&quot; style=&quot;width: 300px&quot; /&gt;&lt;/template&gt;&lt;script&gt;    export default {        data () {            return {                value: &#39;&#39;            }        }    }&lt;/script&gt;</code></pre><p>上面的代码是抄自iview官网的一个input标签</p><pre><code class="javascript">import Vue from &#39;vue&#39;import Router from &#39;vue-router&#39;import HelloWorld from &#39;@/components/HelloWorld&#39;Vue.use(Router)export default new Router({  mode: &#39;history&#39;,  routes: [    {      path: &#39;/&#39;,      name: &#39;HelloWorld&#39;,      component: ()  =&gt; import(&#39;@/components/HelloWorld&#39;)    },    {      path: &#39;/login&#39;,      name: &#39;login&#39;,      component: () =&gt; import(&#39;@/components/login&#39;)    }  ]})</code></pre><p>mode:’history’是将网页上的#删除掉。</p>]]></content>
       
       
       <categories>
@@ -1315,6 +1329,17 @@
     
     
     <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -1329,17 +1354,6 @@
       <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       

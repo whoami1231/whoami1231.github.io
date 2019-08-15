@@ -4,13 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="关于vue传参问题, 逝痕">
-    <meta name="description" content="关于vue传参问题传参的时候我比较喜欢利用params方式传参
-比如
-
-标签式传参
-
-&amp;lt;router-link :to=&amp;quot;{name:&amp;#39;xx&amp;#39;,params:{xxx:xxx}}&amp;quot;&amp;gt;&amp;lt;/">
+    <meta name="keywords" content="mybtatis添加数据返回主键, 逝痕">
+    <meta name="description" content="mybtatis添加数据返回主键今天心血来潮，想用自己的项目来发布一些博客，可是当我提交成功后，想要访问的时候，突然告诉我找不到？！？吓得我赶紧去查看一下数据库日志，结果发现主键对不上。是这样，我的博客是放在数据库中的，而为了方便，我又将博">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>关于vue传参问题 | 逝痕</title>
+    <title>mybtatis添加数据返回主键 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -259,7 +254,7 @@
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        关于vue传参问题
+                        mybtatis添加数据返回主键
                     </div>
                 </div>
             </div>
@@ -370,12 +365,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/前后端分离/" target="_blank">
-                                <span class="chip bg-color">前后端分离</span>
+                            <a href="/tags/springboot/" target="_blank">
+                                <span class="chip bg-color">springboot</span>
                             </a>
                         
-                            <a href="/tags/vue/" target="_blank">
-                                <span class="chip bg-color">vue</span>
+                            <a href="/tags/mybatis/" target="_blank">
+                                <span class="chip bg-color">mybatis</span>
                             </a>
                         
                     </div>
@@ -386,8 +381,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/vue/" class="post-category" target="_blank">
-                                vue
+                            <a href="/categories/mybatis/" class="post-category" target="_blank">
+                                mybatis
                             </a>
                         
                     </div>
@@ -398,7 +393,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-27
+                    2019-08-15
                 </div>
 
                 
@@ -414,34 +409,18 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="关于vue传参问题"><a href="#关于vue传参问题" class="headerlink" title="关于vue传参问题"></a>关于vue传参问题</h1><p>传参的时候我比较喜欢利用params方式传参</p>
-<p>比如</p>
-<blockquote>
-<p>标签式传参</p>
-</blockquote>
-<pre><code class="html">&lt;router-link :to=&quot;{name:&#39;xx&#39;,params:{xxx:xxx}}&quot;&gt;&lt;/router-link&gt;
-</code></pre>
-<blockquote>
-<p>编程式传参</p>
-</blockquote>
-<pre><code class="javaScript">this.$router.push({
-  name:&#39;xxx&#39;,
-  params:{
-    xx:xx,
-    xx:xx
-  }
-  })
-</code></pre>
-<p>跳转过去的网页利用this.$route.params.xx接收。</p>
-<p>但是一定要注意的一点是,this.$router和this.$route的区别！！！</p>
+                <h1 id="mybtatis添加数据返回主键"><a href="#mybtatis添加数据返回主键" class="headerlink" title="mybtatis添加数据返回主键"></a>mybtatis添加数据返回主键</h1><p>今天心血来潮，想用自己的项目来发布一些博客，可是当我提交成功后，想要访问的时候，突然告诉我找不到？！？<br>吓得我赶紧去查看一下数据库日志，结果发现主键对不上。<br>是这样，我的博客是放在数据库中的，而为了方便，我又将博客分成了两个表，一个表存放博客的基本信息，一个存放博客的内容信息，插入的时候，先存放基本信息返回主键id，然后将id和内容插入到内容表中，本来是没有问题的，后来才发现，逆向工程的insert的语句，返回的不是主键id，而是影响的行数。问题找到了，那么解决他就很简单了。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>经过查阅资料发现，主键id是可以返回的，但是会返回给你当初insert进去的对象里面的属性中，不会返回。这也是当然的吧，万一主键约束有多个不就瞎了，你咋返回？</p>
+<p>但是默认的insert是不会返回的，必须保证你的数据库主键是设置成了逐步递增的，而且，还需要下面三个属性：</p>
 <ul>
-<li>this.$router</li>
+<li>useGeneratedKeys=”true” (必要)</li>
+<li>keyProperty=”xx” (必要，你想要返回给对象的属性名称)</li>
+<li>keycolumn=”xx” (非必要，这个是指定数据库中那个是主键)</li>
 </ul>
-<p>router 实例。</p>
-<ul>
-<li>this.$route</li>
-</ul>
-<p>当前激活的路由信息对象。这个属性是只读的，里面的属性是 immutable (不可变) 的，不过你可以 watch (监测变化) 它。</p>
+<p>将这三个属性写在xml的方法上，像是这样</p>
+<pre><code class="xml">  &lt;insert id=&quot;insertSelective&quot; parameterType=&quot;run.app.entity.model.Blog&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot; &gt;
+</code></pre>
+<p>然后你的主键就会返回给你这个Blog对象了，大功告成。</p>
 
             </div>
             
@@ -483,51 +462,50 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/07/28/关于vuex传参的一些事情/">
+                <a href="/2019/08/15/mybtatis添加数据返回主键/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="关于vuex传参的一些事情">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="mybtatis添加数据返回主键">
                         
-                        <span class="card-title">关于vuex传参的一些事情</span>
+                        <span class="card-title">mybtatis添加数据返回主键</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            关于vuex传参的一些事情之前没有说vuex，这里说一下它的传参问题吧。对于我来说,vuex其实就可以看成一个静态的类，类里面分成四个模块
-state =&gt;  存放data的
-getters =&gt; get函数，获取变量的
-mut
+                            mybtatis添加数据返回主键今天心血来潮，想用自己的项目来发布一些博客，可是当我提交成功后，想要访问的时候，突然告诉我找不到？！？吓得我赶紧去查看一下数据库日志，结果发现主键对不上。是这样，我的博客是放在数据库中的，而为了方便，我又将博
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/vue/" class="post-category" target="_blank">
-                                    vue
+                            <a href="/categories/mybatis/" class="post-category" target="_blank">
+                                    mybatis
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/前端/" target="_blank">
-                        <span class="chip bg-color">前端</span>
+                    <a href="/tags/springboot/" target="_blank">
+                        <span class="chip bg-color">springboot</span>
                     </a>
                     
-                    <a href="/tags/vuex/" target="_blank">
-                        <span class="chip bg-color">vuex</span>
+                    <a href="/tags/mybatis/" target="_blank">
+                        <span class="chip bg-color">mybatis</span>
                     </a>
                     
                 </div>
@@ -541,33 +519,29 @@ mut
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/26/iview中table的使用经验/">
+                <a href="/2019/07/28/记录springboot利用pagehepler失效的原因/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="iview中table的使用经验">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="记录springboot利用pagehepler失效的原因">
                         
-                        <span class="card-title">iview中table的使用经验</span>
+                        <span class="card-title">记录springboot利用pagehepler失效的原因</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            iview中table的使用经验由于iview官网上面的讲解真的是非常的简单，所以像是我这种阿库娅用户真的很不友好，所以这个博客是讲解iview的Table如何和springboot进行后端交互，类似bootStrap-table的那种吧，
+                            记录springboot利用pagehepler失效的原因首先说一下记录这个博客的原因吧，之前用SSM的时候，也用过pageHepler，但是一切也OK,后来打算利用springboot搭建项目的时候在数据量小的时候(也就是数据还没有到分页
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-26
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-28
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/iview/" class="post-category" target="_blank">
-                                    iview
-                                </a>
-                            
+                            <i class="fa fa-user fa-fw"></i>
+                            WHOAMI
                             
                         </span>
                     </div>
@@ -575,8 +549,16 @@ mut
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/前端/" target="_blank">
-                        <span class="chip bg-color">前端</span>
+                    <a href="/tags/springboot/" target="_blank">
+                        <span class="chip bg-color">springboot</span>
+                    </a>
+                    
+                    <a href="/tags/pagehepler/" target="_blank">
+                        <span class="chip bg-color">pagehepler</span>
+                    </a>
+                    
+                    <a href="/tags/Mybatis/" target="_blank">
+                        <span class="chip bg-color">Mybatis</span>
                     </a>
                     
                 </div>
