@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>spring boot完成图片上传下载的功能</title>
+      <link href="/2019/08/19/spring-boot%E5%AE%8C%E6%88%90%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD%E7%9A%84%E5%8A%9F%E8%83%BD/"/>
+      <url>/2019/08/19/spring-boot%E5%AE%8C%E6%88%90%E5%9B%BE%E7%89%87%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD%E7%9A%84%E5%8A%9F%E8%83%BD/</url>
+      
+        <content type="html"><![CDATA[<h1 id="springboot完成图片上传下载功能"><a href="#springboot完成图片上传下载功能" class="headerlink" title="springboot完成图片上传下载功能"></a>springboot完成图片上传下载功能</h1><p>由于我的博客项目最起码用户的更换头像操作要做出来啊，所以这个地方即使是我再怎么不想去碰也是不可能的。所以今天就拿出来唠一唠，这个springboot是如何操作的</p><h2 id="图片上传"><a href="#图片上传" class="headerlink" title="图片上传"></a>图片上传</h2><p>上传这个好说，springMVC如果都学过的话，应该都好理解 MultipartFile这个类，上传文件当然用它了</p><p>我的后端项目路径目前是这样的</p><blockquote><p>D:\code\java\eblog</p></blockquote><p>而我想把图片存到他的子目录 avatar下面<br>也就是：</p><blockquote><p>D:\code\java\eblog\avatar</p></blockquote><p>下面就是一些纯粹的IO读写操作了。<br>首先，要保证我们的文件夹要存在，毕竟有一个avatar呢，所以我们需要在启动这个项目的时候先确定一下是否存在，不存在就创建。</p><blockquote><p>这里提一点，为什么我们不直接在Controller层判断，因为，一遍一遍判断太烦了，还浪费资源，启动的时候检查一遍就OK了</p></blockquote><pre><code class="java">//  启动器代码@Slf4j@Configuration@Order(Ordered.HIGHEST_PRECEDENCE)public class StartLinster implements ApplicationListener&lt;ApplicationEvent&gt; {    @Autowired    TokenService tokenService;    @Override    public void onApplicationEvent(ApplicationEvent applicationEvent) {        String filePath = System.getProperty(&quot;user.dir&quot;) + File.separator + &quot;avatar&quot;;        File file = new File(filePath);        if(!file.exists()){            file.mkdirs();        }    }}</code></pre><p>现在，我们有了文件夹，后面我们保存文件就可以了</p><pre><code class="java">@ApiOperation(&quot;上传用户图片&quot;)    @PostMapping(&quot;/updateAvatar&quot;)    public BaseResponse updateProfile(@RequestParam(value = &quot;avatar&quot;,required = true)MultipartFile avatar,                                      HttpServletRequest request){        BaseResponse baseResponse = new BaseResponse();//  获取并创建文件夹        String property = System.getProperty(&quot;user.dir&quot;);        String filePath = property + File.separator + &quot;avatar&quot;;//  随机生成文件名称        String trueFilename = UUID.randomUUID().toString();//  获取本来文件名称        String filename = avatar.getOriginalFilename();// 截取 文件后缀名        String type = filename.indexOf(&quot;.&quot;) != -1 ? filename.substring(filename.lastIndexOf(&quot;.&quot;)+1,filename.length()):null;// 重新构建文件名        String trueFile = null == type ? filePath + File.separator + trueFilename :                filePath + File.separator + trueFilename + &quot;.&quot; + type;        try {          //  重点！！！！  将MultipartFile文件存到普通文件中！！！            avatar.transferTo(new File(trueFile));        } catch (IOException e) {            e.printStackTrace();            baseResponse.setStatus(HttpStatus.BAD_REQUEST.value());            baseResponse.setMessage(&quot;图片上传失败&quot;);            return baseResponse;        }</code></pre><h2 id="图片下载"><a href="#图片下载" class="headerlink" title="图片下载"></a>图片下载</h2><p>下载的话，我一开始是想直接把我的磁盘目录写进数据库中，然后读取的时候直接读，但是这样就暴露了我们的磁盘结构，很不安全，所以不得不放弃，而且也不现实。</p><p>后来，我决定直接创建一个虚拟映射就可以了啊，而且简单的一匹</p><p>只要把我们存到磁盘的文件名称保存到数据库就ok，到时候直接让前端访问我们的这个服务器ip+名称就行了啊</p><p>明白了思路，我们开始设置，其实很简单，在我们的springboot的项目配置中添加两个属性就行</p><pre><code class="yaml">spring:  resources:    static-locations: classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/,file:${web.upload-path}web:  upload-path: ${user.dir}/avatar</code></pre><p>这个web.upload-path是我自己定义的，完全可以忽略，上面的那个抄下来就好了，file: 表示是项目的物理磁盘。<br>之后访问 项目ip地址/文件名 就可以访问到了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> springboot </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> springboot </tag>
+            
+            <tag> java IO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>mybtatis添加数据返回主键</title>
       <link href="/2019/08/15/mybtatis%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E8%BF%94%E5%9B%9E%E4%B8%BB%E9%94%AE/"/>
       <url>/2019/08/15/mybtatis%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E8%BF%94%E5%9B%9E%E4%B8%BB%E9%94%AE/</url>
@@ -806,9 +833,9 @@
             
             <tag> linux </tag>
             
-            <tag> 文件服务器 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 文件服务器 </tag>
             
         </tags>
       
@@ -1045,9 +1072,9 @@
             
             <tag> linux </tag>
             
-            <tag> java </tag>
-            
             <tag> 搜索服务 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -1329,9 +1356,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -1351,9 +1378,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
