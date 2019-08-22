@@ -4,8 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="关于MyBatis自增主键那些事, 逝痕">
-    <meta name="description" content="关于MyBatis自增主键那些事有于当初利用SSM框架编写Mybatis的时候，mybatis的mapper文件等都是逆向生成的，所以用的时候非常方便，但是除了一点，就是插入数据的时候，主键是必须要写的，但是为了安全和方便(其实懒占主要因素">
+    <meta name="keywords" content="FormData在axios中的骚操作, 逝痕">
+    <meta name="description" content="FormData在axios中的骚操作做一个博客，最起码你要可以更换用户头像吧，不然谁知道你是谁啊。
+当时有过用ajax上传图片的经验，但是这次就不一样了，因为我用了axios的拦截器，详细可以看我另一篇帖子。
+由于我上传图片的方式post">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>关于MyBatis自增主键那些事 | 逝痕</title>
+    <title>FormData在axios中的骚操作 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -248,13 +250,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        关于MyBatis自增主键那些事
+                        FormData在axios中的骚操作
                     </div>
                 </div>
             </div>
@@ -365,12 +367,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/mysql/" target="_blank">
-                                <span class="chip bg-color">mysql</span>
+                            <a href="/tags/axios/" target="_blank">
+                                <span class="chip bg-color">axios</span>
                             </a>
                         
-                            <a href="/tags/mybatis/" target="_blank">
-                                <span class="chip bg-color">mybatis</span>
+                            <a href="/tags/FormData/" target="_blank">
+                                <span class="chip bg-color">FormData</span>
                             </a>
                         
                     </div>
@@ -381,8 +383,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/mybatis/" class="post-category" target="_blank">
-                                mybatis
+                            <a href="/categories/vue/" class="post-category" target="_blank">
+                                vue
                             </a>
                         
                     </div>
@@ -393,7 +395,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-26
+                    2019-08-20
                 </div>
 
                 
@@ -409,17 +411,68 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="关于MyBatis自增主键那些事"><a href="#关于MyBatis自增主键那些事" class="headerlink" title="关于MyBatis自增主键那些事"></a>关于MyBatis自增主键那些事</h1><p>有于当初利用SSM框架编写Mybatis的时候，mybatis的mapper文件等都是逆向生成的，所以用的时候非常方便，但是除了一点，就是插入数据的时候，主键是必须要写的，但是为了安全和方便(其实懒占主要因素)，否则就会爆出sql语句错误，最后解决办法如下:</p>
-<ol>
-<li>mysql表中要把自增主键的选项打开</li>
-</ol>
-<p>其实大部分人只要打开自增主键就已经OK了，但是有的时候电脑抽风还是报错，那么就需要更改逆向出来的源码了</p>
-<p>找到你想插入的地方<insert id="xxx"></insert></p>
-<p>然后添加这么一个关键字:</p>
-<pre><code class="xml"> &lt;insert id=&quot;insertSelective&quot;  
- useGeneratedKeys=&quot;true&quot; parameterType=&quot;xxx&quot;&gt;
+                <h1 id="FormData在axios中的骚操作"><a href="#FormData在axios中的骚操作" class="headerlink" title="FormData在axios中的骚操作"></a>FormData在axios中的骚操作</h1><p>做一个博客，最起码你要可以更换用户头像吧，不然谁知道你是谁啊。</p>
+<p>当时有过用ajax上传图片的经验，但是这次就不一样了，因为我用了axios的拦截器，详细可以看我另一篇帖子。</p>
+<p>由于我上传图片的方式post，而我在拦截器上的post的请求都自动加上 Content-Type = ‘application/json; charset=utf-8’</p>
+<p>axios拦截器的代码在下面</p>
+<pre><code class="javaScript">
+service.interceptors.request.use(
+    config =&gt; {
+        const token = store.getters.getToken ? store.getters.getToken : localStorage.getItem(&#39;token&#39;);
+
+        if (token) {
+            config.headers[&quot;Authentication&quot;] = token
+        }
+        if (config.method === &#39;post&#39; || config.method === &#39;put&#39;) {
+            // config.data = qs.stringify({...config.data });
+
+                config.headers[&#39;Content-Type&#39;] = &#39;application/json; charset=utf-8&#39;;
+                config.data = JSON.stringify({...config.data })
+
+        } else if (config.method === &#39;get&#39;) {
+            config.headers[&#39;Content-Type&#39;] = &#39;application/x-www-form-urlencoded&#39;;
+            config.params = {...config.params }
+        }
+
+
+        return config;
+    }, error =&gt; {
+
+        return Promise.reject(error);
+    }
+
+)
 </code></pre>
-<p>这个useGeneratedKeys就是自增主键的意思</p>
+<p>从上面可以看出来，这个代码是不行的，因为我们上传图片等文件的时候我们需要我们的请求头 Content-Type 是’multipart/form-data’才可以上传成功。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>经过查阅知道，axios不仅可以在拦截器上设置请求头信息，也可以在封装后的请求体上面加入请求头，headers:{}属性，所以，我上传的图片代码是这样</p>
+<pre><code class="javaScript">
+userApi.uploadAvatar = (file) =&gt; {
+    let data = new FormData();
+    data.append(&quot;avatar&quot;, file)
+    return service({
+        url: `${baseUrl}/updateAvatar`,
+        data: data,
+        headers: {
+            &#39;Content-Type&#39;: &#39;multipart/form-data&#39;
+        },
+        method: &#39;post&#39;
+
+    })
+}
+</code></pre>
+<p>可以看到，我们加上了请求头，但是这样并没有什么效果，因为我在拦截器上已经设置死了 只要是post方法，必须是另一种请求头，但是如果将拦截器上面的删除掉的话，每个post方法都要加上headers，很麻烦。所以我们可以采取直接照顾特殊方法的方法，直接修改拦截器post部分的代码：</p>
+<pre><code class="javaScript">if (config.method === &#39;post&#39; || config.method === &#39;put&#39;) {
+            // config.data = qs.stringify({...config.data });
+            if (config.headers[&#39;Content-Type&#39;] === &#39;multipart/form-data&#39;) {
+
+            } else {
+                config.headers[&#39;Content-Type&#39;] = &#39;application/json; charset=utf-8&#39;;
+                config.data = JSON.stringify({...config.data })
+            }
+
+        }
+</code></pre>
+<p>可以看到如果我们的请求头是 config.headers[‘Content-Type’] === ‘multipart/form-data’ 不做任何操作，问题解决。</p>
 
             </div>
             
@@ -461,44 +514,52 @@
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/07/26/iview中table的使用经验/">
+                <a href="/2019/08/20/FormData在axios中的骚操作/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="iview中table的使用经验">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="FormData在axios中的骚操作">
                         
-                        <span class="card-title">iview中table的使用经验</span>
+                        <span class="card-title">FormData在axios中的骚操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            iview中table的使用经验由于iview官网上面的讲解真的是非常的简单，所以像是我这种阿库娅用户真的很不友好，所以这个博客是讲解iview的Table如何和springboot进行后端交互，类似bootStrap-table的那种吧，
+                            FormData在axios中的骚操作做一个博客，最起码你要可以更换用户头像吧，不然谁知道你是谁啊。
+当时有过用ajax上传图片的经验，但是这次就不一样了，因为我用了axios的拦截器，详细可以看我另一篇帖子。
+由于我上传图片的方式post
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-26
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-20
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/iview/" class="post-category" target="_blank">
-                                    iview
+                            <a href="/categories/vue/" class="post-category" target="_blank">
+                                    vue
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/前端/" target="_blank">
-                        <span class="chip bg-color">前端</span>
+                    <a href="/tags/axios/" target="_blank">
+                        <span class="chip bg-color">axios</span>
+                    </a>
+                    
+                    <a href="/tags/FormData/" target="_blank">
+                        <span class="chip bg-color">FormData</span>
                     </a>
                     
                 </div>
@@ -512,28 +573,25 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/25/RESETFUL四种方式提交区别/">
+                <a href="/2019/08/19/spring-boot完成图片上传下载的功能/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="RESETFUL四种方式提交区别">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="spring boot完成图片上传下载的功能">
                         
-                        <span class="card-title">RESETFUL四种方式提交区别</span>
+                        <span class="card-title">spring boot完成图片上传下载的功能</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            RESETFUL四种方式提交区别
-如今，RESETFUL服务特别受开发者的喜欢，因为他更加的结构化。
-那么下面对ReSet的四种请求方法做一个说明=&gt;
-get  =&gt;  我一般会在请求一些资源的时候，比如说分页查询的表格等
-po
+                            springboot完成图片上传下载功能由于我的博客项目最起码用户的更换头像操作要做出来啊，所以这个地方即使是我再怎么不想去碰也是不可能的。所以今天就拿出来唠一唠，这个springboot是如何操作的
+图片上传上传这个好说，springMV
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-25
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-19
                             </span>
                         <span class="publish-author">
                             
@@ -554,8 +612,8 @@ po
                         <span class="chip bg-color">springboot</span>
                     </a>
                     
-                    <a href="/tags/前后端分离/" target="_blank">
-                        <span class="chip bg-color">前后端分离</span>
+                    <a href="/tags/java-IO/" target="_blank">
+                        <span class="chip bg-color">java IO</span>
                     </a>
                     
                 </div>
