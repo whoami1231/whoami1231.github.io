@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>记录一次利用cropperjs修建图片并上传的过程</title>
+      <link href="/2019/09/01/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%88%A9%E7%94%A8cropperjs%E4%BF%AE%E5%BB%BA%E5%9B%BE%E7%89%87%E5%B9%B6%E4%B8%8A%E4%BC%A0%E7%9A%84%E8%BF%87%E7%A8%8B/"/>
+      <url>/2019/09/01/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%88%A9%E7%94%A8cropperjs%E4%BF%AE%E5%BB%BA%E5%9B%BE%E7%89%87%E5%B9%B6%E4%B8%8A%E4%BC%A0%E7%9A%84%E8%BF%87%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="vuejs和cropperjs所走过的坑"><a href="#vuejs和cropperjs所走过的坑" class="headerlink" title="vuejs和cropperjs所走过的坑"></a>vuejs和cropperjs所走过的坑</h1><blockquote><p>用户上传自定义头像的功能是做完了，但是有的时候自己想要的图片不是这么’正好’，所以决定需要编辑图片</p></blockquote><p>目标已经确定了，用户上传完图片之后打开一个遮罩层,里面用cropper这个插件来编辑，最后将编辑之后的图片传给服务器</p><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>这个不要多说了，我们已经决定用cropperjs了，但是需要注意一点的是，不要和vue-cropper弄混.<br>cropperjs的github传送门：<a href="https://github.com/fengyuanchen/cropperjs">link</a></p><p>官网上也有文档可以查阅，不过本人的英语现在还是菜鸟级别，所以只能现在记录下来。</p><p>下载cropperjs:</p><pre><code class="bash">npm install cropper --save# orcnpm install cropper --save</code></pre><p>注册组件：</p><blockquote><p>注意这个组件必须要有jquery</p></blockquote><pre><code class="javaScript">import &#39;cropperjs/dist/cropper.css&#39;;import $ from &#39;jquery&#39;import Cropper from &#39;cropperjs&#39;</code></pre><p>一定要注意！！！ 上面这个css文件除非你用cdn在下面的style标签里面引入，像是这个</p><pre><code class="css">&lt;style&gt;@import &quot;https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.min.css&quot;;&lt;/style&gt;</code></pre><p>如果你没有引入css文件的话，就会出现下面的尴尬现象<br><img src="https://s2.ax1x.com/2019/09/01/npjtKO.png" alt><br>而正常的应该是这样</p><p><img src="https://s2.ax1x.com/2019/09/01/npjbsU.png" alt></p><h2 id="使用cropper的正确姿势"><a href="#使用cropper的正确姿势" class="headerlink" title="使用cropper的正确姿势"></a>使用cropper的正确姿势</h2><p>cropperjs需要新建一个cropper对象，所以我们需要cropper变量</p><p>可以看一下目前我的vue关于图片上传这方面的参数</p><pre><code class="bash">  cropper:&quot;&quot;,  # cropper对象，一会需要新建  open：false, # 裁剪图片的模态框，按自己需要添加  idBefore: &quot;&quot;, # img标签里面的src属性  avatar: null  # 需要利用这个变量上传给服务器</code></pre><blockquote><p>需要注意的是，之前我们利用FormData上传图片不是直接上传img的src属性里面的图片么,为什么这次不是直接上传？</p></blockquote><p>因为cropper对象获取编辑之后的图片是base64编码的，我们现在需要上传的是二进制图片</p><ul><li>创建cropper对象</li></ul><p>cropper对象我一开始的时候是在created(){}方法里面创建的，具体代码是这样</p><pre><code class="html">/* html DOM树 */&lt;!-- 照片遮罩层 --&gt;    &lt;Modal        v-model=&quot;open&quot;        @on-ok=&quot;crppper&quot;        title=&quot;建议是200x200规格的哦&quot;        &gt;        &lt;div style=&quot;width:360px;height:360px;&quot;&gt;            &lt;img :src=&quot;idBefore&quot; style=&quot;max-width:100%;height:auto;&quot; id=&quot;avatar&quot; alt=&quot;&quot;&gt;        &lt;/div&gt;    &lt;/Modal&gt;/* 方法 */created(){  let that = this;    let image  = document.getElementById(&quot;avatar&quot;);    this.cropper = new Cropper(image, {           aspectRatio: 1,           zoomable:false,           scalable:false,           movable:false,           minContainerWidth:360,           minContainerHeight:360          });}</code></pre><blockquote><p>但是一直会报错未找到img元素，因为vue的DOM树是在mounted(){}才会加载,created还未加载，所以代码应该是这样</p></blockquote><pre><code class="html">/* html DOM树 */&lt;!-- 照片遮罩层 --&gt;    &lt;Modal        v-model=&quot;open&quot;        @on-ok=&quot;crppper&quot;        title=&quot;建议是200x200规格的哦&quot;        &gt;        &lt;div style=&quot;width:360px;height:360px;&quot;&gt;            &lt;img :src=&quot;idBefore&quot; style=&quot;max-width:100%;height:auto;&quot; id=&quot;avatar&quot; alt=&quot;&quot;&gt;        &lt;/div&gt;    &lt;/Modal&gt;/* 方法 */mounted(){  let that = this;    let image  = document.getElementById(&quot;avatar&quot;);    this.cropper = new Cropper(image, {           aspectRatio: 1,           zoomable:false,           scalable:false,           movable:false,           minContainerWidth:360, # 规定大小           minContainerHeight:360          });}</code></pre><p>需要注意的是,现在的img里面的src只有在用户上传完图片之后才会正常。</p><p>当我们用户上传完图片的时候</p><pre><code class="javaScript">  if(this.cropper){    // 换cropper对象里面的img的src路径    this.cropper.replace(this.idBefore);// 开启遮罩层    this.open = true;  }</code></pre><h2 id="准备上传图片"><a href="#准备上传图片" class="headerlink" title="准备上传图片"></a>准备上传图片</h2><p>裁剪完图片之后,我们需要获取编辑之后的图片，具体代码如下：</p><pre><code class="javaScript">// 遮罩层点了确定按钮之后的函数crppper(){            let that = this;            //这个代码返回值是 HTMLCanvasElement            const canvas = this.cropper.getCroppedCanvas();            // 换成了可以看成了src属性的图片            this.idBefore = canvas.toDataURL(&quot;image/png&quot;);            //  将avatar换成了blob对象             canvas.toBlob(function(blob){                 that.avatar = blob;             });        }</code></pre><p>这个<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement" target="_blank" rel="noopener">HTMLCanvasElement</a>对象是个重点，具体代码可以看官网。</p><p>由于FormData对象有两个append()方法</p><p>FormData.append(“需要转换成的名称”,变量)</p><p>FormData.append(“需要转换成的名称”,blob变量,”转换成的名称”)</p><p>我们的avatar已经换成了blob对象</p><p>上传具体代码</p><pre><code class="javaScript">userApi.uploadAvatar = (file) =&gt; {    let data = new FormData();    data.append(&quot;avatar&quot;, file, &quot;avatar.jpg&quot;);    return service({        url: `${baseUrl}/updateAvatar`,        data: data,        headers: {            &#39;Content-Type&#39;: &#39;multipart/form-data&#39;        },        method: &#39;post&#39;    })}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 前端 </tag>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>FormData在axios中的骚操作</title>
       <link href="/2019/08/20/FormData%E5%9C%A8axios%E4%B8%AD%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C/"/>
       <url>/2019/08/20/FormData%E5%9C%A8axios%E4%B8%AD%E7%9A%84%E9%AA%9A%E6%93%8D%E4%BD%9C/</url>
@@ -203,9 +230,9 @@
       
         <tags>
             
-            <tag> mysql </tag>
-            
             <tag> mybatis </tag>
+            
+            <tag> mysql </tag>
             
         </tags>
       
@@ -860,9 +887,9 @@
             
             <tag> linux </tag>
             
-            <tag> java </tag>
-            
             <tag> 文件服务器 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -1099,9 +1126,9 @@
             
             <tag> linux </tag>
             
-            <tag> 搜索服务 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 搜索服务 </tag>
             
         </tags>
       
@@ -1259,9 +1286,9 @@
       
         <tags>
             
-            <tag> 分布式 </tag>
-            
             <tag> 文件服务器 </tag>
+            
+            <tag> 分布式 </tag>
             
             <tag> nginx反向代理 </tag>
             

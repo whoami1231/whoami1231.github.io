@@ -4,12 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="java自定义线程池, 逝痕">
-    <meta name="description" content="java线程池java初始定义线程
-java线程池源码分析
-/**
-     * Creates a new {@code ThreadPoolExecutor} with the given initial
-     * paramete">
+    <meta name="keywords" content="记录一次利用cropperjs修建图片并上传的过程, 逝痕">
+    <meta name="description" content="vuejs和cropperjs所走过的坑
+用户上传自定义头像的功能是做完了，但是有的时候自己想要的图片不是这么’正好’，所以决定需要编辑图片
+
+目标已经确定了，用户上传完图片之后打开一个遮罩层,里面用cropper这个插件来编辑，最后将编辑">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +16,7 @@ java线程池源码分析
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>java自定义线程池 | 逝痕</title>
+    <title>记录一次利用cropperjs修建图片并上传的过程 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -252,13 +251,13 @@ java线程池源码分析
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        java自定义线程池
+                        记录一次利用cropperjs修建图片并上传的过程
                     </div>
                 </div>
             </div>
@@ -369,12 +368,12 @@ java线程池源码分析
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/java架构/" target="_blank">
-                                <span class="chip bg-color">java架构</span>
+                            <a href="/tags/前端/" target="_blank">
+                                <span class="chip bg-color">前端</span>
                             </a>
                         
-                            <a href="/tags/线程池/" target="_blank">
-                                <span class="chip bg-color">线程池</span>
+                            <a href="/tags/vue/" target="_blank">
+                                <span class="chip bg-color">vue</span>
                             </a>
                         
                     </div>
@@ -385,8 +384,8 @@ java线程池源码分析
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/java/" class="post-category" target="_blank">
-                                java
+                            <a href="/categories/vue/" class="post-category" target="_blank">
+                                vue
                             </a>
                         
                     </div>
@@ -397,7 +396,7 @@ java线程池源码分析
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-08
+                    2019-09-01
                 </div>
 
                 
@@ -413,54 +412,150 @@ java线程池源码分析
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="java线程池"><a href="#java线程池" class="headerlink" title="java线程池"></a>java线程池</h1><h2 id="java初始定义线程"><a href="#java初始定义线程" class="headerlink" title="java初始定义线程"></a>java初始定义线程</h2><p><img src="https://s2.ax1x.com/2019/04/08/A4XAkF.png" alt></p>
-<h2 id="java线程池源码分析"><a href="#java线程池源码分析" class="headerlink" title="java线程池源码分析"></a>java线程池源码分析</h2><p><img src="https://s2.ax1x.com/2019/04/08/A5iM28.png" alt></p>
-<pre><code class="java">/**
-     * Creates a new {@code ThreadPoolExecutor} with the given initial
-     * parameters and default rejected execution handler.
-     *
-     * @param corePoolSize the number of threads to keep in the pool, even
-     *        if they are idle, unless {@code allowCoreThreadTimeOut} is set
-     * @param maximumPoolSize the maximum number of threads to allow in the
-     *        pool
-     * @param keepAliveTime when the number of threads is greater than
-     *        the core, this is the maximum time that excess idle threads
-     *        will wait for new tasks before terminating.
-     * @param unit the time unit for the {@code keepAliveTime} argument
-     * @param workQueue the queue to use for holding tasks before they are
-     *        executed.  This queue will hold only the {@code Runnable}
-     *        tasks submitted by the {@code execute} method.
-     * @param threadFactory the factory to use when the executor
-     *        creates a new thread
-     * @throws IllegalArgumentException if one of the following holds:&lt;br&gt;
-     *         {@code corePoolSize &lt; 0}&lt;br&gt;
-     *         {@code keepAliveTime &lt; 0}&lt;br&gt;
-     *         {@code maximumPoolSize &lt;= 0}&lt;br&gt;
-     *         {@code maximumPoolSize &lt; corePoolSize}
-     * @throws NullPointerException if {@code workQueue}
-     *         or {@code threadFactory} is null
-     */
-    public ThreadPoolExecutor(int corePoolSize,
-                              int maximumPoolSize,
-                              long keepAliveTime,
-                              TimeUnit unit,
-                              BlockingQueue&lt;Runnable&gt; workQueue,
-                              ThreadFactory threadFactory) {
-        this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,
-             threadFactory, defaultHandler);
-    }
+                <h1 id="vuejs和cropperjs所走过的坑"><a href="#vuejs和cropperjs所走过的坑" class="headerlink" title="vuejs和cropperjs所走过的坑"></a>vuejs和cropperjs所走过的坑</h1><blockquote>
+<p>用户上传自定义头像的功能是做完了，但是有的时候自己想要的图片不是这么’正好’，所以决定需要编辑图片</p>
+</blockquote>
+<p>目标已经确定了，用户上传完图片之后打开一个遮罩层,里面用cropper这个插件来编辑，最后将编辑之后的图片传给服务器</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>这个不要多说了，我们已经决定用cropperjs了，但是需要注意一点的是，不要和vue-cropper弄混.<br>cropperjs的github传送门：<a href="https://github.com/fengyuanchen/cropperjs">link</a></p>
+<p>官网上也有文档可以查阅，不过本人的英语现在还是菜鸟级别，所以只能现在记录下来。</p>
+<p>下载cropperjs:</p>
+<pre><code class="bash">npm install cropper --save
+# or
+cnpm install cropper --save
+</code></pre>
+<p>注册组件：</p>
+<blockquote>
+<p>注意这个组件必须要有jquery</p>
+</blockquote>
+<pre><code class="javaScript">import &#39;cropperjs/dist/cropper.css&#39;;
+import $ from &#39;jquery&#39;
+import Cropper from &#39;cropperjs&#39;
+</code></pre>
+<p>一定要注意！！！ 上面这个css文件除非你用cdn在下面的style标签里面引入，像是这个</p>
+<pre><code class="css">&lt;style&gt;
+@import &quot;https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.5/cropper.min.css&quot;;
+&lt;/style&gt;
 
 </code></pre>
-<ol>
-<li>corePoolSize 表示常驻核心线程数。如果等于0，则任务执行完成后，没有任何请求进入时销毁线程池的线程；如果大于0，即使本地任务执行完毕，核心线程也不会被销毁。这个值的设置非常关键，设置过大会浪费资源，设置的过小会导致线程频繁地创建或销毁。再考虑到keepAliveTime和allowCoreThreadTimeOut超时参数的影响，所以没有任务需要执行的时候，线程池的大小不一定是corePoolSize。</li>
-<li>maximumPoolSize 线程池中允许的最大线程数。如果当前阻塞队列满了，且继续提交任务，则创建新的线程执行任务，前提是当前线程数小于maximumPoolSize；当阻塞队列是无界队列, 则maximumPoolSize则不起作用, 因为无法提交至核心线程池的线程会一直持续地放入workQueue.</li>
-</ol>
-<h2 id="合理配置线程数"><a href="#合理配置线程数" class="headerlink" title="合理配置线程数"></a>合理配置线程数</h2><hr>
-<h3 id="分析需求"><a href="#分析需求" class="headerlink" title="分析需求"></a>分析需求</h3><p>根据需求的不同，可以将技术分成IO密集和CPU密集两种类型。</p>
-<p>IO密集：</p>
-<p>线程中存在大量的阻塞，例如，请求，数据库连接，。。。线程会有大量的等待，这样会有等待时间，那么这个线程就是IO密集型，一般这种类型，配置核心线程数的规则是 core = 2*CPU内核</p>
-<p>CPU密集：</p>
-<p>线程中代码非常多，而且计算的内容非常多，阻塞少，这个就是CPU密集，配置规则是：core = CPU内核。</p>
+<p>如果你没有引入css文件的话，就会出现下面的尴尬现象<br><img src="https://s2.ax1x.com/2019/09/01/npjtKO.png" alt><br>而正常的应该是这样</p>
+<p><img src="https://s2.ax1x.com/2019/09/01/npjbsU.png" alt></p>
+<h2 id="使用cropper的正确姿势"><a href="#使用cropper的正确姿势" class="headerlink" title="使用cropper的正确姿势"></a>使用cropper的正确姿势</h2><p>cropperjs需要新建一个cropper对象，所以我们需要cropper变量</p>
+<p>可以看一下目前我的vue关于图片上传这方面的参数</p>
+<pre><code class="bash">
+  cropper:&quot;&quot;,  # cropper对象，一会需要新建
+  open：false, # 裁剪图片的模态框，按自己需要添加
+  idBefore: &quot;&quot;, # img标签里面的src属性
+  avatar: null  # 需要利用这个变量上传给服务器
+
+</code></pre>
+<blockquote>
+<p>需要注意的是，之前我们利用FormData上传图片不是直接上传img的src属性里面的图片么,为什么这次不是直接上传？</p>
+</blockquote>
+<p>因为cropper对象获取编辑之后的图片是base64编码的，我们现在需要上传的是二进制图片</p>
+<ul>
+<li>创建cropper对象</li>
+</ul>
+<p>cropper对象我一开始的时候是在created(){}方法里面创建的，具体代码是这样</p>
+<pre><code class="html">/* html DOM树 */
+&lt;!-- 照片遮罩层 --&gt;
+    &lt;Modal
+        v-model=&quot;open&quot;
+        @on-ok=&quot;crppper&quot;
+        title=&quot;建议是200x200规格的哦&quot;
+        &gt;
+        &lt;div style=&quot;width:360px;height:360px;&quot;&gt;
+            &lt;img :src=&quot;idBefore&quot; style=&quot;max-width:100%;height:auto;&quot; id=&quot;avatar&quot; alt=&quot;&quot;&gt;
+        &lt;/div&gt;
+    &lt;/Modal&gt;
+
+/* 方法 */
+created(){
+  let that = this;
+    let image  = document.getElementById(&quot;avatar&quot;);
+    this.cropper = new Cropper(image, {
+           aspectRatio: 1,
+           zoomable:false,
+           scalable:false,
+           movable:false,
+           minContainerWidth:360,
+           minContainerHeight:360
+          });
+}
+</code></pre>
+<blockquote>
+<p>但是一直会报错未找到img元素，因为vue的DOM树是在mounted(){}才会加载,created还未加载，所以代码应该是这样</p>
+</blockquote>
+<pre><code class="html">/* html DOM树 */
+&lt;!-- 照片遮罩层 --&gt;
+    &lt;Modal
+        v-model=&quot;open&quot;
+        @on-ok=&quot;crppper&quot;
+        title=&quot;建议是200x200规格的哦&quot;
+        &gt;
+        &lt;div style=&quot;width:360px;height:360px;&quot;&gt;
+            &lt;img :src=&quot;idBefore&quot; style=&quot;max-width:100%;height:auto;&quot; id=&quot;avatar&quot; alt=&quot;&quot;&gt;
+        &lt;/div&gt;
+    &lt;/Modal&gt;
+
+/* 方法 */
+mounted(){
+  let that = this;
+    let image  = document.getElementById(&quot;avatar&quot;);
+    this.cropper = new Cropper(image, {
+           aspectRatio: 1,
+           zoomable:false,
+           scalable:false,
+           movable:false,
+           minContainerWidth:360, # 规定大小
+           minContainerHeight:360
+          });
+}
+</code></pre>
+<p>需要注意的是,现在的img里面的src只有在用户上传完图片之后才会正常。</p>
+<p>当我们用户上传完图片的时候</p>
+<pre><code class="javaScript">  if(this.cropper){
+    // 换cropper对象里面的img的src路径
+    this.cropper.replace(this.idBefore);
+// 开启遮罩层
+    this.open = true;
+  }
+</code></pre>
+<h2 id="准备上传图片"><a href="#准备上传图片" class="headerlink" title="准备上传图片"></a>准备上传图片</h2><p>裁剪完图片之后,我们需要获取编辑之后的图片，具体代码如下：</p>
+<pre><code class="javaScript">// 遮罩层点了确定按钮之后的函数
+crppper(){
+            let that = this;
+            //这个代码返回值是 HTMLCanvasElement
+            const canvas = this.cropper.getCroppedCanvas();
+            // 换成了可以看成了src属性的图片
+            this.idBefore = canvas.toDataURL(&quot;image/png&quot;);
+            //  将avatar换成了blob对象
+             canvas.toBlob(function(blob){
+                 that.avatar = blob;
+             });
+
+        }
+</code></pre>
+<p>这个<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLCanvasElement" target="_blank" rel="noopener">HTMLCanvasElement</a>对象是个重点，具体代码可以看官网。</p>
+<p>由于FormData对象有两个append()方法</p>
+<p>FormData.append(“需要转换成的名称”,变量)</p>
+<p>FormData.append(“需要转换成的名称”,blob变量,”转换成的名称”)</p>
+<p>我们的avatar已经换成了blob对象</p>
+<p>上传具体代码</p>
+<pre><code class="javaScript">
+userApi.uploadAvatar = (file) =&gt; {
+    let data = new FormData();
+    data.append(&quot;avatar&quot;, file, &quot;avatar.jpg&quot;);
+    return service({
+        url: `${baseUrl}/updateAvatar`,
+        data: data,
+        headers: {
+            &#39;Content-Type&#39;: &#39;multipart/form-data&#39;
+        },
+        method: &#39;post&#39;
+
+    })
+}
+</code></pre>
 
             </div>
             
@@ -502,63 +597,53 @@ java线程池源码分析
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/12/centos7安装solr服务/">
+                <a href="/2019/09/01/记录一次利用cropperjs修建图片并上传的过程/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.png" class="responsive-img" alt="centos7安装solr服务">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="记录一次利用cropperjs修建图片并上传的过程">
                         
-                        <span class="card-title">centos7安装solr服务</span>
+                        <span class="card-title">记录一次利用cropperjs修建图片并上传的过程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            centos7 下安装solr服务1. 安装java环境
+                            vuejs和cropperjs所走过的坑
+用户上传自定义头像的功能是做完了，但是有的时候自己想要的图片不是这么’正好’，所以决定需要编辑图片
 
-将jdk扔到linux下，解压
-
-修改环境变量
-
-
-# 打开配置文件
-vim /etc/profile 
-
-# 在文件末尾添加
-JAVA_HOME=/usr/local/java/
+目标已经确定了，用户上传完图片之后打开一个遮罩层,里面用cropper这个插件来编辑，最后将编辑
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                    linux
+                            <a href="/categories/vue/" class="post-category" target="_blank">
+                                    vue
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/linux/" target="_blank">
-                        <span class="chip bg-color">linux</span>
+                    <a href="/tags/前端/" target="_blank">
+                        <span class="chip bg-color">前端</span>
                     </a>
                     
-                    <a href="/tags/java/" target="_blank">
-                        <span class="chip bg-color">java</span>
-                    </a>
-                    
-                    <a href="/tags/搜索服务/" target="_blank">
-                        <span class="chip bg-color">搜索服务</span>
+                    <a href="/tags/vue/" target="_blank">
+                        <span class="chip bg-color">vue</span>
                     </a>
                     
                 </div>
@@ -572,35 +657,33 @@ JAVA_HOME=/usr/local/java/
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/07/centos7安装rabbitMQ/">
+                <a href="/2019/08/20/FormData在axios中的骚操作/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.png" class="responsive-img" alt="centos7安装rabbitMQ">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="FormData在axios中的骚操作">
                         
-                        <span class="card-title">centos7安装rabbitMQ</span>
+                        <span class="card-title">FormData在axios中的骚操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            centos安装RabbitMQ并配置环境之前我在网上搜罗了很多教程，但是大多都很繁琐，要么就是版本太老。
-这里我提供了一个非常简单的方法
-
-下载安装包
-打开[官网地址]: (https://www.rabbitmq.com/release
+                            FormData在axios中的骚操作做一个博客，最起码你要可以更换用户头像吧，不然谁知道你是谁啊。
+当时有过用ajax上传图片的经验，但是这次就不一样了，因为我用了axios的拦截器，详细可以看我另一篇帖子。
+由于我上传图片的方式post
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-07
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-20
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/linux/" class="post-category" target="_blank">
-                                    linux
+                            <a href="/categories/vue/" class="post-category" target="_blank">
+                                    vue
                                 </a>
                             
                             
@@ -610,12 +693,12 @@ JAVA_HOME=/usr/local/java/
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/linux/" target="_blank">
-                        <span class="chip bg-color">linux</span>
+                    <a href="/tags/axios/" target="_blank">
+                        <span class="chip bg-color">axios</span>
                     </a>
                     
-                    <a href="/tags/安装教程/" target="_blank">
-                        <span class="chip bg-color">安装教程</span>
+                    <a href="/tags/FormData/" target="_blank">
+                        <span class="chip bg-color">FormData</span>
                     </a>
                     
                 </div>
