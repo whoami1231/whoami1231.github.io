@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>kali进行arp嗅骗和攻击的一次记录</title>
+      <link href="/2019/10/14/kali%E8%BF%9B%E8%A1%8Carp%E5%97%85%E9%AA%97%E5%92%8C%E6%94%BB%E5%87%BB%E7%9A%84%E4%B8%80%E6%AC%A1%E8%AE%B0%E5%BD%95/"/>
+      <url>/2019/10/14/kali%E8%BF%9B%E8%A1%8Carp%E5%97%85%E9%AA%97%E5%92%8C%E6%94%BB%E5%87%BB%E7%9A%84%E4%B8%80%E6%AC%A1%E8%AE%B0%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Kali下arp嗅探和攻击的手账"><a href="#Kali下arp嗅探和攻击的手账" class="headerlink" title="Kali下arp嗅探和攻击的手账"></a>Kali下arp嗅探和攻击的手账</h1><p>由于本人打算考网络安全的专硕，所以这几天玩了一次kali。恩，怎么说呢，感触挺深的，特此记录下来</p><h2 id="arp基础"><a href="#arp基础" class="headerlink" title="arp基础"></a>arp基础</h2><p>在我们进行各种高大上的讲解的时候，我们要先清楚一点，我们如何在网上进行各种活动的。<br>比如我们经常用的baidu,我们是如何访问到baidu的服务器的。</p><p>我们可以通过追踪路由来弄清楚这个问题</p><p>windows: tracert<br>linux:traceroute</p><p>通过运行上面的命令我们可以看出数据包的传输过程<br><img src="https://s2.ax1x.com/2019/10/14/KpcYcR.png" alt></p><blockquote><p>由于本人身处深山，所以网络查的可以，上面的图仅供参考</p></blockquote><p>我们可以看到，我们的探测数据包经过了很多路由的转发最终达到了我们的机器上</p><p>并且，这里我们需要引出很重要的东西 – <strong>网关</strong></p><p>网关我们可以这么理解:<br>  相信大家家里都有有线网了吧，我们其实可以把网关看成我们的那个接入网络的光猫路由器。</p><p>  我们所有的数据包都是通过网关这个小东西传输。</p><p>现在，重点来了！！！！</p><blockquote><p>敲黑板</p></blockquote><p>假如，我们在同一个局域网下面，有两台机器，一台是我们自己，一台是需要攻击的机器。</p><p>那么，正常情况下，两台机器都有自己的ip地址 (192.168.x.x)，进行自己正常的网络服务,但是如果我们告诉对方机器现在我就是路由器，而且如果我的机器不能进行端口转发的时候，对面的机器就进不去网了。</p><p>需要注意的一点哈，现在我们告诉了对方机器我们是路由器，但是路由器还是可以给对面机器通信的。</p><p>这一点可以重复上面的操作，就是告诉路由器我们就是对面机器，进行双向嗅探来解决。</p><h2 id="如何进行攻击"><a href="#如何进行攻击" class="headerlink" title="如何进行攻击"></a>如何进行攻击</h2><h3 id="命令行方法"><a href="#命令行方法" class="headerlink" title="命令行方法"></a>命令行方法</h3><p>一、 获取对方信息</p><p>由于这篇博客写的是内网渗透，所以，我们需要扫描当前网络下的其他机器</p><pre><code class="bash">  &gt; ifconfig</code></pre><p><img src="https://s2.ax1x.com/2019/10/16/KiPr90.png" alt></p><p>先查看一下自己ip 里面重要的消息 有网卡和ip</p><p>这里说明一点,一般的话网关的最后一位数字一般都是1</p><pre><code class="bash">  &gt; netdiscover -i [网卡] -r [网关/24]  example:  &gt; netdiscover -i eth0 -r 192.168.3.1/24</code></pre><p>这样就可以获取对方ip，这里我只有一台电脑，我就不放图了</p><p>二、开始进行嗅探</p><pre><code class="bash">arpspoof [-i interface] [-c own|host|both] [-t target] [-r] host&gt; arpspoof -i eth0 [对方ip]  网关</code></pre><p>双向嗅探</p><pre><code class="bash">  &gt; arpspoof -i eth0 [对方ip]  网关  &gt; arpspoof -i eth0 [网关]  对方ip</code></pre><blockquote><p>由于kali默认情况下是禁止端口转发的，所以现在的情况下对面机器是断网的</p></blockquote><p>开启端口转发</p><pre><code class="bash">  echo 1&gt; /proc/sys/net/ipv4/ipforward</code></pre><p>1是开启 0是关闭  </p><blockquote><p>proc是目前开机的时候机器的配置，重启的话会重置</p></blockquote><p>抓取对面图片</p><pre><code class="bash">  driftnet -i eth0</code></pre><h3 id="软件嗅探"><a href="#软件嗅探" class="headerlink" title="软件嗅探"></a>软件嗅探</h3><p><img src="https://s2.ax1x.com/2019/10/16/KiFqkd.png" alt></p><p>具体做法</p><p>sniff-&gt;unified sniffing</p><p>host -&gt; hostlist</p><p>host -&gt; scan for host</p><p><img src="https://s2.ax1x.com/2019/10/16/KikuBF.png" alt></p><p>网关IP add to target 1 靶机 add to target 2</p><p>Mitm-&gt;ARP poisoning</p><p>要记住选中第一项 第二项是单项ARP毒缓存 用于靶机会失败报警 单向欺骗网关</p><p>开启driftnet</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络安全 - kali </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>electron-vue创建桌面程式初探</title>
+      <link href="/2019/09/12/electron-vue%E5%88%9B%E5%BB%BA%E6%A1%8C%E9%9D%A2%E7%A8%8B%E5%BC%8F%E5%88%9D%E6%8E%A2/"/>
+      <url>/2019/09/12/electron-vue%E5%88%9B%E5%BB%BA%E6%A1%8C%E9%9D%A2%E7%A8%8B%E5%BC%8F%E5%88%9D%E6%8E%A2/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>记录一次利用cropperjs修建图片并上传的过程</title>
       <link href="/2019/09/01/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%88%A9%E7%94%A8cropperjs%E4%BF%AE%E5%BB%BA%E5%9B%BE%E7%89%87%E5%B9%B6%E4%B8%8A%E4%BC%A0%E7%9A%84%E8%BF%87%E7%A8%8B/"/>
       <url>/2019/09/01/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1%E5%88%A9%E7%94%A8cropperjs%E4%BF%AE%E5%BB%BA%E5%9B%BE%E7%89%87%E5%B9%B6%E4%B8%8A%E4%BC%A0%E7%9A%84%E8%BF%87%E7%A8%8B/</url>
@@ -139,7 +177,7 @@
       <link href="/2019/07/28/%E5%85%B3%E4%BA%8Evuex%E4%BC%A0%E5%8F%82%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B%E6%83%85/"/>
       <url>/2019/07/28/%E5%85%B3%E4%BA%8Evuex%E4%BC%A0%E5%8F%82%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BA%8B%E6%83%85/</url>
       
-        <content type="html"><![CDATA[<h1 id="关于vuex传参的一些事情"><a href="#关于vuex传参的一些事情" class="headerlink" title="关于vuex传参的一些事情"></a>关于vuex传参的一些事情</h1><p>之前没有说vuex，这里说一下它的传参问题吧。对于我来说,vuex其实就可以看成一个静态的类，类里面分成四个模块</p><p>state =&gt;  存放data的</p><p>getters =&gt; get函数，获取变量的</p><p>mutataions =&gt; set函数，设置变量的</p><p>actions =&gt; 具体函数实现，比如利用axios之后将数据利用mutations提交的，也算是一个变相的set的函数吧</p><h2 id="mutataions只接受一个参数"><a href="#mutataions只接受一个参数" class="headerlink" title="mutataions只接受一个参数"></a>mutataions只接受一个参数</h2><p>这个问题其实困扰了我一会，因为如果你在actions里面写这样的话</p><p>commit(“xxx”, 变量1，变量2)</p><p>并且那个xxx的函数是(state,变量1，变量2)的时候，是不会报错的！而且只接收变量1，其余的自动undefined，一开始我还以为是我的变量不对呢，后来才发现是这的原因，不过这样解决办法也很明显了，我们可以弄一个复杂json过去，就像这样</p><p>commit(“xxx”,{1:xx,2:xx})</p><p>然后接收的时候正常接收就行，注意！一定用一个变量名接收，血与泪的教训啊。。。。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="关于vuex传参的一些事情"><a href="#关于vuex传参的一些事情" class="headerlink" title="关于vuex传参的一些事情"></a>关于vuex传参的一些事情</h1><p>之前没有说vuex，这里说一下它的传参问题吧。对于我来说,vuex其实就可以看成一个静态的类，类里面分成四个模块</p><p>state =&gt;  存放data的</p><p>getters =&gt; get函数，获取变量的</p><p>mutataions =&gt; set函数，设置变量的</p><p>actions =&gt; 具体函数实现，比如利用axios之后将数据利用mutations提交的，也算是一个变相的set的函数吧</p><h2 id="数据取不到？-一直undefined"><a href="#数据取不到？-一直undefined" class="headerlink" title="数据取不到？ 一直undefined?"></a>数据取不到？ 一直undefined?</h2><p>本以为按照上面的做法去弄来着，但是当我在做完登陆功能，将token存到state里面，然后在axios封装的js文件将token取出来并且当作header的时候，数据一直是undefined,机智的我发现事情并不这么简单。吓得我马上开始了百度。</p><hr><blockquote><p>不出意料的是，百度总会在将你想要查询的东西替换成你最不想要的结果</p></blockquote><p>查了一顿，啥也没查出来，其实一堆文章都阐述了这个问题，但是他们大多都是将什么token存入到localStorage里面。是的，这也是一个解决办法，不过我以后的getter不还是取不到数据么！</p><p>无奈下，打开gayhub,随便down一个大佬的vue项目，偷偷观察下(大佬不愧是大佬，代码结构清晰明了)。我发现大佬们的vuex代码无非是这种结构</p><p><img src="https://s2.ax1x.com/2019/10/11/uHU6zV.png" alt></p><p>moudles -&gt;  存放我们需要的一些数据，但是和上面我们想的不同的是，这些moudles里面并没有getters。而是单独抽出来了一个getters文件<br>getters -&gt; 抽象出来的getters对象</p><p>index -&gt; 注册moudles和getters组件</p><blockquote><p>需要主要的是，这个getters组件是全局的，而我们在moudles里面写的state的局部的，所以仍然还是取不到任何东西，因此我们需要指明moudle名字<br>例如： avatarId: state =&gt; state.user.avatarId  和别的不一样的是，它在state后面又指明了user作用域</p></blockquote><h2 id="mutataions只接受一个参数"><a href="#mutataions只接受一个参数" class="headerlink" title="mutataions只接受一个参数"></a>mutataions只接受一个参数</h2><p>这个问题其实困扰了我一会，因为如果你在actions里面写这样的话</p><p>commit(“xxx”, 变量1，变量2)</p><p>并且那个xxx的函数是(state,变量1，变量2)的时候，是不会报错的！而且只接收变量1，其余的自动undefined，一开始我还以为是我的变量不对呢，后来才发现是这的原因，不过这样解决办法也很明显了，我们可以弄一个复杂json过去，就像这样</p><p>commit(“xxx”,{1:xx,2:xx})</p><p>然后接收的时候正常接收就行，注意！一定用一个变量名接收，血与泪的教训啊。。。。</p>]]></content>
       
       
       <categories>
@@ -1410,22 +1448,22 @@
     
     
     <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
       
     </entry>
     
