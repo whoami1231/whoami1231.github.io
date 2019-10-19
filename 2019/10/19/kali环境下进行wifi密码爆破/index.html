@@ -4,9 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="kali进行arp嗅骗和攻击的一次记录, 逝痕">
-    <meta name="description" content="Kali下arp嗅探和攻击的手账由于本人打算考网络安全的专硕，所以这几天玩了一次kali。恩，怎么说呢，感触挺深的，特此记录下来
-arp基础在我们进行各种高大上的讲解的时候，我们要先清楚一点，我们如何在网上进行各种活动的。比如我们经常用的b">
+    <meta name="keywords" content="kali环境下进行wifi密码爆破, 逝痕">
+    <meta name="description" content="How to hack wifi passwrod with KaliBefore we start,let me tell you  the reason I write  this post with English. 
+There a">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +14,7 @@ arp基础在我们进行各种高大上的讲解的时候，我们要先清楚�
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>kali进行arp嗅骗和攻击的一次记录 | 逝痕</title>
+    <title>kali环境下进行wifi密码爆破 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -249,13 +249,13 @@ arp基础在我们进行各种高大上的讲解的时候，我们要先清楚�
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.JPG')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        kali进行arp嗅骗和攻击的一次记录
+                        kali环境下进行wifi密码爆破
                     </div>
                 </div>
             </div>
@@ -366,8 +366,12 @@ arp基础在我们进行各种高大上的讲解的时候，我们要先清楚�
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/网络安全-kali/" target="_blank">
-                                <span class="chip bg-color">网络安全 - kali</span>
+                            <a href="/tags/网络安全/" target="_blank">
+                                <span class="chip bg-color">网络安全</span>
+                            </a>
+                        
+                            <a href="/tags/wifi破解/" target="_blank">
+                                <span class="chip bg-color">wifi破解</span>
                             </a>
                         
                     </div>
@@ -390,7 +394,7 @@ arp基础在我们进行各种高大上的讲解的时候，我们要先清楚�
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-10-14
+                    2019-10-19
                 </div>
 
                 
@@ -406,74 +410,44 @@ arp基础在我们进行各种高大上的讲解的时候，我们要先清楚�
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Kali下arp嗅探和攻击的手账"><a href="#Kali下arp嗅探和攻击的手账" class="headerlink" title="Kali下arp嗅探和攻击的手账"></a>Kali下arp嗅探和攻击的手账</h1><p>由于本人打算考网络安全的专硕，所以这几天玩了一次kali。恩，怎么说呢，感触挺深的，特此记录下来</p>
-<h2 id="arp基础"><a href="#arp基础" class="headerlink" title="arp基础"></a>arp基础</h2><p>在我们进行各种高大上的讲解的时候，我们要先清楚一点，我们如何在网上进行各种活动的。<br>比如我们经常用的baidu,我们是如何访问到baidu的服务器的。</p>
-<p>我们可以通过追踪路由来弄清楚这个问题</p>
-<p>windows: tracert<br>linux:traceroute</p>
-<p>通过运行上面的命令我们可以看出数据包的传输过程<br><img src="https://s2.ax1x.com/2019/10/14/KpcYcR.png" alt></p>
+                <h1 id="How-to-hack-wifi-passwrod-with-Kali"><a href="#How-to-hack-wifi-passwrod-with-Kali" class="headerlink" title="How to hack wifi passwrod with Kali"></a>How to hack wifi passwrod with Kali</h1><p>Before we start,let me tell you  the reason I write  this post with English. </p>
+<p>There are reason why:</p>
+<ul>
+<li>I wana be a postgraduate  of Ocean University 0f China</li>
+<li>Writing English Posts seem to make me  cool I think</li>
+</ul>
 <blockquote>
-<p>由于本人身处深山，所以网络查的可以，上面的图仅供参考</p>
+<p>And this is my first attempt,I know it’s a shit.</p>
 </blockquote>
-<p>我们可以看到，我们的探测数据包经过了很多路由的转发最终达到了我们的机器上</p>
-<p>并且，这里我们需要引出很重要的东西 – <strong>网关</strong></p>
-<p>网关我们可以这么理解:<br>  相信大家家里都有有线网了吧，我们其实可以把网关看成我们的那个接入网络的光猫路由器。</p>
-<p>  我们所有的数据包都是通过网关这个小东西传输。</p>
-<p>现在，重点来了！！！！</p>
+<p>Let’s start!</p>
+<h2 id="Find-your-wirless-Card-‘s-chipset-and-driver-using-airmon-ng"><a href="#Find-your-wirless-Card-‘s-chipset-and-driver-using-airmon-ng" class="headerlink" title="Find your wirless Card ‘s chipset and driver using airmon-ng"></a>Find your wirless Card ‘s chipset and driver using airmon-ng</h2><p>open your terminal,and type <strong>airmon-ng</strong>  bash,like this:</p>
+<p><img src="https://s2.ax1x.com/2019/10/19/Km3nj1.png" alt></p>
+<p>This will show all of wifi cards that can go into monitor mode.</p>
+<p>Usaully, wlan0 and echo are interfaces you can shoose</p>
+<p>as you can see,wlan0 is my labtop ‘s wifi interface.</p>
+<h2 id="Put-your-wifi-interface-into-monitor-mode-using-Arimon-ng"><a href="#Put-your-wifi-interface-into-monitor-mode-using-Arimon-ng" class="headerlink" title="Put your wifi interface into monitor mode using Arimon-ng"></a>Put your wifi interface into monitor mode using Arimon-ng</h2><p>next,type in terminal : <strong>airmon-ng start wlan0</strong></p>
+<p>and type in terminal <strong>ifconfig</strong>.clearly,there is no driver named wlan0 any more,but …. take place of wlan0mon.</p>
+<h3 id="Show-the-list-of-wifi-at-your-location"><a href="#Show-the-list-of-wifi-at-your-location" class="headerlink" title="Show the list of wifi at your location"></a>Show the list of wifi at your location</h3><p>Type in terminal : <strong>airodump-ng wlan0mon</strong></p>
+<p>you can see this:<br><img src="https://s2.ax1x.com/2019/10/19/KmLL4A.png" alt></p>
+<p>next,you should choose the one you most love…and hack it!</p>
+<p>( Remember this,Dont do any illegal things!!!!It’s most impotant.)</p>
+<h3 id="monitor-the-wifi-and-check-if-someone-is-already-Connected"><a href="#monitor-the-wifi-and-check-if-someone-is-already-Connected" class="headerlink" title="monitor the wifi and check if someone is already Connected"></a>monitor the wifi and check if someone is already Connected</h3><p>So,Type in terminal: <strong>airdomp-ng -c (number of channel ) –bssid (the wifi mac adreess) -w (the location of file you want to save)</strong></p>
+<p>here is a sample :</p>
+<p>airodump-ng -c 2 –bssid 00:00:00:00:00:00 -w /root/home/test </p>
+<p><img src="https://s2.ax1x.com/2019/10/19/KmOPEQ.png" alt></p>
+<h3 id="Enter-the-system"><a href="#Enter-the-system" class="headerlink" title="Enter the system"></a>Enter the system</h3><p>Type in terminal <strong>aireplay-ng -0 2 -a (desired router bssid) -c (your own bssid or ethier)  wlan0mon</strong></p>
+<p>And then,you can just waiting for the shakehand between you two,After this,you will do the last thing is Finding the passwrod.</p>
+<p>well, all you can do is,use the default worldlists.It’s in…</p>
+<p><img src="https://s2.ax1x.com/2019/10/19/KmOACn.png" alt></p>
+<p>there.</p>
+<p>And.. rockyou.text is you want.</p>
+<p>so,Type in terminal this : <strong>aircrak-ng -w (the wordlists) (the file last step you created).cap</strong></p>
 <blockquote>
-<p>敲黑板</p>
+<p>sometimes,the computer may send error like this:<br> Invalid packet capture length -1735227957 - corrupted file?<br>It’s clearly is we have a wrong cap file,but dont worry ,we can fix this!<br>use pcapfix command like this:</p>
 </blockquote>
-<p>假如，我们在同一个局域网下面，有两台机器，一台是我们自己，一台是需要攻击的机器。</p>
-<p>那么，正常情况下，两台机器都有自己的ip地址 (192.168.x.x)，进行自己正常的网络服务,但是如果我们告诉对方机器现在我就是路由器，而且如果我的机器不能进行端口转发的时候，对面的机器就进不去网了。</p>
-<p>需要注意的一点哈，现在我们告诉了对方机器我们是路由器，但是路由器还是可以给对面机器通信的。</p>
-<p>这一点可以重复上面的操作，就是告诉路由器我们就是对面机器，进行双向嗅探来解决。</p>
-<h2 id="如何进行攻击"><a href="#如何进行攻击" class="headerlink" title="如何进行攻击"></a>如何进行攻击</h2><h3 id="命令行方法"><a href="#命令行方法" class="headerlink" title="命令行方法"></a>命令行方法</h3><p>一、 获取对方信息</p>
-<p>由于这篇博客写的是内网渗透，所以，我们需要扫描当前网络下的其他机器</p>
-<pre><code class="bash">  &gt; ifconfig
-</code></pre>
-<p><img src="https://s2.ax1x.com/2019/10/16/KiPr90.png" alt></p>
-<p>先查看一下自己ip 里面重要的消息 有网卡和ip</p>
-<p>这里说明一点,一般的话网关的最后一位数字一般都是1</p>
-<pre><code class="bash">  &gt; netdiscover -i [网卡] -r [网关/24]
-  example:
-  &gt; netdiscover -i eth0 -r 192.168.3.1/24
-</code></pre>
-<p>这样就可以获取对方ip，这里我只有一台电脑，我就不放图了</p>
-<p>二、开始进行嗅探</p>
-<pre><code class="bash">arpspoof [-i interface] [-c own|host|both] [-t target] [-r] host
-
-&gt; arpspoof -i eth0 [对方ip]  网关
-
-
-</code></pre>
-<p>双向嗅探</p>
-<pre><code class="bash">  &gt; arpspoof -i eth0 [对方ip]  网关
-  &gt; arpspoof -i eth0 [网关]  对方ip
-</code></pre>
-<blockquote>
-<p>由于kali默认情况下是禁止端口转发的，所以现在的情况下对面机器是断网的</p>
-</blockquote>
-<p>开启端口转发</p>
-<pre><code class="bash">  echo 1&gt; /proc/sys/net/ipv4/ipforward
-
-</code></pre>
-<p>1是开启 0是关闭  </p>
-<blockquote>
-<p>proc是目前开机的时候机器的配置，重启的话会重置</p>
-</blockquote>
-<p>抓取对面图片</p>
-<pre><code class="bash">  driftnet -i eth0
-
-</code></pre>
-<h3 id="软件嗅探"><a href="#软件嗅探" class="headerlink" title="软件嗅探"></a>软件嗅探</h3><p><img src="https://s2.ax1x.com/2019/10/16/KiFqkd.png" alt></p>
-<p>具体做法</p>
-<p>sniff-&gt;unified sniffing</p>
-<p>host -&gt; hostlist</p>
-<p>host -&gt; scan for host</p>
-<p><img src="https://s2.ax1x.com/2019/10/16/KikuBF.png" alt></p>
-<p>网关IP add to target 1 靶机 add to target 2</p>
-<p>Mitm-&gt;ARP poisoning</p>
-<p>要记住选中第一项 第二项是单项ARP毒缓存 用于靶机会失败报警 单向欺骗网关</p>
-<p>开启driftnet</p>
+<p><img src="https://s2.ax1x.com/2019/10/19/KmOmuT.png" alt></p>
+<p><img src="https://s2.ax1x.com/2019/10/19/KmOubF.png" alt></p>
+<p>now,waiting for the password!</p>
 
             </div>
             
@@ -515,7 +489,8 @@ arp基础在我们进行各种高大上的讲解的时候，我们要先清楚�
         
         <div class="article col s12 m6 overflow-policy" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/10/19/kali环境下进行wifi密码爆破/">
                     <div class="card-image">
@@ -534,9 +509,9 @@ There a
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -549,6 +524,7 @@ There a
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -571,32 +547,45 @@ There a
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/09/12/electron-vue创建桌面程式初探/">
+                <a href="/2019/10/14/kali进行arp嗅骗和攻击的一次记录/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="electron-vue创建桌面程式初探">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="kali进行arp嗅骗和攻击的一次记录">
                         
-                        <span class="card-title">electron-vue创建桌面程式初探</span>
+                        <span class="card-title">kali进行arp嗅骗和攻击的一次记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            Kali下arp嗅探和攻击的手账由于本人打算考网络安全的专硕，所以这几天玩了一次kali。恩，怎么说呢，感触挺深的，特此记录下来
+arp基础在我们进行各种高大上的讲解的时候，我们要先清楚一点，我们如何在网上进行各种活动的。比如我们经常用的b
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-09-12
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-10-14
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fa fa-user fa-fw"></i>
-                            WHOAMI
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/网络安全/" class="post-category" target="_blank">
+                                    网络安全
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/网络安全-kali/" target="_blank">
+                        <span class="chip bg-color">网络安全 - kali</span>
+                    </a>
+                    
                 </div>
                 
             </div>

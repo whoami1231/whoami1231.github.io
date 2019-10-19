@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>kali环境下进行wifi密码爆破</title>
+      <link href="/2019/10/19/kali%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%9B%E8%A1%8Cwifi%E5%AF%86%E7%A0%81%E7%88%86%E7%A0%B4/"/>
+      <url>/2019/10/19/kali%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%9B%E8%A1%8Cwifi%E5%AF%86%E7%A0%81%E7%88%86%E7%A0%B4/</url>
+      
+        <content type="html"><![CDATA[<h1 id="How-to-hack-wifi-passwrod-with-Kali"><a href="#How-to-hack-wifi-passwrod-with-Kali" class="headerlink" title="How to hack wifi passwrod with Kali"></a>How to hack wifi passwrod with Kali</h1><p>Before we start,let me tell you  the reason I write  this post with English. </p><p>There are reason why:</p><ul><li>I wana be a postgraduate  of Ocean University 0f China</li><li>Writing English Posts seem to make me  cool I think</li></ul><blockquote><p>And this is my first attempt,I know it’s a shit.</p></blockquote><p>Let’s start!</p><h2 id="Find-your-wirless-Card-‘s-chipset-and-driver-using-airmon-ng"><a href="#Find-your-wirless-Card-‘s-chipset-and-driver-using-airmon-ng" class="headerlink" title="Find your wirless Card ‘s chipset and driver using airmon-ng"></a>Find your wirless Card ‘s chipset and driver using airmon-ng</h2><p>open your terminal,and type <strong>airmon-ng</strong>  bash,like this:</p><p><img src="https://s2.ax1x.com/2019/10/19/Km3nj1.png" alt></p><p>This will show all of wifi cards that can go into monitor mode.</p><p>Usaully, wlan0 and echo are interfaces you can shoose</p><p>as you can see,wlan0 is my labtop ‘s wifi interface.</p><h2 id="Put-your-wifi-interface-into-monitor-mode-using-Arimon-ng"><a href="#Put-your-wifi-interface-into-monitor-mode-using-Arimon-ng" class="headerlink" title="Put your wifi interface into monitor mode using Arimon-ng"></a>Put your wifi interface into monitor mode using Arimon-ng</h2><p>next,type in terminal : <strong>airmon-ng start wlan0</strong></p><p>and type in terminal <strong>ifconfig</strong>.clearly,there is no driver named wlan0 any more,but …. take place of wlan0mon.</p><h3 id="Show-the-list-of-wifi-at-your-location"><a href="#Show-the-list-of-wifi-at-your-location" class="headerlink" title="Show the list of wifi at your location"></a>Show the list of wifi at your location</h3><p>Type in terminal : <strong>airodump-ng wlan0mon</strong></p><p>you can see this:<br><img src="https://s2.ax1x.com/2019/10/19/KmLL4A.png" alt></p><p>next,you should choose the one you most love…and hack it!</p><p>( Remember this,Dont do any illegal things!!!!It’s most impotant.)</p><h3 id="monitor-the-wifi-and-check-if-someone-is-already-Connected"><a href="#monitor-the-wifi-and-check-if-someone-is-already-Connected" class="headerlink" title="monitor the wifi and check if someone is already Connected"></a>monitor the wifi and check if someone is already Connected</h3><p>So,Type in terminal: <strong>airdomp-ng -c (number of channel ) –bssid (the wifi mac adreess) -w (the location of file you want to save)</strong></p><p>here is a sample :</p><p>airodump-ng -c 2 –bssid 00:00:00:00:00:00 -w /root/home/test </p><p><img src="https://s2.ax1x.com/2019/10/19/KmOPEQ.png" alt></p><h3 id="Enter-the-system"><a href="#Enter-the-system" class="headerlink" title="Enter the system"></a>Enter the system</h3><p>Type in terminal <strong>aireplay-ng -0 2 -a (desired router bssid) -c (your own bssid or ethier)  wlan0mon</strong></p><p>And then,you can just waiting for the shakehand between you two,After this,you will do the last thing is Finding the passwrod.</p><p>well, all you can do is,use the default worldlists.It’s in…</p><p><img src="https://s2.ax1x.com/2019/10/19/KmOACn.png" alt></p><p>there.</p><p>And.. rockyou.text is you want.</p><p>so,Type in terminal this : <strong>aircrak-ng -w (the wordlists) (the file last step you created).cap</strong></p><blockquote><p>sometimes,the computer may send error like this:<br> Invalid packet capture length -1735227957 - corrupted file?<br>It’s clearly is we have a wrong cap file,but dont worry ,we can fix this!<br>use pcapfix command like this:</p></blockquote><p><img src="https://s2.ax1x.com/2019/10/19/KmOmuT.png" alt></p><p><img src="https://s2.ax1x.com/2019/10/19/KmOubF.png" alt></p><p>now,waiting for the password!</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网络安全 </tag>
+            
+            <tag> wifi破解 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>kali进行arp嗅骗和攻击的一次记录</title>
       <link href="/2019/10/14/kali%E8%BF%9B%E8%A1%8Carp%E5%97%85%E9%AA%97%E5%92%8C%E6%94%BB%E5%87%BB%E7%9A%84%E4%B8%80%E6%AC%A1%E8%AE%B0%E5%BD%95/"/>
       <url>/2019/10/14/kali%E8%BF%9B%E8%A1%8Carp%E5%97%85%E9%AA%97%E5%92%8C%E6%94%BB%E5%87%BB%E7%9A%84%E4%B8%80%E6%AC%A1%E8%AE%B0%E5%BD%95/</url>
@@ -1448,9 +1475,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -1470,9 +1497,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
