@@ -358,9 +358,9 @@
       
         <tags>
             
-            <tag> mybatis </tag>
-            
             <tag> mysql </tag>
+            
+            <tag> mybatis </tag>
             
         </tags>
       
@@ -1013,11 +1013,11 @@
       
         <tags>
             
-            <tag> 文件服务器 </tag>
-            
             <tag> linux </tag>
             
             <tag> java </tag>
+            
+            <tag> 文件服务器 </tag>
             
         </tags>
       
@@ -1254,9 +1254,9 @@
             
             <tag> linux </tag>
             
-            <tag> java </tag>
-            
             <tag> 搜索服务 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -1443,9 +1443,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
