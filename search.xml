@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>scrapy初探</title>
+      <link href="/2019/11/05/scrapy%E5%88%9D%E6%8E%A2/"/>
+      <url>/2019/11/05/scrapy%E5%88%9D%E6%8E%A2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="scrapy-框架下爬取网站图片思想"><a href="#scrapy-框架下爬取网站图片思想" class="headerlink" title="scrapy 框架下爬取网站图片思想"></a>scrapy 框架下爬取网站图片思想</h1><p>最近博客项目也做的差不多了，但是总感觉和别人的比差了点什么，突然有一天想起来了。对啊！我们没有图源啊。<br>但是，按照我的脾气来说，别人的不如自己的，与其将链接指向他们的网站，不如自己画~很显然不现实。<br>最后，我打算拾起大一放弃的python爬虫，我干脆直接在别人的网站上面爬一些就好喽。<br>大一的时候，之所以放弃爬虫单纯以为python做不了什么大项目，现在看来是我单纯了，人家python可以直接装载到docker里面啊！唉，流下了无知的泪水。<br>好了，废话说到这里，我们开始爬虫教程。</p><h1 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h1><p>首先要确定自己有相应的模块，也就是scrapy。其实里面还需要另一个模块来着，我给忘了，小事情，只要少什么下什么就好了。<br>具体命令</p><pre><code class="bash">pip install scrapy</code></pre><p>创建工程同样也很简单，这里我们一笔带过</p><pre><code class="bash"># 切换到你想要保存的路径下scrapy startproject app(项目名称)</code></pre><h2 id="框架简单的入门"><a href="#框架简单的入门" class="headerlink" title="框架简单的入门"></a>框架简单的入门</h2><p><img src="https://s2.ax1x.com/2019/11/05/MpG64H.png" alt></p><p>创建工程之后，自动生成了这样的文件，画红线的不要在意。</p><p>下面分析一下工程目录结构：<br>spider/** -&gt; 里面的就是我们的爬虫文件,一开始只有init.py文件其他的都是自己创建的，反正改动最多的就是这里<br>init.py-&gt; 无视，不需要在意</p><p>items.py-&gt; 很重要，我们爬取的东西需要有的POJO存取啊，但是我们不能乱创建POJO文件，只能在items里面创建，这是规定</p><p>middlewares.py -&gt; 新手教程关，暂时请无视</p><p>piplines.py -&gt; 可以无视，里面是写一些存放策略，就是我把一些东西都保存到实体里面了，我想要下载啊，或者把这些存放到数据库里面啊，piplines就是干的这种任务，但是,我为什么说可以无视呢，因为我这里只讲下载图片，图片的话scrapy有默认的pipline(翻译成管道)<br>setting.py -&gt; 可以设置一些爬虫的规则，比如说，请求的header需要加的参数啊，或者是否支持重连啊，还有需要启用的pipline啊(这里认为最重要！)</p><blockquote><p>这上面的内容很重要，请仔细查看</p></blockquote><h2 id="分析爬取的网站"><a href="#分析爬取的网站" class="headerlink" title="分析爬取的网站"></a>分析爬取的网站</h2><p>我这里拿一个美女图片网站分析吧<br><img src="https://s2.ax1x.com/2019/11/05/MpUPw6.png" alt><br>我们可以看到，这里的网站首页有图集，然后图集有a标签指向具体图片，而且点击每个图集后，可以看到每个图集的网址都是有规则的<br><img src="https://s2.ax1x.com/2019/11/05/MpUDtU.png" alt><br>就是example.com/archives/xxx.html</p><p>里面的xxx是随机的数字</p><p>然后里面都是我们想要爬取的小姐姐</p><p>总结一下：</p><p>网址： 静态网址<br>反爬措施： 不知道，有也不会讲怎么应对，下一篇讲<br>目标集中网址：example.com/archives/xxx.html</p><p>这样就简单了</p><h2 id="创建第一只爬虫"><a href="#创建第一只爬虫" class="headerlink" title="创建第一只爬虫"></a>创建第一只爬虫</h2><p>创建爬虫命令</p><p>有两种方式，一种是创建一个基于crawl模板的，一种是不基于模板的，我们先开始第一支</p><pre><code class="bash">scrapy genspider -t crawl grilSpider(爬虫名字) example.com (爬取的网址)</code></pre><p>-t很显然是template的意思</p><p>总之，我们创建了一个爬虫，下面我就开始给他创建规则，就是最起码告诉他怎么爬</p><p>我直接上代码：</p><pre><code class="python">import scrapyfrom scrapy.linkextractors import LinkExtractorfrom scrapy.spiders import CrawlSpider, Rulefrom ..items import AppItemclass GirlspiderSpider(CrawlSpider):    name = &#39;girlSpider&#39;    allowed_domains = [&#39;example.com&#39;]    start_urls = [&#39;http://example.com&#39;]    rules = (        Rule(LinkExtractor(allow=r&#39;http://example.com/archives/\d+.html&#39;), callback=&#39;parse_item&#39;, follow=False),    )    def parse_item(self, response):        print(response.url)        item = AppItem()        item[&#39;image_urls&#39;] =response.xpath(&quot;.//div[@id=&#39;post-content&#39;]/p/img/@src&quot;).extract()        yield item</code></pre><p>下面讲解这些东西是什么意思，首先看上面的import模块，和你们的唯一的不同就是多了最后一行，那个你现在可以忽视，我们一会说</p><p>name 就是我们的爬虫名称<br>allowed_domains 就是爬虫允许爬取的域名，总不能让他爬着爬到了别人的网站里面了吧</p><p>start_urls  里面存放着我们需要爬取的起始网址，每次都会做一个递归爬取。</p><p>rules -&gt; 这个可算是crawl 里面的重点了<br> Rule(LinkExtractor(allow=r’<a href="http://example.com/archives/\d+.html&#39;)" target="_blank" rel="noopener">http://example.com/archives/\d+.html&#39;)</a>, callback=’parse_item’, follow=False)</p><p> 首先我们的网址放在allow属性里，但是你可以看到里面的网址是我们想要爬取的<br>根据上面分析的来说我们需要爬取的就是这种网页，后面调用parse_item函数，这个follow是是否开启递归的意思，就是如果里面如果有下一页的话，我们需要继续从这一页开启跳转到下一页之后接着爬这里由于那个网站很简单，所以就设置成False</p><blockquote><p>上面我们可以总结成根据<a href="http://example.com" target="_blank" rel="noopener">http://example.com</a> 开始，爬取<a href="http://example.com/archives/\d+.html" target="_blank" rel="noopener">http://example.com/archives/\d+.html</a> 这种网址来分析和爬取</p></blockquote><h3 id="items-py"><a href="#items-py" class="headerlink" title="items.py"></a>items.py</h3><p>这里我们开始创建我们的图片实体，由于我们下载器用scrapy默认的<br>scrapy.pipelines.images.ImagesPipeline下载器，所以我们的实体就是默认的两个属性 image_urls -&gt; 爬取图片的网址，images -&gt; 有就行，不用管</p><p>下面是我们这个爬虫需要用到的实体类</p><pre><code class="python">class AppItem(scrapy.Item):    image_urls = scrapy.Field()    images = scrapy.Field()</code></pre><p>然后我们将这个方法引入到我们的那个爬虫文件里面中，这也就是最后的那句import的作用</p><p>同时我们需要在setting.py打开我们的下载器</p><h3 id="setting-py"><a href="#setting-py" class="headerlink" title="setting.py"></a>setting.py</h3><pre><code class="python">ITEM_PIPELINES = {   #将下载器放在这里面后面的数字是数序，1000以内的，你随便写    &#39;scrapy.pipelines.images.ImagesPipeline&#39;:300,}# 这个就是那个默认下载器必须要有的，就是图片存储位置，img是文件夹名称，你随便定一个就好IMAGES_STORE = &#39;img&#39;</code></pre><h3 id="爬虫-py"><a href="#爬虫-py" class="headerlink" title="爬虫.py"></a>爬虫.py</h3><p>好了，完成了一系列任务，现在开始解析网页了，这里我直接用xpath语法，不懂的可以取百度了</p><pre><code class="python">def parse_item(self, response):    print(response.url)    item = AppItem()    item[&#39;image_urls&#39;] =response.xpath(&quot;.//div[@id=&#39;post-content&#39;]/p/img/@src&quot;).extract()    yield item</code></pre><p>首先我们实例化一下上面创建的item的函数</p><p>同时我们需要穿进去我们需要爬取的image的url就好了，直接网页定位到图片然后获取所有符合条件的网址，直接给image_urls就好了，下面的yield你把它看成return就可以了</p><h2 id="运行爬虫"><a href="#运行爬虫" class="headerlink" title="运行爬虫"></a>运行爬虫</h2><pre><code class="bash">scrapy crawl girlSpider</code></pre><p>执行完毕之后，我们看到我们的爬取的小姐姐了</p><p><img src="https://s2.ax1x.com/2019/11/05/Mpw73F.png" alt></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 爬虫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 爬虫 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>记一次Mysql注入的经验</title>
+      <link href="/2019/10/23/%E8%AE%B0%E4%B8%80%E6%AC%A1Mysql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%8F%E9%AA%8C/"/>
+      <url>/2019/10/23/%E8%AE%B0%E4%B8%80%E6%AC%A1Mysql%E6%B3%A8%E5%85%A5%E7%9A%84%E7%BB%8F%E9%AA%8C/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>kali环境下进行wifi密码爆破</title>
       <link href="/2019/10/19/kali%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%9B%E8%A1%8Cwifi%E5%AF%86%E7%A0%81%E7%88%86%E7%A0%B4/"/>
       <url>/2019/10/19/kali%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%9B%E8%A1%8Cwifi%E5%AF%86%E7%A0%81%E7%88%86%E7%A0%B4/</url>
@@ -295,9 +333,9 @@
       
         <tags>
             
-            <tag> mysql </tag>
-            
             <tag> mybatis </tag>
+            
+            <tag> mysql </tag>
             
         </tags>
       
@@ -1380,9 +1418,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
