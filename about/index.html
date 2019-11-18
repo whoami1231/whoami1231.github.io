@@ -16,35 +16,23 @@
     <title>关于 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
     <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
-    <link rel="stylesheet" type="text/css" href="/code-highlight/prettify.css">
-    <script src="/code-highlight/prettify.js" type="text/javascript"></script>
-    <style type="text/css">
-        
-    </style>
-
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-    <script>
-        $(window).load(function(){
-         $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
-           prettyPrint();
-       })
-    </script>
-
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
 </head>
 
 
 <body>
-
-<header class="navbar-fixed">
+    <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
+        <div id="navContainer" class="nav-wrapper head-container">
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
@@ -55,59 +43,69 @@
             </div>
             
 
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
-<ul class="right">
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
     
-    <li class="hide-on-med-and-down">
-        <a href="/" class="waves-effect waves-light">
-            
-            <i class="fa fa-home"></i>
-            
-            <span>首页</span>
-        </a>
-    </li>
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
     
-    <li class="hide-on-med-and-down">
-        <a href="/tags" class="waves-effect waves-light">
-            
-            <i class="fa fa-tags"></i>
-            
-            <span>标签</span>
-        </a>
-    </li>
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
     
-    <li class="hide-on-med-and-down">
-        <a href="/categories" class="waves-effect waves-light">
-            
-            <i class="fa fa-bookmark"></i>
-            
-            <span>分类</span>
-        </a>
-    </li>
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
     
-    <li class="hide-on-med-and-down">
-        <a href="/archives" class="waves-effect waves-light">
-            
-            <i class="fa fa-archive"></i>
-            
-            <span>归档</span>
-        </a>
-    </li>
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
     
-    <li class="hide-on-med-and-down">
-        <a href="/about" class="waves-effect waves-light">
-            
-            <i class="fa fa-user-circle-o"></i>
-            
-            <span>关于</span>
-        </a>
-    </li>
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
     
-    <li>
-        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
-        </a>
-    </li>
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
 </ul>
 
 <div id="mobile-nav" class="side-nav sidenav">
@@ -119,7 +117,7 @@
         <div class="logo-name">逝痕</div>
         <div class="logo-desc">
             
-            浮华世界,我们仗剑前行//无惧艰险，誓为除旧布新。
+            Never really desperate, only the lost of the soul.
             
         </div>
     </div>
@@ -128,56 +126,66 @@
 
     <ul class="menu-list mobile-menu-list">
         
-        <li>
-            <a href="/" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-home"></i>
-                
-                首页
-            </a>
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
         </li>
         
-        <li>
-            <a href="/tags" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-tags"></i>
-                
-                标签
-            </a>
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
         </li>
         
-        <li>
-            <a href="/categories" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-bookmark"></i>
-                
-                分类
-            </a>
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
         </li>
         
-        <li>
-            <a href="/archives" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-archive"></i>
-                
-                归档
-            </a>
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
         </li>
         
-        <li>
-            <a href="/about" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-user-circle-o"></i>
-                
-                关于
-            </a>
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
         </li>
         
         
         <li><div class="divider"></div></li>
         <li>
             <a href="https://github.com/whoami1231" class="waves-effect waves-light" target="_blank">
-                <i class="fa fa-github-square fa-fw"></i>Fork Me
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
         
@@ -244,7 +252,7 @@
 
 </header>
 
-<style type="text/css">
+    <style type="text/css">
     /* don't remove. */
     .about-cover {
         height: 75vh;
@@ -258,22 +266,37 @@
         <div class="brand">
             <div class="title center-align">
                 
-                    WHOAMI
+                WHOAMI
                 
             </div>
 
             <div class="description center-align">
                 
-                    浮华世界,我们仗剑前行//无惧艰险，誓为除旧布新。
+                <span id="subtitle"></span>
+                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                <script>
+                    var typed = new Typed("#subtitle", {
+                        strings: ['浮华世界,我们仗剑前行','无惧艰险,誓为除旧布新'],
+                        startDelay: 300,
+                        typeSpeed: 100,
+                        loop: true,
+                        backSpeed: 50,
+                        showCursor: true
+                    });
+                </script>
                 
             </div>
         </div>
     </div>
 </div>
+
+
 <script>
-// 每天切换 banner 图.  Switch banner image every day.
-$('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+    // 每天切换 banner 图.  Switch banner image every day.
+    $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
 </script>
+
+
     </div>
 </div>
 
@@ -286,23 +309,24 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                     <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
                         
 <div class="statis">
-    <span class="count"><a href="/" target="_blank">60</a></span>
+    <span class="count"><a href="/">62</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories" target="_blank">18</a></span>
+    <span class="count"><a href="/categories">17</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags" target="_blank">50</a></span>
+    <span class="count"><a href="/tags">51</a></span>
     <span class="name">标签</span>
 </div>
+
 
                     </div>
                     <div class="col s12 m12 l4">
@@ -314,29 +338,39 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                                 <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
                                     
 <div class="statis">
-    <span class="count"><a href="/" target="_blank">60</a></span>
+    <span class="count"><a href="/">62</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories" target="_blank">18</a></span>
+    <span class="count"><a href="/categories">17</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags" target="_blank">50</a></span>
+    <span class="count"><a href="/tags">51</a></span>
     <span class="name">标签</span>
 </div>
 
+
                                 </div>
                                 <div class="title">WHOAMI</div>
-                                <div class="career">java 攻城狮</div>
+                                <div class="career">Software Engineer</div>
                                 <div class="social-link hide-on-large-only" data-aos="zoom-in-left">
                                     
+
+
+
+
+
+
+
+
+
 
 
 
@@ -356,11 +390,20 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 
 
 
+
+
+
+
+
+
+
+
+
                         </div>
                     </div>
                 </div>
 
-                <div class="introduction center-align" data-aos="fade-up">低头做事,抬头装X</div>
+                <div class="introduction center-align" data-aos="fade-up">If you wish to succeed, you should use persistence as your good friend, experience as your reference, prudence as your brother and hope as your sentry.</div>
 
                 <style type="text/css">
     #posts-chart,
@@ -375,7 +418,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 
 <div id="postCharts" class="post-charts">
     <div class="title center-align" data-aos="zoom-in-up">
-        <i class="fa fa-bar-chart"></i>&nbsp;&nbsp;文章统计图
+        <i class="far fa-bar-chart"></i>&nbsp;&nbsp;文章统计图
     </div>
     <div class="row">
         <div class="chart col s12 m6 l4" data-aos="zoom-in-up">
@@ -421,7 +464,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,6,12,12,6,13,3,2,3,3],
+                data: [0,0,0,0,6,12,12,6,13,3,2,3,5],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -463,7 +506,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"linux","value":6},{"name":"vue","value":8},{"name":"springboot","value":7},{"name":"docker","value":1},{"name":"java","value":17},{"name":"linux","value":1},{"name":"iview","value":2},{"name":"ssm错误笔记","value":1},{"name":"javaSE","value":1},{"name":"网络安全","value":2},{"name":"mysql","value":4},{"name":"maven","value":1},{"name":"mybatis","value":2},{"name":"Photoshop","value":1},{"name":"c++","value":1},{"name":"爬虫","value":1},{"name":"j2EE","value":2},{"name":"自动化","value":1}],
+                data: [{"name":"安装教程","value":8},{"name":"springboot","value":7},{"name":"vue","value":8},{"name":"java","value":17},{"name":"iview","value":2},{"name":"ssm错误笔记","value":1},{"name":"网络安全","value":2},{"name":"mysql","value":4},{"name":"javaSE","value":1},{"name":"maven","value":1},{"name":"mybatis","value":2},{"name":"Photoshop","value":1},{"name":"c++","value":1},{"name":"j2EE","value":2},{"name":"爬虫","value":1},{"name":"java架构","value":1},{"name":"自动化","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -487,7 +530,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         xAxis: [
             {
                 type: 'category',
-                data: ["springboot","前后端分离","java架构","vue","多线程","linux","java","前端","javaSE","mysql"]
+                data: ["springboot","java架构","前后端分离","vue","linux","mysql","java","多线程","前端","javaSE"]
             }
         ],
         yAxis: [
@@ -500,7 +543,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [10,8,8,6,5,5,5,4,3,3],
+                data: [11,9,8,6,5,5,5,5,4,3],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
@@ -530,12 +573,60 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 </script>
 
                 
+                
+<div class="my-projects">
+    <div class="title center-align" data-aos="zoom-in-up">
+        <i class="fas fa-gift"></i>&nbsp;&nbsp;我的项目
+    </div>
+    <div class="row">
+        
+        
+        <div class="col s12 m6 l4" data-aos="fade-up">
+            <div class="info center-align">
+                <a href="http://github.com/blinkfox/hexo-theme-matery" class="icon" style="background: linear-gradient(to bottom right, #66BB6A 0%, #81C784 100%)" target="_blank">
+                    <i class="fas fa-file-alt"></i>
+                </a>
+                <div class="info-title">
+                    <a href="http://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>
+                </div>
+                <div class="info-desc">This is a Hexo blog theme with 'Material Design' and responsive design.</div>
+            </div>
+        </div>
+        
+        <div class="col s12 m6 l4" data-aos="fade-up">
+            <div class="info center-align">
+                <a href="https://github.com/blinkfox/zealot" class="icon" style="background: linear-gradient(to bottom right, #F06292 0%, #EF5350 100%)" target="_blank">
+                    <i class="fas fa-database"></i>
+                </a>
+                <div class="info-title">
+                    <a href="https://github.com/blinkfox/zealot" target="_blank">zealt</a>
+                </div>
+                <div class="info-desc">一个轻量级的SQL和参数动态生成工具库</div>
+            </div>
+        </div>
+        
+        <div class="col s12 m6 l4" data-aos="fade-up">
+            <div class="info center-align">
+                <a href="https://github.com/blinkfox/typora-vue-theme" class="icon" style="background: linear-gradient(to bottom right, #29B6F6 0%, #1E88E5 100%)" target="_blank">
+                    <i class="fas fa-file-alt"></i>
+                </a>
+                <div class="info-title">
+                    <a href="https://github.com/blinkfox/typora-vue-theme" target="_blank">typora-vue-theme</a>
+                </div>
+                <div class="info-desc">This is a typora theme inspired by Vue document style.</div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+                
 
                 
                 
 <div class="my-skills">
     <div class="title center-align" data-aos="zoom-in-up">
-        <i class="fa fa-wrench"></i>&nbsp;&nbsp;我的技能
+        <i class="fas fa-wrench"></i>&nbsp;&nbsp;我的技能
     </div>
     <div class="row">
         
@@ -583,20 +674,20 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         
         <div class="col s12 m6 l6" data-aos="fade-up">
             <div class="skillbar">
-                <div class="skillbar-title" style="background: linear-gradient(to right, #4CAF50 0%, #81C784 100%); width: 80%">
-                    <span>SQL</span>
+                <div class="skillbar-title" style="background: linear-gradient(to right, #4CAF50 0%, #81C784 100%); width: 25%">
+                    <span>PYTHON</span>
                 </div>
-                <div class="skill-bar-percent">80%</div>
+                <div class="skill-bar-percent">25%</div>
             </div>
         </div>
         
         
         <div class="col s12 m6 l6" data-aos="fade-up">
             <div class="skillbar">
-                <div class="skillbar-title" style="background: linear-gradient(to right, #FFEB3B 0%, #FFF176 100%); width: 75%">
-                    <span>程序设计</span>
+                <div class="skillbar-title" style="background: linear-gradient(to right, #FFEB3B 0%, #FFF176 100%); width: 25%">
+                    <span>网络安全</span>
                 </div>
-                <div class="skill-bar-percent">75%</div>
+                <div class="skill-bar-percent">25%</div>
             </div>
         </div>
         
@@ -611,301 +702,303 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
         <div class="tag-chips center-align">
             
             
-            <a href="/tags/redis/" target="_blank">
+            <a href="/tags/redis/">
                 <span class="chip center-align waves-effect waves-light chip-default">redis</span>
             </a>
             
             
             
-            <a href="/tags/centos/" target="_blank">
+            <a href="/tags/centos/">
                 <span class="chip center-align waves-effect waves-light chip-default">centos</span>
             </a>
             
             
             
-            <a href="/tags/axios/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">axios</span>
-            </a>
-            
-            
-            
-            <a href="/tags/FormData/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">FormData</span>
-            </a>
-            
-            
-            
-            <a href="/tags/springboot/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">springboot</span>
-            </a>
-            
-            
-            
-            <a href="/tags/前后端分离/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">前后端分离</span>
-            </a>
-            
-            
-            
-            <a href="/tags/docker/" target="_blank">
+            <a href="/tags/docker/">
                 <span class="chip center-align waves-effect waves-light chip-default">docker</span>
             </a>
             
             
             
-            <a href="/tags/容器/" target="_blank">
+            <a href="/tags/容器/">
                 <span class="chip center-align waves-effect waves-light chip-default">容器</span>
             </a>
             
             
             
-            <a href="/tags/java架构/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">java架构</span>
+            <a href="/tags/springboot/">
+                <span class="chip center-align waves-effect waves-light chip-default">springboot</span>
             </a>
             
             
             
-            <a href="/tags/多线程/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">多线程</span>
+            <a href="/tags/前后端分离/">
+                <span class="chip center-align waves-effect waves-light chip-default">前后端分离</span>
             </a>
             
             
             
-            <a href="/tags/linux/" target="_blank">
+            <a href="/tags/linux/">
                 <span class="chip center-align waves-effect waves-light chip-default">linux</span>
             </a>
             
             
             
-            <a href="/tags/搜索服务/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">搜索服务</span>
-            </a>
-            
-            
-            
-            <a href="/tags/java/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">java</span>
-            </a>
-            
-            
-            
-            <a href="/tags/安装教程/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">安装教程</span>
-            </a>
-            
-            
-            
-            <a href="/tags/文件服务器/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">文件服务器</span>
-            </a>
-            
-            
-            
-            <a href="/tags/前端/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">前端</span>
-            </a>
-            
-            
-            
-            <a href="/tags/错误笔记/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">错误笔记</span>
-            </a>
-            
-            
-            
-            <a href="/tags/ssm/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">ssm</span>
-            </a>
-            
-            
-            
-            <a href="/tags/freemaker/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">freemaker</span>
-            </a>
-            
-            
-            
-            <a href="/tags/javaSE/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">javaSE</span>
-            </a>
-            
-            
-            
-            <a href="/tags/JVM/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">JVM</span>
-            </a>
-            
-            
-            
-            <a href="/tags/编程思想/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">编程思想</span>
-            </a>
-            
-            
-            
-            <a href="/tags/线程安全/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">线程安全</span>
-            </a>
-            
-            
-            
-            <a href="/tags/线程池/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">线程池</span>
-            </a>
-            
-            
-            
-            <a href="/tags/java多线程/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">java多线程</span>
-            </a>
-            
-            
-            
-            <a href="/tags/数据结构/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">数据结构</span>
-            </a>
-            
-            
-            
-            <a href="/tags/javase/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">javase</span>
-            </a>
-            
-            
-            
-            <a href="/tags/网络安全/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">网络安全</span>
-            </a>
-            
-            
-            
-            <a href="/tags/wifi破解/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">wifi破解</span>
-            </a>
-            
-            
-            
-            <a href="/tags/mysql优化/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">mysql优化</span>
-            </a>
-            
-            
-            
-            <a href="/tags/maven/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">maven</span>
-            </a>
-            
-            
-            
-            <a href="/tags/mybatis/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">mybatis</span>
-            </a>
-            
-            
-            
-            <a href="/tags/mysql/" target="_blank">
+            <a href="/tags/mysql/">
                 <span class="chip center-align waves-effect waves-light chip-default">mysql</span>
             </a>
             
             
             
-            <a href="/tags/Photoshop/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">Photoshop</span>
+            <a href="/tags/axios/">
+                <span class="chip center-align waves-effect waves-light chip-default">axios</span>
             </a>
             
             
             
-            <a href="/tags/qt/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">qt</span>
+            <a href="/tags/FormData/">
+                <span class="chip center-align waves-effect waves-light chip-default">FormData</span>
             </a>
             
             
             
-            <a href="/tags/TCP-UDP/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">TCP UDP</span>
+            <a href="/tags/文件服务器/">
+                <span class="chip center-align waves-effect waves-light chip-default">文件服务器</span>
             </a>
             
             
             
-            <a href="/tags/爬虫/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">爬虫</span>
+            <a href="/tags/java/">
+                <span class="chip center-align waves-effect waves-light chip-default">java</span>
             </a>
             
             
             
-            <a href="/tags/java-IO/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">java IO</span>
+            <a href="/tags/安装教程/">
+                <span class="chip center-align waves-effect waves-light chip-default">安装教程</span>
             </a>
             
             
             
-            <a href="/tags/网络安全-kali/" target="_blank">
+            <a href="/tags/搜索服务/">
+                <span class="chip center-align waves-effect waves-light chip-default">搜索服务</span>
+            </a>
+            
+            
+            
+            <a href="/tags/java架构/">
+                <span class="chip center-align waves-effect waves-light chip-default">java架构</span>
+            </a>
+            
+            
+            
+            <a href="/tags/多线程/">
+                <span class="chip center-align waves-effect waves-light chip-default">多线程</span>
+            </a>
+            
+            
+            
+            <a href="/tags/前端/">
+                <span class="chip center-align waves-effect waves-light chip-default">前端</span>
+            </a>
+            
+            
+            
+            <a href="/tags/错误笔记/">
+                <span class="chip center-align waves-effect waves-light chip-default">错误笔记</span>
+            </a>
+            
+            
+            
+            <a href="/tags/ssm/">
+                <span class="chip center-align waves-effect waves-light chip-default">ssm</span>
+            </a>
+            
+            
+            
+            <a href="/tags/freemaker/">
+                <span class="chip center-align waves-effect waves-light chip-default">freemaker</span>
+            </a>
+            
+            
+            
+            <a href="/tags/javaSE/">
+                <span class="chip center-align waves-effect waves-light chip-default">javaSE</span>
+            </a>
+            
+            
+            
+            <a href="/tags/JVM/">
+                <span class="chip center-align waves-effect waves-light chip-default">JVM</span>
+            </a>
+            
+            
+            
+            <a href="/tags/线程池/">
+                <span class="chip center-align waves-effect waves-light chip-default">线程池</span>
+            </a>
+            
+            
+            
+            
+            
+            <a href="/tags/wifi破解/">
+                <span class="chip center-align waves-effect waves-light chip-default">wifi破解</span>
+            </a>
+            
+            
+            
+            <a href="/tags/java多线程/">
+                <span class="chip center-align waves-effect waves-light chip-default">java多线程</span>
+            </a>
+            
+            
+            
+            <a href="/tags/web/">
+                <span class="chip center-align waves-effect waves-light chip-default">web</span>
+            </a>
+            
+            
+            
+            <a href="/tags/mysql优化/">
+                <span class="chip center-align waves-effect waves-light chip-default">mysql优化</span>
+            </a>
+            
+            
+            
+            <a href="/tags/数据结构/">
+                <span class="chip center-align waves-effect waves-light chip-default">数据结构</span>
+            </a>
+            
+            
+            
+            <a href="/tags/javase/">
+                <span class="chip center-align waves-effect waves-light chip-default">javase</span>
+            </a>
+            
+            
+            
+            <a href="/tags/maven/">
+                <span class="chip center-align waves-effect waves-light chip-default">maven</span>
+            </a>
+            
+            
+            
+            <a href="/tags/网络安全-kali/">
                 <span class="chip center-align waves-effect waves-light chip-default">网络安全 - kali</span>
             </a>
             
             
             
-            <a href="/tags/vue/" target="_blank">
-                <span class="chip center-align waves-effect waves-light chip-default">vue</span>
+            <a href="/tags/mybatis/">
+                <span class="chip center-align waves-effect waves-light chip-default">mybatis</span>
             </a>
             
             
             
-            <a href="/tags/分布式/" target="_blank">
+            <a href="/tags/编程思想/">
+                <span class="chip center-align waves-effect waves-light chip-default">编程思想</span>
+            </a>
+            
+            
+            
+            <a href="/tags/Photoshop/">
+                <span class="chip center-align waves-effect waves-light chip-default">Photoshop</span>
+            </a>
+            
+            
+            
+            <a href="/tags/qt/">
+                <span class="chip center-align waves-effect waves-light chip-default">qt</span>
+            </a>
+            
+            
+            
+            <a href="/tags/TCP-UDP/">
+                <span class="chip center-align waves-effect waves-light chip-default">TCP UDP</span>
+            </a>
+            
+            
+            
+            <a href="/tags/线程安全/">
+                <span class="chip center-align waves-effect waves-light chip-default">线程安全</span>
+            </a>
+            
+            
+            
+            <a href="/tags/java-IO/">
+                <span class="chip center-align waves-effect waves-light chip-default">java IO</span>
+            </a>
+            
+            
+            
+            <a href="/tags/分布式/">
                 <span class="chip center-align waves-effect waves-light chip-default">分布式</span>
             </a>
             
             
             
-            <a href="/tags/nginx反向代理/" target="_blank">
+            <a href="/tags/nginx反向代理/">
                 <span class="chip center-align waves-effect waves-light chip-default">nginx反向代理</span>
             </a>
             
             
             
-            <a href="/tags/vuex/" target="_blank">
+            <a href="/tags/爬虫/">
+                <span class="chip center-align waves-effect waves-light chip-default">爬虫</span>
+            </a>
+            
+            
+            
+            <a href="/tags/vue/">
+                <span class="chip center-align waves-effect waves-light chip-default">vue</span>
+            </a>
+            
+            
+            
+            <a href="/tags/vuex/">
                 <span class="chip center-align waves-effect waves-light chip-default">vuex</span>
             </a>
             
             
             
-            <a href="/tags/pagehepler/" target="_blank">
+            <a href="/tags/pagehepler/">
                 <span class="chip center-align waves-effect waves-light chip-default">pagehepler</span>
             </a>
             
             
             
-            <a href="/tags/Mybatis/" target="_blank">
+            <a href="/tags/Mybatis/">
                 <span class="chip center-align waves-effect waves-light chip-default">Mybatis</span>
             </a>
             
             
             
-            <a href="/tags/rabbitmq/" target="_blank">
+            <a href="/tags/rabbitmq/">
                 <span class="chip center-align waves-effect waves-light chip-default">rabbitmq</span>
             </a>
             
             
             
-            <a href="/tags/selenium/" target="_blank">
+            <a href="/tags/selenium/">
                 <span class="chip center-align waves-effect waves-light chip-default">selenium</span>
             </a>
             
             
             
-            <a href="/tags/自动化/" target="_blank">
+            <a href="/tags/自动化/">
                 <span class="chip center-align waves-effect waves-light chip-default">自动化</span>
             </a>
             
             
             
-            <a href="/tags/orc/" target="_blank">
+            <a href="/tags/orc/">
                 <span class="chip center-align waves-effect waves-light chip-default">orc</span>
             </a>
             
             
             
-            <a href="/tags/opencv/" target="_blank">
+            <a href="/tags/opencv/">
                 <span class="chip center-align waves-effect waves-light chip-default">opencv</span>
             </a>
             
@@ -915,45 +1008,156 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
     
 
 </div>
+
                 
 
+                
+                
+<div id="myGallery" class="my-gallery">
+    <div class="title center-align" data-aos="zoom-in-up">
+        <i class="far fa-image"></i>&nbsp;&nbsp;相册
+    </div>
+    <div class="row">
+        
+        
+        <div class="photo col s12 m6 l4" data-aos="fade-up">
+            <div class="img-item" data-src="/medias/featureimages/0.jpg">
+                <img src="/medias/featureimages/0.jpg" class="responsive-img">
+            </div>
+        </div>
+        
+        <div class="photo col s12 m6 l4" data-aos="fade-up">
+            <div class="img-item" data-src="/medias/featureimages/1.jpg">
+                <img src="/medias/featureimages/1.jpg" class="responsive-img">
+            </div>
+        </div>
+        
+        <div class="photo col s12 m6 l4" data-aos="fade-up">
+            <div class="img-item" data-src="/medias/featureimages/2.jpg">
+                <img src="/medias/featureimages/2.jpg" class="responsive-img">
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+<script>
+    $(function () {
+        let animateClass = 'animated pulse';
+        $('#myGallery .photo').hover(function () {
+            $(this).addClass(animateClass);
+        }, function () {
+            $(this).removeClass(animateClass);
+        });
+    });
+</script>
                 
 
             </div>
         </div>
     </div>
 </main>
-<footer class="page-footer bg-color">
+
+    <footer class="page-footer bg-color">
     <div class="container row center-align">
-        <div class="col s12 m8 l10 copy-right">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://github.com/whoami1231" target="_blank">WHOAMI</a>
+            <br>
             
-			
-                <br>
-                
-                <span id="busuanzi_container_site_pv">
-                    <i class="fa fa-heart-o"></i>
-                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
-                </span>
-                
-                
-                <span id="busuanzi_container_site_uv">
-                    <i class="fa fa-users"></i>
-                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
-                </span>
-                
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv" class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv" class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2019";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
             
         </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
     </div>
 </footer>
 
 <div class="progress-bar"></div>
 
 
-<!-- 搜索遮罩框 -->
+    <!-- 搜索遮罩框 -->
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
             <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -966,28 +1170,63 @@ $(function () {
     searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
-<!-- 回到顶部按钮 -->
+    <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fa fa-angle-up"></i>
+        <i class="fas fa-arrow-up"></i>
     </a>
 </div>
 
 
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-<script src="/js/matery.js"></script>
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-
-
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
 
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
+
 </html>

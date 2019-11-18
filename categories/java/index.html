@@ -16,35 +16,23 @@
     <title>分类: java | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
     <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
     <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
     <link rel="stylesheet" type="text/css" href="/css/matery.css">
     <link rel="stylesheet" type="text/css" href="/css/my.css">
-    <link rel="stylesheet" type="text/css" href="/code-highlight/prettify.css">
-    <script src="/code-highlight/prettify.js" type="text/javascript"></script>
-    <style type="text/css">
-        
-    </style>
-
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-    <script>
-        $(window).load(function(){
-         $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto;');
-           prettyPrint();
-       })
-    </script>
-
+    
+    <script src="/libs/jquery/jquery.min.js"></script>
+    
 </head>
 
 
 <body>
-
-<header class="navbar-fixed">
+    <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
+        <div id="navContainer" class="nav-wrapper head-container">
             <div class="brand-logo">
                 <a href="/" class="waves-effect waves-light">
                     
@@ -55,59 +43,69 @@
             </div>
             
 
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
-<ul class="right">
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
     
-    <li class="hide-on-med-and-down">
-        <a href="/" class="waves-effect waves-light">
-            
-            <i class="fa fa-home"></i>
-            
-            <span>首页</span>
-        </a>
-    </li>
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
     
-    <li class="hide-on-med-and-down">
-        <a href="/tags" class="waves-effect waves-light">
-            
-            <i class="fa fa-tags"></i>
-            
-            <span>标签</span>
-        </a>
-    </li>
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
     
-    <li class="hide-on-med-and-down">
-        <a href="/categories" class="waves-effect waves-light">
-            
-            <i class="fa fa-bookmark"></i>
-            
-            <span>分类</span>
-        </a>
-    </li>
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
     
-    <li class="hide-on-med-and-down">
-        <a href="/archives" class="waves-effect waves-light">
-            
-            <i class="fa fa-archive"></i>
-            
-            <span>归档</span>
-        </a>
-    </li>
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
     
-    <li class="hide-on-med-and-down">
-        <a href="/about" class="waves-effect waves-light">
-            
-            <i class="fa fa-user-circle-o"></i>
-            
-            <span>关于</span>
-        </a>
-    </li>
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
     
-    <li>
-        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
-        </a>
-    </li>
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
 </ul>
 
 <div id="mobile-nav" class="side-nav sidenav">
@@ -119,7 +117,7 @@
         <div class="logo-name">逝痕</div>
         <div class="logo-desc">
             
-            浮华世界,我们仗剑前行//无惧艰险，誓为除旧布新。
+            Never really desperate, only the lost of the soul.
             
         </div>
     </div>
@@ -128,56 +126,66 @@
 
     <ul class="menu-list mobile-menu-list">
         
-        <li>
-            <a href="/" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-home"></i>
-                
-                首页
-            </a>
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
         </li>
         
-        <li>
-            <a href="/tags" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-tags"></i>
-                
-                标签
-            </a>
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
         </li>
         
-        <li>
-            <a href="/categories" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-bookmark"></i>
-                
-                分类
-            </a>
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
         </li>
         
-        <li>
-            <a href="/archives" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-archive"></i>
-                
-                归档
-            </a>
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
         </li>
         
-        <li>
-            <a href="/about" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-user-circle-o"></i>
-                
-                关于
-            </a>
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
         </li>
         
         
         <li><div class="divider"></div></li>
         <li>
             <a href="https://github.com/whoami1231" class="waves-effect waves-light" target="_blank">
-                <i class="fa fa-github-square fa-fw"></i>Fork Me
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
         
@@ -244,29 +252,44 @@
 
 </header>
 
-<div class="bg-cover pd-header about-cover">
+    <div class="bg-cover pd-header about-cover">
     <div class="container">
     <div class="row">
     <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
         <div class="brand">
             <div class="title center-align">
                 
-                    WHOAMI
+                WHOAMI
                 
             </div>
 
             <div class="description center-align">
                 
-                    浮华世界,我们仗剑前行//无惧艰险，誓为除旧布新。
+                <span id="subtitle"></span>
+                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+                <script>
+                    var typed = new Typed("#subtitle", {
+                        strings: ['浮华世界,我们仗剑前行','无惧艰险,誓为除旧布新'],
+                        startDelay: 300,
+                        typeSpeed: 100,
+                        loop: true,
+                        backSpeed: 50,
+                        showCursor: true
+                    });
+                </script>
                 
             </div>
         </div>
     </div>
 </div>
+
+
 <script>
-// 每天切换 banner 图.  Switch banner image every day.
-$('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
+    // 每天切换 banner 图.  Switch banner image every day.
+    $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay() + '.jpg)');
 </script>
+
+
     </div>
 </div>
 
@@ -278,23 +301,15 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
     <div class="card">
         <div class="card-content">
             <div class="tag-title center-align">
-                <i class="fa fa-bookmark"></i>&nbsp;&nbsp;文章分类
+                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
             </div>
             <div class="tag-chips">
                 
                 
                 
-                <a href="/categories/linux/" title="linux: 6">
+                <a href="/categories/安装教程/" title="安装教程: 8">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #F9EBEA;">linux
-                        <span class="tag-length">6</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/vue/" title="vue: 8">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #F5EEF8;">vue
+                             chip-default " style="background-color: #F9EBEA;">安装教程
                         <span class="tag-length">8</span>
                     </span>
                 </a>
@@ -302,39 +317,31 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 
                 <a href="/categories/springboot/" title="springboot: 7">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #D5F5E3;">springboot
+                             chip-default " style="background-color: #F5EEF8;">springboot
                         <span class="tag-length">7</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/docker/" title="docker: 1">
+                <a href="/categories/vue/" title="vue: 8">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #E8F8F5;">docker
-                        <span class="tag-length">1</span>
+                             chip-default " style="background-color: #D5F5E3;">vue
+                        <span class="tag-length">8</span>
                     </span>
                 </a>
                 
                 
                 <a href="/categories/java/" title="java: 17">
                     <span class="chip center-align waves-effect waves-light
-                             chip-active " style="background-color: #FEF9E7;">java
+                             chip-active " style="background-color: #E8F8F5;">java
                         <span class="tag-length">17</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/docker/linux/" title="linux: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #F8F9F9;">linux
-                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
                 <a href="/categories/iview/" title="iview: 2">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #82E0AA;">iview
+                             chip-default " style="background-color: #FEF9E7;">iview
                         <span class="tag-length">2</span>
                     </span>
                 </a>
@@ -342,8 +349,24 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 
                 <a href="/categories/ssm错误笔记/" title="ssm错误笔记: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #D7BDE2;">ssm错误笔记
+                             chip-default " style="background-color: #F8F9F9;">ssm错误笔记
                         <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/网络安全/" title="网络安全: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " style="background-color: #82E0AA;">网络安全
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/mysql/" title="mysql: 4">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " style="background-color: #D7BDE2;">mysql
+                        <span class="tag-length">4</span>
                     </span>
                 </a>
                 
@@ -356,25 +379,9 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </a>
                 
                 
-                <a href="/categories/网络安全/" title="网络安全: 2">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #85C1E9;">网络安全
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/mysql/" title="mysql: 4">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #F8C471;">mysql
-                        <span class="tag-length">4</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/categories/maven/" title="maven: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #F9E79F;">maven
+                             chip-default " style="background-color: #85C1E9;">maven
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -390,7 +397,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 
                 <a href="/categories/Photoshop/" title="Photoshop: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #D5F5E3;">Photoshop
+                             chip-default " style="background-color: #F9E79F;">Photoshop
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -404,6 +411,14 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </a>
                 
                 
+                <a href="/categories/j2EE/" title="j2EE: 2">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " style="background-color: #E8F8F5;">j2EE
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
                 <a href="/categories/爬虫/" title="爬虫: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default " style="background-color: #D7BDE2;">爬虫
@@ -412,10 +427,10 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </a>
                 
                 
-                <a href="/categories/j2EE/" title="j2EE: 2">
+                <a href="/categories/java架构/" title="java架构: 1">
                     <span class="chip center-align waves-effect waves-light
-                             chip-default " style="background-color: #E8F8F5;">j2EE
-                        <span class="tag-length">2</span>
+                             chip-default " style="background-color: #FEF9E7;">java架构
+                        <span class="tag-length">1</span>
                     </span>
                 </a>
                 
@@ -438,13 +453,13 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
     <article id="articles" class="container articles">
         <div class="row tags-posts">
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/06/07/java写投票脚本自动化初探/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/5.png" class="responsive-img" alt="java写投票脚本自动化初探">
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="java写投票脚本自动化初探">
                             
                             <span class="card-title">java写投票脚本自动化初探</span>
                         </div>
@@ -458,17 +473,17 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-06-07
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
-                                <a href="/categories/java/自动化/" class="post-category" target="_blank">
+                                <a href="/categories/java/自动化/" class="post-category">
                                     自动化
                                 </a>
                                 
@@ -480,23 +495,23 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java/" target="_blank">
+                        <a href="/tags/java/">
                             <span class="chip bg-color">java</span>
                         </a>
                         
-                        <a href="/tags/selenium/" target="_blank">
+                        <a href="/tags/selenium/">
                             <span class="chip bg-color">selenium</span>
                         </a>
                         
-                        <a href="/tags/自动化/" target="_blank">
+                        <a href="/tags/自动化/">
                             <span class="chip bg-color">自动化</span>
                         </a>
                         
-                        <a href="/tags/orc/" target="_blank">
+                        <a href="/tags/orc/">
                             <span class="chip bg-color">orc</span>
                         </a>
                         
-                        <a href="/tags/opencv/" target="_blank">
+                        <a href="/tags/opencv/">
                             <span class="chip bg-color">opencv</span>
                         </a>
                         
@@ -505,7 +520,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/06/04/java自定义注解/">
                         <div class="card-image tag-image">
@@ -528,13 +543,13 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-06-04
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -546,7 +561,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/springboot/" target="_blank">
+                        <a href="/tags/springboot/">
                             <span class="chip bg-color">springboot</span>
                         </a>
                         
@@ -555,13 +570,13 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/06/02/java8中Optional的使用/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="java8中Optional的使用">
+                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="java8中Optional的使用">
                             
                             <span class="card-title">java8中Optional的使用</span>
                         </div>
@@ -576,13 +591,13 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-06-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-06-02
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -594,7 +609,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/javaSE/" target="_blank">
+                        <a href="/tags/javaSE/">
                             <span class="chip bg-color">javaSE</span>
                         </a>
                         
@@ -603,13 +618,13 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/05/24/javaSE基础知识点/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="javaSE基础知识点">
+                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="javaSE基础知识点">
                             
                             <span class="card-title">javaSE基础知识点</span>
                         </div>
@@ -625,13 +640,13 @@ public static void main(Strin
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-24
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -643,7 +658,7 @@ public static void main(Strin
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/javaSE/" target="_blank">
+                        <a href="/tags/javaSE/">
                             <span class="chip bg-color">javaSE</span>
                         </a>
                         
@@ -652,13 +667,13 @@ public static void main(Strin
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/05/23/java-io知识点整理/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="java.io知识点整理">
+                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="java.io知识点整理">
                             
                             <span class="card-title">java.io知识点整理</span>
                         </div>
@@ -674,13 +689,13 @@ java流类图总结
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-23
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-23
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -692,7 +707,7 @@ java流类图总结
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/javaSE/" target="_blank">
+                        <a href="/tags/javaSE/">
                             <span class="chip bg-color">javaSE</span>
                         </a>
                         
@@ -701,13 +716,13 @@ java流类图总结
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/05/12/java内存模型初窥探/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/5.png" class="responsive-img" alt="java内存模型初窥探">
+                            <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="java内存模型初窥探">
                             
                             <span class="card-title">java内存模型初窥探</span>
                         </div>
@@ -725,13 +740,13 @@ java流类图总结
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-12
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -743,11 +758,11 @@ java流类图总结
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java架构/" target="_blank">
+                        <a href="/tags/java架构/">
                             <span class="chip bg-color">java架构</span>
                         </a>
                         
-                        <a href="/tags/JVM/" target="_blank">
+                        <a href="/tags/JVM/">
                             <span class="chip bg-color">JVM</span>
                         </a>
                         
@@ -756,13 +771,13 @@ java流类图总结
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/05/09/java的一些常用编程思想/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="java的一些常用编程思想">
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="java的一些常用编程思想">
                             
                             <span class="card-title">java的一些常用编程思想</span>
                         </div>
@@ -784,13 +799,13 @@ if ((b - a) * (a - c) &gt;= 0) { //如果a是中间数的
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-09
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -802,7 +817,7 @@ if ((b - a) * (a - c) &gt;= 0) { //如果a是中间数的
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/编程思想/" target="_blank">
+                        <a href="/tags/编程思想/">
                             <span class="chip bg-color">编程思想</span>
                         </a>
                         
@@ -811,13 +826,13 @@ if ((b - a) * (a - c) &gt;= 0) { //如果a是中间数的
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/04/24/java设计模式初探/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="java设计模式初探">
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="java设计模式初探">
                             
                             <span class="card-title">java设计模式初探</span>
                         </div>
@@ -845,13 +860,13 @@ Class
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-24
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -863,7 +878,7 @@ Class
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java/" target="_blank">
+                        <a href="/tags/java/">
                             <span class="chip bg-color">java</span>
                         </a>
                         
@@ -872,13 +887,13 @@ Class
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/04/21/java锁的深入理解/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="java锁的深入理解">
+                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="java锁的深入理解">
                             
                             <span class="card-title">java锁的深入理解</span>
                         </div>
@@ -894,13 +909,13 @@ Lock锁(轻量级锁)和synchronize(重量级锁)
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-21
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -912,7 +927,7 @@ Lock锁(轻量级锁)和synchronize(重量级锁)
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java多线程/" target="_blank">
+                        <a href="/tags/java多线程/">
                             <span class="chip bg-color">java多线程</span>
                         </a>
                         
@@ -921,13 +936,13 @@ Lock锁(轻量级锁)和synchronize(重量级锁)
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/04/21/手写Future和Callable/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="手写Future和Callable">
+                            <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="手写Future和Callable">
                             
                             <span class="card-title">手写Future和Callable</span>
                         </div>
@@ -942,13 +957,13 @@ Lock锁(轻量级锁)和synchronize(重量级锁)
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-21
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-21
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -960,7 +975,7 @@ Lock锁(轻量级锁)和synchronize(重量级锁)
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java架构/" target="_blank">
+                        <a href="/tags/java架构/">
                             <span class="chip bg-color">java架构</span>
                         </a>
                         
@@ -969,13 +984,13 @@ Lock锁(轻量级锁)和synchronize(重量级锁)
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/04/08/java自定义线程池/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/5.png" class="responsive-img" alt="java自定义线程池">
+                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="java自定义线程池">
                             
                             <span class="card-title">java自定义线程池</span>
                         </div>
@@ -992,13 +1007,13 @@ java线程池源码分析
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-08
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -1010,11 +1025,11 @@ java线程池源码分析
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java架构/" target="_blank">
+                        <a href="/tags/java架构/">
                             <span class="chip bg-color">java架构</span>
                         </a>
                         
-                        <a href="/tags/线程池/" target="_blank">
+                        <a href="/tags/线程池/">
                             <span class="chip bg-color">线程池</span>
                         </a>
                         
@@ -1023,7 +1038,7 @@ java线程池源码分析
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/04/02/ThreadLocal原理分析/">
                         <div class="card-image tag-image">
@@ -1047,13 +1062,13 @@ java线程池源码分析
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-02
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -1065,11 +1080,11 @@ java线程池源码分析
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java架构/" target="_blank">
+                        <a href="/tags/java架构/">
                             <span class="chip bg-color">java架构</span>
                         </a>
                         
-                        <a href="/tags/多线程/" target="_blank">
+                        <a href="/tags/多线程/">
                             <span class="chip bg-color">多线程</span>
                         </a>
                         
@@ -1078,13 +1093,13 @@ java线程池源码分析
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/03/31/java多线程通信/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/5.png" class="responsive-img" alt="java多线程通信">
+                            <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="java多线程通信">
                             
                             <span class="card-title">java多线程通信</span>
                         </div>
@@ -1106,13 +1121,13 @@ java线程池源码分析
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-31
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -1124,11 +1139,11 @@ java线程池源码分析
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java架构/" target="_blank">
+                        <a href="/tags/java架构/">
                             <span class="chip bg-color">java架构</span>
                         </a>
                         
-                        <a href="/tags/多线程/" target="_blank">
+                        <a href="/tags/多线程/">
                             <span class="chip bg-color">多线程</span>
                         </a>
                         
@@ -1137,13 +1152,13 @@ java线程池源码分析
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/03/30/java内存模型/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="java内存模型">
+                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="java内存模型">
                             
                             <span class="card-title">java内存模型</span>
                         </div>
@@ -1160,13 +1175,13 @@ java线程池源码分析
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-30
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -1178,12 +1193,12 @@ java线程池源码分析
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/多线程/" target="_blank">
-                            <span class="chip bg-color">多线程</span>
+                        <a href="/tags/java/">
+                            <span class="chip bg-color">java</span>
                         </a>
                         
-                        <a href="/tags/java/" target="_blank">
-                            <span class="chip bg-color">java</span>
+                        <a href="/tags/多线程/">
+                            <span class="chip bg-color">多线程</span>
                         </a>
                         
                     </div>
@@ -1191,13 +1206,13 @@ java线程池源码分析
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/03/29/java线程安全初窥探/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="java线程安全初窥探">
+                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="java线程安全初窥探">
                             
                             <span class="card-title">java线程安全初窥探</span>
                         </div>
@@ -1217,13 +1232,13 @@ package com.Thread.Te
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-29
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-29
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -1235,11 +1250,11 @@ package com.Thread.Te
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java架构/" target="_blank">
+                        <a href="/tags/java架构/">
                             <span class="chip bg-color">java架构</span>
                         </a>
                         
-                        <a href="/tags/线程安全/" target="_blank">
+                        <a href="/tags/线程安全/">
                             <span class="chip bg-color">线程安全</span>
                         </a>
                         
@@ -1248,13 +1263,13 @@ package com.Thread.Te
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/03/28/java守护线程与非守护线程/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="java守护线程与非守护线程">
+                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="java守护线程与非守护线程">
                             
                             <span class="card-title">java守护线程与非守护线程</span>
                         </div>
@@ -1270,13 +1285,13 @@ package com.Thread.Te
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-28
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -1288,11 +1303,11 @@ package com.Thread.Te
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java架构/" target="_blank">
+                        <a href="/tags/java架构/">
                             <span class="chip bg-color">java架构</span>
                         </a>
                         
-                        <a href="/tags/多线程/" target="_blank">
+                        <a href="/tags/多线程/">
                             <span class="chip bg-color">多线程</span>
                         </a>
                         
@@ -1301,13 +1316,13 @@ package com.Thread.Te
                 </div>
             </div>
             
-            <div class="article tag-post col s12 m6 l4 overflow-policy" data-aos="zoom-in">
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
                     <a href="/2019/03/27/java多线程初窥探/">
                         <div class="card-image tag-image">
                             
                             
-                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="java多线程初窥探">
+                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="java多线程初窥探">
                             
                             <span class="card-title">java多线程初窥探</span>
                         </div>
@@ -1324,13 +1339,13 @@ package com.Thread.Te
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-27
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
                                 
-                                <a href="/categories/java/" class="post-category" target="_blank">
+                                <a href="/categories/java/" class="post-category">
                                     java
                                 </a>
                                 
@@ -1342,11 +1357,11 @@ package com.Thread.Te
                     
                     <div class="card-action article-tags">
                         
-                        <a href="/tags/java架构/" target="_blank">
+                        <a href="/tags/java架构/">
                             <span class="chip bg-color">java架构</span>
                         </a>
                         
-                        <a href="/tags/多线程/" target="_blank">
+                        <a href="/tags/多线程/">
                             <span class="chip bg-color">多线程</span>
                         </a>
                         
@@ -1360,37 +1375,107 @@ package com.Thread.Te
 </main>
 
 
-<footer class="page-footer bg-color">
+
+
+    <footer class="page-footer bg-color">
     <div class="container row center-align">
-        <div class="col s12 m8 l10 copy-right">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://github.com/whoami1231" target="_blank">WHOAMI</a>
+            <br>
             
-			
-                <br>
-                
-                <span id="busuanzi_container_site_pv">
-                    <i class="fa fa-heart-o"></i>
-                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
-                </span>
-                
-                
-                <span id="busuanzi_container_site_uv">
-                    <i class="fa fa-users"></i>
-                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
-                </span>
-                
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv" class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv" class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2019";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
             
         </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
     </div>
 </footer>
 
 <div class="progress-bar"></div>
 
 
-<!-- 搜索遮罩框 -->
+    <!-- 搜索遮罩框 -->
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
             <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
         </div>
         <div id="searchResult"></div>
@@ -1403,28 +1488,63 @@ $(function () {
     searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
 });
 </script>
-<!-- 回到顶部按钮 -->
+    <!-- 回到顶部按钮 -->
 <div id="backTop" class="top-scroll">
     <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fa fa-angle-up"></i>
+        <i class="fas fa-arrow-up"></i>
     </a>
 </div>
 
 
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-<script src="/js/matery.js"></script>
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-
-
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
 
+    
+
+    
+
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
 
 </body>
+
 </html>

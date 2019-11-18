@@ -4,6 +4,62 @@
   
     
     <entry>
+      <title>linux web环境搭建</title>
+      <link href="/2019/11/18/linux-web%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+      <url>/2019/11/18/linux-web%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
+      
+        <content type="html"><![CDATA[<h1 id="linux-web环境搭建"><a href="#linux-web环境搭建" class="headerlink" title="linux web环境搭建"></a>linux web环境搭建</h1><p>时隔一个学年，我再一次租起了阿里云服务器(哎呀真香啊)，其实一开始我也是拒绝的，但是由于我的电脑配置日渐落后，连启动一个虚拟机都要等上半天。我就想说：买！咱不受那个窝囊气。</p><p>具体配置是这样的</p><p><img src="https://s2.ax1x.com/2019/11/18/McPwsf.png" alt></p><p>由于之前的笔记都是存到了网易云笔记上面，现在都懒得打开那个软件了，现在干脆直接把上面那些有的没的直接搬到这上面来，省时省力。</p><p>好了，废话不多说，这篇文章是搭建web环境的，看过之前的文章都知道，技术选型肯定就是docker + springboot + vue了</p><h2 id="java搭建"><a href="#java搭建" class="headerlink" title="java搭建"></a>java搭建</h2><p>万事少不了java,所以我们先从java入手</p><p>首先将我们的jdk包[这里我用的是jdk1.8.0的]上传到服务器上面去，之后一步一步敲命令就好了</p><pre><code class="bash">mkdir -p /usr/share/javamv jar包 /usr/share/javatar -zxvf jar包# 修改环境变量vi /etc/profile</code></pre><p>其实关于上面的修改环境变量我更倾向于用xftp,因为他可以直接调用你的物理主机修改服务器上面的文件，I love it….</p><p>在上面的文件的后面加上</p><pre><code class="bash"># java环境变量配置JAVA_HOME=/usr/share/java/jar包名称CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jarPATH=$PATH:$JAVA_HOME/binexport JAVA_HOME CLASSPATH PATH</code></pre><p>保存文件后更新一下配置文件</p><pre><code class="bash">source /etc/profile</code></pre><p>验证java是否安装成功</p><pre><code class="bash">java -version</code></pre><p>出现java版本后则代表安装成功</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 安装教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> docker </tag>
+            
+            <tag> springboot </tag>
+            
+            <tag> web </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数据库面对高并发的思路</title>
+      <link href="/2019/11/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E5%AF%B9%E9%AB%98%E5%B9%B6%E5%8F%91%E7%9A%84%E6%80%9D%E8%B7%AF/"/>
+      <url>/2019/11/18/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9D%A2%E5%AF%B9%E9%AB%98%E5%B9%B6%E5%8F%91%E7%9A%84%E6%80%9D%E8%B7%AF/</url>
+      
+        <content type="html"><![CDATA[<h1 id="数据库面对高并发的思路"><a href="#数据库面对高并发的思路" class="headerlink" title="数据库面对高并发的思路"></a>数据库面对高并发的思路</h1><p>这篇文章完全是因为做到了文章点击量的功能的时候，数据库的读写速度已经逐渐满足不了我的项目了[因为有很多的数据库操作嘛]。<br>正一筹莫展的时候，在技术网站上面看到了一篇文章名字叫做”Redis 解决高并发思路”的论文引起了我的注意。<br>redis其实也不是没想过，但是之前看到了一个业界大佬不断的呼吁’stateless’的服务，也就是不要让随随便便的程序附加上一些繁琐的附加程序。比如说java+ mysql就能完成的任务非要加上一些redis、mq啊什么什么的，因为加上那些程序的话你们的后台程序的存活性就会变相对低一些，因为还要考虑到这些附加程序的健康性。</p><h2 id="理念不舍弃，程序照样用"><a href="#理念不舍弃，程序照样用" class="headerlink" title="理念不舍弃，程序照样用"></a>理念不舍弃，程序照样用</h2><p>因为涉及到了文章的点击量了嘛，所以即使就算你的QPS是那小小的个位数字，但是那样来说到服务器里面取文章并且对文章进行各种修饰(带上作者信息啊、评论信息啊、点赞数啊etc..)也对数据库造成了一个不小的压力，所以Redis是解决服务器压力的一大利器！！</p><h2 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h2><p>这里我们就要唠一唠了，数据库如何设计呢？<br>看了好多大佬的文章，大概总结出了这样的一个道理，那就是数据分离。<br>数据是分成了冷热两大数据的，比如说用户信息这种不经常修改的信息就是冷数据，而那些像是用户登录时间和操作啊那些经常进行刷新数据的就是热数据。</p><p>所以我们需要将点赞单独分出来</p><p>也就是我们经常的老三样</p><ul><li>BLOG</li></ul><table><thead><tr><th>id</th><th style="text-align:center">title</th><th style="text-align:center">…</th></tr></thead><tbody><tr><td>文章Id</td><td style="text-align:center">文章名称</td><td style="text-align:center">闲杂文件</td></tr></tbody></table><ul><li>USER</li></ul><table><thead><tr><th>id</th><th style="text-align:center">username</th><th style="text-align:center">pwd</th><th style="text-align:center">salt</th></tr></thead><tbody><tr><td>用户id</td><td style="text-align:center">用户名称</td><td style="text-align:center">密码</td><td style="text-align:center">盐</td></tr></tbody></table><ul><li>USER_CLICK_BLOG</li></ul><table><thead><tr><th style="text-align:center">BLOG_ID</th><th style="text-align:center">USER_ID</th><th style="text-align:center">DATE</th></tr></thead><tbody><tr><td style="text-align:center">文章id</td><td style="text-align:center">用户id</td><td style="text-align:center">时间</td></tr></tbody></table><p>是不是很熟悉？对，就是我们大学经常讲的多对多模型。</p><blockquote><p>这里插一点，经过最近对mybatis逆向工程进行的分析。发现里面有一个可优化的点，就是查询当前表下的所有数据的时候，如果你的表里面只有一个字段作为字段的时候，尽量将代码count(*)改成count(PK)</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> java架构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+            <tag> java架构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Docker安装与初次使用</title>
       <link href="/2019/11/08/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%88%9D%E6%AC%A1%E4%BD%BF%E7%94%A8/"/>
       <url>/2019/11/08/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%88%9D%E6%AC%A1%E4%BD%BF%E7%94%A8/</url>
@@ -13,9 +69,7 @@
       
       <categories>
           
-          <category> docker </category>
-          
-          <category> linux </category>
+          <category> 安装教程 </category>
           
       </categories>
       
@@ -387,9 +441,9 @@
       
         <tags>
             
-            <tag> mybatis </tag>
-            
             <tag> mysql </tag>
+            
+            <tag> mybatis </tag>
             
         </tags>
       
@@ -926,12 +980,12 @@
       <link href="/2019/05/12/centos7%E4%B8%8B%E5%AE%89%E8%A3%85mariadb%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/"/>
       <url>/2019/05/12/centos7%E4%B8%8B%E5%AE%89%E8%A3%85mariadb%E9%85%8D%E7%BD%AE%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/</url>
       
-        <content type="html"><![CDATA[<h1 id="centos7下安装mariadb"><a href="#centos7下安装mariadb" class="headerlink" title="centos7下安装mariadb"></a>centos7下安装mariadb</h1><h2 id="卸载已经存在的mariadb"><a href="#卸载已经存在的mariadb" class="headerlink" title="卸载已经存在的mariadb"></a>卸载已经存在的mariadb</h2><hr><p>检查是否已经安装mariadb</p><pre><code>rpm -qa|grep mariadb</code></pre><p>如果存在先卸载掉</p><pre><code>rpm -e --nodeps xxxx</code></pre><a id="more"></a><h2 id="安装mariadb"><a href="#安装mariadb" class="headerlink" title="安装mariadb"></a>安装mariadb</h2><hr><pre><code>yum -y install mariadb mariadb-server #安装systemctl start mariadb # 启动mariadb服务systemctl enable mariadb #设置开机启动</code></pre><h2 id="mariadb简单配置"><a href="#mariadb简单配置" class="headerlink" title="mariadb简单配置"></a>mariadb简单配置</h2><pre><code>mysql_secure_installation #开始简单配置首先是设置密码，会提示输入密码Enter current password for root (enter for none):  --&gt;初次设置直接回车Set root password? [Y/n] --&gt;y New password:Re-enter new password:其他设置Remove anonymous users? [Y/n] --&gt;是否删除匿名用户 回车Disallow root login remotely? [Y/n] --&gt;是否禁止远程用户 nRemove test database and access to it? [Y/n] --&gt;删除test数据库 回车Reload privilege tables now? [Y/n]  --&gt;是否重新加载权限表 回车</code></pre><h2 id="配置mariadb编码"><a href="#配置mariadb编码" class="headerlink" title="配置mariadb编码"></a>配置mariadb编码</h2><pre><code>vi /etc/my.cnf#在[mysqld]下面添加init_connect=&#39;SET collation_connection = utf_unicode_ci&#39;init_connect=&#39;SET NAMES utf8&#39;character-set-server=utf8collation-server=utf8_unicode_ciskip-character-set-client-handshakevi etc/my.cnf.d/clent.cnf# 在[client]下添加default-character-set=utf8vi etc/my.cnf.d/mysql-clients.cnf#在[mysqld]下添加default-character-set=utf8</code></pre><pre><code>配置完成 重启服务systemctl restart mariadb查看mariadb字符集show variables like &quot;%character%&#39;; show variables like &quot;%collation%&quot;;</code></pre><h2 id="添加外网用户"><a href="#添加外网用户" class="headerlink" title="添加外网用户"></a>添加外网用户</h2><hr><pre><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39;IDENTIFIED BY &#39;123&#39; WITH GRANT OPTION; #配置用户并授权flush privileges; #刷新权限</code></pre><h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><h3 id="主服务器配置"><a href="#主服务器配置" class="headerlink" title="主服务器配置"></a>主服务器配置</h3><pre><code>vi /etc/my.conf # 添加下面两个字段server-id=137 #这个数字随便写log-bin=master-log #我尝试过放到另一个文件夹下，但是由于权限问题，始终启动错误，现在这个二进制文件是在你配置的datadir下面的innodb_file_per_table=on  #跳过主机名解析。在CentOS 6自带的mysql后面的=on不用写skip_name_resolve=on #innodb的每个表是用单独的文件</code></pre><p>启动服务</p><pre><code>systemctl start mariadb      #启动数据库GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO &#39;guest&#39;@&#39;%&#39; IDENTIFIED BY &#39;123&#39;; #创建从服务器用来连接的账号FLUSH PRIVILEGES; #刷新服务器</code></pre><p>查询当前日志情况</p><pre><code>show master status;</code></pre><p>这两个参数供从服务器连接并复制</p><p><img src="https://s2.ax1x.com/2019/05/12/E4phUe.png" alt></p><h3 id="从服务器配置"><a href="#从服务器配置" class="headerlink" title="从服务器配置"></a>从服务器配置</h3><pre><code>server_id=2relay_log=relay-log         #启用中继日志。在数据目录下有一个relay-kog.info里面保存了当前的中继日志和位置会主节点二进制文件的名字和位置。read_only=on                #禁止用户写入数据，这一项的管理员和复制重放无效。</code></pre><p>启动服务</p><pre><code>mysql&gt; FLUSH TABLES WITH READ LOCK;     #添加全局读锁,只允许读mysql&gt; reset slave;mysql&gt; CHANGE MASTER TO MASTER_HOST=&#39;192.168.3.137&#39;,MASTER_USER=&#39;guest&#39;,MASTER_PASSWORD=&#39;123&#39;,MASTER_LOG_FILE=&#39;master-log.000003&#39;,MASTER_LOG_POS=245; #远程连接，将上文查出来的日志文件和位置填写在上面mysql&gt; START SLAVE; #开始线程</code></pre><pre><code>#查询启动情况mysql&gt; SHOW SLAVE STATUS\G;</code></pre><p><img src="https://s2.ax1x.com/2019/05/12/E4p7vt.png" alt></p><blockquote><p>启动成功!</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<h1 id="centos7下安装mariadb"><a href="#centos7下安装mariadb" class="headerlink" title="centos7下安装mariadb"></a>centos7下安装mariadb</h1><h2 id="卸载已经存在的mariadb"><a href="#卸载已经存在的mariadb" class="headerlink" title="卸载已经存在的mariadb"></a>卸载已经存在的mariadb</h2><hr><p>检查是否已经安装mariadb</p><pre><code>rpm -qa|grep mariadb</code></pre><p>如果存在先卸载掉</p><pre><code>rpm -e --nodeps xxxx</code></pre><a id="more"></a><h2 id="安装mariadb"><a href="#安装mariadb" class="headerlink" title="安装mariadb"></a>安装mariadb</h2><hr><pre><code>yum -y install mariadb mariadb-server #安装systemctl start mariadb # 启动mariadb服务systemctl enable mariadb #设置开机启动</code></pre><h2 id="mariadb简单配置"><a href="#mariadb简单配置" class="headerlink" title="mariadb简单配置"></a>mariadb简单配置</h2><pre><code>mysql_secure_installation #开始简单配置首先是设置密码，会提示输入密码Enter current password for root (enter for none):  --&gt;初次设置直接回车Set root password? [Y/n] --&gt;yNew password:Re-enter new password:其他设置Remove anonymous users? [Y/n] --&gt;是否删除匿名用户 回车Disallow root login remotely? [Y/n] --&gt;是否禁止远程用户 nRemove test database and access to it? [Y/n] --&gt;删除test数据库 回车Reload privilege tables now? [Y/n]  --&gt;是否重新加载权限表 回车</code></pre><h2 id="配置mariadb编码"><a href="#配置mariadb编码" class="headerlink" title="配置mariadb编码"></a>配置mariadb编码</h2><pre><code>vi /etc/my.cnf#在[mysqld]下面添加init_connect=&#39;SET collation_connection = utf_unicode_ci&#39;init_connect=&#39;SET NAMES utf8&#39;character-set-server=utf8collation-server=utf8_unicode_ciskip-character-set-client-handshakevi etc/my.cnf.d/clent.cnf# 在[client]下添加default-character-set=utf8vi etc/my.cnf.d/mysql-clients.cnf#在[mysqld]下添加default-character-set=utf8</code></pre><pre><code>配置完成 重启服务systemctl restart mariadb查看mariadb字符集show variables like &quot;%character%&#39;;show variables like &quot;%collation%&quot;;</code></pre><h2 id="添加外网用户"><a href="#添加外网用户" class="headerlink" title="添加外网用户"></a>添加外网用户</h2><hr><pre><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39;IDENTIFIED BY &#39;123&#39; WITH GRANT OPTION; #配置用户并授权flush privileges; #刷新权限</code></pre><h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><h3 id="主服务器配置"><a href="#主服务器配置" class="headerlink" title="主服务器配置"></a>主服务器配置</h3><pre><code>vi /etc/my.conf# 添加下面两个字段server-id=137 #这个数字随便写log-bin=master-log #我尝试过放到另一个文件夹下，但是由于权限问题，始终启动错误，现在这个二进制文件是在你配置的datadir下面的innodb_file_per_table=on  #跳过主机名解析。在CentOS 6自带的mysql后面的=on不用写skip_name_resolve=on #innodb的每个表是用单独的文件</code></pre><p>启动服务</p><pre><code>systemctl start mariadb      #启动数据库GRANT REPLICATION SLAVE,REPLICATION CLIENT ON *.* TO &#39;guest&#39;@&#39;%&#39; IDENTIFIED BY &#39;123&#39;; #创建从服务器用来连接的账号FLUSH PRIVILEGES; #刷新服务器</code></pre><p>查询当前日志情况</p><pre><code>show master status;</code></pre><p>这两个参数供从服务器连接并复制</p><p><img src="https://s2.ax1x.com/2019/05/12/E4phUe.png" alt></p><h3 id="从服务器配置"><a href="#从服务器配置" class="headerlink" title="从服务器配置"></a>从服务器配置</h3><pre><code>server_id=2relay_log=relay-log         #启用中继日志。在数据目录下有一个relay-kog.info里面保存了当前的中继日志和位置会主节点二进制文件的名字和位置。read_only=on                #禁止用户写入数据，这一项的管理员和复制重放无效。</code></pre><p>启动服务</p><pre><code>mysql&gt; FLUSH TABLES WITH READ LOCK;     #添加全局读锁,只允许读mysql&gt; reset slave;mysql&gt; CHANGE MASTER TO MASTER_HOST=&#39;192.168.3.137&#39;,MASTER_USER=&#39;guest&#39;,MASTER_PASSWORD=&#39;123&#39;,MASTER_LOG_FILE=&#39;master-log.000003&#39;,MASTER_LOG_POS=245; #远程连接，将上文查出来的日志文件和位置填写在上面mysql&gt; START SLAVE; #开始线程</code></pre><pre><code>#查询启动情况mysql&gt; SHOW SLAVE STATUS\G;</code></pre><p><img src="https://s2.ax1x.com/2019/05/12/E4p7vt.png" alt></p><blockquote><p>启动成功!</p></blockquote>]]></content>
       
       
       <categories>
           
-          <category> linux </category>
+          <category> 安装教程 </category>
           
       </categories>
       
@@ -939,6 +993,8 @@
         <tags>
             
             <tag> linux </tag>
+            
+            <tag> mysql </tag>
             
         </tags>
       
@@ -1030,12 +1086,12 @@
       <link href="/2019/05/03/centos7%E5%AE%89%E8%A3%85fastDFS/"/>
       <url>/2019/05/03/centos7%E5%AE%89%E8%A3%85fastDFS/</url>
       
-        <content type="html"><![CDATA[<h1 id="centos7安装fastDFS"><a href="#centos7安装fastDFS" class="headerlink" title="centos7安装fastDFS"></a>centos7安装fastDFS</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><hr><h3 id="使用的系统软件"><a href="#使用的系统软件" class="headerlink" title="使用的系统软件"></a>使用的系统软件</h3><hr><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td>centos</td><td>7.x</td></tr><tr><td>libfatscommon</td><td>FastDFS分离出的一些公用函数包</td></tr><tr><td>FastDFS</td><td>FastDFS本体</td></tr><tr><td>fastdfs-nginx-module</td><td>FastDFS和nginx的关联模块</td></tr><tr><td>nginx</td><td>nginx1.15.4</td></tr></tbody></table><h3 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h3><hr><pre><code>yum install git gcc gcc-c++ make automake autoconf libtool pcre pcre-devel zlib zlib-devel openssl-devel wget vim -y</code></pre><h3 id="磁盘目录"><a href="#磁盘目录" class="headerlink" title="磁盘目录"></a>磁盘目录</h3><hr><table><thead><tr><th>说明</th><th>位置</th></tr></thead><tbody><tr><td>所有安装包</td><td>/usr/local/src</td></tr><tr><td>数据存储位置</td><td>/home/dfs/</td></tr><tr><td>#这里我为了方便把日志什么的都放到了dfs</td></tr></tbody></table><pre><code>mkdir /home/dfs #创建数据存储目录cd /usr/local/src #切换到安装目录准备下载安装包</code></pre><h3 id="安装libfatscommon"><a href="#安装libfatscommon" class="headerlink" title="安装libfatscommon"></a>安装libfatscommon</h3><hr><pre><code>git clone https://github.com/happyfish100/libfastcommon.git --depth 1cd libfastcommon/./make.sh &amp;&amp; ./make.sh install #编译安装</code></pre><h3 id="安装FastDFS"><a href="#安装FastDFS" class="headerlink" title="安装FastDFS"></a>安装FastDFS</h3><hr><pre><code>cd ../ #返回上一级目录git clone https://github.com/happyfish100/fastdfs.git --depth 1cd fastdfs/./make.sh &amp;&amp; ./make.sh install #编译安装#配置文件准备cp /etc/fdfs/tracker.conf.sample /etc/fdfs/tracker.confcp /etc/fdfs/storage.conf.sample /etc/fdfs/storage.confcp /etc/fdfs/client.conf.sample /etc/fdfs/client.conf #客户端文件，测试用cp /usr/local/src/fastdfs/conf/http.conf /etc/fdfs/ #供nginx访问使用cp /usr/local/src/fastdfs/conf/mime.types /etc/fdfs/ #供nginx访问使用</code></pre><h3 id="安装fastdfs-nginx-module"><a href="#安装fastdfs-nginx-module" class="headerlink" title="安装fastdfs-nginx-module"></a>安装fastdfs-nginx-module</h3><hr><pre><code>cd ../ #返回上一级目录git clone https://github.com/happyfish100/fastdfs-nginx-module.git --depth 1cp /usr/local/src/fastdfs-nginx-module/src/mod_fastdfs.conf /etc/fdfs</code></pre><h3 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><hr><pre><code>wget http://nginx.org/download/nginx-1.15.4.tar.gz #下载nginx压缩包tar -zxvf nginx-1.15.4.tar.gz #解压cd nginx-1.15.4/#添加fastdfs-nginx-module模块./configure --add-module=/usr/local/src/fastdfs-nginx-module/src/ make &amp;&amp; make install #编译安装</code></pre><h2 id="单机部署"><a href="#单机部署" class="headerlink" title="单机部署"></a>单机部署</h2><hr><h3 id="tracker配置"><a href="#tracker配置" class="headerlink" title="tracker配置"></a>tracker配置</h3><hr><pre><code>#服务器ip为 192.168.52.1#我建议用ftp下载下来这些文件 本地修改vim /etc/fdfs/tracker.conf#需要修改的内容如下port=22122  # tracker服务器端口（默认22122,一般不修改）base_path=/home/dfs  # 存储日志和数据的根目录</code></pre><h3 id="storage配置"><a href="#storage配置" class="headerlink" title="storage配置"></a>storage配置</h3><hr><pre><code>vim /etc/fdfs/storage.conf#需要修改的内容如下port=23000  # storage服务端口（默认23000,一般不修改）base_path=/home/dfs  # 数据和日志文件存储根目录store_path0=/home/dfs  # 第一个存储目录tracker_server=192.168.52.1:22122  # tracker服务器IP和端口http.server_port=8888  # http访问文件的端口(默认8888,看情况修改,和nginx中保持一致)</code></pre><h3 id="client测试"><a href="#client测试" class="headerlink" title="client测试"></a>client测试</h3><hr><pre><code>vim /etc/fdfs/client.conf#需要修改的内容如下base_path=/home/dfstracker_server=192.168.52.1:22122    #tracker服务器IP和端口#保存后测试,返回ID表示成功 如：group1/M00/00/00/xx.tar.gzfdfs_upload_file /etc/fdfs/client.conf /usr/local/src/nginx-1.15.4.tar.gz</code></pre><h3 id="配置nginx访问"><a href="#配置nginx访问" class="headerlink" title="配置nginx访问"></a>配置nginx访问</h3><hr><pre><code>vim /etc/fdfs/mod_fastdfs.conf#需要修改的内容如下tracker_server=192.168.52.1:22122  #tracker服务器IP和端口url_have_group_name=truestore_path0=/home/dfs#配置nginx.configvim /usr/local/nginx/conf/nginx.conf#添加如下配置server {    listen       8888;    ## 该端口为storage.conf中的http.server_port相同    server_name  localhost;    location ~/group[0-9]/ {        ngx_fastdfs_module;    }    error_page   500 502 503 504  /50x.html;    location = /50x.html {    root   html;    }}#测试下载，用外部浏览器访问刚才已传过的nginx安装包,引用返回的IDhttp://192.168.52.1:8888/group1/M00/00/00/wKgAQ1pysxmAaqhAAA76tz-dVgg.tar.gz#弹出下载单机部署全部跑通</code></pre><h2 id="分布式部署"><a href="#分布式部署" class="headerlink" title="分布式部署"></a>分布式部署</h2><hr><h3 id="tracker配置-1"><a href="#tracker配置-1" class="headerlink" title="tracker配置"></a>tracker配置</h3><hr><pre><code>#服务器ip为 192.168.52.2,192.168.52.3,192.168.52.4#我建议用ftp下载下来这些文件 本地修改vim /etc/fdfs/tracker.conf#需要修改的内容如下port=22122  # tracker服务器端口（默认22122,一般不修改）base_path=/home/dfs  # 存储日志和数据的根目录</code></pre><h3 id="storage配置-1"><a href="#storage配置-1" class="headerlink" title="storage配置"></a>storage配置</h3><hr><pre><code>vim /etc/fdfs/storage.conf#需要修改的内容如下port=23000  # storage服务端口（默认23000,一般不修改）base_path=/home/dfs  # 数据和日志文件存储根目录store_path0=/home/dfs  # 第一个存储目录tracker_server=192.168.52.2:22122  # 服务器1tracker_server=192.168.52.3:22122  # 服务器2tracker_server=192.168.52.4:22122  # 服务器3http.server_port=8888  # http访问文件的端口(默认8888,看情况修改,和nginx中保持一致)</code></pre><h3 id="client测试-1"><a href="#client测试-1" class="headerlink" title="client测试"></a>client测试</h3><hr><pre><code>vim /etc/fdfs/client.conf#需要修改的内容如下base_path=/home/moe/dfstracker_server=192.168.52.2:22122  # 服务器1tracker_server=192.168.52.3:22122  # 服务器2tracker_server=192.168.52.4:22122  # 服务器3#保存后测试,返回ID表示成功 如：group1/M00/00/00/xx.tar.gzfdfs_upload_file /etc/fdfs/client.conf /usr/local/src/nginx-1.15.4.tar.gz</code></pre><h2 id="配置nginx访问-1"><a href="#配置nginx访问-1" class="headerlink" title="配置nginx访问"></a>配置nginx访问</h2><hr><pre><code>vim /etc/fdfs/mod_fastdfs.conf#需要修改的内容如下tracker_server=192.168.52.2:22122  # 服务器1tracker_server=192.168.52.3:22122  # 服务器2tracker_server=192.168.52.4:22122  # 服务器3url_have_group_name=truestore_path0=/home/dfs#配置nginx.configvim /usr/local/nginx/conf/nginx.conf#添加如下配置server {    listen       8888;    ## 该端口为storage.conf中的http.server_port相同    server_name  localhost;    location ~/group[0-9]/ {        ngx_fastdfs_module;    }    error_page   500 502 503 504  /50x.html;    location = /50x.html {    root   html;    }}</code></pre><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><hr><h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><hr><pre><code>#不关闭防火墙的话无法使用systemctl stop firewalld.service #关闭systemctl restart firewalld.service #重启</code></pre><h3 id="tracker"><a href="#tracker" class="headerlink" title="tracker"></a>tracker</h3><hr><pre><code>/etc/init.d/fdfs_trackerd start #启动tracker服务/etc/init.d/fdfs_trackerd restart #重启动tracker服务/etc/init.d/fdfs_trackerd stop #停止tracker服务chkconfig fdfs_trackerd on #自启动tracker服务</code></pre><h3 id="storage"><a href="#storage" class="headerlink" title="storage"></a>storage</h3><hr><pre><code>/etc/init.d/fdfs_storaged start #启动storage服务/etc/init.d/fdfs_storaged restart #重动storage服务/etc/init.d/fdfs_storaged stop #停止动storage服务chkconfig fdfs_storaged on #自启动storage服务</code></pre><h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><hr><pre><code>/usr/local/nginx/sbin/nginx #启动nginx/usr/local/nginx/sbin/nginx -s reload #重启nginx/usr/local/nginx/sbin/nginx -s stop #停止nginx</code></pre><h2 id="检测集群"><a href="#检测集群" class="headerlink" title="检测集群"></a>检测集群</h2><hr><pre><code>/usr/bin/fdfs_monitor /etc/fdfs/storage.conf# 会显示会有几台服务器 有3台就会 显示 Storage 1-Storage 3的详细信息</code></pre><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><hr><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><hr><pre><code>tracker_server #有几台服务器写几个group_name #地址的名称的命名bind_addr #服务器ip绑定store_path_count #store_path(数字)有几个写几个store_path(数字) #设置几个储存地址写几个 从0开始</code></pre><h2 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h2><hr><pre><code>如果不是root 用户 你必须在除了cd的命令之外 全部加sudo如果不是root 用户 编译和安装分开进行 先编译再安装如果上传成功 但是nginx报错404 先检查mod_fastdfs.conf文件中的store_path0是否一致如果nginx无法访问 先检查防火墙 和 mod_fastdfs.conf文件tracker_server是否一致如果不是在/usr/local/src文件夹下安装 可能会编译出错</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="centos7安装fastDFS"><a href="#centos7安装fastDFS" class="headerlink" title="centos7安装fastDFS"></a>centos7安装fastDFS</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><hr><h3 id="使用的系统软件"><a href="#使用的系统软件" class="headerlink" title="使用的系统软件"></a>使用的系统软件</h3><hr><table><thead><tr><th>名称</th><th>说明</th></tr></thead><tbody><tr><td>centos</td><td>7.x</td></tr><tr><td>libfatscommon</td><td>FastDFS分离出的一些公用函数包</td></tr><tr><td>FastDFS</td><td>FastDFS本体</td></tr><tr><td>fastdfs-nginx-module</td><td>FastDFS和nginx的关联模块</td></tr><tr><td>nginx</td><td>nginx1.15.4</td></tr></tbody></table><h3 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h3><hr><pre><code>yum install git gcc gcc-c++ make automake autoconf libtool pcre pcre-devel zlib zlib-devel openssl-devel wget vim -y</code></pre><h3 id="磁盘目录"><a href="#磁盘目录" class="headerlink" title="磁盘目录"></a>磁盘目录</h3><hr><table><thead><tr><th>说明</th><th>位置</th></tr></thead><tbody><tr><td>所有安装包</td><td>/usr/local/src</td></tr><tr><td>数据存储位置</td><td>/home/dfs/</td></tr><tr><td>#这里我为了方便把日志什么的都放到了dfs</td></tr></tbody></table><pre><code>mkdir /home/dfs #创建数据存储目录cd /usr/local/src #切换到安装目录准备下载安装包</code></pre><h3 id="安装libfatscommon"><a href="#安装libfatscommon" class="headerlink" title="安装libfatscommon"></a>安装libfatscommon</h3><hr><pre><code>git clone https://github.com/happyfish100/libfastcommon.git --depth 1cd libfastcommon/./make.sh &amp;&amp; ./make.sh install #编译安装</code></pre><h3 id="安装FastDFS"><a href="#安装FastDFS" class="headerlink" title="安装FastDFS"></a>安装FastDFS</h3><hr><pre><code>cd ../ #返回上一级目录git clone https://github.com/happyfish100/fastdfs.git --depth 1cd fastdfs/./make.sh &amp;&amp; ./make.sh install #编译安装#配置文件准备cp /etc/fdfs/tracker.conf.sample /etc/fdfs/tracker.confcp /etc/fdfs/storage.conf.sample /etc/fdfs/storage.confcp /etc/fdfs/client.conf.sample /etc/fdfs/client.conf #客户端文件，测试用cp /usr/local/src/fastdfs/conf/http.conf /etc/fdfs/ #供nginx访问使用cp /usr/local/src/fastdfs/conf/mime.types /etc/fdfs/ #供nginx访问使用</code></pre><h3 id="安装fastdfs-nginx-module"><a href="#安装fastdfs-nginx-module" class="headerlink" title="安装fastdfs-nginx-module"></a>安装fastdfs-nginx-module</h3><hr><pre><code>cd ../ #返回上一级目录git clone https://github.com/happyfish100/fastdfs-nginx-module.git --depth 1cp /usr/local/src/fastdfs-nginx-module/src/mod_fastdfs.conf /etc/fdfs</code></pre><h3 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h3><hr><pre><code>wget http://nginx.org/download/nginx-1.15.4.tar.gz #下载nginx压缩包tar -zxvf nginx-1.15.4.tar.gz #解压cd nginx-1.15.4/#添加fastdfs-nginx-module模块./configure --add-module=/usr/local/src/fastdfs-nginx-module/src/make &amp;&amp; make install #编译安装</code></pre><h2 id="单机部署"><a href="#单机部署" class="headerlink" title="单机部署"></a>单机部署</h2><hr><h3 id="tracker配置"><a href="#tracker配置" class="headerlink" title="tracker配置"></a>tracker配置</h3><hr><pre><code>#服务器ip为 192.168.52.1#我建议用ftp下载下来这些文件 本地修改vim /etc/fdfs/tracker.conf#需要修改的内容如下port=22122  # tracker服务器端口（默认22122,一般不修改）base_path=/home/dfs  # 存储日志和数据的根目录</code></pre><h3 id="storage配置"><a href="#storage配置" class="headerlink" title="storage配置"></a>storage配置</h3><hr><pre><code>vim /etc/fdfs/storage.conf#需要修改的内容如下port=23000  # storage服务端口（默认23000,一般不修改）base_path=/home/dfs  # 数据和日志文件存储根目录store_path0=/home/dfs  # 第一个存储目录tracker_server=192.168.52.1:22122  # tracker服务器IP和端口http.server_port=8888  # http访问文件的端口(默认8888,看情况修改,和nginx中保持一致)</code></pre><h3 id="client测试"><a href="#client测试" class="headerlink" title="client测试"></a>client测试</h3><hr><pre><code>vim /etc/fdfs/client.conf#需要修改的内容如下base_path=/home/dfstracker_server=192.168.52.1:22122    #tracker服务器IP和端口#保存后测试,返回ID表示成功 如：group1/M00/00/00/xx.tar.gzfdfs_upload_file /etc/fdfs/client.conf /usr/local/src/nginx-1.15.4.tar.gz</code></pre><h3 id="配置nginx访问"><a href="#配置nginx访问" class="headerlink" title="配置nginx访问"></a>配置nginx访问</h3><hr><pre><code>vim /etc/fdfs/mod_fastdfs.conf#需要修改的内容如下tracker_server=192.168.52.1:22122  #tracker服务器IP和端口url_have_group_name=truestore_path0=/home/dfs#配置nginx.configvim /usr/local/nginx/conf/nginx.conf#添加如下配置server {    listen       8888;    ## 该端口为storage.conf中的http.server_port相同    server_name  localhost;    location ~/group[0-9]/ {        ngx_fastdfs_module;    }    error_page   500 502 503 504  /50x.html;    location = /50x.html {    root   html;    }}#测试下载，用外部浏览器访问刚才已传过的nginx安装包,引用返回的IDhttp://192.168.52.1:8888/group1/M00/00/00/wKgAQ1pysxmAaqhAAA76tz-dVgg.tar.gz#弹出下载单机部署全部跑通</code></pre><h2 id="分布式部署"><a href="#分布式部署" class="headerlink" title="分布式部署"></a>分布式部署</h2><hr><h3 id="tracker配置-1"><a href="#tracker配置-1" class="headerlink" title="tracker配置"></a>tracker配置</h3><hr><pre><code>#服务器ip为 192.168.52.2,192.168.52.3,192.168.52.4#我建议用ftp下载下来这些文件 本地修改vim /etc/fdfs/tracker.conf#需要修改的内容如下port=22122  # tracker服务器端口（默认22122,一般不修改）base_path=/home/dfs  # 存储日志和数据的根目录</code></pre><h3 id="storage配置-1"><a href="#storage配置-1" class="headerlink" title="storage配置"></a>storage配置</h3><hr><pre><code>vim /etc/fdfs/storage.conf#需要修改的内容如下port=23000  # storage服务端口（默认23000,一般不修改）base_path=/home/dfs  # 数据和日志文件存储根目录store_path0=/home/dfs  # 第一个存储目录tracker_server=192.168.52.2:22122  # 服务器1tracker_server=192.168.52.3:22122  # 服务器2tracker_server=192.168.52.4:22122  # 服务器3http.server_port=8888  # http访问文件的端口(默认8888,看情况修改,和nginx中保持一致)</code></pre><h3 id="client测试-1"><a href="#client测试-1" class="headerlink" title="client测试"></a>client测试</h3><hr><pre><code>vim /etc/fdfs/client.conf#需要修改的内容如下base_path=/home/moe/dfstracker_server=192.168.52.2:22122  # 服务器1tracker_server=192.168.52.3:22122  # 服务器2tracker_server=192.168.52.4:22122  # 服务器3#保存后测试,返回ID表示成功 如：group1/M00/00/00/xx.tar.gzfdfs_upload_file /etc/fdfs/client.conf /usr/local/src/nginx-1.15.4.tar.gz</code></pre><h2 id="配置nginx访问-1"><a href="#配置nginx访问-1" class="headerlink" title="配置nginx访问"></a>配置nginx访问</h2><hr><pre><code>vim /etc/fdfs/mod_fastdfs.conf#需要修改的内容如下tracker_server=192.168.52.2:22122  # 服务器1tracker_server=192.168.52.3:22122  # 服务器2tracker_server=192.168.52.4:22122  # 服务器3url_have_group_name=truestore_path0=/home/dfs#配置nginx.configvim /usr/local/nginx/conf/nginx.conf#添加如下配置server {    listen       8888;    ## 该端口为storage.conf中的http.server_port相同    server_name  localhost;    location ~/group[0-9]/ {        ngx_fastdfs_module;    }    error_page   500 502 503 504  /50x.html;    location = /50x.html {    root   html;    }}</code></pre><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><hr><h3 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h3><hr><pre><code>#不关闭防火墙的话无法使用systemctl stop firewalld.service #关闭systemctl restart firewalld.service #重启</code></pre><h3 id="tracker"><a href="#tracker" class="headerlink" title="tracker"></a>tracker</h3><hr><pre><code>/etc/init.d/fdfs_trackerd start #启动tracker服务/etc/init.d/fdfs_trackerd restart #重启动tracker服务/etc/init.d/fdfs_trackerd stop #停止tracker服务chkconfig fdfs_trackerd on #自启动tracker服务</code></pre><h3 id="storage"><a href="#storage" class="headerlink" title="storage"></a>storage</h3><hr><pre><code>/etc/init.d/fdfs_storaged start #启动storage服务/etc/init.d/fdfs_storaged restart #重动storage服务/etc/init.d/fdfs_storaged stop #停止动storage服务chkconfig fdfs_storaged on #自启动storage服务</code></pre><h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><hr><pre><code>/usr/local/nginx/sbin/nginx #启动nginx/usr/local/nginx/sbin/nginx -s reload #重启nginx/usr/local/nginx/sbin/nginx -s stop #停止nginx</code></pre><h2 id="检测集群"><a href="#检测集群" class="headerlink" title="检测集群"></a>检测集群</h2><hr><pre><code>/usr/bin/fdfs_monitor /etc/fdfs/storage.conf# 会显示会有几台服务器 有3台就会 显示 Storage 1-Storage 3的详细信息</code></pre><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><hr><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><hr><pre><code>tracker_server #有几台服务器写几个group_name #地址的名称的命名bind_addr #服务器ip绑定store_path_count #store_path(数字)有几个写几个store_path(数字) #设置几个储存地址写几个 从0开始</code></pre><h2 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h2><hr><pre><code>如果不是root 用户 你必须在除了cd的命令之外 全部加sudo如果不是root 用户 编译和安装分开进行 先编译再安装如果上传成功 但是nginx报错404 先检查mod_fastdfs.conf文件中的store_path0是否一致如果nginx无法访问 先检查防火墙 和 mod_fastdfs.conf文件tracker_server是否一致如果不是在/usr/local/src文件夹下安装 可能会编译出错</code></pre>]]></content>
       
       
       <categories>
           
-          <category> linux </category>
+          <category> 安装教程 </category>
           
       </categories>
       
@@ -1044,9 +1100,9 @@
             
             <tag> linux </tag>
             
-            <tag> java </tag>
-            
             <tag> 文件服务器 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -1091,7 +1147,7 @@
       
       <categories>
           
-          <category> linux </category>
+          <category> 安装教程 </category>
           
       </categories>
       
@@ -1269,12 +1325,12 @@
       <link href="/2019/04/12/centos7%E5%AE%89%E8%A3%85solr%E6%9C%8D%E5%8A%A1/"/>
       <url>/2019/04/12/centos7%E5%AE%89%E8%A3%85solr%E6%9C%8D%E5%8A%A1/</url>
       
-        <content type="html"><![CDATA[<h1 id="centos7-下安装solr服务"><a href="#centos7-下安装solr服务" class="headerlink" title="centos7 下安装solr服务"></a>centos7 下安装solr服务</h1><h2 id="1-安装java环境"><a href="#1-安装java环境" class="headerlink" title="1. 安装java环境"></a>1. 安装java环境</h2><hr><ul><li><p>将jdk扔到linux下，解压</p></li><li><p>修改环境变量</p></li></ul><pre><code># 打开配置文件vim /etc/profile # 在文件末尾添加JAVA_HOME=/usr/local/java/jdk1.8.0_201CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jarPATH=$PATH:$JAVA_HOME/binexport JAVA_HOME CLASSPATH PATH#保存并关闭source /etc/profile</code></pre><h2 id="2-安装solr"><a href="#2-安装solr" class="headerlink" title="2. 安装solr"></a>2. 安装solr</h2><hr><ol><li><p>下载solr安装包 [官方网址]:(<a href="http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0" target="_blank" rel="noopener">http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0</a>)</p></li><li><p>扔到linux下，解压</p><a id="more"></a></li><li>cd到目录下\bin</li></ol><pre><code> ./solr start -force #默认启动8983端口</code></pre><blockquote><p>注意 ，这里我并没有修改文件限制，linux会限制传输文件大小<br><img src="https://s2.ax1x.com/2019/04/12/AbujvF.png" alt></p><ol start="4"><li>关闭防火墙<pre><code>systemctl stop firewalld</code></pre></li></ol></blockquote><ol start="5"><li>打开游览器，访问 192.168.xx.xx.8983</li></ol><h2 id="3-solr功能介绍"><a href="#3-solr功能介绍" class="headerlink" title="3.solr功能介绍"></a>3.solr功能介绍</h2><hr><p><img src="https://s2.ax1x.com/2019/04/12/AbajBt.png" alt></p><p><img src="https://s2.ax1x.com/2019/04/12/Abdp4S.png" alt></p><h2 id="4-配置solr"><a href="#4-配置solr" class="headerlink" title="4. 配置solr"></a>4. 配置solr</h2><hr><h3 id="配置core环境"><a href="#配置core环境" class="headerlink" title="配置core环境"></a>配置core环境</h3><hr><ul><li><p>打开solr-admin</p></li><li><p>按照下图操作<br><img src="https://s2.ax1x.com/2019/04/12/AbKrxU.png" alt></p></li><li><p>之后会提示错误，因为找不到config和schema文件</p></li><li>打开linux，在%安装目录%/server/configsets/_default/下的conf文件copy到 %安装目录%/server/%core名称%/ 下</li><li>重新创建core</li><li>看到自己的core文件夹下面出现这几个文件，证明安装成功<br><img src="https://s2.ax1x.com/2019/04/12/AbMCLQ.png" alt></li></ul><h3 id="配置中文分词器"><a href="#配置中文分词器" class="headerlink" title="配置中文分词器"></a>配置中文分词器</h3><hr><blockquote><p>其实solr8.0已经自带了中文分词器<br><img src="https://s2.ax1x.com/2019/04/12/AbMuyF.png" alt></p></blockquote><ul><li><p>但是为了业务要求，我们使用IK分词器</p><p>ik可以去maven仓库去下载</p><p><img src="https://s2.ax1x.com/2019/04/12/AbtyfH.png" alt></p></li><li><p>将三个jar包放到%solr安装包%/server/solr-webapp/webapp/WEB-INF/lib/下</p></li><li><p>将剩余的三个文件放到%solr安装包%/server/solr-webapp/webapp/WEB-INF/classes/下[如果没有，自己新建]</p></li><li><p>配置ik 打开%自己CORE%/conf/managed-schema.xml文件</p></li></ul><pre><code>    &lt;!-- ik分词器 --&gt;        &lt;fieldType name=&quot;text_ik&quot; class=&quot;solr.TextField&quot;&gt;        &lt;!-- 索引分词器 --&gt;        &lt;analyzer type=&quot;index&quot; isMaxWordLength=&quot;false&quot; class=&quot;org.wltea.analyzer.lucene.IKAnalyzer&quot;/&gt;        &lt;!-- 查询分词器 --&gt;        &lt;analyzer type=&quot;query&quot; isMaxWordLength=&quot;true&quot; class=&quot;org.wltea.analyzer.lucene.IKAnalyzer&quot;/&gt;        &lt;/fieldType&gt;</code></pre><ul><li>重启 ./solr restart -force</li></ul><h3 id="配置业务域FileType"><a href="#配置业务域FileType" class="headerlink" title="配置业务域FileType"></a>配置业务域FileType</h3><hr><p>打开%自己CORE%/conf/managed-schema.xml文件</p><pre><code>&lt;field name=&quot;item_title&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;&lt;field name=&quot;item_sell_point&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;&lt;field name=&quot;item_price&quot;  type=&quot;plong&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;&lt;field name=&quot;item_image&quot; type=&quot;string&quot; indexed=&quot;false&quot; stored=&quot;true&quot; /&gt;&lt;field name=&quot;item_category_name&quot; type=&quot;string&quot; indexed=&quot;true&quot; stored=&quot;true&quot; /&gt;&lt;field name=&quot;item_desc&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;false&quot; /&gt;&lt;field name=&quot;item_keywords&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;false&quot; multiValued=&quot;true&quot;/&gt;&lt;copyField source=&quot;item_title&quot; dest=&quot;item_keywords&quot;/&gt;&lt;copyField source=&quot;item_sell_point&quot; dest=&quot;item_keywords&quot;/&gt;</code></pre><p>重启 ./solr restart -forces</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="centos7-下安装solr服务"><a href="#centos7-下安装solr服务" class="headerlink" title="centos7 下安装solr服务"></a>centos7 下安装solr服务</h1><h2 id="1-安装java环境"><a href="#1-安装java环境" class="headerlink" title="1. 安装java环境"></a>1. 安装java环境</h2><hr><ul><li><p>将jdk扔到linux下，解压</p></li><li><p>修改环境变量</p></li></ul><pre><code># 打开配置文件vim /etc/profile# 在文件末尾添加JAVA_HOME=/usr/local/java/jdk1.8.0_201CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jarPATH=$PATH:$JAVA_HOME/binexport JAVA_HOME CLASSPATH PATH#保存并关闭source /etc/profile</code></pre><h2 id="2-安装solr"><a href="#2-安装solr" class="headerlink" title="2. 安装solr"></a>2. 安装solr</h2><hr><ol><li><p>下载solr安装包 [官方网址]:(<a href="http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0" target="_blank" rel="noopener">http://www.apache.org/dyn/closer.lua/lucene/solr/8.0.0</a>)</p></li><li><p>扔到linux下，解压</p><a id="more"></a></li><li>cd到目录下\bin</li></ol><pre><code> ./solr start -force #默认启动8983端口</code></pre><blockquote><p>注意 ，这里我并没有修改文件限制，linux会限制传输文件大小<br><img src="https://s2.ax1x.com/2019/04/12/AbujvF.png" alt></p><ol start="4"><li>关闭防火墙<pre><code>systemctl stop firewalld</code></pre></li></ol></blockquote><ol start="5"><li>打开游览器，访问 192.168.xx.xx.8983</li></ol><h2 id="3-solr功能介绍"><a href="#3-solr功能介绍" class="headerlink" title="3.solr功能介绍"></a>3.solr功能介绍</h2><hr><p><img src="https://s2.ax1x.com/2019/04/12/AbajBt.png" alt></p><p><img src="https://s2.ax1x.com/2019/04/12/Abdp4S.png" alt></p><h2 id="4-配置solr"><a href="#4-配置solr" class="headerlink" title="4. 配置solr"></a>4. 配置solr</h2><hr><h3 id="配置core环境"><a href="#配置core环境" class="headerlink" title="配置core环境"></a>配置core环境</h3><hr><ul><li><p>打开solr-admin</p></li><li><p>按照下图操作<br><img src="https://s2.ax1x.com/2019/04/12/AbKrxU.png" alt></p></li><li><p>之后会提示错误，因为找不到config和schema文件</p></li><li>打开linux，在%安装目录%/server/configsets/_default/下的conf文件copy到 %安装目录%/server/%core名称%/ 下</li><li>重新创建core</li><li>看到自己的core文件夹下面出现这几个文件，证明安装成功<br><img src="https://s2.ax1x.com/2019/04/12/AbMCLQ.png" alt></li></ul><h3 id="配置中文分词器"><a href="#配置中文分词器" class="headerlink" title="配置中文分词器"></a>配置中文分词器</h3><hr><blockquote><p>其实solr8.0已经自带了中文分词器<br><img src="https://s2.ax1x.com/2019/04/12/AbMuyF.png" alt></p></blockquote><ul><li><p>但是为了业务要求，我们使用IK分词器</p><p>ik可以去maven仓库去下载</p><p><img src="https://s2.ax1x.com/2019/04/12/AbtyfH.png" alt></p></li><li><p>将三个jar包放到%solr安装包%/server/solr-webapp/webapp/WEB-INF/lib/下</p></li><li><p>将剩余的三个文件放到%solr安装包%/server/solr-webapp/webapp/WEB-INF/classes/下[如果没有，自己新建]</p></li><li><p>配置ik 打开%自己CORE%/conf/managed-schema.xml文件</p></li></ul><pre><code>    &lt;!-- ik分词器 --&gt;        &lt;fieldType name=&quot;text_ik&quot; class=&quot;solr.TextField&quot;&gt;        &lt;!-- 索引分词器 --&gt;        &lt;analyzer type=&quot;index&quot; isMaxWordLength=&quot;false&quot; class=&quot;org.wltea.analyzer.lucene.IKAnalyzer&quot;/&gt;        &lt;!-- 查询分词器 --&gt;        &lt;analyzer type=&quot;query&quot; isMaxWordLength=&quot;true&quot; class=&quot;org.wltea.analyzer.lucene.IKAnalyzer&quot;/&gt;        &lt;/fieldType&gt;</code></pre><ul><li>重启 ./solr restart -force</li></ul><h3 id="配置业务域FileType"><a href="#配置业务域FileType" class="headerlink" title="配置业务域FileType"></a>配置业务域FileType</h3><hr><p>打开%自己CORE%/conf/managed-schema.xml文件</p><pre><code>&lt;field name=&quot;item_title&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;&lt;field name=&quot;item_sell_point&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;&lt;field name=&quot;item_price&quot;  type=&quot;plong&quot; indexed=&quot;true&quot; stored=&quot;true&quot;/&gt;&lt;field name=&quot;item_image&quot; type=&quot;string&quot; indexed=&quot;false&quot; stored=&quot;true&quot; /&gt;&lt;field name=&quot;item_category_name&quot; type=&quot;string&quot; indexed=&quot;true&quot; stored=&quot;true&quot; /&gt;&lt;field name=&quot;item_desc&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;false&quot; /&gt;&lt;field name=&quot;item_keywords&quot; type=&quot;text_en&quot; indexed=&quot;true&quot; stored=&quot;false&quot; multiValued=&quot;true&quot;/&gt;&lt;copyField source=&quot;item_title&quot; dest=&quot;item_keywords&quot;/&gt;&lt;copyField source=&quot;item_sell_point&quot; dest=&quot;item_keywords&quot;/&gt;</code></pre><p>重启 ./solr restart -forces</p>]]></content>
       
       
       <categories>
           
-          <category> linux </category>
+          <category> 安装教程 </category>
           
       </categories>
       
@@ -1283,9 +1339,9 @@
             
             <tag> linux </tag>
             
-            <tag> 搜索服务 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 搜索服务 </tag>
             
         </tags>
       
@@ -1330,7 +1386,7 @@
       
       <categories>
           
-          <category> linux </category>
+          <category> 安装教程 </category>
           
       </categories>
       
@@ -1357,7 +1413,7 @@
       
       <categories>
           
-          <category> linux </category>
+          <category> 安装教程 </category>
           
       </categories>
       
@@ -1472,9 +1528,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -1567,6 +1623,17 @@
     
     
     <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -1581,17 +1648,6 @@
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
