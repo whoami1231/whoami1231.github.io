@@ -49,9 +49,9 @@
       
         <tags>
             
-            <tag> mysql </tag>
-            
             <tag> java架构 </tag>
+            
+            <tag> mysql </tag>
             
         </tags>
       
@@ -1528,9 +1528,9 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -1623,22 +1623,22 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
