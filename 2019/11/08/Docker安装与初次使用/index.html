@@ -315,12 +315,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/docker/">
-                                <span class="chip bg-color">docker</span>
+                            <a href="/tags/安装教程/">
+                                <span class="chip bg-color">安装教程</span>
                             </a>
                         
-                            <a href="/tags/容器/">
-                                <span class="chip bg-color">容器</span>
+                            <a href="/tags/docker/">
+                                <span class="chip bg-color">docker</span>
                             </a>
                         
                     </div>
@@ -331,8 +331,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/安装教程/" class="post-category">
-                                安装教程
+                            <a href="/categories/linux/" class="post-category">
+                                linux
                             </a>
                         
                     </div>
@@ -353,14 +353,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    253
+                    1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 				
@@ -400,6 +400,54 @@ docker pull nginx #下载nginx
 docker run -d -p 80:80 nginx
 </code></pre>
 <p>访问本机端口 localhost:8080，看到nginx的欢迎界面，安装完成！</p>
+<h2 id="tomcat的使用"><a href="#tomcat的使用" class="headerlink" title="tomcat的使用"></a>tomcat的使用</h2><p>由于我的项目是jar包格式，所以这里的tomcat只是凑字数的，目的只是看一下怎么样下载镜像和启动</p>
+<pre><code class="bash">docker pull tomcat
+# 以my_tomcat的名称启动
+docker run -d -p 8080:8080 --name my_tomcat tomcat
+</code></pre>
+<p>访问本机端口 localhost:8080，看到tomcat的欢迎界面，安装完成！</p>
+<h2 id="mysql的使用"><a href="#mysql的使用" class="headerlink" title="mysql的使用"></a>mysql的使用</h2><p>这里要说一下由于本人用的是mysql5.6的，而最新的mysql是8.x。我的tomcat会出现连接不上的状况，这是因为8.x的连接算法做出了更改。<br>所以为了方便，我的服务器下载的是mysql5.6的</p>
+<pre><code class="bash">
+docker pull  mysql:5.6
+
+# 这里是密码为xxx的root的mysql开启方法
+docker run -d -p 3306:3306 - v ./data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=xxx mysql
+</code></pre>
+<p>下面介绍一下-v 和 -e 的作用，首先你可以想象这些容器启动后都是缓存到一个内存里面{这里只是方便大家理解才说是内存中，大家不要误解}，当你关闭之后或者重启里面的数据都会消失。说的高大上一点就是无所做数据持久化，那个-v这个参数就出来了，他是以’:’分隔，其实只要记住’:’,所有参数:左边的都是值得你的物理主机[也就是宿主机]，而右边的就是你的容器。上面的意思就是将本层目录下面的data文件夹来存mysql数据表，启动完是这样的。</p>
+<p><img src="https://s2.ax1x.com/2019/11/23/MbgQxK.png" alt></p>
+<h2 id="docker常用的命令"><a href="#docker常用的命令" class="headerlink" title="docker常用的命令"></a>docker常用的命令</h2><p>看到这里你可能对镜像[image]和容器[container]有了一定的理解，镜像你可以想象成安装包，而容器就是安装包安装完的软件。如果我没有记错的话，一个安装包是可以安装很多此软件的。<br>同样的容器和镜像也是这样，镜像只能有一个版本的(但是不同版本的可以共存)。而容器就可以启动很多了，只要你的端口不冲突，随便起。</p>
+<p>而且docker也有一个特点就是，每一个容器都是一个冲突域[如果你学了计算机网络，那么冲突域一定不陌生]。这个意思就是说，即使你们容器内部端口一样，只要你们的宿主机端口不一致就好。</p>
+<p>那么，我们下面开始讲解一下docker的常用命令。</p>
+<h3 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h3><pre><code class="bash">docker run xxx:xxx
+
+</code></pre>
+<h3 id="查看所有镜像"><a href="#查看所有镜像" class="headerlink" title="查看所有镜像"></a>查看所有镜像</h3><pre><code class="bash">
+docker image ls
+
+</code></pre>
+<h3 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h3><pre><code class="bash">docker rmi xxx
+</code></pre>
+<h3 id="删除无用镜像"><a href="#删除无用镜像" class="headerlink" title="删除无用镜像"></a>删除无用镜像</h3><blockquote>
+<p>为什么会有这个呢，是因为当你不小心删除了一个有容器且正在运行的镜像的时候，会留下一个名字为<none>的镜像保证当前的容器的正常运行。可是有的时候我们还需要删掉这些来减轻我们的强迫症和空间</none></p>
+</blockquote>
+<pre><code class="bash">
+docker image prune
+
+</code></pre>
+<h3 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h3><pre><code class="bash">docker run -d -p xxx:xxx -e xx  -v xx:xx --name xxx
+</code></pre>
+<h3 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h3><pre><code class="bash">docker stop xxx
+
+</code></pre>
+<h3 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h3><pre><code class="bash">docker rm xxx
+</code></pre>
+<h3 id="查看当前docker进程"><a href="#查看当前docker进程" class="headerlink" title="查看当前docker进程"></a>查看当前docker进程</h3><pre><code class="bash">
+docker ps -a
+</code></pre>
+<h3 id="进入容器内部"><a href="#进入容器内部" class="headerlink" title="进入容器内部"></a>进入容器内部</h3><pre><code class="bash">
+docker exec -it xxx
+
+</code></pre>
 
             </div>
             <hr>
@@ -425,7 +473,7 @@ docker run -d -p 80:80 nginx
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/whoami1231/2019/11/08/Docker安装与初次使用/">https://github.com/whoami1231/2019/11/08/Docker安装与初次使用/</a>
+                    <a href="https://github.com/whoami1231/2019/11/08/docker安装与初次使用/">https://github.com/whoami1231/2019/11/08/docker安装与初次使用/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -463,12 +511,12 @@ docker run -d -p 80:80 nginx
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/docker/">
-                                    <span class="chip bg-color">docker</span>
+                                <a href="/tags/安装教程/">
+                                    <span class="chip bg-color">安装教程</span>
                                 </a>
                             
-                                <a href="/tags/容器/">
-                                    <span class="chip bg-color">容器</span>
+                                <a href="/tags/docker/">
+                                    <span class="chip bg-color">docker</span>
                                 </a>
                             
                         </div>

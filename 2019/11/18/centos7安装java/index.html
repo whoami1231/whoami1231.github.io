@@ -4,17 +4,12 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="mariadb做读写分离, 逝痕">
-    <meta name="description" content="mariadb读写分离上一次文章我在centos7上安装了mariadb并开启了主从复制模式，这一篇打算利用mycat做读写分离
-mycat现在可以相称像是nginx一样的反向代理，他可以不暴露数据库的ip
-环境：
+    <meta name="keywords" content="centos7安装java, 逝痕">
+    <meta name="description" content="java搭建
+由于之前的笔记都是存到了网易云笔记上面，现在都懒得打开那个软件了，现在干脆直接把上面那些有的没的直接搬到这上面来，省时省力。
 
-
-
-IP地址
-作用
-
-">
+好了，正片开始
+首先将我们的jdk包[这里我用的是jdk1.8.0的]上传到服务器上面去，之后一步">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +17,7 @@ IP地址
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>mariadb做读写分离 | 逝痕</title>
+    <title>centos7安装java | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -205,13 +200,13 @@ IP地址
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        mariadb做读写分离
+                        centos7安装java
                     </div>
                 </div>
             </div>
@@ -323,8 +318,20 @@ IP地址
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/mysql优化/">
-                                <span class="chip bg-color">mysql优化</span>
+                            <a href="/tags/springboot/">
+                                <span class="chip bg-color">springboot</span>
+                            </a>
+                        
+                            <a href="/tags/安装教程/">
+                                <span class="chip bg-color">安装教程</span>
+                            </a>
+                        
+                            <a href="/tags/docker/">
+                                <span class="chip bg-color">docker</span>
+                            </a>
+                        
+                            <a href="/tags/web/">
+                                <span class="chip bg-color">web</span>
                             </a>
                         
                     </div>
@@ -335,8 +342,8 @@ IP地址
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/mysql/" class="post-category">
-                                mysql
+                            <a href="/categories/linux/" class="post-category">
+                                linux
                             </a>
                         
                     </div>
@@ -348,7 +355,7 @@ IP地址
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-05-13
+                    2019-11-18
                 </div>
                 
 
@@ -357,7 +364,7 @@ IP地址
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    314
+                    258
                 </div>
                 
 
@@ -380,66 +387,39 @@ IP地址
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="mariadb读写分离"><a href="#mariadb读写分离" class="headerlink" title="mariadb读写分离"></a>mariadb读写分离</h1><p>上一次文章我在centos7上安装了mariadb并开启了主从复制模式，这一篇打算利用mycat做读写分离</p>
-<p>mycat现在可以相称像是nginx一样的反向代理，他可以不暴露数据库的ip</p>
-<p>环境：</p>
-<table>
-<thead>
-<tr>
-<th>IP地址</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>192.168.3.137</td>
-<td>mycat服务器，主数据库</td>
-</tr>
-<tr>
-<td>192.168.3.136</td>
-<td>从数据库</td>
-</tr>
-</tbody>
-</table>
-<h2 id="安装mycat"><a href="#安装mycat" class="headerlink" title="安装mycat"></a>安装mycat</h2><hr>
-<ul>
-<li><p>打开mycat<a href="http://www.mycat.io/" target="_blank" rel="noopener">官网</a>,选择版本下载，我这里是1.6.6</p>
-</li>
-<li><p>将tar包解压到centos下的/usr/local/下</p>
-</li>
-</ul>
-<pre><code>添加环境变量
-vi /etc/profile
-export MYCAT_HOME=/usr/local/mycat
-# 退出
-source /etc/profile #使之生效
-cd /usr/local/mycat/bin
-./mycat start #启动
-./mycat status #查看是否启动
-</code></pre><p><img src="https://s2.ax1x.com/2019/05/13/E4b7VA.png" alt></p>
-<p>一般没什么问题</p>
-<h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><hr>
-<p>首先备份一下两个重要文件，如果弄坏了还可以还原</p>
-<pre><code>cd /usr/local/mycat/conf
-cp ./server.xml ./server.xml.bak
-cp ./schema.xml ./schema.xml.bak
-</code></pre><p>配置用户供远程登陆 <strong>server.xml</strong></p>
-<pre><code>vi /usr/local/conf/server.xml 
-
-</code></pre><p><img src="https://s2.ax1x.com/2019/05/13/E4qP5q.png" alt></p>
-<p>拉到最后，修改里面的用户就行了</p>
-<p>配置需要管理的表 <strong>schema.xml</strong></p>
-<p><img src="https://s2.ax1x.com/2019/05/13/E4LkTA.png" alt></p>
-<h2 id="测试连接"><a href="#测试连接" class="headerlink" title="测试连接"></a>测试连接</h2><hr>
-<p>重启一下mycat,查看一下状态是否运行</p>
-<pre><code>./mycat restart
-./mycat status
-</code></pre><p>打开window上的navicat 选择连接 注意 这里一定是mysql 不然会报错</p>
-<blockquote>
-<p>注意 mycat的默认端口是8066</p>
+                <h1 id="java搭建"><a href="#java搭建" class="headerlink" title="java搭建"></a>java搭建</h1><blockquote>
+<p>由于之前的笔记都是存到了网易云笔记上面，现在都懒得打开那个软件了，现在干脆直接把上面那些有的没的直接搬到这上面来，省时省力。</p>
 </blockquote>
-<p><img src="https://s2.ax1x.com/2019/05/13/E4Llwj.png" alt></p>
-<p>交易成功！</p>
+<p>好了，正片开始</p>
+<p>首先将我们的jdk包[这里我用的是jdk1.8.0的]上传到服务器上面去，之后一步一步敲命令就好了</p>
+<pre><code class="bash">mkdir -p /usr/share/java
+
+mv jar包 /usr/share/java
+
+tar -zxvf jar包
+
+# 修改环境变量
+
+vi /etc/profile
+</code></pre>
+<p>其实关于上面的修改环境变量我更倾向于用xftp,因为他可以直接调用你的物理主机修改服务器上面的文件，I love it….</p>
+<p>在上面的文件的后面加上</p>
+<pre><code class="bash"># java环境变量配置
+JAVA_HOME=/usr/share/java/jar包名称
+CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar
+PATH=$PATH:$JAVA_HOME/bin
+export JAVA_HOME CLASSPATH PATH
+</code></pre>
+<p>保存文件后更新一下配置文件</p>
+<pre><code class="bash">
+source /etc/profile
+
+</code></pre>
+<p>验证java是否安装成功</p>
+<pre><code class="bash">
+java -version
+</code></pre>
+<p>出现java版本后则代表安装成功</p>
 
             </div>
             <hr>
@@ -465,7 +445,7 @@ cp ./schema.xml ./schema.xml.bak
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/whoami1231/2019/05/13/mariadb做读写分离/">https://github.com/whoami1231/2019/05/13/mariadb做读写分离/</a>
+                    <a href="https://github.com/whoami1231/2019/11/18/centos7安装java/">https://github.com/whoami1231/2019/11/18/centos7安装java/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -503,8 +483,20 @@ cp ./schema.xml ./schema.xml.bak
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/mysql优化/">
-                                    <span class="chip bg-color">mysql优化</span>
+                                <a href="/tags/springboot/">
+                                    <span class="chip bg-color">springboot</span>
+                                </a>
+                            
+                                <a href="/tags/安装教程/">
+                                    <span class="chip bg-color">安装教程</span>
+                                </a>
+                            
+                                <a href="/tags/docker/">
+                                    <span class="chip bg-color">docker</span>
+                                </a>
+                            
+                                <a href="/tags/web/">
+                                    <span class="chip bg-color">web</span>
                                 </a>
                             
                         </div>
@@ -546,77 +538,28 @@ cp ./schema.xml ./schema.xml.bak
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/05/13/mysql使用心得/">
+                <a href="/2019/11/21/docker-compose实现前后端分离的自动化部署/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="mysql使用心得">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="docker-compose实现前后端分离的自动化部署">
                         
-                        <span class="card-title">mysql使用心得</span>
+                        <span class="card-title">docker-compose实现前后端分离的自动化部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            mysql使用心得
-对于那种datetime属性的默认值 可以写CURRENT_TIMESTAMP，来填充当前时间。
+                            docker 实现前后端分离的自动化部署时隔一个学年，我再一次租起了阿里云服务器(哎呀真香啊)，其实一开始我也是拒绝的，但是由于我的电脑配置日渐落后，连启动一个虚拟机都要等上半天。我就想说：买！咱不受那个窝囊气。
+具体配置是这样的
 
-
+好了，
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-05-13
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-11-21
                         </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/mysql/" class="post-category">
-                                    mysql
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/mysql/">
-                        <span class="chip bg-color">mysql</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2019/05/12/centos7下安装mariadb配置主从复制/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="centos7 安装mariadb 并配置主从复制">
-                        
-                        <span class="card-title">centos7 安装mariadb 并配置主从复制</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            在高并发下，一个数据库肯定是不得行的，那么主从复制是必要的！
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-12
-                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -632,12 +575,65 @@ cp ./schema.xml ./schema.xml.bak
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/linux/">
-                        <span class="chip bg-color">linux</span>
-                    </a>
-                    
                     <a href="/tags/安装教程/">
                         <span class="chip bg-color">安装教程</span>
+                    </a>
+                    
+                    <a href="/tags/docker/">
+                        <span class="chip bg-color">docker</span>
+                    </a>
+                    
+                    <a href="/tags/docker-compose/">
+                        <span class="chip bg-color">docker-compose</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/11/18/数据库面对高并发的思路/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="数据库面对高并发的思路">
+                        
+                        <span class="card-title">数据库面对高并发的思路</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            数据库面对高并发的思路这篇文章完全是因为做到了文章点击量的功能的时候，数据库的读写速度已经逐渐满足不了我的项目了[因为有很多的数据库操作嘛]。正一筹莫展的时候，在技术网站上面看到了一篇文章名字叫做”Redis 解决高并发思路”的论文引起了我
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/java架构/" class="post-category">
+                                    java架构
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/java架构/">
+                        <span class="chip bg-color">java架构</span>
                     </a>
                     
                     <a href="/tags/mysql/">
