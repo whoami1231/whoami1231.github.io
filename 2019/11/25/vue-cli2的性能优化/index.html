@@ -4,11 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="docker-compose实现前后端分离的自动化部署, 逝痕">
-    <meta name="description" content="docker 实现前后端分离的自动化部署时隔一个学年，我再一次租起了阿里云服务器(哎呀真香啊)，其实一开始我也是拒绝的，但是由于我的电脑配置日渐落后，连启动一个虚拟机都要等上半天。我就想说：买！咱不受那个窝囊气。
-具体配置是这样的
-
-好了，">
+    <meta name="keywords" content="vue-cli2的性能优化, 逝痕">
+    <meta name="description" content="vue-cli2的性能优化前几天终于将自己的项目打包到了服务器上，但是由于本人买的阿里云的学生服务器，所有网速慢点。但是最不能忍的是css加载速度直接到了18s!所以才有了这篇文章
+文件分析我们首先在项目上运行
+ npm run build">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>docker-compose实现前后端分离的自动化部署 | 逝痕</title>
+    <title>vue-cli2的性能优化 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -199,13 +198,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        docker-compose实现前后端分离的自动化部署
+                        vue-cli2的性能优化
                     </div>
                 </div>
             </div>
@@ -317,16 +316,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/安装教程/">
-                                <span class="chip bg-color">安装教程</span>
+                            <a href="/tags/性能优化/">
+                                <span class="chip bg-color">性能优化</span>
                             </a>
                         
-                            <a href="/tags/docker/">
-                                <span class="chip bg-color">docker</span>
-                            </a>
-                        
-                            <a href="/tags/docker-compose/">
-                                <span class="chip bg-color">docker-compose</span>
+                            <a href="/tags/vue/">
+                                <span class="chip bg-color">vue</span>
                             </a>
                         
                     </div>
@@ -337,8 +332,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/linux/" class="post-category">
-                                linux
+                            <a href="/categories/vue/" class="post-category">
+                                vue
                             </a>
                         
                     </div>
@@ -350,7 +345,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-11-21
+                    2019-11-25
                 </div>
                 
 
@@ -359,14 +354,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    4 分
                 </div>
                 
 				
@@ -382,176 +377,99 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="docker-实现前后端分离的自动化部署"><a href="#docker-实现前后端分离的自动化部署" class="headerlink" title="docker 实现前后端分离的自动化部署"></a>docker 实现前后端分离的自动化部署</h1><p>时隔一个学年，我再一次租起了阿里云服务器(哎呀真香啊)，其实一开始我也是拒绝的，但是由于我的电脑配置日渐落后，连启动一个虚拟机都要等上半天。我就想说：买！咱不受那个窝囊气。</p>
-<p>具体配置是这样的</p>
-<p><img src="https://s2.ax1x.com/2019/11/18/McPwsf.png" alt></p>
-<p>好了，废话不多说，这篇文章是搭建web环境的，看过之前的文章都知道，技术选型肯定就是docker + springboot + vue了</p>
-<h2 id="下载环境"><a href="#下载环境" class="headerlink" title="下载环境"></a>下载环境</h2><p>这里我默认大家docker已经装好了，如果没有装好，请参考我之前的文章<br>我们现在需要下载的是docker-compose</p>
-<pre><code class="bash"># 下载和安装
-curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-
-# 赋予权限
-chmod +x /usr/local/bin/docker-compose
-
-# 检查版本
-
-docker-compose -vesion
+                <h1 id="vue-cli2的性能优化"><a href="#vue-cli2的性能优化" class="headerlink" title="vue-cli2的性能优化"></a>vue-cli2的性能优化</h1><p>前几天终于将自己的项目打包到了服务器上，但是由于本人买的阿里云的学生服务器，所有网速慢点。但是最不能忍的是css加载速度直接到了18s!所以才有了这篇文章<br><img src="https://s2.ax1x.com/2019/11/25/Mvw9rF.png" alt></p>
+<h2 id="文件分析"><a href="#文件分析" class="headerlink" title="文件分析"></a>文件分析</h2><p>我们首先在项目上运行</p>
+<pre><code class="bash"> npm run build --report
 </code></pre>
-<h2 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h2><p><img src="https://s2.ax1x.com/2019/11/23/Mbfslq.png" alt></p>
-<p>这是我的项目的所有的工程文件，下面讲解一下这些都是些啥玩意。</p>
-<p>首先介绍一下前后端分别都是我的github项目，地址是 <a href="https://github.com/whoami1231/blog-vue">前端</a>|<a href="https://github.com/whoami1231/blog-java">后端</a>.</p>
-<h2 id="前端准备"><a href="#前端准备" class="headerlink" title="前端准备"></a>前端准备</h2><p>先介绍一下前端文件，也就是web文件夹<br>我们的前端是通过vue打包后部署到nginx，因为要做后端的负载均衡。</p>
-<h3 id="修改源代码"><a href="#修改源代码" class="headerlink" title="修改源代码"></a>修改源代码</h3><p>首先我们需要修改文件，因为我们要部署到docker里面。容器与容器之间会有冲突域产生，localhost是绝对访问不到自己的项目的，所以我们需要将我们请求后端的axios的bashUrl修改一下改成这样-&gt; <a href="http://example.com/server" target="_blank" rel="noopener">http://example.com/server</a></p>
+<p>运行成功后自动打开 <a href="http://127.0.0.1:8888" target="_blank" rel="noopener">http://127.0.0.1:8888</a><br>我们会看到下面的界面<br><img src="https://s2.ax1x.com/2019/11/25/Mv07kj.png" alt></p>
+<h2 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h2><p>由于大部分的游览器已经支持gzip了，所以我的第一步优化就是从gzip入手。</p>
+<p>当我们查看刚才打开的页面并且点击gzip按钮的时候，我们看到数据压缩的大小</p>
+<p><img src="https://s2.ax1x.com/2019/11/25/MvBS74.png" alt></p>
+<p>打开我们的项目，查看我们的config/index.js</p>
+<p>会发现我们里面有productionGzip这个选项，它默认是false的，所以我们需要将这个设置成true,然后执行打包命令。</p>
 <blockquote>
-<p>中间的域名可以换成你的服务器ip地址，后面的server是一个声明，好让nginx反向代理到后端</p>
+<p>注意如果提示你少插件安装即可，因为我的版本是vue-cli2，所以插件版本不能过高，这里我推荐一个插件。</p>
 </blockquote>
-<h3 id="打包项目文件"><a href="#打包项目文件" class="headerlink" title="打包项目文件"></a>打包项目文件</h3><p>然后我们要给我们的前端打包，打开项目根目录然后输入下面的命令</p>
+<pre><code class="bash">npm install compression-webpack-plugin@1.1.12
+</code></pre>
+<p>好的，打包之后发布我们可以看到我们页面加载速度已经稍微便快一些了。<br><img src="https://s2.ax1x.com/2019/11/25/Mvhmbn.png" alt></p>
+<p>由于我是部署在nginx上面的，所以我们需要nginx开启一下gzip选项：</p>
+<pre><code class="text">    gzip on;
+    gzip_min_length 1k;
+    gzip_buffers 4 16k;
+    gzip_http_version 1.0;
+    gzip_comp_level 2;
+    gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php application/vnd.ms-fontobject font/ttf font/opentype font/x-woff image/svg+xml;
+    gzip_vary off;
+    gzip_disable &quot;MSIE [1-6]\.&quot;;
+</code></pre>
+<p>gzip选项可以写在http、server、location下面</p>
+<h2 id="cdn"><a href="#cdn" class="headerlink" title="cdn"></a>cdn</h2><p>一谈到cdn我就头疼，因为我的项目是vue-cli2的，而且说实话哈，我webpack根本就没学。当时认为直接搭框架干就完了呗，现在想想看，当时的自己真是蠢，早晚都得学。</p>
+<p>好了，我当初再往上看了好多相关的教程。哎呀，这里我总结一下吧。</p>
+<p>首先我们要清楚的一点是,vue如果是将你下载的第三方插件,比如说jquery啥的利用cdn优化的时候，一定要只将那些在vue首页加载的插件弄上cdn，其他的插件弄上cdn后，反而会变慢。</p>
+<p>为啥嘞？<br>问的好！我们搞cdn的时候是将那些cdn链接弄到index.html里面引入的，就像这样:</p>
+<pre><code class="html">
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;title&gt;逝痕&lt;/title&gt;
+&lt;/head&gt;
+
+</code></pre>
+<p>如果在首页塞上太多的资源链接的话，就会弄得很慢。</p>
+<blockquote>
+<p>还有一件事~，就是按需引入的插件不要用cdn</p>
+</blockquote>
+<p>由于本人的框架用的iview,所以如果利用cdn的话会产生很多bug。<br>所以我把眼光放到了vue、vue-router、vuex这样的插件。</p>
+<p>所以，我们需要先找到对应自己版本的cdn,这里我推荐几个网站：<a href="https://www.jsdelivr.com/" target="_blank" rel="noopener">jsdelivr</a>、<a href="https://unpkg.com" target="_blank" rel="noopener">unpkg</a></p>
+<p>我对照上面的项目状况找到了我的版本，index.html代码如下:</p>
+<pre><code class="html">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0&quot;&gt;
+    &lt;title&gt;逝痕&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue-router@3.1.3/dist/vue-router.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>vue-cli2需要改一下webpack配置，我们打开/build/webpack.base.conf</p>
+<p>改动如下:</p>
+<pre><code class="javascript">module.exports = {
+    externals: {
+        &#39;vue&#39;: &#39;Vue&#39;,
+        &#39;vue-router&#39;: &#39;VueRouter&#39;,
+        &#39;vuex&#39;: &#39;Vuex&#39;
+    },
+// ...
+}
+
+</code></pre>
+<p>webpack的配置我推荐你看这个网站:<a href="https://webpack.docschina.org/configuration/externals/" target="_blank" rel="noopener">外部拓展</a></p>
+<p>运行我们的打包命令</p>
 <pre><code class="bash">
-npm run build
+npm run build --report
 </code></pre>
-<p>我们会得到一个dist文件夹，也就是我们的前端文件[我还没有搞cdn加速，太卑微了]</p>
-<h3 id="编写nginx配置文件-nginx-conf"><a href="#编写nginx配置文件-nginx-conf" class="headerlink" title="编写nginx配置文件 nginx.conf"></a>编写nginx配置文件 nginx.conf</h3><p>具体文件如下:</p>
-<pre><code class="text">worker_processes  1;
-
-events {
-    worker_connections  1024;
-}
-
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-# 负载均衡  其中 eblog_server_1 和 eblog_server_2 是我们一会启动的后端容器的名字
-    upstream eblogserver{
-        server eblog_server_1:8099 weight=1;
-        server eblog_server_2:8098 weight=2;
-    }
-
-    sendfile        on;
-    keepalive_timeout  65;
-
-    server {
-        listen       80;
-        server_name  localhost;
-
-        location / {
-            root /usr/share/nginx/html;
-            index  index.html;
-        }
-    # 这是我们将要监听的后端路径和上面修改的baseUrl对应
-        location ^~ /server/ {
-            proxy_pass http://eblogserver/;
-        }
-
-    }
-}
-
-</code></pre>
-<h3 id="编写Dockerfile"><a href="#编写Dockerfile" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h3><p>具体文件如下</p>
-<pre><code class="bash">FROM nginx
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY ./dist /usr/share/nginx/html
-EXPOSE 80
-CMD [&quot;nginx&quot;,&quot;-g&quot;,&quot;daemon off;&quot;]
-</code></pre>
-<h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><h3 id="修改源代码-1"><a href="#修改源代码-1" class="headerlink" title="修改源代码"></a>修改源代码</h3><p>因为我这里使用的idea的IDE，所以我直接在这里面打包，但是因为有冲突域的存在，所以我们通过127.0.0.1是访问不到我们的mysql的，所以我们需要修改我们的配置文件，而这里又因为打包的时候需要检查所有的test文件，包括数据库是否可以连接。所以这里就会产生一个很大的冲突，经过度娘得知，我们可以跳过安全检查。</p>
-<p>打开我们的pom.xml，修改里面的properties</p>
-<pre><code class="xml">
-&lt;properties&gt;
-    &lt;java.version&gt;1.8&lt;/java.version&gt;
-    &lt;skipTests&gt;true&lt;/skipTests&gt;&lt;!--添加 --&gt;
-&lt;/properties&gt;
-</code></pre>
-<p>然后我们修改我们的数据库连接路径</p>
-<p>url: jdbc:mysql://docker_mysql:3306/eblog?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai</p>
-<blockquote>
-<p>这里面的docker_mysql是我们一会启动的mysql的服务</p>
-</blockquote>
-<h3 id="打包jar"><a href="#打包jar" class="headerlink" title="打包jar"></a>打包jar</h3><p>具体操作如下<br><img src="https://s2.ax1x.com/2019/11/23/Mboco8.png" alt></p>
-<h3 id="编写Dockerfile-1"><a href="#编写Dockerfile-1" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h3><p>文件代码如下</p>
-<pre><code class="bash"># 继承java 1.8
-FROM java:8
-# 容器的操作者
-MAINTAINER whoami
-# 数据卷
-VOLUME /temp
-# 修改jar包名称
-ADD app-0.0.1-SNAPSHOT.jar eblog-server.jar
-RUN bash -c &#39;touch /eblog-server.jar&#39;
-ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;eblog-server.jar&quot;]
-</code></pre>
-<h3 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h3><pre><code class="bash">docker build -t eblog-server .
-</code></pre>
-<blockquote>
-<p>其实这里不用编成镜像也行，只是为了展示不同的构建方法才这么写</p>
-</blockquote>
-<h2 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h2><p>具体代码如下</p>
-<pre><code class="yml">version: &#39;3&#39;
-services:
-    nginx:
-        restart: always
-        container_name: nginx
-        build:
-            context: ./web
-            dockerfile: ./Dockerfile
-        ports:
-            - 80:80
-        depends_on:
-            - eblog_server_1
-            - eblog_server_2
-        volumes:
-            - ./web/log:/var/log/nginx
-    eblog_server_1:
-        container_name: eblog_server_1
-        image: eblog-server
-        ports:
-            - 8099:8099
-        depends_on:
-            - docker_mysql
-    eblog_server_2:
-        container_name: eblog_server_2
-        image: eblog-server
-        ports:
-            - 8098:8098
-        depends_on:
-            - docker_mysql
-    docker_mysql:
-        container_name: docker_mysql
-        image: mysql:5.6
-        restart: always
-        environment:
-            MYSQL_ROOT_PASSWORD: 123
-            MYSQL_ROOT_HOST: &#39;%&#39;
-        ports:
-            - 3306:3306
-        volumes:
-            - ./mysql/data:/var/lib/mysql
-</code></pre>
-<p>下面讲解一下文件配置</p>
-<ul>
-<li>version -&gt; 没什么好说的 版本而已</li>
-<li>services -&gt; 需要运行的服务</li>
-<li>nginx,eblog_server_1 .. 标识符</li>
-<li>depends_on -&gt; 等里面的服务启动完成后才会启动</li>
-<li>container_name -&gt; 容器名称</li>
-<li><p>image -&gt; 使用docker里面的镜像</p>
-</li>
-<li><p>build</p>
-</li>
-</ul>
-<p>这个是重点</p>
-<p>如果使用Dockerfile创建镜像的话，比如我们的前端，我们需要利用build先构建镜像，然后再创建容器。<br>而那个context就是构建的目录,我们进入web目录下才会后我们的dockerfile，并且在web目录下才会由我们的nginx.conf文件</p>
-<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><p>打包到服务器之后输入下面的命令</p>
-<pre><code class="bash"># 后台运行
-docker-compose up -d
-</code></pre>
-<pre><code class="bash"># 前台运行
-docker-compose up
-</code></pre>
-<p>运行成功后，打开运行中的服务:</p>
-<p><img src="https://s2.ax1x.com/2019/11/23/MbHMRg.png" alt></p>
-<p>发现运行成功</p>
-<h2 id="停止服务"><a href="#停止服务" class="headerlink" title="停止服务"></a>停止服务</h2><pre><code class="bash">dcoker-compose down
-</code></pre>
+<p>经过cdn我们发现我们的项目是这样的</p>
+<p><img src="https://s2.ax1x.com/2019/11/26/QSedxI.png" alt></p>
+<h2 id="图片压缩"><a href="#图片压缩" class="headerlink" title="图片压缩"></a>图片压缩</h2><p>cdn搞完了，但是说实话提升效果不是很好。打开我的控制台发现我的网站图片加载需要10s,所以我又将我的重心转到了图片压缩上面。</p>
+<p>这里推荐两个网站:</p>
+<p><a href="http://www.bejson.com/ui/compress_img/" target="_blank" rel="noopener">http://www.bejson.com/ui/compress_img/</a></p>
+<p><a href="https://tinypng.com/" target="_blank" rel="noopener">https://tinypng.com/</a></p>
+<p>压缩之后替换图片即可</p>
+<h2 id="关闭map资源"><a href="#关闭map资源" class="headerlink" title="关闭map资源"></a>关闭map资源</h2><p>我们打包之后看到我们有很多的map后缀的js,其实这些东西都是可以不要的。</p>
+<p>打开 /config/index.js</p>
+<p>将productionSourceMap设置成false即可</p>
 
             </div>
             <hr>
@@ -577,7 +495,7 @@ docker-compose up
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/whoami1231/2019/11/21/docker-compose实现前后端分离的自动化部署/">https://github.com/whoami1231/2019/11/21/docker-compose实现前后端分离的自动化部署/</a>
+                    <a href="https://github.com/whoami1231/2019/11/25/vue-cli2的性能优化/">https://github.com/whoami1231/2019/11/25/vue-cli2的性能优化/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -615,16 +533,12 @@ docker-compose up
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/安装教程/">
-                                    <span class="chip bg-color">安装教程</span>
+                                <a href="/tags/性能优化/">
+                                    <span class="chip bg-color">性能优化</span>
                                 </a>
                             
-                                <a href="/tags/docker/">
-                                    <span class="chip bg-color">docker</span>
-                                </a>
-                            
-                                <a href="/tags/docker-compose/">
-                                    <span class="chip bg-color">docker-compose</span>
+                                <a href="/tags/vue/">
+                                    <span class="chip bg-color">vue</span>
                                 </a>
                             
                         </div>
@@ -664,7 +578,8 @@ docker-compose up
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2019/11/25/vue-cli2的性能优化/">
                     <div class="card-image">
@@ -684,9 +599,9 @@ docker-compose up
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-11-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -699,6 +614,7 @@ docker-compose up
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -721,28 +637,27 @@ docker-compose up
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/11/18/centos7安装java/">
+                <a href="/2019/11/21/docker-compose实现前后端分离的自动化部署/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="centos7安装java">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="docker-compose实现前后端分离的自动化部署">
                         
-                        <span class="card-title">centos7安装java</span>
+                        <span class="card-title">docker-compose实现前后端分离的自动化部署</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java搭建
-由于之前的笔记都是存到了网易云笔记上面，现在都懒得打开那个软件了，现在干脆直接把上面那些有的没的直接搬到这上面来，省时省力。
+                            docker 实现前后端分离的自动化部署时隔一个学年，我再一次租起了阿里云服务器(哎呀真香啊)，其实一开始我也是拒绝的，但是由于我的电脑配置日渐落后，连启动一个虚拟机都要等上半天。我就想说：买！咱不受那个窝囊气。
+具体配置是这样的
 
-好了，正片开始
-首先将我们的jdk包[这里我用的是jdk1.8.0的]上传到服务器上面去，之后一步
+好了，
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-18
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-21
                             </span>
                         <span class="publish-author">
                             
@@ -759,10 +674,6 @@ docker-compose up
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/springboot/">
-                        <span class="chip bg-color">springboot</span>
-                    </a>
-                    
                     <a href="/tags/安装教程/">
                         <span class="chip bg-color">安装教程</span>
                     </a>
@@ -771,8 +682,8 @@ docker-compose up
                         <span class="chip bg-color">docker</span>
                     </a>
                     
-                    <a href="/tags/web/">
-                        <span class="chip bg-color">web</span>
+                    <a href="/tags/docker-compose/">
+                        <span class="chip bg-color">docker-compose</span>
                     </a>
                     
                 </div>
