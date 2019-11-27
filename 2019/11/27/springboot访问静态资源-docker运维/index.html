@@ -4,17 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="ssm利用ajax上传图片和参数, 逝痕">
-    <meta name="description" content="Ajax选择性上传图片
-技术选型:
-bootstrap-fileinput 渲染上传框
-FormData 用于传递参数
-bootstrap 前端渲染
-
-
-
-技术需求
-用于后台CMS更新商品的时候，需要上传图片和参数。但是为了节省流量，这里的">
+    <meta name="keywords" content="docker运维优化, 逝痕">
+    <meta name="description" content="docker运维优化springboot访问静态资源部署完我的项目之后，在经过一系列的坑之后终于看似正常了。但是，就在我更改完我的头像之后，我的图片突然爆出来了500错误，而且在我的面板上也爆出了这个错误。
+经过测试得知,我的jar包是运行">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +14,7 @@ bootstrap 前端渲染
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>ssm利用ajax上传图片和参数 | 逝痕</title>
+    <title>docker运维优化 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -205,13 +197,13 @@ bootstrap 前端渲染
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        ssm利用ajax上传图片和参数
+                        docker运维优化
                     </div>
                 </div>
             </div>
@@ -323,16 +315,20 @@ bootstrap 前端渲染
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/文件服务器/">
-                                <span class="chip bg-color">文件服务器</span>
+                            <a href="/tags/springboot/">
+                                <span class="chip bg-color">springboot</span>
                             </a>
                         
-                            <a href="/tags/分布式/">
-                                <span class="chip bg-color">分布式</span>
+                            <a href="/tags/docker/">
+                                <span class="chip bg-color">docker</span>
                             </a>
                         
-                            <a href="/tags/nginx反向代理/">
-                                <span class="chip bg-color">nginx反向代理</span>
+                            <a href="/tags/运维/">
+                                <span class="chip bg-color">运维</span>
+                            </a>
+                        
+                            <a href="/tags/nginx/">
+                                <span class="chip bg-color">nginx</span>
                             </a>
                         
                     </div>
@@ -343,8 +339,8 @@ bootstrap 前端渲染
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/j2EE/" class="post-category">
-                                j2EE
+                            <a href="/categories/linux/" class="post-category">
+                                linux
                             </a>
                         
                     </div>
@@ -356,7 +352,7 @@ bootstrap 前端渲染
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-03-31
+                    2019-11-27
                 </div>
                 
 
@@ -365,14 +361,14 @@ bootstrap 前端渲染
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    353
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    1 分
                 </div>
                 
 				
@@ -388,187 +384,14 @@ bootstrap 前端渲染
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Ajax选择性上传图片"><a href="#Ajax选择性上传图片" class="headerlink" title="Ajax选择性上传图片"></a>Ajax选择性上传图片</h1><ul>
-<li>技术选型:</li>
-<li>bootstrap-fileinput 渲染上传框</li>
-<li>FormData 用于传递参数</li>
-<li>bootstrap 前端渲染</li>
-</ul>
-<a id="more"></a>
-<hr>
-<h2 id="技术需求"><a href="#技术需求" class="headerlink" title="技术需求"></a>技术需求</h2><blockquote>
-<p>用于后台CMS更新商品的时候，需要上传图片和参数。但是为了节省流量，这里的图片是选择性上传，也就是说，后台分辨不出来，你到底有没有上传图片。</p>
-<ul>
-<li>功能截图：<br><img src="https://s2.ax1x.com/2019/03/31/Arcftf.png" alt="前端功能截图"></li>
-</ul>
-</blockquote>
-<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><h3 id="前端代码部分"><a href="#前端代码部分" class="headerlink" title="前端代码部分"></a>前端代码部分</h3><pre><code class="html">
-&lt;%--编辑的模态框--%&gt;
-&lt;div class=&quot;modal fade&quot; id=&quot;editContent&quot; tabindex=&quot;-1&quot; role=&quot;dialog&quot; aria-labelledby=&quot;myModalLabel&quot;&gt;
-    &lt;div class=&quot;modal-dialog&quot; role=&quot;document&quot;&gt;
-        &lt;div class=&quot;modal-content&quot;&gt;
-            &lt;div class=&quot;modal-header text-center&quot;&gt;
-                &lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot; aria-label=&quot;Close&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;
-                &lt;h4 class=&quot;modal-title&quot;&gt;商品信息修改&lt;/h4&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;modal-body&quot;&gt;
-                &lt;form class=&quot;form-horizontal&quot; id=&quot;editContentForm&quot;&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;编号&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;id&quot;  id=&quot;contentId_update&quot; disabled=&quot;disabled&quot;/&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;内容标题&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;title&quot; class=&quot;form-control&quot; id=&quot;contentTitle_update&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;子标题&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;subTitle&quot; class=&quot;form-control&quot; id=&quot;contentSubTitle_update&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;标题描述&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;titleDesc&quot; class=&quot;form-control&quot; id=&quot;contentTitleDesc_update&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;链接&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;url&quot; class=&quot;form-control&quot; id=&quot;contentUrl_update&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group hidden&quot; &gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;所属分类&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;categoryId&quot; class=&quot;form-control&quot; id=&quot;contentCategoryId_update&quot; disabled=&quot;disabled&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;图片&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;file&quot; name=&quot;picFile&quot; id=&quot;contentPic_update&quot; /&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;图片2&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;file&quot; name=&quot;pic2File&quot; id=&quot;contentPic2_update&quot;/&gt;
-                        &lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;内容&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;content&quot; class=&quot;form-control&quot; id=&quot;contentContent_update&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/form&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;modal-footer&quot;&gt;
-                &lt;div class=&quot;col-sm-12&quot;&gt;
-                    &lt;button type=&quot;button&quot; class=&quot;btn btn-default col-sm-5&quot; data-dismiss=&quot;modal&quot;&gt;关闭&lt;/button&gt;
-                    &lt;button type=&quot;button&quot; class=&quot;btn btn-primary pull-right col-sm-5&quot; onclick= &quot;emp_update_btn()&quot;&gt;更新&lt;/button&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-//ajax异步上传
-function emp_update_btn () {
-        //没有检验数据是否正确 请注意
-
-        var formdata = new FormData($(&quot;#editContentForm&quot;)[0]);
-        formdata.append(&quot;id&quot;,$(&quot;#contentId_update&quot;).val());
-
-
-        $.ajax({
-          url:&#39;${pageContext.request.contextPath}/content/updateContent.do&#39;,
-            type:&#39;post&#39;,
-            dataType:&#39;json&#39;,
-            contentType: false,
-            processData: false,
-            data:formdata,
-            success:function (result) {
-                if(result.result === &quot;success&quot;){
-                    swal(&quot;成功&quot;,&quot;成功更新数据！&quot;,&quot;success&quot;);
-                    listAll();
-                    $(&quot;#editContent&quot;).modal(&quot;hide&quot;);
-                }
-            }
-
-        });
-&lt;/script&gt;
-
+                <h1 id="docker运维优化"><a href="#docker运维优化" class="headerlink" title="docker运维优化"></a>docker运维优化</h1><h2 id="springboot访问静态资源"><a href="#springboot访问静态资源" class="headerlink" title="springboot访问静态资源"></a>springboot访问静态资源</h2><p>部署完我的项目之后，在经过一系列的坑之后终于看似正常了。<br>但是，就在我更改完我的头像之后，我的图片突然爆出来了500错误，而且在我的面板上也爆出了这个错误。<br><img src="https://s2.ax1x.com/2019/11/27/QC1awj.png" alt></p>
+<p>经过测试得知,我的jar包是运行在 / 目录下的，而且我在写代码的时候，我的静态资源都是存到 ${user.dir}/img 里面。这就导致了我的img目录变成了’//img’。但是就算是这样，我的图片还是可以写入的，所以问题不是出现在这里，经过多方查阅发现，是我的资源映射写错了。<br>我直接写的是static-locations:file:图片上传地址,这个在windows和linux运行都正确，因为你的运行路径又不是，但是在docker上面就不一样了。</p>
+<p>正确写法应该是:</p>
+<pre><code class="yaml">resources:
+    static-locations: file:/${web.upload-path},classpath:/META-INF/resources/,classpath:/resources/, classpath:/static/, classpath:/public/
 </code></pre>
-<ul>
-<li>需要注意的是 这里和通常的ajax不一样,他传输的不是一般的JSON对象,而是FormData对象,他的写法也和平常的写法不一样</li>
-<li><img src="https://s2.ax1x.com/2019/03/31/Arge3D.png" alt="ajax注意点"></li>
-<li>关于那个图片到底有没有上传的功能,前端不需要考虑</li>
-</ul>
-<hr>
-<h3 id="后台代码部分"><a href="#后台代码部分" class="headerlink" title="后台代码部分"></a>后台代码部分</h3><pre><code class="java">
-    @Value(&quot;${FILE_URL}&quot;)
-    private  String FILE_URL;
-
-    /**
-     * function:更新商品
-     * @param tbContent
-     * @param pic
-     * @param pic2
-     * @return
-     */
-    @RequestMapping(value = &quot;/updateContent.do&quot;)
-    @ResponseBody
-    public Map&lt;String,String&gt; updateContent(TbContent tbContent, @RequestParam(value = &quot;picFile&quot;,required = false)MultipartFile pic, @RequestParam(value = &quot;pic2File&quot;,required = false)MultipartFile pic2) throws IOException {
-
-        HashMap&lt;String,String&gt; map = new HashMap&lt;&gt;();
-
-        System.out.println(pic + &quot;:&quot;+FILE_URL);
-
-        String picFileID = new String();
-        String pic2FileID =new String();
-        if(!pic.isEmpty()){
-             picFileID = FastDFSClient.uploadFile(pic.getInputStream(),pic.getOriginalFilename());
-            if(picFileID == null){
-                map.put(&quot;result&quot;,&quot;failed&quot;);
-                return map;
-            }
-            tbContent.setPic(FILE_URL+picFileID);
-            System.out.println(tbContent.getPic());
-        }
-
-        if(!pic2.isEmpty()){
-            pic2FileID = FastDFSClient.uploadFile(pic2.getInputStream(),pic2.getOriginalFilename());
-            if(pic2FileID == null){
-                map.put(&quot;result&quot;,&quot;failed&quot;);
-                return map;
-            }
-            tbContent.setPic2(pic2FileID);
-        }
-
-        try {
-            contentService.updateContent(tbContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-            map.put(&quot;result&quot;,&quot;failed&quot;);
-            return map;
-        }
-        map.put(&quot;result&quot;,&quot;success&quot;);
-        return map;
-    }
-}
-
-</code></pre>
-<blockquote>
-<p>之前我用TbContent实体类去接收前端参数的时候，会加上@RequestBody,但是会报出400/415错误，因为FormData的编码并不是application/json;charset = utf-8 ，需要把这个注解删除。</p>
-</blockquote>
+<p>加一个/就行，翻了一下资料，大概是说加上/表示的是绝对路径。</p>
+<h2 id="nginx刷新网页出现404现象"><a href="#nginx刷新网页出现404现象" class="headerlink" title="nginx刷新网页出现404现象"></a>nginx刷新网页出现404现象</h2><p>之所以出现这个现象，是因为我在匹配路径的时候没有加上这样的代码:<br>  try_files $uri $uri/ /index.html last;<br>上面的代码的意思是  查看本地磁盘文件有没有上面的网页的意思。</p>
 
             </div>
             <hr>
@@ -594,7 +417,7 @@ function emp_update_btn () {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/whoami1231/2019/03/31/ssm利用ajax上传图片和参数/">https://github.com/whoami1231/2019/03/31/ssm利用ajax上传图片和参数/</a>
+                    <a href="https://github.com/whoami1231/2019/11/27/springboot访问静态资源-docker运维/">https://github.com/whoami1231/2019/11/27/springboot访问静态资源-docker运维/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -632,16 +455,20 @@ function emp_update_btn () {
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/文件服务器/">
-                                    <span class="chip bg-color">文件服务器</span>
+                                <a href="/tags/springboot/">
+                                    <span class="chip bg-color">springboot</span>
                                 </a>
                             
-                                <a href="/tags/分布式/">
-                                    <span class="chip bg-color">分布式</span>
+                                <a href="/tags/docker/">
+                                    <span class="chip bg-color">docker</span>
                                 </a>
                             
-                                <a href="/tags/nginx反向代理/">
-                                    <span class="chip bg-color">nginx反向代理</span>
+                                <a href="/tags/运维/">
+                                    <span class="chip bg-color">运维</span>
+                                </a>
+                            
+                                <a href="/tags/nginx/">
+                                    <span class="chip bg-color">nginx</span>
                                 </a>
                             
                         </div>
@@ -681,57 +508,59 @@ function emp_update_btn () {
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/03/31/java多线程通信/">
+                <a href="/2019/11/27/springboot访问静态资源-docker运维/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="java多线程通信">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="docker运维优化">
                         
-                        <span class="card-title">java多线程通信</span>
+                        <span class="card-title">docker运维优化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java 生产者与消费者的模型分析
-技术需求： 当生产者更新一条数据后，会立即通知消费者。
-原理分析图
-
-
-
-
-这种需求可以看成一种消息队列我们可以利用多线程来开启两个队列，一个是生产者，另一个是消费者。
-
-利用synchronized 对
+                            docker运维优化springboot访问静态资源部署完我的项目之后，在经过一系列的坑之后终于看似正常了。但是，就在我更改完我的头像之后，我的图片突然爆出来了500错误，而且在我的面板上也爆出了这个错误。
+经过测试得知,我的jar包是运行
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-03-31
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-27
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category">
-                                    java
+                            <a href="/categories/linux/" class="post-category">
+                                    linux
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java架构/">
-                        <span class="chip bg-color">java架构</span>
+                    <a href="/tags/springboot/">
+                        <span class="chip bg-color">springboot</span>
                     </a>
                     
-                    <a href="/tags/多线程/">
-                        <span class="chip bg-color">多线程</span>
+                    <a href="/tags/docker/">
+                        <span class="chip bg-color">docker</span>
+                    </a>
+                    
+                    <a href="/tags/运维/">
+                        <span class="chip bg-color">运维</span>
+                    </a>
+                    
+                    <a href="/tags/nginx/">
+                        <span class="chip bg-color">nginx</span>
                     </a>
                     
                 </div>
@@ -745,35 +574,33 @@ function emp_update_btn () {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/03/30/java内存模型/">
+                <a href="/2019/11/25/vue-cli2的性能优化/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="java内存模型">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="vue-cli2的性能优化">
                         
-                        <span class="card-title">java内存模型</span>
+                        <span class="card-title">vue-cli2的性能优化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java内存模型(JMM)+这里来复习一下java多线程的三大特性 ： 原子性，可见性，有序性。
-
-什么是原子性
-
-即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。一个很经典的例子就是银行账户转账问题：
+                            vue-cli2的性能优化前几天终于将自己的项目打包到了服务器上，但是由于本人买的阿里云的学生服务器，所有网速慢点。但是最不能忍的是css加载速度直接到了18s!所以才有了这篇文章
+文件分析我们首先在项目上运行
+ npm run build
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-25
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category">
-                                    java
+                            <a href="/categories/vue/" class="post-category">
+                                    vue
                                 </a>
                             
                             
@@ -783,12 +610,12 @@ function emp_update_btn () {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/多线程/">
-                        <span class="chip bg-color">多线程</span>
+                    <a href="/tags/性能优化/">
+                        <span class="chip bg-color">性能优化</span>
                     </a>
                     
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
+                    <a href="/tags/vue/">
+                        <span class="chip bg-color">vue</span>
                     </a>
                     
                 </div>

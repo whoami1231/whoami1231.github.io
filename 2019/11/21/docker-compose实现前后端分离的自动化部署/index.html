@@ -411,7 +411,8 @@ npm run build
 </code></pre>
 <p>我们会得到一个dist文件夹，也就是我们的前端文件[我还没有搞cdn加速，太卑微了]</p>
 <h3 id="编写nginx配置文件-nginx-conf"><a href="#编写nginx配置文件-nginx-conf" class="headerlink" title="编写nginx配置文件 nginx.conf"></a>编写nginx配置文件 nginx.conf</h3><p>具体文件如下:</p>
-<pre><code class="text">worker_processes  1;
+<pre><code class="text">
+worker_processes  1;
 
 events {
     worker_connections  1024;
@@ -420,7 +421,8 @@ events {
 http {
     include       mime.types;
     default_type  application/octet-stream;
-# 负载均衡  其中 eblog_server_1 和 eblog_server_2 是我们一会启动的后端容器的名字
+    client_max_body_size 4m;
+
     upstream eblogserver{
         server eblog_server_1:8099 weight=1;
         server eblog_server_2:8098 weight=2;
@@ -428,16 +430,23 @@ http {
 
     sendfile        on;
     keepalive_timeout  65;
-
+    gzip on;
+    gzip_min_length 1k;
+    gzip_buffers 4 16k;
+    gzip_http_version 1.0;
+    gzip_comp_level 2;
+    gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php application/vnd.ms-fontobject font/ttf font/opentype font/x-woff image/svg+xml;
+    gzip_vary off;
+    gzip_disable &quot;MSIE [1-6]\.&quot;;
     server {
         listen       80;
         server_name  localhost;
-
         location / {
+            try_files $uri $uri/ /index.html last;
             root /usr/share/nginx/html;
             index  index.html;
+
         }
-    # 这是我们将要监听的后端路径和上面修改的baseUrl对应
         location ^~ /server/ {
             proxy_pass http://eblogserver/;
         }
