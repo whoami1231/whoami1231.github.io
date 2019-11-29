@@ -4,17 +4,11 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="ssm利用ajax上传图片和参数, 逝痕">
-    <meta name="description" content="Ajax选择性上传图片
-技术选型:
-bootstrap-fileinput 渲染上传框
-FormData 用于传递参数
-bootstrap 前端渲染
-
-
-
-技术需求
-用于后台CMS更新商品的时候，需要上传图片和参数。但是为了节省流量，这里的">
+    <meta name="keywords" content="springboot2.0集成Quartz, 逝痕">
+    <meta name="description" content="Spring Boot 2.0 集成Quartz这几天制作博客的文章点击量的任务,我们需要定时将redis的缓存存到数据库，所以定时任务调度是绝对少不了的了。
+Quartz先说一下Quartz的核心架构吧
+我们要清楚里面的重点
+Job-&amp;g">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +16,7 @@ bootstrap 前端渲染
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>ssm利用ajax上传图片和参数 | 逝痕</title>
+    <title>springboot2.0集成Quartz | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -205,13 +199,13 @@ bootstrap 前端渲染
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        ssm利用ajax上传图片和参数
+                        springboot2.0集成Quartz
                     </div>
                 </div>
             </div>
@@ -323,16 +317,12 @@ bootstrap 前端渲染
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/文件服务器/">
-                                <span class="chip bg-color">文件服务器</span>
+                            <a href="/tags/springboot/">
+                                <span class="chip bg-color">springboot</span>
                             </a>
                         
-                            <a href="/tags/分布式/">
-                                <span class="chip bg-color">分布式</span>
-                            </a>
-                        
-                            <a href="/tags/nginx反向代理/">
-                                <span class="chip bg-color">nginx反向代理</span>
+                            <a href="/tags/Quartz/">
+                                <span class="chip bg-color">Quartz</span>
                             </a>
                         
                     </div>
@@ -343,8 +333,8 @@ bootstrap 前端渲染
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/j2EE/" class="post-category">
-                                j2EE
+                            <a href="/categories/springboot/" class="post-category">
+                                springboot
                             </a>
                         
                     </div>
@@ -356,7 +346,7 @@ bootstrap 前端渲染
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-03-31
+                    2019-11-29
                 </div>
                 
 
@@ -365,14 +355,14 @@ bootstrap 前端渲染
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    389
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    1 分
                 </div>
                 
 				
@@ -388,187 +378,93 @@ bootstrap 前端渲染
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Ajax选择性上传图片"><a href="#Ajax选择性上传图片" class="headerlink" title="Ajax选择性上传图片"></a>Ajax选择性上传图片</h1><ul>
-<li>技术选型:</li>
-<li>bootstrap-fileinput 渲染上传框</li>
-<li>FormData 用于传递参数</li>
-<li>bootstrap 前端渲染</li>
-</ul>
-<a id="more"></a>
-<hr>
-<h2 id="技术需求"><a href="#技术需求" class="headerlink" title="技术需求"></a>技术需求</h2><blockquote>
-<p>用于后台CMS更新商品的时候，需要上传图片和参数。但是为了节省流量，这里的图片是选择性上传，也就是说，后台分辨不出来，你到底有没有上传图片。</p>
-<ul>
-<li>功能截图：<br><img src="https://s2.ax1x.com/2019/03/31/Arcftf.png" alt="前端功能截图"></li>
-</ul>
-</blockquote>
-<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><h3 id="前端代码部分"><a href="#前端代码部分" class="headerlink" title="前端代码部分"></a>前端代码部分</h3><pre><code class="html">
-&lt;%--编辑的模态框--%&gt;
-&lt;div class=&quot;modal fade&quot; id=&quot;editContent&quot; tabindex=&quot;-1&quot; role=&quot;dialog&quot; aria-labelledby=&quot;myModalLabel&quot;&gt;
-    &lt;div class=&quot;modal-dialog&quot; role=&quot;document&quot;&gt;
-        &lt;div class=&quot;modal-content&quot;&gt;
-            &lt;div class=&quot;modal-header text-center&quot;&gt;
-                &lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;modal&quot; aria-label=&quot;Close&quot;&gt;&lt;span aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/span&gt;&lt;/button&gt;
-                &lt;h4 class=&quot;modal-title&quot;&gt;商品信息修改&lt;/h4&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;modal-body&quot;&gt;
-                &lt;form class=&quot;form-horizontal&quot; id=&quot;editContentForm&quot;&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;编号&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; class=&quot;form-control&quot; name=&quot;id&quot;  id=&quot;contentId_update&quot; disabled=&quot;disabled&quot;/&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;内容标题&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;title&quot; class=&quot;form-control&quot; id=&quot;contentTitle_update&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;子标题&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;subTitle&quot; class=&quot;form-control&quot; id=&quot;contentSubTitle_update&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;标题描述&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;titleDesc&quot; class=&quot;form-control&quot; id=&quot;contentTitleDesc_update&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;链接&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;url&quot; class=&quot;form-control&quot; id=&quot;contentUrl_update&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group hidden&quot; &gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;所属分类&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;categoryId&quot; class=&quot;form-control&quot; id=&quot;contentCategoryId_update&quot; disabled=&quot;disabled&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;图片&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;file&quot; name=&quot;picFile&quot; id=&quot;contentPic_update&quot; /&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;图片2&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;file&quot; name=&quot;pic2File&quot; id=&quot;contentPic2_update&quot;/&gt;
-                        &lt;/div&gt;
-                        &lt;/div&gt;
-                    &lt;div class=&quot;form-group&quot;&gt;
-                        &lt;label class=&quot;col-sm-2 control-label&quot;&gt;内容&lt;/label&gt;
-                        &lt;div class=&quot;col-sm-10&quot;&gt;
-                            &lt;input type=&quot;text&quot; name=&quot;content&quot; class=&quot;form-control&quot; id=&quot;contentContent_update&quot;&gt;
-                        &lt;/div&gt;
-                    &lt;/div&gt;
-                &lt;/form&gt;
-            &lt;/div&gt;
-            &lt;div class=&quot;modal-footer&quot;&gt;
-                &lt;div class=&quot;col-sm-12&quot;&gt;
-                    &lt;button type=&quot;button&quot; class=&quot;btn btn-default col-sm-5&quot; data-dismiss=&quot;modal&quot;&gt;关闭&lt;/button&gt;
-                    &lt;button type=&quot;button&quot; class=&quot;btn btn-primary pull-right col-sm-5&quot; onclick= &quot;emp_update_btn()&quot;&gt;更新&lt;/button&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-//ajax异步上传
-function emp_update_btn () {
-        //没有检验数据是否正确 请注意
-
-        var formdata = new FormData($(&quot;#editContentForm&quot;)[0]);
-        formdata.append(&quot;id&quot;,$(&quot;#contentId_update&quot;).val());
-
-
-        $.ajax({
-          url:&#39;${pageContext.request.contextPath}/content/updateContent.do&#39;,
-            type:&#39;post&#39;,
-            dataType:&#39;json&#39;,
-            contentType: false,
-            processData: false,
-            data:formdata,
-            success:function (result) {
-                if(result.result === &quot;success&quot;){
-                    swal(&quot;成功&quot;,&quot;成功更新数据！&quot;,&quot;success&quot;);
-                    listAll();
-                    $(&quot;#editContent&quot;).modal(&quot;hide&quot;);
-                }
-            }
-
-        });
-&lt;/script&gt;
-
+                <h1 id="Spring-Boot-2-0-集成Quartz"><a href="#Spring-Boot-2-0-集成Quartz" class="headerlink" title="Spring Boot 2.0 集成Quartz"></a>Spring Boot 2.0 集成Quartz</h1><p>这几天制作博客的文章点击量的任务,我们需要定时将redis的缓存存到数据库，所以定时任务调度是绝对少不了的了。</p>
+<h2 id="Quartz"><a href="#Quartz" class="headerlink" title="Quartz"></a>Quartz</h2><p>先说一下Quartz的核心架构吧<br><img src="https://s2.ax1x.com/2019/11/29/QkbOII.png" alt></p>
+<p>我们要清楚里面的重点</p>
+<p>Job-&gt; 我们需要让Quartz做些什么<br>JobDetail -&gt; Quartz完成什么任务，任务名称等详细信息<br>Trigger-&gt; Quartz多久调度一次什么任务</p>
+<h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>导入jar包</p>
+<pre><code class="xml">&lt;!--定时任务--&gt;
+      &lt;dependency&gt;
+          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+          &lt;artifactId&gt;spring-boot-starter-quartz&lt;/artifactId&gt;
+      &lt;/dependency&gt;
 </code></pre>
-<ul>
-<li>需要注意的是 这里和通常的ajax不一样,他传输的不是一般的JSON对象,而是FormData对象,他的写法也和平常的写法不一样</li>
-<li><img src="https://s2.ax1x.com/2019/03/31/Arge3D.png" alt="ajax注意点"></li>
-<li>关于那个图片到底有没有上传的功能,前端不需要考虑</li>
-</ul>
-<hr>
-<h3 id="后台代码部分"><a href="#后台代码部分" class="headerlink" title="后台代码部分"></a>后台代码部分</h3><pre><code class="java">
-    @Value(&quot;${FILE_URL}&quot;)
-    private  String FILE_URL;
+<p>写定时任务</p>
+<blockquote>
+<p>定时任务的关键就是需要继承QuartzJobBean类，然后实现executeInternal方法</p>
+</blockquote>
+<pre><code class="java">
+import lombok.extern.slf4j.Slf4j;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.quartz.QuartzJobBean;
+import run.app.entity.model.BlogStatus;
+import run.app.service.BlogStatusService;
 
-    /**
-     * function:更新商品
-     * @param tbContent
-     * @param pic
-     * @param pic2
-     * @return
-     */
-    @RequestMapping(value = &quot;/updateContent.do&quot;)
-    @ResponseBody
-    public Map&lt;String,String&gt; updateContent(TbContent tbContent, @RequestParam(value = &quot;picFile&quot;,required = false)MultipartFile pic, @RequestParam(value = &quot;pic2File&quot;,required = false)MultipartFile pic2) throws IOException {
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-        HashMap&lt;String,String&gt; map = new HashMap&lt;&gt;();
+/**
+ * Created with IntelliJ IDEA.
+ * User: WHOAMI
+ * Time: 2019 2019/11/29 14:06
+ * Description: 文章点击量定时任务
+ */
+@Slf4j
+public class ClickBlogTask extends QuartzJobBean {
 
-        System.out.println(pic + &quot;:&quot;+FILE_URL);
+    @Autowired
+    BlogStatusService blogStatusService;
 
-        String picFileID = new String();
-        String pic2FileID =new String();
-        if(!pic.isEmpty()){
-             picFileID = FastDFSClient.uploadFile(pic.getInputStream(),pic.getOriginalFilename());
-            if(picFileID == null){
-                map.put(&quot;result&quot;,&quot;failed&quot;);
-                return map;
-            }
-            tbContent.setPic(FILE_URL+picFileID);
-            System.out.println(tbContent.getPic());
-        }
+    private SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-ss hh:mm:ss&quot;);
 
-        if(!pic2.isEmpty()){
-            pic2FileID = FastDFSClient.uploadFile(pic2.getInputStream(),pic2.getOriginalFilename());
-            if(pic2FileID == null){
-                map.put(&quot;result&quot;,&quot;failed&quot;);
-                return map;
-            }
-            tbContent.setPic2(pic2FileID);
-        }
-
-        try {
-            contentService.updateContent(tbContent);
-        } catch (IOException e) {
-            e.printStackTrace();
-            map.put(&quot;result&quot;,&quot;failed&quot;);
-            return map;
-        }
-        map.put(&quot;result&quot;,&quot;success&quot;);
-        return map;
+    @Override
+    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        log.info(&quot;ClickTask收录-------- {}&quot;, sdf.format(new Date()));
+        blogStatusService.transClikedCountFromRedis2DB();
     }
 }
 
 </code></pre>
-<blockquote>
-<p>之前我用TbContent实体类去接收前端参数的时候，会加上@RequestBody,但是会报出400/415错误，因为FormData的编码并不是application/json;charset = utf-8 ，需要把这个注解删除。</p>
-</blockquote>
+<p>写Quartz配置文件</p>
+<pre><code class="java">
+
+import org.quartz.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import run.app.listner.ClickBlogTask;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: WHOAMI
+ * Time: 2019 2019/11/29 14:03
+ * Description: Quartz配置文件
+ */
+@Configuration
+public class QuartzConfig {
+    private static final String CLICK_TASK_IDENTITY = &quot;ClickTaskQuartz&quot;;
+
+    @Bean
+    public JobDetail clickQuartzDetail(){
+        return JobBuilder.newJob(ClickBlogTask.class).withIdentity(CLICK_TASK_IDENTITY).build();
+    }
+
+
+    @Bean
+    public Trigger clickQuartzTrigger(){
+        SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
+                .withIntervalInSeconds(10) //10c/s
+                .repeatForever();  //一直执行
+        return TriggerBuilder.newTrigger().forJob(clickQuartzDetail())
+                .withIdentity(CLICK_TASK_IDENTITY)
+                .withSchedule(scheduleBuilder)
+                .build();
+    }
+
+}
+
+</code></pre>
 
             </div>
             <hr>
@@ -594,7 +490,7 @@ function emp_update_btn () {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/whoami1231/2019/03/31/ssm利用ajax上传图片和参数/">https://github.com/whoami1231/2019/03/31/ssm利用ajax上传图片和参数/</a>
+                    <a href="https://github.com/whoami1231/2019/11/29/springboot2-0集成Quartz/">https://github.com/whoami1231/2019/11/29/springboot2-0集成Quartz/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -632,16 +528,12 @@ function emp_update_btn () {
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/文件服务器/">
-                                    <span class="chip bg-color">文件服务器</span>
+                                <a href="/tags/springboot/">
+                                    <span class="chip bg-color">springboot</span>
                                 </a>
                             
-                                <a href="/tags/分布式/">
-                                    <span class="chip bg-color">分布式</span>
-                                </a>
-                            
-                                <a href="/tags/nginx反向代理/">
-                                    <span class="chip bg-color">nginx反向代理</span>
+                                <a href="/tags/Quartz/">
+                                    <span class="chip bg-color">Quartz</span>
                                 </a>
                             
                         </div>
@@ -681,57 +573,53 @@ function emp_update_btn () {
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/03/31/java多线程通信/">
+                <a href="/2019/11/29/springboot2-0集成Quartz/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="java多线程通信">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="springboot2.0集成Quartz">
                         
-                        <span class="card-title">java多线程通信</span>
+                        <span class="card-title">springboot2.0集成Quartz</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java 生产者与消费者的模型分析
-技术需求： 当生产者更新一条数据后，会立即通知消费者。
-原理分析图
-
-
-
-
-这种需求可以看成一种消息队列我们可以利用多线程来开启两个队列，一个是生产者，另一个是消费者。
-
-利用synchronized 对
+                            Spring Boot 2.0 集成Quartz这几天制作博客的文章点击量的任务,我们需要定时将redis的缓存存到数据库，所以定时任务调度是绝对少不了的了。
+Quartz先说一下Quartz的核心架构吧
+我们要清楚里面的重点
+Job-&g
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-03-31
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category">
-                                    java
+                            <a href="/categories/springboot/" class="post-category">
+                                    springboot
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java架构/">
-                        <span class="chip bg-color">java架构</span>
+                    <a href="/tags/springboot/">
+                        <span class="chip bg-color">springboot</span>
                     </a>
                     
-                    <a href="/tags/多线程/">
-                        <span class="chip bg-color">多线程</span>
+                    <a href="/tags/Quartz/">
+                        <span class="chip bg-color">Quartz</span>
                     </a>
                     
                 </div>
@@ -745,35 +633,33 @@ function emp_update_btn () {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/03/30/java内存模型/">
+                <a href="/2019/11/29/springboot中的redis序列坑/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="java内存模型">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="springboot中的redis序列坑">
                         
-                        <span class="card-title">java内存模型</span>
+                        <span class="card-title">springboot中的redis序列坑</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java内存模型(JMM)+这里来复习一下java多线程的三大特性 ： 原子性，可见性，有序性。
+                            springboot中的redis序列坑当作到博客的点击排行功能的时候，心不甘情不愿的使用起了redis，但是redis存进来的key在我的redisDesktopManage中是这样的
 
-什么是原子性
-
-即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行。一个很经典的例子就是银行账户转账问题：
+我写进去的是一个字符串,这里则是一串Hex.当然，
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-03-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/java/" class="post-category">
-                                    java
+                            <a href="/categories/springboot/" class="post-category">
+                                    springboot
                                 </a>
                             
                             
@@ -783,12 +669,12 @@ function emp_update_btn () {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/多线程/">
-                        <span class="chip bg-color">多线程</span>
+                    <a href="/tags/springboot/">
+                        <span class="chip bg-color">springboot</span>
                     </a>
                     
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">java</span>
+                    <a href="/tags/redis/">
+                        <span class="chip bg-color">redis</span>
                     </a>
                     
                 </div>

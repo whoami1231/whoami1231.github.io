@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>springboot2.0集成Quartz</title>
+      <link href="/2019/11/29/springboot2-0%E9%9B%86%E6%88%90Quartz/"/>
+      <url>/2019/11/29/springboot2-0%E9%9B%86%E6%88%90Quartz/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Spring-Boot-2-0-集成Quartz"><a href="#Spring-Boot-2-0-集成Quartz" class="headerlink" title="Spring Boot 2.0 集成Quartz"></a>Spring Boot 2.0 集成Quartz</h1><p>这几天制作博客的文章点击量的任务,我们需要定时将redis的缓存存到数据库，所以定时任务调度是绝对少不了的了。</p><h2 id="Quartz"><a href="#Quartz" class="headerlink" title="Quartz"></a>Quartz</h2><p>先说一下Quartz的核心架构吧<br><img src="https://s2.ax1x.com/2019/11/29/QkbOII.png" alt></p><p>我们要清楚里面的重点</p><p>Job-&gt; 我们需要让Quartz做些什么<br>JobDetail -&gt; Quartz完成什么任务，任务名称等详细信息<br>Trigger-&gt; Quartz多久调度一次什么任务</p><h2 id="集成"><a href="#集成" class="headerlink" title="集成"></a>集成</h2><p>导入jar包</p><pre><code class="xml">&lt;!--定时任务--&gt;      &lt;dependency&gt;          &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;          &lt;artifactId&gt;spring-boot-starter-quartz&lt;/artifactId&gt;      &lt;/dependency&gt;</code></pre><p>写定时任务</p><blockquote><p>定时任务的关键就是需要继承QuartzJobBean类，然后实现executeInternal方法</p></blockquote><pre><code class="java">import lombok.extern.slf4j.Slf4j;import org.quartz.JobExecutionContext;import org.quartz.JobExecutionException;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.scheduling.quartz.QuartzJobBean;import run.app.entity.model.BlogStatus;import run.app.service.BlogStatusService;import java.text.SimpleDateFormat;import java.util.Date;/** * Created with IntelliJ IDEA. * User: WHOAMI * Time: 2019 2019/11/29 14:06 * Description: 文章点击量定时任务 */@Slf4jpublic class ClickBlogTask extends QuartzJobBean {    @Autowired    BlogStatusService blogStatusService;    private SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-ss hh:mm:ss&quot;);    @Override    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {        log.info(&quot;ClickTask收录-------- {}&quot;, sdf.format(new Date()));        blogStatusService.transClikedCountFromRedis2DB();    }}</code></pre><p>写Quartz配置文件</p><pre><code class="java">import org.quartz.*;import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import run.app.listner.ClickBlogTask;/** * Created with IntelliJ IDEA. * User: WHOAMI * Time: 2019 2019/11/29 14:03 * Description: Quartz配置文件 */@Configurationpublic class QuartzConfig {    private static final String CLICK_TASK_IDENTITY = &quot;ClickTaskQuartz&quot;;    @Bean    public JobDetail clickQuartzDetail(){        return JobBuilder.newJob(ClickBlogTask.class).withIdentity(CLICK_TASK_IDENTITY).build();    }    @Bean    public Trigger clickQuartzTrigger(){        SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()                .withIntervalInSeconds(10) //10c/s                .repeatForever();  //一直执行        return TriggerBuilder.newTrigger().forJob(clickQuartzDetail())                .withIdentity(CLICK_TASK_IDENTITY)                .withSchedule(scheduleBuilder)                .build();    }}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> springboot </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> springboot </tag>
+            
+            <tag> Quartz </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>springboot中的redis序列坑</title>
       <link href="/2019/11/29/springboot%E4%B8%AD%E7%9A%84redis%E5%BA%8F%E5%88%97%E5%9D%91/"/>
       <url>/2019/11/29/springboot%E4%B8%AD%E7%9A%84redis%E5%BA%8F%E5%88%97%E5%9D%91/</url>
@@ -78,9 +105,9 @@
       
         <tags>
             
-            <tag> vue </tag>
-            
             <tag> 性能优化 </tag>
+            
+            <tag> vue </tag>
             
         </tags>
       
@@ -1216,9 +1243,9 @@
       
         <tags>
             
-            <tag> 文件服务器 </tag>
-            
             <tag> 安装教程 </tag>
+            
+            <tag> 文件服务器 </tag>
             
             <tag> java </tag>
             
@@ -1459,9 +1486,9 @@
             
             <tag> 安装教程 </tag>
             
-            <tag> java </tag>
-            
             <tag> linux </tag>
+            
+            <tag> java </tag>
             
             <tag> 搜索服务 </tag>
             
@@ -1652,9 +1679,9 @@
       
         <tags>
             
-            <tag> java </tag>
-            
             <tag> 多线程 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -1758,22 +1785,22 @@
     
     
     <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
-        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
+        <content type="html"><![CDATA[]]></content>
       
     </entry>
     
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
       
     </entry>
     
