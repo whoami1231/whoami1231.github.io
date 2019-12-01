@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>java里面的Set集合坑</title>
+      <link href="/2019/11/29/java%E9%87%8C%E9%9D%A2%E7%9A%84Set%E9%9B%86%E5%90%88%E5%9D%91/"/>
+      <url>/2019/11/29/java%E9%87%8C%E9%9D%A2%E7%9A%84Set%E9%9B%86%E5%90%88%E5%9D%91/</url>
+      
+        <content type="html"><![CDATA[<h1 id="java里面的Set集合坑"><a href="#java里面的Set集合坑" class="headerlink" title="java里面的Set集合坑"></a>java里面的Set集合坑</h1><p>Set的定义已经很清楚了，他的集合里面是不允许有重复变量的。<br>所以,Set更适合集合去重。</p><p>但是在最近我做每日最热文章的时候，出现了一个小bug，就是在redis里面取数据的时候，被继承的父类是不能被写入数据的。</p><p>下面看我的例子</p><pre><code class="java">@Data@AllArgsConstructor@NoArgsConstructor@ToStringpublic final class PopularBlog extend BlogStatus{    String blogName;}@Data@AllArgsConstructor@NoArgsConstructor@ToStringpublic class BlogStatus {    private Long id;    private Integer clickcount;}</code></pre><p>redis这样是取不出来id和clickcount的，但是我的blogName故意设置的有一样的数据，所以就会直接被去重。</p><p>所以，必须放弃继承，改写成这样</p><pre><code class="java">@Data@AllArgsConstructor@NoArgsConstructor@ToStringpublic final class PopularBlog {    String blogName;    private Long id;    private Integer clickcount;}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> Set </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>springboot2.0集成Quartz</title>
       <link href="/2019/11/29/springboot2-0%E9%9B%86%E6%88%90Quartz/"/>
       <url>/2019/11/29/springboot2-0%E9%9B%86%E6%88%90Quartz/</url>
@@ -1260,12 +1287,12 @@
       <link href="/2019/05/03/java%E9%9B%86%E5%90%88%E8%AF%A6%E8%A7%A3/"/>
       <url>/2019/05/03/java%E9%9B%86%E5%90%88%E8%AF%A6%E8%A7%A3/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>这里我们分析Collection和Map<br><a href="https://img-blog.csdn.net/20160124221843905" target="_blank" rel="noopener">大图查看详情</a></p></blockquote><h1 id="javaCollection的分析"><a href="#javaCollection的分析" class="headerlink" title="javaCollection的分析"></a>javaCollection的分析</h1><p>Collection是在java.util里面</p><p><img src="https://s2.ax1x.com/2019/04/02/AywLb6.png" alt="Java队列"></p><blockquote><p>集合里面是一定是存放对象的，不能存放基本数据类型，像是int,也是先转换成Integer然后在放在集合中。</p></blockquote><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><a id="more"></a><ul><li>List是一个接口，而下面有ArrayList和LinkList两个实现类，关于Array和Linkd的区别，详见数据结构。</li><li>List是有顺序的！</li><li>Vector(同步) 非常类似ArrayList，但是Vector是同步的 </li></ul><h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ul><li>Set也是一个接口，下面有HashSet和TreeSet两个实现类</li><li>HashSet: HashSet类按照哈希算法来存取集合中的对象，存取速度比较快。 里面的对象可能会被打乱，但是效率更高。</li><li>TreeSet: TreeSet类实现了SortedSet接口，能够对集合中的对象进行排序。 保证对象的有序性</li><li>Set里面没有重复数据  这样可以去重<br>| 重要方法    | 作用                                                         |<br>| ———– | ———————————————————— |<br>| iterator( ) | 主要用于递归集合，返回一个Iterator()对象，利用Iterator()去接收 |<blockquote><p>《后期添加》注意：这个Iterator是Collection下面的 。</p></blockquote></li></ul><h2 id="Deque-amp-amp-Queue"><a href="#Deque-amp-amp-Queue" class="headerlink" title="Deque &amp;&amp; Queue"></a>Deque &amp;&amp; Queue</h2><ul><li>其实Deque是Queue的一个接口，是父子关系</li><li><p>注意他的子接口Deque下面有两个实现类ArrayDeque…</p><p>  <img src="https://s2.ax1x.com/2019/04/28/EQg5N9.png" alt></p></li></ul><ul><li><p>Queue是一个普通队列，详情见数据结构</p></li><li><p>Deque是Queue的子接口，他是一个双端队列，可以支持FIFO(First Input First Output)和LIFO原则。</p></li></ul><h3 id="队列基础"><a href="#队列基础" class="headerlink" title="队列基础"></a>队列基础</h3><ul><li>BlockingQueue阻塞队列:当添加队列的时候，可以去设置等待时间。即当队列满的时候，可以等待，超过等待时间返回false。取队列的时候也可以等待。</li><li>ConcurrentLinkedQueue非阻塞队列，添加和取队列的时候不去等待。</li><li>队列原则</li><li><ul><li>先进先出（FIFO）：先插入的队列的元素也最先出队列，类似于排队的功能。从某种程度上来说这种队列也体现了一种公平性。</li></ul></li><li><ul><li>后进先出（LIFO）：后插入队列的元素最先出队列，这种队列优先处理最近发生的事件。　　<blockquote><p>Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的</p></blockquote></li></ul></li></ul><hr><h3 id="非阻塞队列"><a href="#非阻塞队列" class="headerlink" title="非阻塞队列"></a>非阻塞队列</h3><h4 id="ConcurrentLinkedQueue"><a href="#ConcurrentLinkedQueue" class="headerlink" title="ConcurrentLinkedQueue()"></a>ConcurrentLinkedQueue<e>()</e></h4><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer</td><td style="text-align:left">将Object添加到队列的尾部</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><h3 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h3><h4 id="BlockingQueue-Size"><a href="#BlockingQueue-Size" class="headerlink" title="BlockingQueue(Size)"></a>BlockingQueue<e>(Size)</e></h4><p><img src="https://s2.ax1x.com/2019/04/08/A4Oysx.png" alt="常用队列"></p><ul><li><p>ArrayBlockingQueue 数组型队列，必须要指定size</p></li><li><p>linkedBlockingQueue  链表型无界队列，可以指定size</p></li></ul><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer()</td><td style="text-align:left">将Object添加到队列的尾部&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">offer(Object,time,timeUtil)</td><td style="text-align:left">将Object添加到队列的尾部&lt;阻塞式&gt;,设定队满的时候等待时间</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">poll(Object,time,timeUtil)</td><td style="text-align:left">队列头取Object并且将其在队列中删除&lt;阻塞式&gt;,设定队空的时候等待时间</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><blockquote><p>这里要注意： add()方法和offer方法的区别，add方法在队列满的情况下会抛出一个异常。而offer并不会。|</p></blockquote><h1 id="Map分析"><a href="#Map分析" class="headerlink" title="Map分析"></a>Map分析</h1>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>这里我们分析Collection和Map<br><a href="https://img-blog.csdn.net/20160124221843905" target="_blank" rel="noopener">大图查看详情</a></p></blockquote><h1 id="javaCollection的分析"><a href="#javaCollection的分析" class="headerlink" title="javaCollection的分析"></a>javaCollection的分析</h1><p>Collection是在java.util里面</p><p><img src="https://s2.ax1x.com/2019/04/02/AywLb6.png" alt="Java队列"></p><blockquote><p>集合里面是一定是存放对象的，不能存放基本数据类型，像是int,也是先转换成Integer然后在放在集合中。</p></blockquote><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><a id="more"></a><ul><li>List是一个接口，而下面有ArrayList和LinkList两个实现类，关于Array和Linkd的区别，详见数据结构。</li><li>List是有顺序的！</li><li>Vector(同步) 非常类似ArrayList，但是Vector是同步的</li></ul><h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ul><li>Set也是一个接口，下面有HashSet和TreeSet两个实现类</li><li>HashSet: HashSet类按照哈希算法来存取集合中的对象，存取速度比较快。 里面的对象可能会被打乱，但是效率更高。</li><li>TreeSet: TreeSet类实现了SortedSet接口，能够对集合中的对象进行排序。 保证对象的有序性</li><li>Set里面没有重复数据  这样可以去重<br>| 重要方法    | 作用                                                         |<br>| ———– | ———————————————————— |<br>| iterator( ) | 主要用于递归集合，返回一个Iterator()对象，利用Iterator()去接收 |<blockquote><p>《后期添加》注意：这个Iterator是Collection下面的 。</p></blockquote></li></ul><h2 id="Deque-amp-amp-Queue"><a href="#Deque-amp-amp-Queue" class="headerlink" title="Deque &amp;&amp; Queue"></a>Deque &amp;&amp; Queue</h2><ul><li>其实Deque是Queue的一个接口，是父子关系</li><li><p>注意他的子接口Deque下面有两个实现类ArrayDeque…</p><p>  <img src="https://s2.ax1x.com/2019/04/28/EQg5N9.png" alt></p></li></ul><ul><li><p>Queue是一个普通队列，详情见数据结构</p></li><li><p>Deque是Queue的子接口，他是一个双端队列，可以支持FIFO(First Input First Output)和LIFO原则。</p></li></ul><h3 id="队列基础"><a href="#队列基础" class="headerlink" title="队列基础"></a>队列基础</h3><ul><li>BlockingQueue阻塞队列:当添加队列的时候，可以去设置等待时间。即当队列满的时候，可以等待，超过等待时间返回false。取队列的时候也可以等待。</li><li>ConcurrentLinkedQueue非阻塞队列，添加和取队列的时候不去等待。</li><li>队列原则</li><li><ul><li>先进先出（FIFO）：先插入的队列的元素也最先出队列，类似于排队的功能。从某种程度上来说这种队列也体现了一种公平性。</li></ul></li><li><ul><li>后进先出（LIFO）：后插入队列的元素最先出队列，这种队列优先处理最近发生的事件。　　<blockquote><p>Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的</p></blockquote></li></ul></li></ul><hr><h3 id="非阻塞队列"><a href="#非阻塞队列" class="headerlink" title="非阻塞队列"></a>非阻塞队列</h3><h4 id="ConcurrentLinkedQueue"><a href="#ConcurrentLinkedQueue" class="headerlink" title="ConcurrentLinkedQueue()"></a>ConcurrentLinkedQueue<e>()</e></h4><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer</td><td style="text-align:left">将Object添加到队列的尾部</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><h3 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h3><h4 id="BlockingQueue-Size"><a href="#BlockingQueue-Size" class="headerlink" title="BlockingQueue(Size)"></a>BlockingQueue<e>(Size)</e></h4><p><img src="https://s2.ax1x.com/2019/04/08/A4Oysx.png" alt="常用队列"></p><ul><li><p>ArrayBlockingQueue 数组型队列，必须要指定size</p></li><li><p>linkedBlockingQueue  链表型无界队列，可以指定size</p></li></ul><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer()</td><td style="text-align:left">将Object添加到队列的尾部&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">offer(Object,time,timeUtil)</td><td style="text-align:left">将Object添加到队列的尾部&lt;阻塞式&gt;,设定队满的时候等待时间</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">poll(Object,time,timeUtil)</td><td style="text-align:left">队列头取Object并且将其在队列中删除&lt;阻塞式&gt;,设定队空的时候等待时间</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><blockquote><p>这里要注意： add()方法和offer方法的区别，add方法在队列满的情况下会抛出一个异常。而offer并不会。|</p></blockquote><h1 id="Map分析"><a href="#Map分析" class="headerlink" title="Map分析"></a>Map分析</h1>]]></content>
       
       
       <categories>
           
-          <category> javaSE </category>
+          <category> java </category>
           
       </categories>
       
@@ -1287,7 +1314,7 @@
       <link href="/2019/04/30/centos7%E5%AE%89%E8%A3%85redis/"/>
       <url>/2019/04/30/centos7%E5%AE%89%E8%A3%85redis/</url>
       
-        <content type="html"><![CDATA[<h1 id="centos7安装redis"><a href="#centos7安装redis" class="headerlink" title="centos7安装redis"></a>centos7安装redis</h1><p>我的安装包版本是redis5.6</p><a id="more"></a><h2 id="准备安装"><a href="#准备安装" class="headerlink" title="准备安装"></a>准备安装</h2><hr><p>安装redis需要gcc环境</p><pre><code>yum install gcc</code></pre><p>准备redis5.6的tar包，我这里离线下载的</p><pre><code># 这里我解压到了桌面 /root/桌面tar -zxvf redis...   #解压</code></pre><h2 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h2><hr><pre><code>make MALLOC=libcmake install  # 这里会将启动程序安装到 /usr/local/bin下面cd /usr/local/bin./redis-server #测试运行</code></pre><p>如果出现下面的图片则证明启动成功。<img src="https://s2.ax1x.com/2019/04/30/E8A5h6.png" alt></p><h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><hr><p>在/path/下 我这里则是/root/桌面/redis5.6/redis.conf修改下面的变量</p><pre><code>vi redis.conf#下面是修改项daemonize yesrequirepass 123  #这个是密码 可以自定义#注释下列选项 这样就可以远程连接bind 127.0.0.1</code></pre><p>移动redis.conf到/usr/local/bin下</p><pre><code>cp redis.conf /usr/local/bin</code></pre><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><pre><code>cd /usr/local/bin./redis-server redis.conf &amp;</code></pre><p>利用本地电脑的redis可视化工具测试连接</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="centos7安装redis"><a href="#centos7安装redis" class="headerlink" title="centos7安装redis"></a>centos7安装redis</h1><p>我的安装包版本是redis5.6</p><a id="more"></a><h2 id="准备安装"><a href="#准备安装" class="headerlink" title="准备安装"></a>准备安装</h2><hr><p>安装redis需要gcc环境</p><pre><code>yum install gcc</code></pre><p>准备redis5.6的tar包，我这里离线下载的</p><pre><code># 这里我解压到了桌面 /root/桌面tar -zxvf redis...   #解压</code></pre><h2 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h2><hr><pre><code>make MALLOC=libcmake install  # 这里会将启动程序安装到 /usr/local/bin下面cd /usr/local/bin./redis-server #测试运行</code></pre><p>如果出现下面的图片则证明启动成功。<img src="https://s2.ax1x.com/2019/04/30/E8A5h6.png" alt></p><h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><hr><p>在/path/下 我这里则是/root/桌面/redis5.6/redis.conf修改下面的变量</p><pre><code>vi redis.conf#下面是修改项 yes的意思就是可以守护态运行 no则是必须前台运行daemonize yesrequirepass 123  #这个是密码 可以自定义#注释下列选项 这样就可以远程连接bind 127.0.0.1</code></pre><p>移动redis.conf到/usr/local/bin下</p><pre><code>cp redis.conf /usr/local/bin</code></pre><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><pre><code>cd /usr/local/bin./redis-server redis.conf &amp;</code></pre><p>利用本地电脑的redis可视化工具测试连接</p>]]></content>
       
       
       <categories>
@@ -1774,6 +1801,17 @@
     
     
     <entry>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
@@ -1790,17 +1828,6 @@
       <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
       
     </entry>
     
