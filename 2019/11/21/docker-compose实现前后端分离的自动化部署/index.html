@@ -359,7 +359,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.4k
                 </div>
                 
 
@@ -516,6 +516,9 @@ services:
             - 8099:8099
         depends_on:
             - docker_mysql
+            - docker_redis
+        volumes:
+          - ./server/img:/img
     eblog_server_2:
         container_name: eblog_server_2
         image: eblog-server
@@ -523,6 +526,9 @@ services:
             - 8098:8098
         depends_on:
             - docker_mysql
+            - docker_redis
+        volumes:
+          - ./server/img:/img
     docker_mysql:
         container_name: docker_mysql
         image: mysql:5.6
@@ -534,6 +540,16 @@ services:
             - 3306:3306
         volumes:
             - ./mysql/data:/var/lib/mysql
+    docker_redis:
+      container_name: docker_redis
+      image: redis
+      restart: always
+      command: redis-server /usr/local/etc/redis/redis.conf
+      ports:
+        - 6379:6379
+      volumes:
+        - ./redis/data:/data
+        - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
 </code></pre>
 <p>下面讲解一下文件配置</p>
 <ul>
@@ -711,12 +727,12 @@ docker-compose up
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/性能优化/">
-                        <span class="chip bg-color">性能优化</span>
-                    </a>
-                    
                     <a href="/tags/vue/">
                         <span class="chip bg-color">vue</span>
+                    </a>
+                    
+                    <a href="/tags/性能优化/">
+                        <span class="chip bg-color">性能优化</span>
                     </a>
                     
                 </div>

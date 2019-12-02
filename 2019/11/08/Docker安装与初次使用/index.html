@@ -353,14 +353,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    4 分
                 </div>
                 
 				
@@ -415,6 +415,11 @@ docker run -d -p 3306:3306 - v ./data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=xxx 
 </code></pre>
 <p>下面介绍一下-v 和 -e 的作用，首先你可以想象这些容器启动后都是缓存到一个内存里面{这里只是方便大家理解才说是内存中，大家不要误解}，当你关闭之后或者重启里面的数据都会消失。说的高大上一点就是无所做数据持久化，那个-v这个参数就出来了，他是以’:’分隔，其实只要记住’:’,所有参数:左边的都是值得你的物理主机[也就是宿主机]，而右边的就是你的容器。上面的意思就是将本层目录下面的data文件夹来存mysql数据表，启动完是这样的。</p>
 <p><img src="https://s2.ax1x.com/2019/11/23/MbgQxK.png" alt></p>
+<h2 id="redis的使用"><a href="#redis的使用" class="headerlink" title="redis的使用"></a>redis的使用</h2><p>当你的访问量上去的时候，缓存也是必须要上的，不然给数据库的压力是相当的大。</p>
+<pre><code class="bash">docker pull redis
+</code></pre>
+<p>这里需要说一下,docker的容器运行必须是要有一个前台程序的，不能所有的进程都是守护态。<br>因为我没有搞懂这个，所以一开始我的redis是一直起来就停止了。</p>
+<p>如果对于redis不太了解的话可以看一下这里<a href="https://whoami1231.github.io/2019/04/30/centos7%E5%AE%89%E8%A3%85redis/" target="_blank" rel="noopener">centos下安装redis</a></p>
 <h2 id="docker常用的命令"><a href="#docker常用的命令" class="headerlink" title="docker常用的命令"></a>docker常用的命令</h2><p>看到这里你可能对镜像[image]和容器[container]有了一定的理解，镜像你可以想象成安装包，而容器就是安装包安装完的软件。如果我没有记错的话，一个安装包是可以安装很多此软件的。<br>同样的容器和镜像也是这样，镜像只能有一个版本的(但是不同版本的可以共存)。而容器就可以启动很多了，只要你的端口不冲突，随便起。</p>
 <p>而且docker也有一个特点就是，每一个容器都是一个冲突域[如果你学了计算机网络，那么冲突域一定不陌生]。这个意思就是说，即使你们容器内部端口一样，只要你们的宿主机端口不一致就好。</p>
 <p>那么，我们下面开始讲解一下docker的常用命令。</p>
