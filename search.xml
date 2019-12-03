@@ -62,7 +62,7 @@
       <link href="/2019/11/29/springboot%E4%B8%AD%E7%9A%84redis%E5%BA%8F%E5%88%97%E5%9D%91/"/>
       <url>/2019/11/29/springboot%E4%B8%AD%E7%9A%84redis%E5%BA%8F%E5%88%97%E5%9D%91/</url>
       
-        <content type="html"><![CDATA[<h1 id="springboot中的redis序列坑"><a href="#springboot中的redis序列坑" class="headerlink" title="springboot中的redis序列坑"></a>springboot中的redis序列坑</h1><p>当作到博客的点击排行功能的时候，心不甘情不愿的使用起了redis，但是redis存进来的key在我的redisDesktopManage中是这样的</p><p><img src="https://s2.ax1x.com/2019/11/29/QktA6s.png" alt></p><p>我写进去的是一个字符串,这里则是一串Hex.当然，我并不是这样不行，只是这样太不直观了。</p><p>经过排查得知，如果你的redis相关jar包导入的是这个话，就会产生上面的状况</p><pre><code class="xml">&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;&lt;/dependency&gt;</code></pre><p>这是因为上面的jar默认导入的jdk的序列化机制.</p><p>想要解决上面的问题有两个解决办法：<br>一个就是在我们对redis操作前，现将我们的对象用json序列化，但是这样我们的代码会变得特别臃肿，不符合代码整洁之道。<br>第二个就是写一个配置文件，将redis默认序列化机制换成我们的Jackson序列化</p><p>其具体代码如下：</p><pre><code class="java">import com.fasterxml.jackson.annotation.JsonAutoDetect;import com.fasterxml.jackson.annotation.PropertyAccessor;import com.fasterxml.jackson.databind.ObjectMapper;import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import org.springframework.data.redis.connection.RedisConnectionFactory;import org.springframework.data.redis.core.RedisTemplate;import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;/** * Created with IntelliJ IDEA. * User: WHOAMI * Time: 2019 2019/11/29 10:46 * Description:redis序列化配置 */@Configurationpublic class RedisConfig {    @Bean    @ConditionalOnMissingBean(name = &quot;redisTemplate&quot;)    public RedisTemplate&lt;String,Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory){        Jackson2JsonRedisSerializer&lt;Object&gt; jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer&lt;Object&gt;(Object.class);        ObjectMapper om = new ObjectMapper();        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);        jackson2JsonRedisSerializer.setObjectMapper(om);        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;String, Object&gt;();        template.setConnectionFactory(redisConnectionFactory);        template.setKeySerializer(jackson2JsonRedisSerializer);        template.setValueSerializer(jackson2JsonRedisSerializer);        template.setHashKeySerializer(jackson2JsonRedisSerializer);        template.setHashValueSerializer(jackson2JsonRedisSerializer);        template.afterPropertiesSet();        return template;    }}</code></pre><p>这样我们的数据就会变成这样的啦:</p><p><img src="https://s2.ax1x.com/2019/11/29/QkULpF.png" alt></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="springboot中的redis序列坑"><a href="#springboot中的redis序列坑" class="headerlink" title="springboot中的redis序列坑"></a>springboot中的redis序列坑</h1><p>当作到博客的点击排行功能的时候，心不甘情不愿的使用起了redis，但是redis存进来的key在我的redisDesktopManage中是这样的</p><p><img src="https://s2.ax1x.com/2019/11/29/QktA6s.png" alt></p><p>我写进去的是一个字符串,这里则是一串Hex.当然，我并不是这样不行，只是这样太不直观了。</p><p>经过排查得知，如果你的redis相关jar包导入的是这个话，就会产生上面的状况</p><pre><code class="xml">&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;&lt;/dependency&gt;</code></pre><p>这是因为上面的jar默认导入的jdk的序列化机制.</p><p>想要解决上面的问题有两个解决办法：<br>一个就是在我们对redis操作前，现将我们的对象用json序列化，但是这样我们的代码会变得特别臃肿，不符合代码整洁之道。<br>第二个就是写一个配置文件，将redis默认序列化机制换成我们的Jackson序列化</p><p>所以我们需要自定义一个序列化工具，比如说阿里的Fastjson什么的，但是之前开始做的时候好多博客都是下面的这种写法</p><blockquote><p>观前提示，下面的代码是错误的！</p></blockquote><pre><code class="java">import com.fasterxml.jackson.annotation.JsonAutoDetect;import com.fasterxml.jackson.annotation.PropertyAccessor;import com.fasterxml.jackson.databind.ObjectMapper;import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import org.springframework.data.redis.connection.RedisConnectionFactory;import org.springframework.data.redis.core.RedisTemplate;import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;/** * Created with IntelliJ IDEA. * User: WHOAMI * Time: 2019 2019/11/29 10:46 * Description:redis序列化配置 */@Configurationpublic class RedisConfig {    @Bean    @ConditionalOnMissingBean(name = &quot;redisTemplate&quot;)    public RedisTemplate&lt;String,Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory){        Jackson2JsonRedisSerializer&lt;Object&gt; jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer&lt;Object&gt;(Object.class);        ObjectMapper om = new ObjectMapper();        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);        jackson2JsonRedisSerializer.setObjectMapper(om);        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;String, Object&gt;();        template.setConnectionFactory(redisConnectionFactory);        template.setKeySerializer(jackson2JsonRedisSerializer);        template.setValueSerializer(jackson2JsonRedisSerializer);        template.setHashKeySerializer(jackson2JsonRedisSerializer);        template.setHashValueSerializer(jackson2JsonRedisSerializer);        template.afterPropertiesSet();        return template;    }}</code></pre><p>这样我们的数据就会变成这样的啦:</p><p><img src="https://s2.ax1x.com/2019/11/29/QkULpF.png" alt></p><p><img src="https://s2.ax1x.com/2019/12/03/QMUUAS.png" alt></p><p>上面的代码乍一看没什么问题，But好巧不巧，我的业务是直接将一个对象存进去了，结果反序列的时候直接报错！！！</p><p><img src="https://s2.ax1x.com/2019/12/03/QMdjOI.png" alt></p><p>查看一下报错就会看到我们的Jackson2的反序列化工具出错了！！</p><p>一开始我并没有以为是序列化不对，我以为是我的entity没有序列化导致的，所以我在我的类里面实现了序列化。还是不行，后来经过多方查阅得知，Jackson2的锅。</p><h2 id="正确做法"><a href="#正确做法" class="headerlink" title="正确做法"></a>正确做法</h2><p>既然Jackson2不行，那可以利用阿里的fastjson的序列器。具体代码如下:</p><p>现在我们需要两个序列器一个是StringSerializer和FastJsonSerializer</p><p>StringSerializer是用来序列K的，而后面那个是序列V的。</p><pre><code class="java">public class StringRedisSerializer  implements RedisSerializer&lt;Object&gt; {    private final Charset charset;    private final String target = &quot;\&quot;&quot;;    private final String replacement = &quot;&quot;;    public StringRedisSerializer() {        this(Charset.forName(&quot;UTF8&quot;));    }    public StringRedisSerializer(Charset charset) {        Assert.notNull(charset, &quot;Charset must not be null!&quot;);        this.charset = charset;    }    @Override    public byte[] serialize(Object o) throws SerializationException {        String string = JSON.toJSONString(o);        if (string == null) {            return null;        }        string = string.replace(target, replacement);        return string.getBytes(charset);    }    @Override    public String  deserialize(byte[] bytes) throws SerializationException {        return (bytes == null ? null : new String(bytes, charset));    }}</code></pre><pre><code class="java">public class FastJsonRedisSerializer&lt;T&gt; implements RedisSerializer&lt;T&gt; {    private static final Charset DEFAULT_CHARSET = Charset.forName(&quot;UTF-8&quot;);    private Class&lt;T&gt; type;    public FastJsonRedisSerializer(Class&lt;T&gt; type) {        super();        this.type = type;    }    @Override    public byte[] serialize(T t)  {        if(null == t){            return new byte[0];        }        try{            return JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(DEFAULT_CHARSET);        }catch (SerializationException ex){            throw new SerializationException(&quot;Something wrong...&quot; + ex.getMessage(),ex);        }    }    @Override    public T deserialize(byte[] bytes) throws SerializationException {        if (bytes == null || bytes.length == 0) {            return null;        }        try {            String str = new String(bytes, DEFAULT_CHARSET);            return (T) JSON.parseObject(str, type);        } catch (Exception ex) {            throw new SerializationException(&quot;Could not deserialize: &quot; + ex.getMessage(), ex);        }    }}</code></pre><pre><code class="java">@Configurationpublic class RedisConfig {    @Bean    @ConditionalOnMissingBean(name = &quot;redisTemplate&quot;)    public RedisTemplate&lt;String,Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory){        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;&gt;();        template.setConnectionFactory(redisConnectionFactory);        FastJsonRedisSerializer&lt;Object&gt; fastJsonRedisSerializer = new FastJsonRedisSerializer(Object.class);        ParserConfig.getGlobalInstance().addAccept(&quot;run.app.&quot;);        template.setValueSerializer(fastJsonRedisSerializer);        template.setHashValueSerializer(fastJsonRedisSerializer);        template.setKeySerializer(new StringRedisSerializer());        template.setHashKeySerializer(new StringRedisSerializer());        template.afterPropertiesSet();        return template;    }}</code></pre><p>这样取出来的数据就正常啦</p><p><img src="https://s2.ax1x.com/2019/12/03/QM6qsg.png" alt></p>]]></content>
       
       
       <categories>
@@ -132,9 +132,9 @@
       
         <tags>
             
-            <tag> vue </tag>
-            
             <tag> 性能优化 </tag>
+            
+            <tag> vue </tag>
             
         </tags>
       
@@ -1162,9 +1162,9 @@
       
         <tags>
             
-            <tag> 安装教程 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 安装教程 </tag>
             
             <tag> mysql </tag>
             
@@ -1272,9 +1272,9 @@
             
             <tag> 安装教程 </tag>
             
-            <tag> 文件服务器 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 文件服务器 </tag>
             
         </tags>
       
@@ -1509,13 +1509,13 @@
       
         <tags>
             
-            <tag> 安装教程 </tag>
-            
             <tag> linux </tag>
             
-            <tag> java </tag>
+            <tag> 安装教程 </tag>
             
             <tag> 搜索服务 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -1567,9 +1567,9 @@
       
         <tags>
             
-            <tag> 安装教程 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 安装教程 </tag>
             
         </tags>
       
@@ -1594,9 +1594,9 @@
       
         <tags>
             
-            <tag> 安装教程 </tag>
-            
             <tag> linux </tag>
+            
+            <tag> 安装教程 </tag>
             
         </tags>
       
@@ -1810,9 +1810,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -1821,9 +1821,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
