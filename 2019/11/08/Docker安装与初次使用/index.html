@@ -411,7 +411,7 @@ docker run -d -p 8080:8080 --name my_tomcat tomcat
 docker pull  mysql:5.6
 
 # 这里是密码为xxx的root的mysql开启方法
-docker run -d -p 3306:3306 - v ./data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=xxx mysql
+docker run -d -p 3306:3306 - v /usr/local/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=xxx mysql
 </code></pre>
 <p>下面介绍一下-v 和 -e 的作用，首先你可以想象这些容器启动后都是缓存到一个内存里面{这里只是方便大家理解才说是内存中，大家不要误解}，当你关闭之后或者重启里面的数据都会消失。说的高大上一点就是无所做数据持久化，那个-v这个参数就出来了，他是以’:’分隔，其实只要记住’:’,所有参数:左边的都是值得你的物理主机[也就是宿主机]，而右边的就是你的容器。上面的意思就是将本层目录下面的data文件夹来存mysql数据表，启动完是这样的。</p>
 <p><img src="https://s2.ax1x.com/2019/11/23/MbgQxK.png" alt></p>
