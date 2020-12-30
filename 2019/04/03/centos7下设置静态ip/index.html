@@ -5,12 +5,13 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="centos7下设置静态ip, 逝痕">
-    <meta name="description" content="Linux设置固定IP[并不能上网]
+    <meta name="description" content="Linux设置固定IP
 一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法
 
 我们要设置ip，要知道VM的网络适配器有三种原则
 
-">
+桥接模式
+主机">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -319,12 +320,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/linux/">
-                                <span class="chip bg-color">linux</span>
-                            </a>
-                        
                             <a href="/tags/安装教程/">
                                 <span class="chip bg-color">安装教程</span>
+                            </a>
+                        
+                            <a href="/tags/linux/">
+                                <span class="chip bg-color">linux</span>
                             </a>
                         
                     </div>
@@ -357,7 +358,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    317
+                    350
                 </div>
                 
 
@@ -380,7 +381,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Linux设置固定IP-并不能上网"><a href="#Linux设置固定IP-并不能上网" class="headerlink" title="Linux设置固定IP[并不能上网]"></a>Linux设置固定IP[并不能上网]</h1><blockquote>
+                <h1 id="Linux设置固定IP"><a href="#Linux设置固定IP" class="headerlink" title="Linux设置固定IP"></a>Linux设置固定IP</h1><blockquote>
 <p>一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法</p>
 </blockquote>
 <p>我们要设置ip，要知道VM的网络适配器有三种原则</p>
@@ -411,12 +412,14 @@
 #记住画圈的这个文件名，之后会用到
 </code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgClnK.png" alt></p>
 <h2 id="打开下面的文件"><a href="#打开下面的文件" class="headerlink" title="打开下面的文件"></a>打开下面的文件</h2><hr>
+<p>我们首先要知道这里文件夹只要存储的是网卡的相关信息<strong>/etc/sysconfig/network-scripts/</strong></p>
 <pre><code> cd /etc/sysconfig/network-scripts
 </code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgPGrV.png" alt></p>
 <pre><code>vim ifcfg-ens33
 # 修改下面的两处为
 #BOOTPROTO=static
 #ONBOOT=yes
+ONBOOT=no #修改为自动连接
 
 #并在下面添加网址等信息
 IPADDR=192.168.3.135#静态IP
@@ -488,12 +491,12 @@ NETMASK=255.255.255.0 #子网掩码
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/linux/">
-                                    <span class="chip bg-color">linux</span>
-                                </a>
-                            
                                 <a href="/tags/安装教程/">
                                     <span class="chip bg-color">安装教程</span>
+                                </a>
+                            
+                                <a href="/tags/linux/">
+                                    <span class="chip bg-color">linux</span>
                                 </a>
                             
                         </div>
@@ -573,12 +576,12 @@ NETMASK=255.255.255.0 #子网掩码
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/linux/">
-                        <span class="chip bg-color">linux</span>
-                    </a>
-                    
                     <a href="/tags/安装教程/">
                         <span class="chip bg-color">安装教程</span>
+                    </a>
+                    
+                    <a href="/tags/linux/">
+                        <span class="chip bg-color">linux</span>
                     </a>
                     
                 </div>

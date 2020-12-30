@@ -4,6 +4,91 @@
   
     
     <entry>
+      <title>nmap的基本使用</title>
+      <link href="/2020/08/14/nmap%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+      <url>/2020/08/14/nmap%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="nmap的基本使用"><a href="#nmap的基本使用" class="headerlink" title="nmap的基本使用"></a>nmap的基本使用</h1>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 网络安全 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Packert Tracert的基本使用</title>
+      <link href="/2020/03/15/Packert-Tracert%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
+      <url>/2020/03/15/Packert-Tracert%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux网络(二)</title>
+      <link href="/2020/03/07/Linux%E7%BD%91%E7%BB%9C-%E4%BA%8C/"/>
+      <url>/2020/03/07/Linux%E7%BD%91%E7%BB%9C-%E4%BA%8C/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux网络(一)</title>
+      <link href="/2020/03/06/linux%E7%BD%91%E7%BB%9C-%E4%B8%80/"/>
+      <url>/2020/03/06/linux%E7%BD%91%E7%BB%9C-%E4%B8%80/</url>
+      
+        <content type="html"><![CDATA[<h1 id="linux网络-一"><a href="#linux网络-一" class="headerlink" title="linux网络 (一)"></a>linux网络 (一)</h1><h2 id="ISO-OSI七层模型"><a href="#ISO-OSI七层模型" class="headerlink" title="ISO/ OSI七层模型"></a>ISO/ OSI七层模型</h2><p><img src="https://s2.ax1x.com/2020/03/06/3qcSXj.png" alt></p><h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h3><p>现实设备： 网卡，网线，中继器，集线器</p><blockquote><p>注意，电脑上的MAC地址是PC的物理地址,IP地址是PC的逻辑地址</p></blockquote><p>作用:传输bit流</p><h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><p>现实设备： 交换机,网桥 -&gt; 可以隔离冲突域</p><p>作用：将数据封装成帧</p><p>特点：arp   数据纠错 -&gt; 比如说 CSMA协议    </p><h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><p>作用：提供逻辑地址</p><p>现实设备： 路由器</p><p>特点：路由选择协议 RIP、ICMP</p><h3 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h3><p>特点：TCP UDP 流量控制、差错检测</p><p>作用：确定端口号</p><blockquote><p>端口 0-65535</p></blockquote><h3 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h3><p>作用； 机器码 - 应用层编码 互相转换</p><h2 id="TCP-IP四层模型"><a href="#TCP-IP四层模型" class="headerlink" title="TCP/IP四层模型"></a>TCP/IP四层模型</h2><p>TCP/IP模型为实际应用的模型</p><p><img src="https://s2.ax1x.com/2020/03/07/3Oodyt.png" alt></p><h2 id="数据封装过程"><a href="#数据封装过程" class="headerlink" title="数据封装过程"></a>数据封装过程</h2><p><img src="https://s2.ax1x.com/2020/03/07/3ObnAK.png" alt></p><h2 id="数据包包头"><a href="#数据包包头" class="headerlink" title="数据包包头"></a>数据包包头</h2><h3 id="IP包头"><a href="#IP包头" class="headerlink" title="IP包头"></a>IP包头</h3><p>需要注意的是IP包头是至少20字节</p><p><img src="https://s2.ax1x.com/2020/03/07/3OLalQ.png" alt></p><h3 id="TCP包头"><a href="#TCP包头" class="headerlink" title="TCP包头"></a>TCP包头</h3><p><img src="https://s2.ax1x.com/2020/03/07/3Ovj8f.png" alt></p><h3 id="UDP包头"><a href="#UDP包头" class="headerlink" title="UDP包头"></a>UDP包头</h3><p><img src="https://s2.ax1x.com/2020/03/07/3OxZxU.png" alt></p><h2 id="IP地址分类"><a href="#IP地址分类" class="headerlink" title="IP地址分类"></a>IP地址分类</h2><p>A类：1.0.0.0 - 126.255.255.255  私有IP 10.0.0.0 - 10.255.255.255</p><p>B类 128.0.0.0 - 191.255.255.255 私有IP 172.16.0.0-172.31.255.255</p><p>C类 192.0.0.0 - 223.255.255.255 私有IP 192.168.0.0 - 192.168.255.255</p><h3 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h3><p>这里注意CIDR子网掩码的用法</p><p>网络号的求法： ip地址和子网掩码与运算</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> 计算机网络 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux进程(一)</title>
+      <link href="/2020/03/05/linux%E8%BF%9B%E7%A8%8B-%E4%B8%80/"/>
+      <url>/2020/03/05/linux%E8%BF%9B%E7%A8%8B-%E4%B8%80/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>浅谈401和403的区别</title>
       <link href="/2020/02/27/%E6%B5%85%E8%B0%88401%E5%92%8C403%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
       <url>/2020/02/27/%E6%B5%85%E8%B0%88401%E5%92%8C403%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
@@ -1027,7 +1112,7 @@
       <link href="/2019/05/24/javaSE%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
       <url>/2019/05/24/javaSE%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/</url>
       
-        <content type="html"><![CDATA[<h1 id="javaSE基础知识点汇总"><a href="#javaSE基础知识点汇总" class="headerlink" title="javaSE基础知识点汇总"></a>javaSE基础知识点汇总</h1><hr><h2 id="final关键字的理解"><a href="#final关键字的理解" class="headerlink" title="final关键字的理解"></a>final关键字的理解</h2><p>final如果赋给了变量，证明这个变量是不能修改的<br>但是，要注意，如果给数组附上了final关键字，他的数组元素是可以修改的</p><p>例如：</p><pre><code class="java">public static void main(String args[]){        final  int b[] = {5};        int a[] = {3};        b[0] = 2;        // b = a;  编译错误，因为是final类型        System.out.println(b[0]);    }</code></pre><h2 id="equals-和-之间的区别"><a href="#equals-和-之间的区别" class="headerlink" title="equals 和 == 之间的区别"></a>equals 和 == 之间的区别</h2><p>== 是直接比较地址，一般用来比较8大基本数据类型</p><p>equals则是一般由开发人员复写的，但是如果默认，则会比较他们的值是否一致，equals的源代码是：</p><pre><code class="java">public boolean equals(Object obj) {    return (this == obj);}</code></pre><blockquote><p>但是需要注意一点的是 java中对String的equals写法是这样的,他复写了原始的方法</p></blockquote><pre><code class="java">@Overridepublic boolean equals(Object anObject) {    if (this == anObject) {        return true;    }    if (anObject instanceof String) {        String anotherString = (String)anObject;        int n = count;        if (n == anotherString.count) {            char v1[] = value;            char v2[] = anotherString.value;            int i = offset;            int j = anotherString.offset;            while (n-- != 0) {                if (v1[i++] != v2[j++])                    return false;            }            return true;        }    }    return false;}</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="javaSE基础知识点汇总"><a href="#javaSE基础知识点汇总" class="headerlink" title="javaSE基础知识点汇总"></a>javaSE基础知识点汇总</h1><hr><h2 id="final关键字的理解"><a href="#final关键字的理解" class="headerlink" title="final关键字的理解"></a>final关键字的理解</h2><p>final如果赋给了变量，证明这个变量是不能修改的<br>但是，要注意，如果给数组附上了final关键字，他的数组元素是可以修改的</p><p>例如：</p><pre><code class="java">public static void main(String args[]){        final  int b[] = {5};        int a[] = {3};        b[0] = 2;        // b = a;  编译错误，因为是final类型        System.out.println(b[0]);    }</code></pre><h2 id="equals-和-之间的区别"><a href="#equals-和-之间的区别" class="headerlink" title="equals 和 == 之间的区别"></a>equals 和 == 之间的区别</h2><p>== 是直接比较地址，一般用来比较8大基本数据类型</p><p>equals则是一般由开发人员复写的，但是如果默认，则会比较他们的值是否一致，equals的源代码是：</p><pre><code class="java">public boolean equals(Object obj) {    return (this == obj);}</code></pre><blockquote><p>但是需要注意一点的是 java中对String的equals写法是这样的,他复写了原始的方法</p></blockquote><pre><code class="java">@Overridepublic boolean equals(Object anObject) {    if (this == anObject) {        return true;    }    if (anObject instanceof String) {        String anotherString = (String)anObject;        int n = count;        if (n == anotherString.count) {            char v1[] = value;            char v2[] = anotherString.value;            int i = offset;            int j = anotherString.offset;            while (n-- != 0) {                if (v1[i++] != v2[j++])                    return false;            }            return true;        }    }    return false;}</code></pre><h2 id="Java-标记跳出外循环"><a href="#Java-标记跳出外循环" class="headerlink" title="Java 标记跳出外循环"></a>Java 标记跳出外循环</h2><pre><code class="java">public static void main(String[] args) {        int i,j;        A:for(i =0 ; i&lt;10;i++){            B:for(j = 0 ;j&lt;10;j++){                break A;            }        }    }</code></pre><p>标记如上文所示，在外层循环上面写上A标记，在内循环里面直接Break 标记，起到goto语句的作用。</p><h3 id="JAVA加载顺序"><a href="#JAVA加载顺序" class="headerlink" title="JAVA加载顺序"></a>JAVA加载顺序</h3><p>父类静态代码块&gt;&gt; 子类静态代码块&gt;&gt; 父类代码块&gt;&gt; 父类构造函数&gt;&gt; 子类代码块&gt;&gt; 子类构造函数</p><ul><li>可以利用反射机制Class.forName(“包名”)理解class的消息</li></ul>]]></content>
       
       
       <categories>
@@ -1065,6 +1150,31 @@
         <tags>
             
             <tag> javaSE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>html自适应界面</title>
+      <link href="/2019/05/19/html%E8%87%AA%E9%80%82%E5%BA%94%E7%95%8C%E9%9D%A2/"/>
+      <url>/2019/05/19/html%E8%87%AA%E9%80%82%E5%BA%94%E7%95%8C%E9%9D%A2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="html自适应界面"><a href="#html自适应界面" class="headerlink" title="html自适应界面"></a>html自适应界面</h1><hr><p>学习过bootStarp之后，一直最自适应布局很感兴趣，尤其是BootStarp的栅格系统，所以做了一个html小demo，来记录一下自适应的过程</p><h2 id="重要的css属性-弹性盒子"><a href="#重要的css属性-弹性盒子" class="headerlink" title="重要的css属性 弹性盒子"></a>重要的css属性 弹性盒子</h2><ul><li>display:flex;</li><li>flex-wrap:wrap;</li><li>justify-content:center;</li></ul><p>接下来看一段代码</p><pre><code class="html">&lt;!-- html --&gt;&lt;div class=&quot;container&quot;&gt;  &lt;div class=&quot;service-box&quot;&gt;      &lt;div class=&quot;service-icon&quot;&gt;          &lt;i class=&quot;fa fa-window-restore&quot;&gt;&lt;/i&gt;        &lt;/div&gt;      &lt;div class=&quot;service-title&quot;&gt;          &lt;span&gt;网站商品管理&lt;/span&gt;      &lt;/div&gt;      &lt;div class=&quot;service-desc&quot;&gt;          &lt;span&gt;这是管理网站所有商品功能，在这里可以管理用户上架的所有商品&lt;/span&gt;      &lt;/div&gt;  &lt;/div&gt;&lt;/div&gt;&lt;!-- css --&gt;&lt;style&gt;.container{  display: flex;  flex-wrap: wrap;  justify-content: center;}.service-box{  max-width: 33.33%;  padding: 10px;  text-align: center;  cursor: pointer;}&lt;/style&gt;</code></pre><p>这是没有加弹性盒子的效果<br><img src="https://s2.ax1x.com/2019/05/19/EjiQln.png" alt></p><p>这是加了弹性盒子的效果 [注意:这里截图的时候屏幕尺寸小于960px]<br><img src="https://s2.ax1x.com/2019/05/19/EjiiQI.png" alt></p><p><strong>分析原因</strong><br>在我看来,这个弹性盒子其实就是让子类可以像是block一样排列起来,并且子类的max-width的百分比决定着他们一排能排几个</p><h2 id="重要的属性-media-and-screen-max-width-960px"><a href="#重要的属性-media-and-screen-max-width-960px" class="headerlink" title="重要的属性 @media and screen(max-width:960px)"></a>重要的属性 @media and screen(max-width:960px)</h2><p>这个语句的意思是 如果屏幕尺寸小于960px那么就执行下面的代码</p><blockquote><p>这个语句由一个前提,那就是这一定是个html:5文件</p></blockquote><pre><code class="html">&lt;!-- html5 必须的属性 --&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code></pre><p>下面看一下实例</p><p>承接上面的css代码</p><pre><code class="css">@media screen and (max-width:960px) {  .service-box{    max-width: 45%;  }}</code></pre><p>因为盒子最大是占据45%,也就是一行只能两行,就能看到上面的图的情况,正常来说,如果用电脑打开那个网页的话,一行会出现三个盒子的</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自适应 </tag>
             
         </tags>
       
@@ -1127,7 +1237,7 @@
       <link href="/2019/05/13/mysql%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/"/>
       <url>/2019/05/13/mysql%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/</url>
       
-        <content type="html"><![CDATA[<h1 id="mysql使用心得"><a href="#mysql使用心得" class="headerlink" title="mysql使用心得"></a>mysql使用心得</h1><ul><li>对于那种datetime属性的默认值 可以写CURRENT_TIMESTAMP，来填充当前时间。</li></ul>]]></content>
+        <content type="html"><![CDATA[<h1 id="mysql使用心得"><a href="#mysql使用心得" class="headerlink" title="mysql使用心得"></a>mysql使用心得</h1><ul><li>对于那种datetime属性的默认值 可以写CURRENT_TIMESTAMP，来填充当前时间。</li></ul><h2 id="对于Join连接的经验"><a href="#对于Join连接的经验" class="headerlink" title="对于Join连接的经验"></a>对于Join连接的经验</h2><p>首先，连接的结果可以在逻辑上看作是由SELECT语句指定的列组成的新表。</p><p>左连接与右连接的左右指的是以两张表中的哪一张为基准，它们都是外连接。</p><p>外连接就好像是为非基准表添加了一行全为空值的万能行，用来与基准表中找不到匹配的行进行匹配。假设两个没有空值的表进行左连接，左表是基准表，左表的所有行都出现在结果中，右表则可能因为无法与基准表匹配而出现是空值的字段。</p><p>下面的图：<br><a href="https://imgchr.com/i/rO59w6" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2020/12/30/rO59w6.png" alt="rO59w6.png"></a></p><blockquote><p>在使用JOIN语句的时候，肯定会用到 ON关键字，这个字段的意思是 将两个表合成一张表的条件，而有的时候又会使用到where关键字，这个关键字则是在组合成临时表之后的筛选。</p></blockquote><pre><code class="sql">SELECT column_name(s)FROM table1LEFT OUTER JOIN table2ON table1.column_name=table2.column_name;</code></pre><p>这里面 的ON关键字就是用来变成一张临时表的条件.</p><h2 id="UNION语句"><a href="#UNION语句" class="headerlink" title="UNION语句"></a>UNION语句</h2><p>首先说一下区别，JOIN使用起来是将结果扩充表的列，相当于纵向；而UNION使用起来必须保证SELECT出来的表结构都是一样的，最后将两个表的结果纵向连接在一起。</p><ul><li><p>UNION 中有去重操作是UNION ALL 和SELECT DISNCT差不多。</p></li><li><p>UNION 中如果使用ORDER BY 字段 必须在<strong>最后一张</strong>表中使用。</p></li></ul>]]></content>
       
       
       <categories>
@@ -1189,9 +1299,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 安装教程 </tag>
+            
+            <tag> linux </tag>
             
             <tag> mysql </tag>
             
@@ -1297,9 +1407,9 @@
       
         <tags>
             
-            <tag> 安装教程 </tag>
-            
             <tag> 文件服务器 </tag>
+            
+            <tag> 安装教程 </tag>
             
             <tag> java </tag>
             
@@ -1536,11 +1646,11 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 安装教程 </tag>
             
             <tag> java </tag>
+            
+            <tag> linux </tag>
             
             <tag> 搜索服务 </tag>
             
@@ -1594,9 +1704,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 安装教程 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -1609,7 +1719,7 @@
       <link href="/2019/04/03/centos7%E4%B8%8B%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/"/>
       <url>/2019/04/03/centos7%E4%B8%8B%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux设置固定IP-并不能上网"><a href="#Linux设置固定IP-并不能上网" class="headerlink" title="Linux设置固定IP[并不能上网]"></a>Linux设置固定IP[并不能上网]</h1><blockquote><p>一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法</p></blockquote><p>我们要设置ip，要知道VM的网络适配器有三种原则</p><ul><li>桥接模式</li><li>主机模式</li><li>NAT模式</li></ul><p>我们的真实主机有两块对应的网卡</p><ul><li>VMnet0</li><li>VMnet8<a id="more"></a></li></ul><p>由于我们这里只固定ip，所以别的我们现在先不了解。</p><hr><h2 id="首先设置网关，打开VM的虚拟网络适配器"><a href="#首先设置网关，打开VM的虚拟网络适配器" class="headerlink" title="首先设置网关，打开VM的虚拟网络适配器"></a>首先设置网关，打开VM的虚拟网络适配器</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag94FH.png" alt="网络适配器"></p><p>修改我们的子网ip和子网掩码，注意！上面的框只有里面的3你可以自行修改！</p><h2 id="修改主机的VM网卡-VMnet8"><a href="#修改主机的VM网卡-VMnet8" class="headerlink" title="修改主机的VM网卡 VMnet8"></a>修改主机的VM网卡 VMnet8</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag9pqO.png" alt></p><h2 id="按照下图操作"><a href="#按照下图操作" class="headerlink" title="按照下图操作"></a>按照下图操作</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag9bOf.png" alt="操作"></p><p>其中也是建议只有3更改</p><hr><h2 id="注意linux选择NAT链接后，开始修改IP！"><a href="#注意linux选择NAT链接后，开始修改IP！" class="headerlink" title="注意linux选择NAT链接后，开始修改IP！"></a>注意linux选择NAT链接后，开始修改IP！</h2><hr><pre><code>ip addr#记住画圈的这个文件名，之后会用到</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgClnK.png" alt></p><h2 id="打开下面的文件"><a href="#打开下面的文件" class="headerlink" title="打开下面的文件"></a>打开下面的文件</h2><hr><pre><code> cd /etc/sysconfig/network-scripts</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgPGrV.png" alt></p><pre><code>vim ifcfg-ens33# 修改下面的两处为#BOOTPROTO=static#ONBOOT=yes#并在下面添加网址等信息IPADDR=192.168.3.135#静态IPGATEWAY=192.168.3.2 #默认网关NETMASK=255.255.255.0 #子网掩码</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgPTqf.png" alt></p><h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><hr><pre><code>service network restart</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux设置固定IP"><a href="#Linux设置固定IP" class="headerlink" title="Linux设置固定IP"></a>Linux设置固定IP</h1><blockquote><p>一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法</p></blockquote><p>我们要设置ip，要知道VM的网络适配器有三种原则</p><ul><li>桥接模式</li><li>主机模式</li><li>NAT模式</li></ul><p>我们的真实主机有两块对应的网卡</p><ul><li>VMnet0</li><li>VMnet8<a id="more"></a></li></ul><p>由于我们这里只固定ip，所以别的我们现在先不了解。</p><hr><h2 id="首先设置网关，打开VM的虚拟网络适配器"><a href="#首先设置网关，打开VM的虚拟网络适配器" class="headerlink" title="首先设置网关，打开VM的虚拟网络适配器"></a>首先设置网关，打开VM的虚拟网络适配器</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag94FH.png" alt="网络适配器"></p><p>修改我们的子网ip和子网掩码，注意！上面的框只有里面的3你可以自行修改！</p><h2 id="修改主机的VM网卡-VMnet8"><a href="#修改主机的VM网卡-VMnet8" class="headerlink" title="修改主机的VM网卡 VMnet8"></a>修改主机的VM网卡 VMnet8</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag9pqO.png" alt></p><h2 id="按照下图操作"><a href="#按照下图操作" class="headerlink" title="按照下图操作"></a>按照下图操作</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag9bOf.png" alt="操作"></p><p>其中也是建议只有3更改</p><hr><h2 id="注意linux选择NAT链接后，开始修改IP！"><a href="#注意linux选择NAT链接后，开始修改IP！" class="headerlink" title="注意linux选择NAT链接后，开始修改IP！"></a>注意linux选择NAT链接后，开始修改IP！</h2><hr><pre><code>ip addr#记住画圈的这个文件名，之后会用到</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgClnK.png" alt></p><h2 id="打开下面的文件"><a href="#打开下面的文件" class="headerlink" title="打开下面的文件"></a>打开下面的文件</h2><hr><p>我们首先要知道这里文件夹只要存储的是网卡的相关信息<strong>/etc/sysconfig/network-scripts/</strong></p><pre><code> cd /etc/sysconfig/network-scripts</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgPGrV.png" alt></p><pre><code>vim ifcfg-ens33# 修改下面的两处为#BOOTPROTO=static#ONBOOT=yesONBOOT=no #修改为自动连接#并在下面添加网址等信息IPADDR=192.168.3.135#静态IPGATEWAY=192.168.3.2 #默认网关NETMASK=255.255.255.0 #子网掩码</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgPTqf.png" alt></p><h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><hr><pre><code>service network restart</code></pre>]]></content>
       
       
       <categories>
@@ -1621,9 +1731,9 @@
       
         <tags>
             
-            <tag> linux </tag>
-            
             <tag> 安装教程 </tag>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -1826,6 +1936,17 @@
     
     
     <entry>
+      <title>关于</title>
+      <link href="/about/index.html"/>
+      <url>/about/index.html</url>
+      
+        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>categories</title>
       <link href="/categories/index.html"/>
       <url>/categories/index.html</url>
@@ -1842,17 +1963,6 @@
       <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>关于</title>
-      <link href="/about/index.html"/>
-      <url>/about/index.html</url>
-      
-        <content type="html"><![CDATA[<p>大家好，我是WHOAMI。欢迎来到我的个人技术博客。</p><blockquote><p>低头做事，抬头装X</p></blockquote>]]></content>
       
     </entry>
     

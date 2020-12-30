@@ -351,7 +351,7 @@ public static void main(Strin">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    254
+                    396
                 </div>
                 
 
@@ -419,6 +419,21 @@ public boolean equals(Object anObject) {
     return false;
 }
 </code></pre>
+<h2 id="Java-标记跳出外循环"><a href="#Java-标记跳出外循环" class="headerlink" title="Java 标记跳出外循环"></a>Java 标记跳出外循环</h2><pre><code class="java">public static void main(String[] args) {
+        int i,j;
+        A:for(i =0 ; i&lt;10;i++){
+            B:for(j = 0 ;j&lt;10;j++){
+                break A;
+            }
+        }
+    }
+
+</code></pre>
+<p>标记如上文所示，在外层循环上面写上A标记，在内循环里面直接Break 标记，起到goto语句的作用。</p>
+<h3 id="JAVA加载顺序"><a href="#JAVA加载顺序" class="headerlink" title="JAVA加载顺序"></a>JAVA加载顺序</h3><p>父类静态代码块&gt;&gt; 子类静态代码块&gt;&gt; 父类代码块&gt;&gt; 父类构造函数&gt;&gt; 子类代码块&gt;&gt; 子类构造函数</p>
+<ul>
+<li>可以利用反射机制Class.forName(“包名”)理解class的消息</li>
+</ul>
 
             </div>
             <hr>
