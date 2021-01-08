@@ -5,7 +5,9 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="ssh免密, 逝痕">
-    <meta name="description" content="ssh免密 | 逝痕">
+    <meta name="description" content="ssh免密最近由于经常用linux，尤其是git这一方面，需要经常的push项目，而没有ssh的时候经常会需要登陆密码登陆，很麻烦。
+查了一堆文章后，写了下面最适合我的这篇文章
+首先我们要有我们的ssh命令，在windows里面生成ssh的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -312,12 +314,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/linux/">
+                                <span class="chip bg-color">linux</span>
+                            </a>
+                        
+                            <a href="/tags/ssh/">
+                                <span class="chip bg-color">ssh</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/linux/" class="post-category">
+                                linux
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -335,7 +354,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    384
                 </div>
                 
 
@@ -358,7 +377,35 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="ssh免密"><a href="#ssh免密" class="headerlink" title="ssh免密"></a>ssh免密</h1><p>最近由于经常用linux，尤其是git这一方面，需要经常的push项目，而没有ssh的时候经常会需要登陆密码登陆，很麻烦。</p>
+<p>查了一堆文章后，写了下面最适合我的这篇文章</p>
+<p>首先我们要有我们的ssh命令，在windows里面生成ssh的rsa密钥，具体命令如下：</p>
+<pre><code class="bash">ssh-keygon -t rsa -c &quot;&quot;
+# 引号里面是邮箱，外国人有毛病，什么玩意都要弄个邮箱，我就直接为null了
+
+</code></pre>
+<p>生成的ssh文件在 /c/Users/用户名/.ssh/里面，其中带.pub的为公钥，不带的为私钥</p>
+<p>之后我们要在我们的服务器上，创建一个想要本地服务器登陆的账号：</p>
+<pre><code class="bash">usradd git #由于我这里是为了用Git,所以直接创建的git
+
+passwd git #root用户创建密码
+
+</code></pre>
+<p>创建成功之后打开我们的Windows里面的git工具，然后输入下面的命令，将本地的公钥上传到服务器上面</p>
+<pre><code class="bash">ssh-copy-id git@192.168.3.99
+# 用户名@ip地址
+</code></pre>
+<p><a href="https://imgchr.com/i/sKA00O" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/08/sKA00O.png" alt="sKA00O.png"></a></p>
+<p>输入密码后，成功</p>
+<blockquote>
+<p>这个命令的原理是 将 /c/Users/用户名/.ssh/id_rsa.pub 里面的内容复制到 远程服务器git用户的 /home/git/.ssh/authorized_keys文件里面最后一行中,如果不想用命令直接手动操作也可以。</p>
+</blockquote>
+<h2 id="测试ssh连接命令"><a href="#测试ssh连接命令" class="headerlink" title="测试ssh连接命令"></a>测试ssh连接命令</h2><pre><code class="bash">
+ssh -v git@192.168.3.99
+</code></pre>
+<p><a href="https://imgchr.com/i/sKEaCj" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/08/sKEaCj.png" alt="sKEaCj.png"></a></p>
+<p>上面图片可以看出我们正在密钥校验，成功之后可直接登入服务器。</p>
+
             </div>
             <hr>
 
@@ -420,7 +467,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/linux/">
+                                    <span class="chip bg-color">linux</span>
+                                </a>
+                            
+                                <a href="/tags/ssh/">
+                                    <span class="chip bg-color">ssh</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -473,7 +528,9 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            ssh免密最近由于经常用linux，尤其是git这一方面，需要经常的push项目，而没有ssh的时候经常会需要登陆密码登陆，很麻烦。
+查了一堆文章后，写了下面最适合我的这篇文章
+首先我们要有我们的ssh命令，在windows里面生成ssh的
                         
                     </div>
                     <div class="publish-info">
@@ -482,13 +539,29 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            WHOAMI
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/linux/" class="post-category">
+                                    linux
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/linux/">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                    <a href="/tags/ssh/">
+                        <span class="chip bg-color">ssh</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
