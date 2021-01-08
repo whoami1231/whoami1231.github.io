@@ -4,6 +4,111 @@
   
     
     <entry>
+      <title>Centos7安装nacos</title>
+      <link href="/2021/01/08/Centos7%E5%AE%89%E8%A3%85nacos/"/>
+      <url>/2021/01/08/Centos7%E5%AE%89%E8%A3%85nacos/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Centos7安装nacos"><a href="#Centos7安装nacos" class="headerlink" title="Centos7安装nacos"></a>Centos7安装nacos</h1><p>打开nacos<a href="https://nacos.io/zh-cn/docs/quick-start.html" target="_blank" rel="noopener">官网首页</a></p><p>在这里我们不使用git,而是直接用wget命令获取最新版本,所以我们需要先下载启动环境</p><blockquote><p>请直接参考我的博客项目 Centos7安装java和maven</p></blockquote><p>安装完环境之后我们需要下载并安装nacos<br><a href="https://imgchr.com/i/snBwi4" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/08/snBwi4.png" alt="snBwi4.png"></a></p><p>去github下载你想要下载的版本，这里我下载的是1.4.0版本</p><pre><code class="bash">wget https://github.com/alibaba/nacos/releases/download/1.4.0/nacos-server-1.4.0.tar.gz</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 安装教程 </tag>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Spring Cloud Alibaba项目构建</title>
+      <link href="/2021/01/08/Spring-Cloud-Alibaba%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"/>
+      <url>/2021/01/08/Spring-Cloud-Alibaba%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>网站业务架构的演变</title>
+      <link href="/2021/01/07/%E7%BD%91%E7%AB%99%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98/"/>
+      <url>/2021/01/07/%E7%BD%91%E7%AB%99%E4%B8%9A%E5%8A%A1%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E5%8F%98/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nginx的那些事儿</title>
+      <link href="/2021/01/05/nginx%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/"/>
+      <url>/2021/01/05/nginx%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF/</url>
+      
+        <content type="html"><![CDATA[<h1 id="nginx的那些事儿"><a href="#nginx的那些事儿" class="headerlink" title="nginx的那些事儿"></a>nginx的那些事儿</h1><h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><blockquote><p>下面的是我的nginx里面的一些重点的配置<br><code>`</code><br>http {<br>    upstream eblogserver{<br>        server eblog_server_1:8099 weight=1;<br>        server eblog_server_2:8098 weight=2;<br>    }</p></blockquote><pre><code>server {    listen       80;    server_name  localhost;    location / {        try_files $uri $uri/ /index.html last;        root /usr/share/nginx/html;        index  index.html;    }    location ^~ /server/ {    # 保证服务器访问的是真实ip地址    proxy_set_header Host $host;    proxy_set_header X-Real-IP $remote_addr;    proxy_set_header REMOTE-HOST $remote_addr;    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;    proxy_set_header X-Forwarded-Proto $scheme;          proxy_pass http://eblogserver/;    }}</code></pre><p>}</p><pre><code>    我们要知道nginx是一个反向代理(说是这样说，其实就是代理一下服务器，正想代理就是代理客户端相当于我们的vpn)我们要清楚下面几个重点的关键字* http{} 用来嵌套多个server ：即我们的http请求，和配置代理缓存等等的web服务* server{} 用来处理http请求    * listen 监听端口    * upstream 里面用来写反向代理服务器的地址和权重    * location 后面跟正则表达式，用来处理用户请求的网址        * proxy_pass 反向代理的入口和上面的upstream一起用配置文件写好了，如何看写的正不正确，用下面的命令```bash./nginx -t (测试文件) -c(指定配置文件路径) ../conf/redis.conf</code></pre><p>如果显示successful，则证明nginx配置正确</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 运维 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Centos7安装nginx</title>
+      <link href="/2021/01/05/centos7%E5%AE%89%E8%A3%85nginx/"/>
+      <url>/2021/01/05/centos7%E5%AE%89%E8%A3%85nginx/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Centos7安装nginx"><a href="#Centos7安装nginx" class="headerlink" title="Centos7安装nginx"></a>Centos7安装nginx</h1><p>首先去官网下载想要的版本然后解压到linux上面</p><p>解压之后是这样的</p><p><a href="https://imgchr.com/i/sF6dHJ" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/05/sF6dHJ.png" alt="sF6dHJ.png"></a></p><blockquote><p>这里面configure 就相当于我们windows上面的exe安装包</p></blockquote><ul><li>我们需要知道的是，nginx是编译安装的，不像tomcat那样，解压之后直接可以使用。</li></ul><ul><li>nginx是在c语言编译的，所以我们开始先安装所需要的环境</li></ul><pre><code class="bash">yum install -y gcc gcc-c++ pcre pcre-devel zlib  zlib-devel openssl-devel</code></pre><p>接下来 安装nginx </p><p>具体命令为：</p><pre><code class="bash">./configure --prefix=/usr/local/nginx# prefix指的是安装路径</code></pre><p>然后nginx会检查环境，完全通过后</p><pre><code class="bash">make &amp;&amp; make install #先编译，然后安装</code></pre><h2 id="nginx-的常用命令"><a href="#nginx-的常用命令" class="headerlink" title="nginx 的常用命令"></a>nginx 的常用命令</h2><ul><li>启动命令： ./sbin/nginx</li><li>重启命令： ./sbin/nginx -s reload</li><li>停止命令: ./sbin/nginx -s stop</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 安装教程 </tag>
+            
+            <tag> nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>nmap的基本使用</title>
       <link href="/2020/08/14/nmap%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
       <url>/2020/08/14/nmap%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
@@ -17,32 +122,6 @@
             <tag> 网络安全 </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Packert Tracert的基本使用</title>
-      <link href="/2020/03/15/Packert-Tracert%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"/>
-      <url>/2020/03/15/Packert-Tracert%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Linux网络(二)</title>
-      <link href="/2020/03/07/Linux%E7%BD%91%E7%BB%9C-%E4%BA%8C/"/>
-      <url>/2020/03/07/Linux%E7%BD%91%E7%BB%9C-%E4%BA%8C/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
       
     </entry>
     
@@ -70,19 +149,6 @@
             <tag> 计算机网络 </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>linux进程(一)</title>
-      <link href="/2020/03/05/linux%E8%BF%9B%E7%A8%8B-%E4%B8%80/"/>
-      <url>/2020/03/05/linux%E8%BF%9B%E7%A8%8B-%E4%B8%80/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
       
     </entry>
     
@@ -217,9 +283,9 @@
             
             <tag> docker </tag>
             
-            <tag> 运维 </tag>
-            
             <tag> nginx </tag>
+            
+            <tag> 运维 </tag>
             
         </tags>
       
@@ -244,9 +310,9 @@
       
         <tags>
             
-            <tag> 性能优化 </tag>
-            
             <tag> vue </tag>
+            
+            <tag> 性能优化 </tag>
             
         </tags>
       
@@ -259,7 +325,7 @@
       <link href="/2019/11/21/docker-compose%E5%AE%9E%E7%8E%B0%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"/>
       <url>/2019/11/21/docker-compose%E5%AE%9E%E7%8E%B0%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2/</url>
       
-        <content type="html"><![CDATA[<h1 id="docker-实现前后端分离的自动化部署"><a href="#docker-实现前后端分离的自动化部署" class="headerlink" title="docker 实现前后端分离的自动化部署"></a>docker 实现前后端分离的自动化部署</h1><p>时隔一个学年，我再一次租起了阿里云服务器(哎呀真香啊)，其实一开始我也是拒绝的，但是由于我的电脑配置日渐落后，连启动一个虚拟机都要等上半天。我就想说：买！咱不受那个窝囊气。</p><p>具体配置是这样的</p><p><img src="https://s2.ax1x.com/2019/11/18/McPwsf.png" alt></p><p>好了，废话不多说，这篇文章是搭建web环境的，看过之前的文章都知道，技术选型肯定就是docker + springboot + vue了</p><h2 id="下载环境"><a href="#下载环境" class="headerlink" title="下载环境"></a>下载环境</h2><p>这里我默认大家docker已经装好了，如果没有装好，请参考我之前的文章<br>我们现在需要下载的是docker-compose</p><pre><code class="bash"># 下载和安装curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose# 赋予权限chmod +x /usr/local/bin/docker-compose# 检查版本docker-compose -vesion</code></pre><h2 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h2><p><img src="https://s2.ax1x.com/2019/11/23/Mbfslq.png" alt></p><p>这是我的项目的所有的工程文件，下面讲解一下这些都是些啥玩意。</p><p>首先介绍一下前后端分别都是我的github项目，地址是 <a href="https://github.com/whoami1231/blog-vue">前端</a>|<a href="https://github.com/whoami1231/blog-java">后端</a>.</p><h2 id="前端准备"><a href="#前端准备" class="headerlink" title="前端准备"></a>前端准备</h2><p>先介绍一下前端文件，也就是web文件夹<br>我们的前端是通过vue打包后部署到nginx，因为要做后端的负载均衡。</p><h3 id="修改源代码"><a href="#修改源代码" class="headerlink" title="修改源代码"></a>修改源代码</h3><p>首先我们需要修改文件，因为我们要部署到docker里面。容器与容器之间会有冲突域产生，localhost是绝对访问不到自己的项目的，所以我们需要将我们请求后端的axios的bashUrl修改一下改成这样-&gt; <a href="http://example.com/server" target="_blank" rel="noopener">http://example.com/server</a></p><blockquote><p>中间的域名可以换成你的服务器ip地址，后面的server是一个声明，好让nginx反向代理到后端</p></blockquote><h3 id="打包项目文件"><a href="#打包项目文件" class="headerlink" title="打包项目文件"></a>打包项目文件</h3><p>然后我们要给我们的前端打包，打开项目根目录然后输入下面的命令</p><pre><code class="bash">npm run build</code></pre><p>我们会得到一个dist文件夹，也就是我们的前端文件[我还没有搞cdn加速，太卑微了]</p><h3 id="编写nginx配置文件-nginx-conf"><a href="#编写nginx配置文件-nginx-conf" class="headerlink" title="编写nginx配置文件 nginx.conf"></a>编写nginx配置文件 nginx.conf</h3><p>具体文件如下:</p><pre><code class="text">worker_processes  1;events {    worker_connections  1024;}http {    include       mime.types;    default_type  application/octet-stream;    client_max_body_size 4m;    upstream eblogserver{        server eblog_server_1:8099 weight=1;        server eblog_server_2:8098 weight=2;    }    sendfile        on;    keepalive_timeout  65;    gzip on;    gzip_min_length 1k;    gzip_buffers 4 16k;    gzip_http_version 1.0;    gzip_comp_level 2;    gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php application/vnd.ms-fontobject font/ttf font/opentype font/x-woff image/svg+xml;    gzip_vary off;    gzip_disable &quot;MSIE [1-6]\.&quot;;    server {        listen       80;        server_name  localhost;        location / {            try_files $uri $uri/ /index.html last;            root /usr/share/nginx/html;            index  index.html;        }        location ^~ /server/ {            proxy_pass http://eblogserver/;        }    }}</code></pre><h3 id="编写Dockerfile"><a href="#编写Dockerfile" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h3><p>具体文件如下</p><pre><code class="bash">FROM nginxCOPY nginx.conf /etc/nginx/nginx.confCOPY ./dist /usr/share/nginx/htmlEXPOSE 80CMD [&quot;nginx&quot;,&quot;-g&quot;,&quot;daemon off;&quot;]</code></pre><h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><h3 id="修改源代码-1"><a href="#修改源代码-1" class="headerlink" title="修改源代码"></a>修改源代码</h3><p>因为我这里使用的idea的IDE，所以我直接在这里面打包，但是因为有冲突域的存在，所以我们通过127.0.0.1是访问不到我们的mysql的，所以我们需要修改我们的配置文件，而这里又因为打包的时候需要检查所有的test文件，包括数据库是否可以连接。所以这里就会产生一个很大的冲突，经过度娘得知，我们可以跳过安全检查。</p><p>打开我们的pom.xml，修改里面的properties</p><pre><code class="xml">&lt;properties&gt;    &lt;java.version&gt;1.8&lt;/java.version&gt;    &lt;skipTests&gt;true&lt;/skipTests&gt;&lt;!--添加 --&gt;&lt;/properties&gt;</code></pre><p>然后我们修改我们的数据库连接路径</p><p>url: jdbc:mysql://docker_mysql:3306/eblog?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai</p><blockquote><p>这里面的docker_mysql是我们一会启动的mysql的服务</p></blockquote><h3 id="打包jar"><a href="#打包jar" class="headerlink" title="打包jar"></a>打包jar</h3><p>具体操作如下<br><img src="https://s2.ax1x.com/2019/11/23/Mboco8.png" alt></p><h3 id="编写Dockerfile-1"><a href="#编写Dockerfile-1" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h3><p>文件代码如下</p><pre><code class="bash"># 继承java 1.8FROM java:8# 容器的操作者MAINTAINER whoami# 数据卷VOLUME /temp# 修改jar包名称ADD app-0.0.1-SNAPSHOT.jar eblog-server.jarRUN bash -c &#39;touch /eblog-server.jar&#39;ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;eblog-server.jar&quot;]</code></pre><h3 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h3><pre><code class="bash">docker build -t eblog-server .</code></pre><blockquote><p>其实这里不用编成镜像也行，只是为了展示不同的构建方法才这么写</p></blockquote><h2 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h2><p>具体代码如下</p><pre><code class="yml">version: &#39;3&#39;services:    nginx:        restart: always        container_name: nginx        build:            context: ./web            dockerfile: ./Dockerfile        ports:            - 80:80        depends_on:            - eblog_server_1            - eblog_server_2        volumes:            - ./web/log:/var/log/nginx    eblog_server_1:        container_name: eblog_server_1        image: eblog-server        ports:            - 8099:8099        depends_on:            - docker_mysql            - docker_redis        volumes:          - ./server/img:/img    eblog_server_2:        container_name: eblog_server_2        image: eblog-server        ports:            - 8098:8098        depends_on:            - docker_mysql            - docker_redis        volumes:          - ./server/img:/img    docker_mysql:        container_name: docker_mysql        image: mysql:5.6        restart: always        environment:            MYSQL_ROOT_PASSWORD: 123            MYSQL_ROOT_HOST: &#39;%&#39;        ports:            - 3306:3306        volumes:            - ./mysql/data:/var/lib/mysql    docker_redis:      container_name: docker_redis      image: redis      restart: always      command: redis-server /usr/local/etc/redis/redis.conf      ports:        - 6379:6379      volumes:        - ./redis/data:/data        - ./redis/redis.conf:/usr/local/etc/redis/redis.conf</code></pre><p>下面讲解一下文件配置</p><ul><li>version -&gt; 没什么好说的 版本而已</li><li>services -&gt; 需要运行的服务</li><li>nginx,eblog_server_1 .. 标识符</li><li>depends_on -&gt; 等里面的服务启动完成后才会启动</li><li>container_name -&gt; 容器名称</li><li><p>image -&gt; 使用docker里面的镜像</p></li><li><p>build</p></li></ul><p>这个是重点</p><p>如果使用Dockerfile创建镜像的话，比如我们的前端，我们需要利用build先构建镜像，然后再创建容器。<br>而那个context就是构建的目录,我们进入web目录下才会后我们的dockerfile，并且在web目录下才会由我们的nginx.conf文件</p><h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><p>打包到服务器之后输入下面的命令</p><pre><code class="bash"># 后台运行docker-compose up -d</code></pre><pre><code class="bash"># 前台运行docker-compose up</code></pre><p>运行成功后，打开运行中的服务:</p><p><img src="https://s2.ax1x.com/2019/11/23/MbHMRg.png" alt></p><p>发现运行成功</p><h2 id="停止服务"><a href="#停止服务" class="headerlink" title="停止服务"></a>停止服务</h2><pre><code class="bash">dcoker-compose down</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="docker-实现前后端分离的自动化部署"><a href="#docker-实现前后端分离的自动化部署" class="headerlink" title="docker 实现前后端分离的自动化部署"></a>docker 实现前后端分离的自动化部署</h1><p>时隔一个学年，我再一次租起了阿里云服务器(哎呀真香啊)，其实一开始我也是拒绝的，但是由于我的电脑配置日渐落后，连启动一个虚拟机都要等上半天。我就想说：买！咱不受那个窝囊气。</p><p>具体配置是这样的</p><p><img src="https://s2.ax1x.com/2019/11/18/McPwsf.png" alt></p><p>好了，废话不多说，这篇文章是搭建web环境的，看过之前的文章都知道，技术选型肯定就是docker + springboot + vue了</p><h2 id="下载环境"><a href="#下载环境" class="headerlink" title="下载环境"></a>下载环境</h2><p>这里我默认大家docker已经装好了，如果没有装好，请参考我之前的文章<br>我们现在需要下载的是docker-compose</p><pre><code class="bash"># 下载和安装curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose# 赋予权限chmod +x /usr/local/bin/docker-compose# 检查版本docker-compose -vesion</code></pre><h2 id="项目架构"><a href="#项目架构" class="headerlink" title="项目架构"></a>项目架构</h2><p><img src="https://s2.ax1x.com/2019/11/23/Mbfslq.png" alt></p><p>这是我的项目的所有的工程文件，下面讲解一下这些都是些啥玩意。</p><p>首先介绍一下前后端分别都是我的github项目，地址是 <a href="https://github.com/whoami1231/blog-vue">前端</a>|<a href="https://github.com/whoami1231/blog-java">后端</a>.</p><h2 id="前端准备"><a href="#前端准备" class="headerlink" title="前端准备"></a>前端准备</h2><p>先介绍一下前端文件，也就是web文件夹<br>我们的前端是通过vue打包后部署到nginx，因为要做后端的负载均衡。</p><h3 id="修改源代码"><a href="#修改源代码" class="headerlink" title="修改源代码"></a>修改源代码</h3><p>首先我们需要修改文件，因为我们要部署到docker里面。容器与容器之间会有冲突域产生，localhost是绝对访问不到自己的项目的，所以我们需要将我们请求后端的axios的bashUrl修改一下改成这样-&gt; <a href="http://example.com/server" target="_blank" rel="noopener">http://example.com/server</a></p><blockquote><p>中间的域名可以换成你的服务器ip地址，后面的server是一个声明，好让nginx反向代理到后端</p></blockquote><h3 id="打包项目文件"><a href="#打包项目文件" class="headerlink" title="打包项目文件"></a>打包项目文件</h3><p>然后我们要给我们的前端打包，打开项目根目录然后输入下面的命令</p><pre><code class="bash">npm run build</code></pre><p>我们会得到一个dist文件夹，也就是我们的前端文件[我还没有搞cdn加速，太卑微了]</p><h3 id="编写nginx配置文件-nginx-conf"><a href="#编写nginx配置文件-nginx-conf" class="headerlink" title="编写nginx配置文件 nginx.conf"></a>编写nginx配置文件 nginx.conf</h3><p>具体文件如下:</p><pre><code class="text">worker_processes  1;events {    worker_connections  1024;}http {    include       mime.types;    default_type  application/octet-stream;    client_max_body_size 4m;    upstream eblogserver{        server eblog_server_1:8099 weight=1;        server eblog_server_2:8098 weight=2;    }    sendfile        on;    keepalive_timeout  65;    gzip on;    gzip_min_length 1k;    gzip_buffers 4 16k;    gzip_http_version 1.0;    gzip_comp_level 2;    gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php application/vnd.ms-fontobject font/ttf font/opentype font/x-woff image/svg+xml;    gzip_vary off;    gzip_disable &quot;MSIE [1-6]\.&quot;;    server {        listen       80;        server_name  localhost;        location / {            try_files $uri $uri/ /index.html last;            root /usr/share/nginx/html;            index  index.html;        }        location ^~ /server/ {            proxy_pass http://eblogserver/;        }    }}</code></pre><blockquote><p>上面的upstream是加权轮转进行负载均衡的意思</p></blockquote><h3 id="编写Dockerfile"><a href="#编写Dockerfile" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h3><p>具体文件如下</p><pre><code class="bash">FROM nginxCOPY nginx.conf /etc/nginx/nginx.confCOPY ./dist /usr/share/nginx/htmlEXPOSE 80CMD [&quot;nginx&quot;,&quot;-g&quot;,&quot;daemon off;&quot;]</code></pre><h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><h3 id="修改源代码-1"><a href="#修改源代码-1" class="headerlink" title="修改源代码"></a>修改源代码</h3><p>因为我这里使用的idea的IDE，所以我直接在这里面打包，但是因为有冲突域的存在，所以我们通过127.0.0.1是访问不到我们的mysql的，所以我们需要修改我们的配置文件，而这里又因为打包的时候需要检查所有的test文件，包括数据库是否可以连接。所以这里就会产生一个很大的冲突，经过度娘得知，我们可以跳过安全检查。</p><p>打开我们的pom.xml，修改里面的properties</p><pre><code class="xml">&lt;properties&gt;    &lt;java.version&gt;1.8&lt;/java.version&gt;    &lt;skipTests&gt;true&lt;/skipTests&gt;&lt;!--添加 --&gt;&lt;/properties&gt;</code></pre><p>然后我们修改我们的数据库连接路径</p><p>url: jdbc:mysql://docker_mysql:3306/eblog?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai</p><blockquote><p>这里面的docker_mysql是我们一会启动的mysql的服务</p></blockquote><h3 id="打包jar"><a href="#打包jar" class="headerlink" title="打包jar"></a>打包jar</h3><p>具体操作如下<br><img src="https://s2.ax1x.com/2019/11/23/Mboco8.png" alt></p><h3 id="编写Dockerfile-1"><a href="#编写Dockerfile-1" class="headerlink" title="编写Dockerfile"></a>编写Dockerfile</h3><p>文件代码如下</p><pre><code class="bash"># 继承java 1.8FROM java:8# 容器的操作者MAINTAINER whoami# 数据卷VOLUME /temp# 修改jar包名称ADD app-0.0.1-SNAPSHOT.jar eblog-server.jarRUN bash -c &#39;touch /eblog-server.jar&#39;ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;eblog-server.jar&quot;]</code></pre><h3 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h3><pre><code class="bash">docker build -t eblog-server .</code></pre><blockquote><p>其实这里不用编成镜像也行，只是为了展示不同的构建方法才这么写</p></blockquote><h2 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h2><p>具体代码如下</p><pre><code class="yml">version: &#39;3&#39;services:    nginx:        restart: always        container_name: nginx        build:            context: ./web            dockerfile: ./Dockerfile        ports:            - 80:80        depends_on:            - eblog_server_1            - eblog_server_2        volumes:            - ./web/log:/var/log/nginx    eblog_server_1:        container_name: eblog_server_1        image: eblog-server        ports:            - 8099:8099        depends_on:            - docker_mysql            - docker_redis        volumes:          - ./server/img:/img    eblog_server_2:        container_name: eblog_server_2        image: eblog-server        ports:            - 8098:8098        depends_on:            - docker_mysql            - docker_redis        volumes:          - ./server/img:/img    docker_mysql:        container_name: docker_mysql        image: mysql:5.6        restart: always        environment:            MYSQL_ROOT_PASSWORD: 123            MYSQL_ROOT_HOST: &#39;%&#39;        ports:            - 3306:3306        volumes:            - ./mysql/data:/var/lib/mysql    docker_redis:      container_name: docker_redis      image: redis      restart: always      command: redis-server /usr/local/etc/redis/redis.conf      ports:        - 6379:6379      volumes:        - ./redis/data:/data        - ./redis/redis.conf:/usr/local/etc/redis/redis.conf</code></pre><p>下面讲解一下文件配置</p><ul><li>version -&gt; 没什么好说的 版本而已</li><li>services -&gt; 需要运行的服务</li><li>nginx,eblog_server_1 .. 标识符</li><li>depends_on -&gt; 等里面的服务启动完成后才会启动</li><li>container_name -&gt; 容器名称</li><li><p>image -&gt; 使用docker里面的镜像</p></li><li><p>build</p></li></ul><p>这个是重点</p><p>如果使用Dockerfile创建镜像的话，比如我们的前端，我们需要利用build先构建镜像，然后再创建容器。<br>而那个context就是构建的目录,我们进入web目录下才会后我们的dockerfile，并且在web目录下才会由我们的nginx.conf文件</p><h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><p>打包到服务器之后输入下面的命令</p><pre><code class="bash"># 后台运行docker-compose up -d</code></pre><pre><code class="bash"># 前台运行docker-compose up</code></pre><p>运行成功后，打开运行中的服务:</p><p><img src="https://s2.ax1x.com/2019/11/23/MbHMRg.png" alt></p><p>发现运行成功</p><h2 id="停止服务"><a href="#停止服务" class="headerlink" title="停止服务"></a>停止服务</h2><pre><code class="bash">dcoker-compose down</code></pre>]]></content>
       
       
       <categories>
@@ -284,11 +350,11 @@
     
     
     <entry>
-      <title>centos7安装java</title>
-      <link href="/2019/11/18/centos7%E5%AE%89%E8%A3%85java/"/>
-      <url>/2019/11/18/centos7%E5%AE%89%E8%A3%85java/</url>
+      <title>Centos7安装java和maven</title>
+      <link href="/2019/11/18/centos7%E5%AE%89%E8%A3%85java%E5%92%8Cmaven/"/>
+      <url>/2019/11/18/centos7%E5%AE%89%E8%A3%85java%E5%92%8Cmaven/</url>
       
-        <content type="html"><![CDATA[<h1 id="java搭建"><a href="#java搭建" class="headerlink" title="java搭建"></a>java搭建</h1><blockquote><p>由于之前的笔记都是存到了网易云笔记上面，现在都懒得打开那个软件了，现在干脆直接把上面那些有的没的直接搬到这上面来，省时省力。</p></blockquote><p>好了，正片开始</p><p>首先将我们的jdk包[这里我用的是jdk1.8.0的]上传到服务器上面去，之后一步一步敲命令就好了</p><pre><code class="bash">mkdir -p /usr/share/javamv jar包 /usr/share/javatar -zxvf jar包# 修改环境变量vi /etc/profile</code></pre><p>其实关于上面的修改环境变量我更倾向于用xftp,因为他可以直接调用你的物理主机修改服务器上面的文件，I love it….</p><p>在上面的文件的后面加上</p><pre><code class="bash"># java环境变量配置JAVA_HOME=/usr/share/java/jar包名称CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jarPATH=$PATH:$JAVA_HOME/binexport JAVA_HOME CLASSPATH PATH</code></pre><p>保存文件后更新一下配置文件</p><pre><code class="bash">source /etc/profile</code></pre><p>验证java是否安装成功</p><pre><code class="bash">java -version</code></pre><p>出现java版本后则代表安装成功</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="Centos7安装java和maven"><a href="#Centos7安装java和maven" class="headerlink" title="Centos7安装java和maven"></a>Centos7安装java和maven</h1><h2 id="java教程"><a href="#java教程" class="headerlink" title="java教程"></a>java教程</h2><blockquote><p>由于之前的笔记都是存到了网易云笔记上面，现在都懒得打开那个软件了，现在干脆直接把上面那些有的没的直接搬到这上面来，省时省力。</p></blockquote><p>好了，正片开始</p><p>首先将我们的jdk包[这里我用的是jdk1.8.0的]上传到服务器上面去，之后一步一步敲命令就好了</p><pre><code class="bash">mkdir -p /usr/share/javamv jar包 /usr/share/javatar -zxvf jar包# 修改环境变量vi /etc/profile</code></pre><p>其实关于上面的修改环境变量我更倾向于用xftp,因为他可以直接调用你的物理主机修改服务器上面的文件，I love it….</p><p>在上面的文件的后面加上</p><pre><code class="bash"># java环境变量配置JAVA_HOME=/usr/share/java/jar包名称CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jarPATH=$PATH:$JAVA_HOME/binexport JAVA_HOME CLASSPATH PATH</code></pre><p>保存文件后更新一下配置文件</p><pre><code class="bash">source /etc/profile</code></pre><p>验证java是否安装成功</p><pre><code class="bash">java -version</code></pre><p>出现java版本后则代表安装成功</p><h2 id="maven教程"><a href="#maven教程" class="headerlink" title="maven教程"></a>maven教程</h2><p>我们直接在清华镜像里面下载maven压缩包</p><pre><code class="bash">wget https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</code></pre><p>解压到user/local/ 下面</p><pre><code class="bash">tar -zxvf apache-maven-3.6.3-bin.tar.gz -C /usr/local/maven# 修改环境变量vi /etc/profile# 生效配置文件source /etc/profile</code></pre><p>在配置文件的后面添加</p><pre><code>export PATH=$PATH:/usr/local/maven/bin</code></pre><p>出现下面的情况则代表安装成功<br><a href="https://imgchr.com/i/sn5M26" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/08/sn5M26.png" alt="sn5M26.png"></a></p>]]></content>
       
       
       <categories>
@@ -300,13 +366,11 @@
       
         <tags>
             
-            <tag> springboot </tag>
-            
             <tag> 安装教程 </tag>
             
-            <tag> docker </tag>
+            <tag> java </tag>
             
-            <tag> web </tag>
+            <tag> maven </tag>
             
         </tags>
       
@@ -478,19 +542,6 @@
             <tag> 网络安全 - kali </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>electron-vue创建桌面程式初探</title>
-      <link href="/2019/09/12/electron-vue%E5%88%9B%E5%BB%BA%E6%A1%8C%E9%9D%A2%E7%A8%8B%E5%BC%8F%E5%88%9D%E6%8E%A2/"/>
-      <url>/2019/09/12/electron-vue%E5%88%9B%E5%BB%BA%E6%A1%8C%E9%9D%A2%E7%A8%8B%E5%BC%8F%E5%88%9D%E6%8E%A2/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
       
     </entry>
     
@@ -1343,7 +1394,7 @@
       <link href="/2019/05/09/java%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/"/>
       <url>/2019/05/09/java%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>这一个文章单纯的是常见的一些编程思想的总结</p></blockquote><a id="more"></a><p><strong>让一个变量重复的 非零即一</strong></p><pre><code class="java">nt test = 1;test = test %2;</code></pre><p><strong>取三个数中间值</strong></p><pre><code class="java">if ((b - a) * (a - c) &gt;= 0) { //如果a是中间数的话 b-a 和 a-c一定是相反数            return a;} else if ((a - b) * (b - c) &gt;= 0) {        return b;} else {        return c;}</code></pre><p> <strong>循环队列</strong></p><pre><code class="java">//加入一个队列rear有固定的空间，我现在让他循环存储可以用取模算法rear = (rear +1)%MAX</code></pre><p><strong>数据库分表</strong></p><p>假如现在有非常多数据，需要让他们放到不同的表中，可以用到取模算法</p><p>比如  我们有三个表， 在我们知道需要插入的具体id的时候，id%3就是他要存的表。</p><p><strong>判断是否是奇数</strong></p><p>我们通常用的是取模算法，但是还有一种是位与算法</p><pre><code class="java">if(n&amp;1 == 1){    //n就是奇数}</code></pre>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>这一个文章单纯的是常见的一些编程思想的总结</p></blockquote><a id="more"></a><p><strong>让一个变量重复的 非零即一</strong></p><pre><code class="java">int test = 1;test = test % 2;</code></pre><p><strong>取三个数中间值</strong></p><pre><code class="java">if ((b - a) * (a - c) &gt;= 0) { //如果a是中间数的话 b-a 和 a-c一定是相反数            return a;} else if ((a - b) * (b - c) &gt;= 0) {        return b;} else {        return c;}</code></pre><p> <strong>循环队列</strong></p><pre><code class="java">//加入一个队列rear有固定的空间，我现在让他循环存储可以用取模算法rear = (rear +1)%MAX</code></pre><p><strong>数据库分表</strong></p><p>假如现在有非常多数据，需要让他们放到不同的表中，可以用到取模算法</p><p>比如  我们有三个表， 在我们知道需要插入的具体id的时候，id%3就是他要存的表。</p><p><strong>判断是否是奇数</strong></p><p>我们通常用的是取模算法，但是还有一种是位与算法</p><pre><code class="java">if(n&amp;1 == 1){    //n就是奇数}</code></pre>]]></content>
       
       
       <categories>
@@ -1407,11 +1458,11 @@
       
         <tags>
             
-            <tag> 文件服务器 </tag>
-            
             <tag> 安装教程 </tag>
             
             <tag> java </tag>
+            
+            <tag> 文件服务器 </tag>
             
         </tags>
       
@@ -1424,7 +1475,7 @@
       <link href="/2019/05/03/java%E9%9B%86%E5%90%88%E8%AF%A6%E8%A7%A3/"/>
       <url>/2019/05/03/java%E9%9B%86%E5%90%88%E8%AF%A6%E8%A7%A3/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>这里我们分析Collection和Map<br><a href="https://img-blog.csdn.net/20160124221843905" target="_blank" rel="noopener">大图查看详情</a></p></blockquote><h1 id="javaCollection的分析"><a href="#javaCollection的分析" class="headerlink" title="javaCollection的分析"></a>javaCollection的分析</h1><p>Collection是在java.util里面</p><p><img src="https://s2.ax1x.com/2019/04/02/AywLb6.png" alt="Java队列"></p><blockquote><p>集合里面是一定是存放对象的，不能存放基本数据类型，像是int,也是先转换成Integer然后在放在集合中。</p></blockquote><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><a id="more"></a><ul><li>List是一个接口，而下面有ArrayList和LinkList两个实现类，关于Array和Linkd的区别，详见数据结构。</li><li>List是有顺序的！</li><li>Vector(同步) 非常类似ArrayList，但是Vector是同步的</li></ul><h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ul><li>Set也是一个接口，下面有HashSet和TreeSet两个实现类</li><li>HashSet: HashSet类按照哈希算法来存取集合中的对象，存取速度比较快。 里面的对象可能会被打乱，但是效率更高。</li><li>TreeSet: TreeSet类实现了SortedSet接口，能够对集合中的对象进行排序。 保证对象的有序性</li><li>Set里面没有重复数据  这样可以去重<br>| 重要方法    | 作用                                                         |<br>| ———– | ———————————————————— |<br>| iterator( ) | 主要用于递归集合，返回一个Iterator()对象，利用Iterator()去接收 |<blockquote><p>《后期添加》注意：这个Iterator是Collection下面的 。</p></blockquote></li></ul><h2 id="Deque-amp-amp-Queue"><a href="#Deque-amp-amp-Queue" class="headerlink" title="Deque &amp;&amp; Queue"></a>Deque &amp;&amp; Queue</h2><ul><li>其实Deque是Queue的一个接口，是父子关系</li><li><p>注意他的子接口Deque下面有两个实现类ArrayDeque…</p><p>  <img src="https://s2.ax1x.com/2019/04/28/EQg5N9.png" alt></p></li></ul><ul><li><p>Queue是一个普通队列，详情见数据结构</p></li><li><p>Deque是Queue的子接口，他是一个双端队列，可以支持FIFO(First Input First Output)和LIFO原则。</p></li></ul><h3 id="队列基础"><a href="#队列基础" class="headerlink" title="队列基础"></a>队列基础</h3><ul><li>BlockingQueue阻塞队列:当添加队列的时候，可以去设置等待时间。即当队列满的时候，可以等待，超过等待时间返回false。取队列的时候也可以等待。</li><li>ConcurrentLinkedQueue非阻塞队列，添加和取队列的时候不去等待。</li><li>队列原则</li><li><ul><li>先进先出（FIFO）：先插入的队列的元素也最先出队列，类似于排队的功能。从某种程度上来说这种队列也体现了一种公平性。</li></ul></li><li><ul><li>后进先出（LIFO）：后插入队列的元素最先出队列，这种队列优先处理最近发生的事件。　　<blockquote><p>Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的</p></blockquote></li></ul></li></ul><hr><h3 id="非阻塞队列"><a href="#非阻塞队列" class="headerlink" title="非阻塞队列"></a>非阻塞队列</h3><h4 id="ConcurrentLinkedQueue"><a href="#ConcurrentLinkedQueue" class="headerlink" title="ConcurrentLinkedQueue()"></a>ConcurrentLinkedQueue<e>()</e></h4><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer</td><td style="text-align:left">将Object添加到队列的尾部</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><h3 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h3><h4 id="BlockingQueue-Size"><a href="#BlockingQueue-Size" class="headerlink" title="BlockingQueue(Size)"></a>BlockingQueue<e>(Size)</e></h4><p><img src="https://s2.ax1x.com/2019/04/08/A4Oysx.png" alt="常用队列"></p><ul><li><p>ArrayBlockingQueue 数组型队列，必须要指定size</p></li><li><p>linkedBlockingQueue  链表型无界队列，可以指定size</p></li></ul><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer()</td><td style="text-align:left">将Object添加到队列的尾部&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">offer(Object,time,timeUtil)</td><td style="text-align:left">将Object添加到队列的尾部&lt;阻塞式&gt;,设定队满的时候等待时间</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">poll(Object,time,timeUtil)</td><td style="text-align:left">队列头取Object并且将其在队列中删除&lt;阻塞式&gt;,设定队空的时候等待时间</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><blockquote><p>这里要注意： add()方法和offer方法的区别，add方法在队列满的情况下会抛出一个异常。而offer并不会。|</p></blockquote><h1 id="Map分析"><a href="#Map分析" class="headerlink" title="Map分析"></a>Map分析</h1>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>这里我们分析Collection和Map<br><a href="https://img-blog.csdn.net/20160124221843905" target="_blank" rel="noopener">大图查看详情</a></p></blockquote><h1 id="javaCollection的分析"><a href="#javaCollection的分析" class="headerlink" title="javaCollection的分析"></a>javaCollection的分析</h1><p>Collection是在java.util里面</p><p><img src="https://s2.ax1x.com/2019/04/02/AywLb6.png" alt="Java队列"></p><blockquote><p>集合里面是一定是存放对象的，不能存放基本数据类型，像是int,也是先转换成Integer然后在放在集合中。</p></blockquote><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><a id="more"></a><ul><li>List是一个接口，而下面有ArrayList和LinkList两个实现类，关于Array和Linkd的区别，详见数据结构。</li><li>List是有顺序的！</li><li>Vector(同步) 非常类似ArrayList，但是Vector是同步的</li></ul><h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ul><li>Set也是一个接口，下面有HashSet和TreeSet两个实现类</li><li>HashSet: HashSet类按照哈希算法来存取集合中的对象，存取速度比较快。 里面的对象可能会被打乱，但是效率更高。</li><li>TreeSet: TreeSet类实现了SortedSet接口，能够对集合中的对象进行排序。 保证对象的有序性</li><li>Set里面没有重复数据  这样可以去重<br>| 重要方法    | 作用                                                         |<br>| ———– | ———————————————————— |<br>| iterator( ) | 主要用于递归集合，返回一个Iterator()对象，利用Iterator()去接收 |<blockquote><p>《后期添加》注意：这个Iterator是Collection下面的 。</p></blockquote></li></ul><h2 id="Deque-amp-amp-Queue"><a href="#Deque-amp-amp-Queue" class="headerlink" title="Deque &amp;&amp; Queue"></a>Deque &amp;&amp; Queue</h2><ul><li>其实Deque是Queue的一个接口，是父子关系</li><li><p>注意他的子接口Deque下面有两个实现类ArrayDeque…</p><p>  <img src="https://s2.ax1x.com/2019/04/28/EQg5N9.png" alt></p></li></ul><ul><li><p>Queue是一个普通队列，详情见数据结构</p></li><li><p>Deque是Queue的子接口，他是一个双端队列，可以支持FIFO(First Input First Output)和LIFO原则。</p></li></ul><h3 id="队列基础"><a href="#队列基础" class="headerlink" title="队列基础"></a>队列基础</h3><ul><li>BlockingQueue阻塞队列:当添加队列的时候，可以去设置等待时间。即当队列满的时候，可以等待，超过等待时间返回false。取队列的时候也可以等待。</li><li>ConcurrentLinkedQueue非阻塞队列，添加和取队列的时候不去等待。</li><li>队列原则</li><li><ul><li>先进先出（FIFO）：先插入的队列的元素也最先出队列，类似于排队的功能。从某种程度上来说这种队列也体现了一种公平性。</li></ul></li><li><ul><li>后进先出（LIFO）：后插入队列的元素最先出队列，这种队列优先处理最近发生的事件。　　<blockquote><p>Tips: 非阻塞队列比阻塞队列效率要好，但是确实不安全的</p></blockquote></li></ul></li></ul><hr><h3 id="非阻塞队列"><a href="#非阻塞队列" class="headerlink" title="非阻塞队列"></a>非阻塞队列</h3><h4 id="ConcurrentLinkedQueue"><a href="#ConcurrentLinkedQueue" class="headerlink" title="ConcurrentLinkedQueue()"></a>ConcurrentLinkedQueue<e>()</e></h4><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer</td><td style="text-align:left">将Object添加到队列的尾部</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><h3 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h3><h4 id="BlockingQueue-Size"><a href="#BlockingQueue-Size" class="headerlink" title="BlockingQueue(Size)"></a>BlockingQueue<e>(Size)</e></h4><p><img src="https://s2.ax1x.com/2019/04/08/A4Oysx.png" alt="常用队列"></p><ul><li><p>ArrayBlockingQueue 数组型队列，必须要指定size</p></li><li><p>linkedBlockingQueue  链表型无界队列，可以指定size</p></li></ul><table><thead><tr><th style="text-align:left">方法</th><th style="text-align:left">作用</th></tr></thead><tbody><tr><td style="text-align:left">offer()</td><td style="text-align:left">将Object添加到队列的尾部&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">offer(Object,time,timeUtil)</td><td style="text-align:left">将Object添加到队列的尾部&lt;阻塞式&gt;,设定队满的时候等待时间</td></tr><tr><td style="text-align:left">poll</td><td style="text-align:left">从队列头取Object并且将其在队列中删除&lt;非阻塞式&gt;</td></tr><tr><td style="text-align:left">poll(Object,time,timeUtil)</td><td style="text-align:left">队列头取Object并且将其在队列中删除&lt;阻塞式&gt;,设定队空的时候等待时间</td></tr><tr><td style="text-align:left">peek</td><td style="text-align:left">从队列头取Object并且不将其在队列中删除</td></tr></tbody></table><blockquote><p>这里要注意： add()方法和offer方法的区别，add方法在队列满的情况下会抛出一个异常。而offer并不会。|</p></blockquote>]]></content>
       
       
       <categories>
@@ -1451,7 +1502,7 @@
       <link href="/2019/04/30/centos7%E5%AE%89%E8%A3%85redis/"/>
       <url>/2019/04/30/centos7%E5%AE%89%E8%A3%85redis/</url>
       
-        <content type="html"><![CDATA[<h1 id="centos7安装redis"><a href="#centos7安装redis" class="headerlink" title="centos7安装redis"></a>centos7安装redis</h1><p>我的安装包版本是redis5.6</p><a id="more"></a><h2 id="准备安装"><a href="#准备安装" class="headerlink" title="准备安装"></a>准备安装</h2><hr><p>安装redis需要gcc环境</p><pre><code>yum install gcc</code></pre><p>准备redis5.6的tar包，我这里离线下载的</p><pre><code># 这里我解压到了桌面 /root/桌面tar -zxvf redis...   #解压</code></pre><h2 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h2><hr><pre><code>make MALLOC=libcmake install  # 这里会将启动程序安装到 /usr/local/bin下面cd /usr/local/bin./redis-server #测试运行</code></pre><p>如果出现下面的图片则证明启动成功。<img src="https://s2.ax1x.com/2019/04/30/E8A5h6.png" alt></p><h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><hr><p>在/path/下 我这里则是/root/桌面/redis5.6/redis.conf修改下面的变量</p><pre><code>vi redis.conf#下面是修改项 yes的意思就是可以守护态运行 no则是必须前台运行daemonize yesrequirepass 123  #这个是密码 可以自定义#注释下列选项 这样就可以远程连接bind 127.0.0.1</code></pre><p>移动redis.conf到/usr/local/bin下</p><pre><code>cp redis.conf /usr/local/bin</code></pre><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><pre><code>cd /usr/local/bin./redis-server redis.conf &amp;</code></pre><p>利用本地电脑的redis可视化工具测试连接</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="centos7安装redis"><a href="#centos7安装redis" class="headerlink" title="centos7安装redis"></a>centos7安装redis</h1><p>我的安装包版本是redis5.6</p><a id="more"></a><h2 id="准备安装"><a href="#准备安装" class="headerlink" title="准备安装"></a>准备安装</h2><hr><p>安装redis需要gcc环境</p><pre><code>yum install gcc</code></pre><p>准备redis5.6的tar包，我这里离线下载的</p><pre><code># 这里我解压到了桌面 /root/桌面tar -zxvf redis...   #解压</code></pre><h2 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h2><hr><pre><code>make MALLOC=libcmake install  # 这里会将启动程序安装到 /usr/local/bin下面cd /usr/local/bin./redis-server #测试运行</code></pre><p>如果出现下面的图片则证明启动成功。<img src="https://s2.ax1x.com/2019/04/30/E8A5h6.png" alt></p><h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><hr><p>在/path/下 我这里则是/root/桌面/redis5.6/redis.conf修改下面的变量</p><pre><code>vi redis.conf#下面是修改项 yes的意思就是可以守护态运行 no则是必须前台运行daemonize yesrequirepass 123  #这个是密码 可以自定义#注释下列选项 这样就可以远程连接bind 127.0.0.1</code></pre><p>移动redis.conf到/usr/local/bin下</p><pre><code>cp redis.conf /usr/local/bin</code></pre><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><pre><code>cd /usr/local/bin./redis-server redis.conf &amp; # &amp;代表后台启动</code></pre><p>利用本地电脑的redis可视化工具测试连接</p>]]></content>
       
       
       <categories>
@@ -1528,7 +1579,7 @@
       <link href="/2019/04/21/java%E9%94%81%E7%9A%84%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/"/>
       <url>/2019/04/21/java%E9%94%81%E7%9A%84%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3/</url>
       
-        <content type="html"><![CDATA[<h1 id="java锁的深入理解"><a href="#java锁的深入理解" class="headerlink" title="java锁的深入理解"></a>java锁的深入理解</h1><hr><h2 id="重入锁"><a href="#重入锁" class="headerlink" title="重入锁"></a>重入锁</h2><p>这个锁相当于一个递归锁，如果上层代码已经获得到了锁的所有权，那么他的子代码也直接拥有所有权，重入锁的常见有</p><p>Lock锁(轻量级锁)和synchronize(重量级锁)</p><h2 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h2><p>相比<a href="http://ifeve.com/locks/" target="_blank" rel="noopener">Java中的锁(Locks in Java)</a>里Lock实现，读写锁更复杂一些。假设你的程序中涉及到对一些共享资源的读和写操作，且写操作没有读操作那么频繁。在没有写操作的时候<strong>，两个线程同时读一个资源没有任何问题，所以应该允许多个线程能在同时读取共享资源。但是如果有一个线程想去写这些共享资源，就不应该再有其它线程对该资源进行读或写</strong>（译者注：也就是说：读-读能共存，读-写不能共存，写-写不能共存）。这就需要一个读/写锁来解决这个问题。Java5在java.util.concurrent包中已经包含了读写锁。尽管如此，我们还是应该了解其实现背后的原理。</p><p>这里用一段实例来解释读写锁</p><pre><code class="java">package com.lock;import java.util.HashMap;import java.util.Map;import java.util.concurrent.locks.Lock;import java.util.concurrent.locks.ReentrantLock;import java.util.concurrent.locks.ReentrantReadWriteLock;/** * Created with IntelliJ IDEA. * User: WHOAMI * Time: 2019-2019/4/21-20:46 * Description: :/TODO_ */public class TestMain {    public static void main(String args[]){        new Thread(new Runnable() {            @Override            public void run() {                for (int i = 0; i &lt; 10; i++) {                    Cache.put(i + &quot;&quot;, i + &quot;&quot;);                }            }        }).start();        new Thread(new Runnable() {            @Override            public void run() {                for (int i = 0; i &lt; 10; i++) {                    Cache.get(i + &quot;&quot;);                }            }        }).start();    }}class Cache {    static Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();    static ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();    static Lock r = rwl.readLock();    static Lock w = rwl.writeLock();    // 获取一个key对应的value    public static final Object get(String key) {        r.lock();        try {            System.out.println(&quot;正在做读的操作,key:&quot; + key + &quot; 开始&quot;);            Thread.sleep(100);            Object object = map.get(key);            System.out.println(&quot;正在做读的操作,key:&quot; + key + &quot; 结束&quot;);            System.out.println();            return object;        } catch (InterruptedException e) {        } finally {            r.unlock();        }        return key;    }    // 设置key对应的value，并返回旧有的value    public static final Object put(String key, Object value) {        w.lock();        try {            System.out.println(&quot;正在做写的操作,key:&quot; + key + &quot;,value:&quot; + value + &quot;开始.&quot;);            Thread.sleep(100);            Object object = map.put(key, value);            System.out.println(&quot;正在做写的操作,key:&quot; + key + &quot;,value:&quot; + value + &quot;结束.&quot;);            System.out.println();            return object;        } catch (InterruptedException e) {        } finally {            w.unlock();        }        return value;    }    // 清空所有的内容    public static final void clear() {        w.lock();        try {            map.clear();        } finally {            w.unlock();        }    }}</code></pre><h2 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h2><p>这里只是一个描述，乐观锁和CAS无锁机制，他的性能比悲观锁高，因为他并没有利用锁，更不会有死锁问题。</p><h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>总是假设最坏的情况，每次取数据时都认为其他线程会修改，所以都会加锁（读锁、写锁、行锁等），当其他线程想要访问数据时，都需要阻塞挂起。可以依靠数据库实现，如行锁、读锁和写锁等，都是在操作之前加锁，在Java中，synchronized的思想也是悲观锁。</p><h2 id="CAS锁"><a href="#CAS锁" class="headerlink" title="CAS锁"></a>CAS锁</h2><p>（1）与锁相比，使用比较交换compare and Swap（下文简称CAS）会使程序看起来更加复杂一些。但由于其非阻塞性，它对死锁问题天生免疫，并且，线程间的相互影响也远远比基于锁的方式要小。更为重要的是，使用无锁的方式完全没有锁竞争带来的系统开销，也没有线程间频繁调度带来的开销，因此，它要比基于锁的方式拥有更优越的性能。 </p><p>（2）无锁的好处：</p><p>第一，在高并发的情况下，它比有锁的程序拥有更好的性能；</p><p>第二，它天生就是死锁免疫的。</p><p>就凭借这两个优势，就值得我们冒险尝试使用无锁的并发。</p><p>（3）CAS算法的过程是这样：它包含三个参数CAS(V,E,N): V表示要更新的变量，E表示预期值，N表示新值。仅当V值等于E值时，才会将V的值设为N，如果V值和E值不同，则说明已经有其他线程做了更新，则当前线程什么都不做。最后，CAS返回当前V的真实值。</p><p>（4）CAS操作是抱着乐观的态度进行的，它总是认为自己可以成功完成操作。当多个线程同时使用CAS操作一个变量时，只有一个会胜出，并成功更新，其余均会失败。失败的线程不会被挂起，仅是被告知失败，并且允许再次尝试，当然也允许失败的线程放弃操作。基于这样的原理，CAS操作即使没有锁，也可以发现其他线程对当前线程的干扰，并进行恰当的处理。</p><p>（5）简单地说，CAS需要你额外给出一个期望值，也就是你认为这个变量现在应该是什么样子的。如果变量不是你想象的那样，那说明它已经被别人修改过了。你就重新读取，再次尝试修改就好了。</p><p>（6）在硬件层面，大部分的现代处理器都已经支持原子化的CAS指令。在JDK 5.0以后，虚拟机便可以使用这个指令来实现并发操作和并发数据结构，并且，这种操作在虚拟机中可以说是无处不在。</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="java锁的深入理解"><a href="#java锁的深入理解" class="headerlink" title="java锁的深入理解"></a>java锁的深入理解</h1><hr><h2 id="重入锁"><a href="#重入锁" class="headerlink" title="重入锁"></a>重入锁</h2><p>这个锁相当于一个递归锁，如果上层代码已经获得到了锁的所有权，那么他的子代码也直接拥有所有权，重入锁的常见有</p><p>Lock锁(轻量级锁) 和 synchronize(重量级锁)</p><h2 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h2><p>相比<a href="http://ifeve.com/locks/" target="_blank" rel="noopener">Java中的锁(Locks in Java)</a>里Lock实现，读写锁更复杂一些。假设你的程序中涉及到对一些共享资源的读和写操作，且写操作没有读操作那么频繁。在没有写操作的时候<strong>，两个线程同时读一个资源没有任何问题，所以应该允许多个线程能在同时读取共享资源。但是如果有一个线程想去写这些共享资源，就不应该再有其它线程对该资源进行读或写</strong>（译者注：也就是说：读-读能共存，读-写不能共存，写-写不能共存）。这就需要一个读/写锁来解决这个问题。Java5在java.util.concurrent包中已经包含了读写锁。尽管如此，我们还是应该了解其实现背后的原理。</p><p>这里用一段实例来解释读写锁</p><pre><code class="java">package com.lock;import java.util.HashMap;import java.util.Map;import java.util.concurrent.locks.Lock;import java.util.concurrent.locks.ReentrantLock;import java.util.concurrent.locks.ReentrantReadWriteLock;/** * Created with IntelliJ IDEA. * User: WHOAMI * Time: 2019-2019/4/21-20:46 * Description: :/TODO_ */public class TestMain {    public static void main(String args[]){        new Thread(new Runnable() {            @Override            public void run() {                for (int i = 0; i &lt; 10; i++) {                    Cache.put(i + &quot;&quot;, i + &quot;&quot;);                }            }        }).start();        new Thread(new Runnable() {            @Override            public void run() {                for (int i = 0; i &lt; 10; i++) {                    Cache.get(i + &quot;&quot;);                }            }        }).start();    }}class Cache {    static Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();    static ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();    static Lock r = rwl.readLock();    static Lock w = rwl.writeLock();    // 获取一个key对应的value    public static final Object get(String key) {        r.lock();        try {            System.out.println(&quot;正在做读的操作,key:&quot; + key + &quot; 开始&quot;);            Thread.sleep(100);            Object object = map.get(key);            System.out.println(&quot;正在做读的操作,key:&quot; + key + &quot; 结束&quot;);            System.out.println();            return object;        } catch (InterruptedException e) {        } finally {            r.unlock();        }        return key;    }    // 设置key对应的value，并返回旧有的value    public static final Object put(String key, Object value) {        w.lock();        try {            System.out.println(&quot;正在做写的操作,key:&quot; + key + &quot;,value:&quot; + value + &quot;开始.&quot;);            Thread.sleep(100);            Object object = map.put(key, value);            System.out.println(&quot;正在做写的操作,key:&quot; + key + &quot;,value:&quot; + value + &quot;结束.&quot;);            System.out.println();            return object;        } catch (InterruptedException e) {        } finally {            w.unlock();        }        return value;    }    // 清空所有的内容    public static final void clear() {        w.lock();        try {            map.clear();        } finally {            w.unlock();        }    }}</code></pre><h2 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h2><p>这里只是一个描述，乐观锁和CAS无锁机制，他的性能比悲观锁高，因为他并没有利用锁，更不会有死锁问题。</p><h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>总是假设最坏的情况，每次取数据时都认为其他线程会修改，所以都会加锁（读锁、写锁、行锁等），当其他线程想要访问数据时，都需要阻塞挂起。可以依靠数据库实现，如行锁、读锁和写锁等，都是在操作之前加锁，在Java中，synchronized的思想也是悲观锁。</p><h2 id="CAS锁"><a href="#CAS锁" class="headerlink" title="CAS锁"></a>CAS锁</h2><p>（1）与锁相比，使用比较交换compare and Swap（下文简称CAS）会使程序看起来更加复杂一些。但由于其非阻塞性，它对死锁问题天生免疫，并且，线程间的相互影响也远远比基于锁的方式要小。更为重要的是，使用无锁的方式完全没有锁竞争带来的系统开销，也没有线程间频繁调度带来的开销，因此，它要比基于锁的方式拥有更优越的性能。 </p><p>（2）无锁的好处：</p><p>第一，在高并发的情况下，它比有锁的程序拥有更好的性能；</p><p>第二，它天生就是死锁免疫的。</p><p>就凭借这两个优势，就值得我们冒险尝试使用无锁的并发。</p><p>（3）CAS算法的过程是这样：它包含三个参数CAS(V,E,N): V表示要更新的变量，E表示预期值，N表示新值。仅当V值等于E值时，才会将V的值设为N，如果V值和E值不同，则说明已经有其他线程做了更新，则当前线程什么都不做。最后，CAS返回当前V的真实值。</p><p>（4）CAS操作是抱着乐观的态度进行的，它总是认为自己可以成功完成操作。当多个线程同时使用CAS操作一个变量时，只有一个会胜出，并成功更新，其余均会失败。失败的线程不会被挂起，仅是被告知失败，并且允许再次尝试，当然也允许失败的线程放弃操作。基于这样的原理，CAS操作即使没有锁，也可以发现其他线程对当前线程的干扰，并进行恰当的处理。</p><p>（5）简单地说，CAS需要你额外给出一个期望值，也就是你认为这个变量现在应该是什么样子的。如果变量不是你想象的那样，那说明它已经被别人修改过了。你就重新读取，再次尝试修改就好了。</p><p>（6）在硬件层面，大部分的现代处理器都已经支持原子化的CAS指令。在JDK 5.0以后，虚拟机便可以使用这个指令来实现并发操作和并发数据结构，并且，这种操作在虚拟机中可以说是无处不在。</p>]]></content>
       
       
       <categories>
@@ -1648,9 +1699,9 @@
             
             <tag> 安装教程 </tag>
             
-            <tag> java </tag>
-            
             <tag> linux </tag>
+            
+            <tag> java </tag>
             
             <tag> 搜索服务 </tag>
             
@@ -1719,7 +1770,7 @@
       <link href="/2019/04/03/centos7%E4%B8%8B%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/"/>
       <url>/2019/04/03/centos7%E4%B8%8B%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/</url>
       
-        <content type="html"><![CDATA[<h1 id="Linux设置固定IP"><a href="#Linux设置固定IP" class="headerlink" title="Linux设置固定IP"></a>Linux设置固定IP</h1><blockquote><p>一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法</p></blockquote><p>我们要设置ip，要知道VM的网络适配器有三种原则</p><ul><li>桥接模式</li><li>主机模式</li><li>NAT模式</li></ul><p>我们的真实主机有两块对应的网卡</p><ul><li>VMnet0</li><li>VMnet8<a id="more"></a></li></ul><p>由于我们这里只固定ip，所以别的我们现在先不了解。</p><hr><h2 id="首先设置网关，打开VM的虚拟网络适配器"><a href="#首先设置网关，打开VM的虚拟网络适配器" class="headerlink" title="首先设置网关，打开VM的虚拟网络适配器"></a>首先设置网关，打开VM的虚拟网络适配器</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag94FH.png" alt="网络适配器"></p><p>修改我们的子网ip和子网掩码，注意！上面的框只有里面的3你可以自行修改！</p><h2 id="修改主机的VM网卡-VMnet8"><a href="#修改主机的VM网卡-VMnet8" class="headerlink" title="修改主机的VM网卡 VMnet8"></a>修改主机的VM网卡 VMnet8</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag9pqO.png" alt></p><h2 id="按照下图操作"><a href="#按照下图操作" class="headerlink" title="按照下图操作"></a>按照下图操作</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag9bOf.png" alt="操作"></p><p>其中也是建议只有3更改</p><hr><h2 id="注意linux选择NAT链接后，开始修改IP！"><a href="#注意linux选择NAT链接后，开始修改IP！" class="headerlink" title="注意linux选择NAT链接后，开始修改IP！"></a>注意linux选择NAT链接后，开始修改IP！</h2><hr><pre><code>ip addr#记住画圈的这个文件名，之后会用到</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgClnK.png" alt></p><h2 id="打开下面的文件"><a href="#打开下面的文件" class="headerlink" title="打开下面的文件"></a>打开下面的文件</h2><hr><p>我们首先要知道这里文件夹只要存储的是网卡的相关信息<strong>/etc/sysconfig/network-scripts/</strong></p><pre><code> cd /etc/sysconfig/network-scripts</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgPGrV.png" alt></p><pre><code>vim ifcfg-ens33# 修改下面的两处为#BOOTPROTO=static#ONBOOT=yesONBOOT=no #修改为自动连接#并在下面添加网址等信息IPADDR=192.168.3.135#静态IPGATEWAY=192.168.3.2 #默认网关NETMASK=255.255.255.0 #子网掩码</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgPTqf.png" alt></p><h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><hr><pre><code>service network restart</code></pre>]]></content>
+        <content type="html"><![CDATA[<h1 id="Linux设置固定IP"><a href="#Linux设置固定IP" class="headerlink" title="Linux设置固定IP"></a>Linux设置固定IP</h1><blockquote><p>一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法</p></blockquote><p>我们要设置ip，要知道VM的网络适配器有三种原则</p><ul><li>桥接模式</li><li>主机模式</li><li>NAT模式</li></ul><p>我们的真实主机有两块对应的网卡</p><ul><li>VMnet0</li><li>VMnet8<a id="more"></a></li></ul><p>由于我们这里只固定ip，所以别的我们现在先不了解。</p><hr><h2 id="首先设置网关，打开VM的虚拟网络适配器"><a href="#首先设置网关，打开VM的虚拟网络适配器" class="headerlink" title="首先设置网关，打开VM的虚拟网络适配器"></a>首先设置网关，打开VM的虚拟网络适配器</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag94FH.png" alt="网络适配器"></p><p>修改我们的子网ip和子网掩码，注意！上面的框只有里面的3你可以自行修改！</p><h2 id="修改主机的VM网卡-VMnet8"><a href="#修改主机的VM网卡-VMnet8" class="headerlink" title="修改主机的VM网卡 VMnet8"></a>修改主机的VM网卡 VMnet8</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag9pqO.png" alt></p><h2 id="按照下图操作"><a href="#按照下图操作" class="headerlink" title="按照下图操作"></a>按照下图操作</h2><hr><p><img src="https://s2.ax1x.com/2019/04/03/Ag9bOf.png" alt="操作"></p><p>其中也是建议只有3更改</p><hr><h2 id="注意linux选择NAT链接后，开始修改IP！"><a href="#注意linux选择NAT链接后，开始修改IP！" class="headerlink" title="注意linux选择NAT链接后，开始修改IP！"></a>注意linux选择NAT链接后，开始修改IP！</h2><hr><pre><code>ip addr#记住画圈的这个文件名，之后会用到</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgClnK.png" alt></p><h2 id="打开下面的文件"><a href="#打开下面的文件" class="headerlink" title="打开下面的文件"></a>打开下面的文件</h2><hr><p>我们首先要知道这里文件夹只要存储的是网卡的相关信息<strong>/etc/sysconfig/network-scripts/</strong></p><pre><code> cd /etc/sysconfig/network-scripts</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgPGrV.png" alt></p><pre><code>vim ifcfg-ens33# 修改下面的两处为#BOOTPROTO=static#ONBOOT=yesONBOOT=no #修改为自动连接#并在下面添加网址等信息IPADDR=192.168.3.135#静态IPGATEWAY=192.168.3.2 #默认网关NETMASK=255.255.255.0 #子网掩码</code></pre><p><img src="https://s2.ax1x.com/2019/04/03/AgPTqf.png" alt></p><h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><hr><pre><code>service network restart</code></pre><blockquote><p>重启后如果无法正常上网，可以在配置文件上面写上DNS1=8.8.8.8这一项</p></blockquote>]]></content>
       
       
       <categories>
@@ -1841,9 +1892,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -1910,7 +1961,7 @@
       <link href="/2019/03/27/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%88%9D%E7%AA%A5%E6%8E%A2/"/>
       <url>/2019/03/27/java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%88%9D%E7%AA%A5%E6%8E%A2/</url>
       
-        <content type="html"><![CDATA[<h1 id="java多线程"><a href="#java多线程" class="headerlink" title="java多线程"></a>java多线程</h1><p>多线程的作用就是提高应用程序的运行效率，提高用户的体验。那么，和多线程相近的进程又是什么意思呢？这两个有什么作用呢？</p><a id="more"></a><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><ul><li>打开计算机的任务管理器可以看到里面有很多的应用程序正在运行，那么这些程序就是许许多多的进程。</li><li>进程可以看成一个线程的集合【List】,许许多多的线程合成了一个进程，也就是我们的应用程序。<h3 id="计算机如何进行许多应用程序的？"><a href="#计算机如何进行许多应用程序的？" class="headerlink" title="计算机如何进行许多应用程序的？"></a>计算机如何进行许多应用程序的？</h3></li><li>通过CPU对不同的应用程序进行不停的切换，也就是轮询？给用户了一种很多程序同时进行的假象，但是你打开一个程序很长时间不用，突然打开会有一瞬间的卡顿，这样就能看出他其实并不是和你当前的程序有着相同的地位的。</li><li><img src="http://pp1zup2fb.bkt.clouddn.com/java-1.png" alt="多线程实现原理"></li></ul><hr><h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><ul><li><strong>多线程</strong></li><li>开辟多线程是为了提高应用程序的运行效率。</li><li>开辟多线程之后，代码将不会从上至下进行。</li><li><ul><li><strong>主线程和子线程</strong></li></ul></li><li>子线程一般都是用类自己定义然后开启，他们的行为将受限于主线程。<h3 id="线程的执行方法"><a href="#线程的执行方法" class="headerlink" title="线程的执行方法"></a>线程的执行方法</h3></li><li>继承Thread方法，并且重写Run方法，然后启动start服务</li><li>实现Runable方法，重写Run方法，并且将线程类交给Thread类去构建。然后start服务</li><li>利用匿名类</li><li>[开发中常用]利用线程池开启服务</li></ul><hr><h3 id="多线程的具体实现"><a href="#多线程的具体实现" class="headerlink" title="多线程的具体实现"></a>多线程的具体实现</h3><ol><li>继承Thread</li></ol><pre><code class="java">/** *  * @classDesc: 功能描述:(创建多线程例子-Thread类 重写run方法) * @author: WHOAMI * @version: v1.0 */class CreateThread extends Thread {    // run方法中编写 多线程需要执行的代码    publicvoid run() {        for (inti = 0; i&lt; 10; i++) {            System.out.println(&quot;i:&quot; + i);        }    }}publicclass ThreadDemo {    publicstaticvoid main(String[] args) {        System.out.println(&quot;-----多线程创建开始-----&quot;);        // 1.创建一个线程        CreateThread createThread = new CreateThread();        // 2.开始执行线程 注意 开启线程不是调用run方法，而是start方法        //3. 如果调用run方法，那么这个类就和普通的类没有区别        System.out.println(&quot;-----多线程创建启动-----&quot;);        createThread.start();        System.out.println(&quot;-----多线程创建结束-----&quot;);    }}</code></pre><ol start="2"><li>实现Runable接口</li></ol><pre><code class="java">/** *  * @classDesc: 功能描述:(创建多线程例子-Thread类 重写run方法) * @author: WHOAMI * @version: v1.0 */class CreateRunnable implements Runnable {    @Override    publicvoid run() {        for (inti = 0; i&lt; 10; i++) {            System.out.println(&quot;i:&quot; + i);        }    }}/** *  * @classDesc: 功能描述:(实现Runnable接口,重写run方法) * @author: WHOAMI * @version: v1.0 */publicclass ThreadDemo2 {    publicstaticvoid main(String[] args) {        System.out.println(&quot;-----多线程创建开始-----&quot;);        // 1.创建一个线程        CreateRunnable createThread = new CreateRunnable();        // 2.开始执行线程 注意 开启线程不是调用run方法，而是start方法        System.out.println(&quot;-----多线程创建启动-----&quot;);        Thread thread = new Thread(createThread);        thread.start();        System.out.println(&quot;-----多线程创建结束-----&quot;);    }}</code></pre><ol start="3"><li>使用匿名内部类</li></ol><pre><code class="java">    //在main函数里面直接写子线程方法     System.out.println(&quot;-----多线程创建开始-----&quot;);         Thread thread = new Thread(new Runnable() {            public void run() {                for (int i = 0; i&lt; 10; i++) {                    System.out.println(&quot;i:&quot; + i);                }            }        });         thread.start();         System.out.println(&quot;-----多线程创建结束-----&quot;);</code></pre><h4 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h4><ul><li>Q:<strong>那么相对于前面两种方法，那种方法比较好?</strong><blockquote><p> A:使用接口比较好，因为java只能实现单继承，但是可以实现多种接口。而且公司开发大多都是面向接口编程。</p></blockquote><h4 id="多线程常用API"><a href="#多线程常用API" class="headerlink" title="多线程常用API"></a>多线程常用API</h4></li></ul><table><thead><tr><th style="text-align:left">常用API</th><th style="text-align:left"></th></tr></thead><tbody><tr><td style="text-align:left">start()</td><td style="text-align:left">启动线程</td></tr><tr><td style="text-align:left">CurrentThread()</td><td style="text-align:left">当前线程</td></tr><tr><td style="text-align:left">getID()</td><td style="text-align:left">获取当前线程ID      Thread-编号  该编号从0开始</td></tr><tr><td style="text-align:left">getName()</td><td style="text-align:left">获取当前线程名称</td></tr><tr><td style="text-align:left">sleep(long mill)</td><td style="text-align:left">设置线程执行时间(ms)</td></tr></tbody></table><table><thead><tr><th style="text-align:left">常用线程构造函数</th><th style="text-align:left"></th></tr></thead><tbody><tr><td style="text-align:left">Thread()</td><td style="text-align:left">分配一个新的Thread对象</td></tr><tr><td style="text-align:left">Thread（String name）</td><td style="text-align:left">分配一个新的Thread 对象，并且指定线程名称</td></tr><tr><td style="text-align:left">Thread(Runable r)</td><td style="text-align:left">分配一个新的Thread对象</td></tr><tr><td style="text-align:left">Thread(Runable r,String name)</td><td style="text-align:left">分配一个新的Thread对象</td></tr></tbody></table>]]></content>
+        <content type="html"><![CDATA[<h1 id="java多线程"><a href="#java多线程" class="headerlink" title="java多线程"></a>java多线程</h1><p>多线程的作用就是提高应用程序的运行效率，提高用户的体验。那么，和多线程相近的进程又是什么意思呢？这两个有什么作用呢？</p><a id="more"></a><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><ul><li>打开计算机的任务管理器可以看到里面有很多的应用程序正在运行，那么这些程序就是许许多多的进程。</li><li>进程可以看成一个线程的集合【List】,许许多多的线程合成了一个进程，也就是我们的应用程序。<h3 id="计算机如何进行许多应用程序的？"><a href="#计算机如何进行许多应用程序的？" class="headerlink" title="计算机如何进行许多应用程序的？"></a>计算机如何进行许多应用程序的？</h3></li><li>通过CPU对不同的应用程序进行不停的切换，也就是轮询？给用户了一种很多程序同时进行的假象，但是你打开一个程序很长时间不用，突然打开会有一瞬间的卡顿，这样就能看出他其实并不是和你当前的程序有着相同的地位的。</li><li><img src="http://pp1zup2fb.bkt.clouddn.com/java-1.png" alt="多线程实现原理"></li></ul><hr><h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><ul><li><strong>多线程</strong></li><li>开辟多线程是为了提高应用程序的运行效率。</li><li>开辟多线程之后，代码将不会从上至下进行。</li><li><ul><li><strong>主线程和子线程</strong></li></ul></li><li>子线程一般都是用类自己定义然后开启，他们的行为将受限于主线程。<h3 id="线程的执行方法"><a href="#线程的执行方法" class="headerlink" title="线程的执行方法"></a>线程的执行方法</h3></li><li>继承Thread方法，并且重写Run方法，然后启动start服务</li><li>实现Runable方法，重写Run方法，并且将线程类交给Thread类去构建。然后start服务</li><li>利用匿名类</li><li>[开发中常用]利用线程池开启服务</li></ul><hr><h3 id="多线程的具体实现"><a href="#多线程的具体实现" class="headerlink" title="多线程的具体实现"></a>多线程的具体实现</h3><ol><li>继承Thread</li></ol><pre><code class="java">/** *  * @classDesc: 功能描述:(创建多线程例子-Thread类 重写run方法) * @author: WHOAMI * @version: v1.0 */class CreateThread extends Thread {    // run方法中编写 多线程需要执行的代码    public void run() {        for (int i = 0; i&lt; 10; i++) {            System.out.println(&quot;i:&quot; + i);        }    }}public class ThreadDemo {    public static void main(String[] args) {        System.out.println(&quot;-----多线程创建开始-----&quot;);        // 1.创建一个线程        CreateThread createThread = new CreateThread();        // 2.开始执行线程 注意 开启线程不是调用run方法，而是start方法        //3. 如果调用run方法，那么这个类就和普通的类没有区别        System.out.println(&quot;-----多线程创建启动-----&quot;);        createThread.start();        System.out.println(&quot;-----多线程创建结束-----&quot;);    }}</code></pre><ol start="2"><li>实现Runable接口</li></ol><pre><code class="java">/** *  * @classDesc: 功能描述:(创建多线程例子-Thread类 重写run方法) * @author: WHOAMI * @version: v1.0 */class CreateRunnable implements Runnable {    @Override    publicvoid run() {        for (inti = 0; i&lt; 10; i++) {            System.out.println(&quot;i:&quot; + i);        }    }}/** *  * @classDesc: 功能描述:(实现Runnable接口,重写run方法) * @author: WHOAMI * @version: v1.0 */public class ThreadDemo2 {    public static void main(String[] args) {        System.out.println(&quot;-----多线程创建开始-----&quot;);        // 1.创建一个线程        CreateRunnable createThread = new CreateRunnable();        // 2.开始执行线程 注意 开启线程不是调用run方法，而是start方法        System.out.println(&quot;-----多线程创建启动-----&quot;);        Thread thread = new Thread(createThread);        thread.start();        System.out.println(&quot;-----多线程创建结束-----&quot;);    }}</code></pre><ol start="3"><li>使用匿名内部类</li></ol><pre><code class="java">    //在main函数里面直接写子线程方法     System.out.println(&quot;-----多线程创建开始-----&quot;);         Thread thread = new Thread(new Runnable() {            public void run() {                for (int i = 0; i&lt; 10; i++) {                    System.out.println(&quot;i:&quot; + i);                }            }        });         thread.start();         System.out.println(&quot;-----多线程创建结束-----&quot;);</code></pre><h4 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h4><ul><li>Q:<strong>那么相对于前面两种方法，那种方法比较好?</strong><blockquote><p> A:使用接口比较好，因为java只能实现单继承，但是可以实现多种接口。而且公司开发大多都是面向接口编程。</p></blockquote><h4 id="多线程常用API"><a href="#多线程常用API" class="headerlink" title="多线程常用API"></a>多线程常用API</h4></li></ul><table><thead><tr><th style="text-align:left">常用API</th><th style="text-align:left"></th></tr></thead><tbody><tr><td style="text-align:left">start()</td><td style="text-align:left">启动线程</td></tr><tr><td style="text-align:left">CurrentThread()</td><td style="text-align:left">当前线程</td></tr><tr><td style="text-align:left">getID()</td><td style="text-align:left">获取当前线程ID      Thread-编号  该编号从0开始</td></tr><tr><td style="text-align:left">getName()</td><td style="text-align:left">获取当前线程名称</td></tr><tr><td style="text-align:left">sleep(long mill)</td><td style="text-align:left">设置线程执行时间(ms)</td></tr></tbody></table><table><thead><tr><th style="text-align:left">常用线程构造函数</th><th style="text-align:left"></th></tr></thead><tbody><tr><td style="text-align:left">Thread()</td><td style="text-align:left">分配一个新的Thread对象</td></tr><tr><td style="text-align:left">Thread（String name）</td><td style="text-align:left">分配一个新的Thread 对象，并且指定线程名称</td></tr><tr><td style="text-align:left">Thread(Runable r)</td><td style="text-align:left">分配一个新的Thread对象</td></tr><tr><td style="text-align:left">Thread(Runable r,String name)</td><td style="text-align:left">分配一个新的Thread对象</td></tr></tbody></table>]]></content>
       
       
       <categories>
@@ -1947,9 +1998,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -1958,9 +2009,9 @@
     
     
     <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       

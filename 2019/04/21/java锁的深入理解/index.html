@@ -7,8 +7,8 @@
     <meta name="keywords" content="java锁的深入理解, 逝痕">
     <meta name="description" content="java锁的深入理解
 重入锁这个锁相当于一个递归锁，如果上层代码已经获得到了锁的所有权，那么他的子代码也直接拥有所有权，重入锁的常见有
-Lock锁(轻量级锁)和synchronize(重量级锁)
-读写锁相比Java中的锁(Locks in ">
+Lock锁(轻量级锁) 和 synchronize(重量级锁)
+读写锁相比Java中的锁(Locks i">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -376,7 +376,7 @@ Lock锁(轻量级锁)和synchronize(重量级锁)
             <div id="articleContent">
                 <h1 id="java锁的深入理解"><a href="#java锁的深入理解" class="headerlink" title="java锁的深入理解"></a>java锁的深入理解</h1><hr>
 <h2 id="重入锁"><a href="#重入锁" class="headerlink" title="重入锁"></a>重入锁</h2><p>这个锁相当于一个递归锁，如果上层代码已经获得到了锁的所有权，那么他的子代码也直接拥有所有权，重入锁的常见有</p>
-<p>Lock锁(轻量级锁)和synchronize(重量级锁)</p>
+<p>Lock锁(轻量级锁) 和 synchronize(重量级锁)</p>
 <h2 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h2><p>相比<a href="http://ifeve.com/locks/" target="_blank" rel="noopener">Java中的锁(Locks in Java)</a>里Lock实现，读写锁更复杂一些。假设你的程序中涉及到对一些共享资源的读和写操作，且写操作没有读操作那么频繁。在没有写操作的时候<strong>，两个线程同时读一个资源没有任何问题，所以应该允许多个线程能在同时读取共享资源。但是如果有一个线程想去写这些共享资源，就不应该再有其它线程对该资源进行读或写</strong>（译者注：也就是说：读-读能共存，读-写不能共存，写-写不能共存）。这就需要一个读/写锁来解决这个问题。Java5在java.util.concurrent包中已经包含了读写锁。尽管如此，我们还是应该了解其实现背后的原理。</p>
 <p>这里用一段实例来解释读写锁</p>
 <pre><code class="java">package com.lock;

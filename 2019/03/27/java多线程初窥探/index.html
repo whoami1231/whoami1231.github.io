@@ -356,7 +356,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    988
+                    996
                 </div>
                 
 
@@ -414,15 +414,15 @@
  */
 class CreateThread extends Thread {
     // run方法中编写 多线程需要执行的代码
-    publicvoid run() {
-        for (inti = 0; i&lt; 10; i++) {
+    public void run() {
+        for (int i = 0; i&lt; 10; i++) {
             System.out.println(&quot;i:&quot; + i);
         }
     }
 }
-publicclass ThreadDemo {
+public class ThreadDemo {
 
-    publicstaticvoid main(String[] args) {
+    public static void main(String[] args) {
         System.out.println(&quot;-----多线程创建开始-----&quot;);
         // 1.创建一个线程
         CreateThread createThread = new CreateThread();
@@ -461,8 +461,8 @@ class CreateRunnable implements Runnable {
  * @author: WHOAMI
  * @version: v1.0
  */
-publicclass ThreadDemo2 {
-    publicstaticvoid main(String[] args) {
+public class ThreadDemo2 {
+    public static void main(String[] args) {
         System.out.println(&quot;-----多线程创建开始-----&quot;);
         // 1.创建一个线程
         CreateRunnable createThread = new CreateRunnable();
