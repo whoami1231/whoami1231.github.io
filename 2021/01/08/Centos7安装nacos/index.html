@@ -357,7 +357,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    119
+                    151
                 </div>
                 
 
@@ -388,6 +388,15 @@
 <p>安装完环境之后我们需要下载并安装nacos<br><a href="https://imgchr.com/i/snBwi4" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/08/snBwi4.png" alt="snBwi4.png"></a></p>
 <p>去github下载你想要下载的版本，这里我下载的是1.4.0版本</p>
 <pre><code class="bash">wget https://github.com/alibaba/nacos/releases/download/1.4.0/nacos-server-1.4.0.tar.gz
+</code></pre>
+<p><strong>解压</strong></p>
+<pre><code class="bash">tar -zxvf nacos-server-1.4.0.tar.gz -C /usr/local/
+</code></pre>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><pre><code class="bash">cd /usr/local/nacos/bin
+
+./startup.sh -m standalone
+
+# 以单机模式启动
 </code></pre>
 
             </div>
