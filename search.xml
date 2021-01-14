@@ -4,6 +4,62 @@
   
     
     <entry>
+      <title>树莓派的一档子事儿</title>
+      <link href="/2021/01/14/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84%E4%B8%80%E6%A1%A3%E5%AD%90%E4%BA%8B%E5%84%BF/"/>
+      <url>/2021/01/14/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84%E4%B8%80%E6%A1%A3%E5%AD%90%E4%BA%8B%E5%84%BF/</url>
+      
+        <content type="html"><![CDATA[<h1 id="树莓派的一档子事儿"><a href="#树莓派的一档子事儿" class="headerlink" title="树莓派的一档子事儿"></a>树莓派的一档子事儿</h1><p>昨晚导师给我们安排了一下毕业设计的事儿，我选了一个类斗鱼的毕业设计。查找了半天资料，打算用obs进行推流，然后nginx+ rmtp协议搭建一个linux流服务器。<br>但是由于我的电脑空间实在不够用了，重新启动一个Linux虚拟机恐怕要了我的电脑的老命。无奈只能翻一下家里的垃圾对，终于找到了一个学校比赛时候获得的一个树莓派1B(100块都不到)。我就想着直接用那个搭个单机版的不就ok了？</p><h2 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h2><p>都2021年了，还用带有GUI的linux?</p><blockquote><p>那肯定是terminal香啊</p></blockquote><p>然后我去<a href="https://www.raspberrypi.org/software/operating-systems/" target="_blank" rel="noopener">官网</a>下了一个Lite版本的系统压缩包，一共不到200M</p><h3 id="写入系统镜像"><a href="#写入系统镜像" class="headerlink" title="写入系统镜像"></a>写入系统镜像</h3><p>由于好久没用了，所以又翻箱倒柜的找到了几年前的读卡器，插上读卡器，MiniTools软件格式一下分区，然后下载了一个专门写入镜像的<a href="https://www.balena.io/etcher/" target="_blank" rel="noopener">软件</a></p><h2 id="准备启动"><a href="#准备启动" class="headerlink" title="准备启动"></a>准备启动</h2><p>写入分区之后，直接插到家里的路由器LAN口上，打开后台管理，查看一下上网列表<br><a href="https://imgchr.com/i/sapfaR" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/14/sapfaR.png" alt="sapfaR.png"></a></p><blockquote><p>不用这个也可以，用ipscan扫一下网段Ip就行，主要是确定树莓派的Ip</p></blockquote><p>我啪的一下，打开了xshell，很快啊！</p><blockquote><p>树莓派默认账户：pi  密码：raspberry</p></blockquote><p>可是后来xshell被连接拒绝，百度一下知道树莓派OS默认拒绝ssh，所以重新连接sd卡，在根目录下面新建一个ssh文件</p><p>重新连接OK!</p><h2 id="账号问题"><a href="#账号问题" class="headerlink" title="账号问题"></a>账号问题</h2><p>由于我们登陆的是pi用户，所以有的时候下载软件或者修改配置文件的时候就显得很鸡肋，所以启动我们的root用户就显得极为重要</p><pre><code class="bash">sudo passwd root # 给root设置密码su root #切换root用户</code></pre><p>之后，我们还是没法用root远程ssh登陆，是因为树莓派这家伙又是默认禁止了</p><pre><code class="bash">vi /etc/ssh/sshd_config/Authentication # 查找认证</code></pre><p><a href="https://imgchr.com/i/sai1eg" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/14/sai1eg.png" alt="sai1eg.png"></a></p><p>修改上面那一坨为：</p><pre><code># Authentication:LoginGraceTime 120PermitRootLogin yesStrictModes yes</code></pre><h3 id="重启sshd服务"><a href="#重启sshd服务" class="headerlink" title="重启sshd服务"></a>重启sshd服务</h3><pre><code class="bash">systemctl restart sshd</code></pre><p>当然为了安全着想，你也可以每次涉及到重要命令的时候前面添加一下sudo，不过对我来说就是特别麻烦了。</p><h2 id="安装软件？"><a href="#安装软件？" class="headerlink" title="安装软件？"></a>安装软件？</h2><p>由于之前玩Centos玩多了，突然玩一个Ubuntu的apt就很蛋疼，所以决定先下载一个yum</p><pre><code class="bash">sudo apt-get install yum</code></pre><p>等我安装完了，准备下载软件准备起飞的时候，发现这个不是centos没有仓库….</p><p><a href="https://imgchr.com/i/saCpkR" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/14/saCpkR.png" alt="saCpkR.png"></a></p><p>所以还得打开我的centos系统复制个仓库进去</p><blockquote><p>开启我们的centos系统，并打开我们无敌的xftp</p></blockquote><p><a href="https://imgchr.com/i/saCDjU" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/14/saCDjU.png" alt="saCDjU.png"></a></p><p>直接拽过去</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> nginx </tag>
+            
+            <tag> 树莓派 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>java 算法心得</title>
+      <link href="/2021/01/09/java%20%E7%AE%97%E6%B3%95%E5%BF%83%E5%BE%97/"/>
+      <url>/2021/01/09/java%20%E7%AE%97%E6%B3%95%E5%BF%83%E5%BE%97/</url>
+      
+        <content type="html"><![CDATA[<h1 id="java-算法心得"><a href="#java-算法心得" class="headerlink" title="java 算法心得"></a>java 算法心得</h1><h2 id="为什么HashMap的时间复杂度可以为O-1"><a href="#为什么HashMap的时间复杂度可以为O-1" class="headerlink" title="为什么HashMap的时间复杂度可以为O(1)"></a>为什么HashMap的时间复杂度可以为O(1)</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>hexo部署云服务器</title>
       <link href="/2021/01/08/hexo%E9%83%A8%E7%BD%B2%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
       <url>/2021/01/08/hexo%E9%83%A8%E7%BD%B2%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8/</url>
@@ -142,7 +198,7 @@
       <link href="/2021/01/05/centos7%E5%AE%89%E8%A3%85nginx/"/>
       <url>/2021/01/05/centos7%E5%AE%89%E8%A3%85nginx/</url>
       
-        <content type="html"><![CDATA[<h1 id="Centos7安装nginx"><a href="#Centos7安装nginx" class="headerlink" title="Centos7安装nginx"></a>Centos7安装nginx</h1><p>首先去官网下载想要的版本然后解压到linux上面</p><p>解压之后是这样的</p><p><a href="https://imgchr.com/i/sF6dHJ" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/05/sF6dHJ.png" alt="sF6dHJ.png"></a></p><blockquote><p>这里面configure 就相当于我们windows上面的exe安装包</p></blockquote><ul><li>我们需要知道的是，nginx是编译安装的，不像tomcat那样，解压之后直接可以使用。</li></ul><ul><li>nginx是在c语言编译的，所以我们开始先安装所需要的环境</li></ul><pre><code class="bash">yum install -y gcc gcc-c++ pcre pcre-devel zlib  zlib-devel openssl-devel</code></pre><p>接下来 安装nginx </p><p>具体命令为：</p><pre><code class="bash">./configure --prefix=/usr/local/nginx# prefix指的是安装路径</code></pre><p>然后nginx会检查环境，完全通过后</p><pre><code class="bash">make &amp;&amp; make install #先编译，然后安装</code></pre><h2 id="nginx-的常用命令"><a href="#nginx-的常用命令" class="headerlink" title="nginx 的常用命令"></a>nginx 的常用命令</h2><ul><li>启动命令： ./sbin/nginx</li><li>重启命令： ./sbin/nginx -s reload</li><li>停止命令: ./sbin/nginx -s stop</li></ul>]]></content>
+        <content type="html"><![CDATA[<h1 id="Centos7安装nginx"><a href="#Centos7安装nginx" class="headerlink" title="Centos7安装nginx"></a>Centos7安装nginx</h1><p>首先去官网下载想要的版本然后解压到linux上面</p><p>解压之后是这样的</p><p><a href="https://imgchr.com/i/sF6dHJ" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/01/05/sF6dHJ.png" alt="sF6dHJ.png"></a></p><blockquote><p>这里面configure 就相当于我们windows上面的exe安装包</p></blockquote><ul><li>我们需要知道的是，nginx是编译安装的，不像tomcat那样，解压之后直接可以使用。</li></ul><ul><li>nginx是在c语言编译的，所以我们开始先安装所需要的环境</li></ul><blockquote><p>centos版本</p><pre><code class="bash">yum install -y gcc gcc-c++ pcre pcre-devel zlib  zlib-devel openssl-devel</code></pre></blockquote><blockquote><p>debain版本<br><code>`</code>bash<br>sudo apt-get install build-essential</p></blockquote><p>sudo apt-get install libtool</p><p>sudo apt-get install libpcre3 libpcre3-dev</p><p>sudo apt-get install zlib1g-dev</p><p>sudo apt-get install openssl</p><p>apt-get install libssl-dev</p><pre><code>接下来 安装nginx 具体命令为：```bash./configure --prefix=/usr/local/nginx# prefix指的是安装路径</code></pre><p>然后nginx会检查环境，完全通过后</p><pre><code class="bash">make &amp;&amp; make install #先编译，然后安装</code></pre><h2 id="nginx-的常用命令"><a href="#nginx-的常用命令" class="headerlink" title="nginx 的常用命令"></a>nginx 的常用命令</h2><ul><li>启动命令： ./sbin/nginx</li><li>重启命令： ./sbin/nginx -s reload</li><li>停止命令: ./sbin/nginx -s stop</li></ul>]]></content>
       
       
       <categories>
@@ -347,9 +403,9 @@
       
         <tags>
             
-            <tag> 性能优化 </tag>
-            
             <tag> vue </tag>
+            
+            <tag> 性能优化 </tag>
             
         </tags>
       
@@ -1497,9 +1553,9 @@
             
             <tag> 安装教程 </tag>
             
-            <tag> java </tag>
-            
             <tag> 文件服务器 </tag>
+            
+            <tag> java </tag>
             
         </tags>
       
@@ -2024,17 +2080,6 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -2049,6 +2094,17 @@
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       

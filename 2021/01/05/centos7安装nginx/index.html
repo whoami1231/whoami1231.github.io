@@ -359,7 +359,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    191
+                    232
                 </div>
                 
 
@@ -394,15 +394,30 @@
 <ul>
 <li>nginx是在c语言编译的，所以我们开始先安装所需要的环境</li>
 </ul>
+<blockquote>
+<p>centos版本</p>
 <pre><code class="bash">yum install -y gcc gcc-c++ pcre pcre-devel zlib  zlib-devel openssl-devel
 </code></pre>
-<p>接下来 安装nginx </p>
-<p>具体命令为：</p>
-<pre><code class="bash">
+</blockquote>
+<blockquote>
+<p>debain版本<br><code>`</code>bash<br>sudo apt-get install build-essential</p>
+</blockquote>
+<p>sudo apt-get install libtool</p>
+<p>sudo apt-get install libpcre3 libpcre3-dev</p>
+<p>sudo apt-get install zlib1g-dev</p>
+<p>sudo apt-get install openssl</p>
+<p>apt-get install libssl-dev</p>
+<pre><code>
+
+接下来 安装nginx 
+
+具体命令为：
+
+```bash
+
 ./configure --prefix=/usr/local/nginx
 # prefix指的是安装路径
-</code></pre>
-<p>然后nginx会检查环境，完全通过后</p>
+</code></pre><p>然后nginx会检查环境，完全通过后</p>
 <pre><code class="bash">
 make &amp;&amp; make install 
 #先编译，然后安装
