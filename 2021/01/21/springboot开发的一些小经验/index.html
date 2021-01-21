@@ -4,12 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="centos7安装rabbitMQ, 逝痕">
-    <meta name="description" content="centos安装RabbitMQ并配置环境之前我在网上搜罗了很多教程，但是大多都很繁琐，要么就是版本太老。
-这里我提供了一个非常简单的方法
-
-下载安装包
-打开[官网地址]: (https://www.rabbitmq.com/release">
+    <meta name="keywords" content="springboot开发的一些小经验, 逝痕">
+    <meta name="description" content="springboot开发的一些小经验">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>centos7安装rabbitMQ | 逝痕</title>
+    <title>springboot开发的一些小经验 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -200,13 +196,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        centos7安装rabbitMQ
+                        springboot开发的一些小经验
                     </div>
                 </div>
             </div>
@@ -318,12 +314,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/安装教程/">
-                                <span class="chip bg-color">安装教程</span>
+                            <a href="/tags/java/">
+                                <span class="chip bg-color">java</span>
                             </a>
                         
-                            <a href="/tags/linux/">
-                                <span class="chip bg-color">linux</span>
+                            <a href="/tags/spring-boot/">
+                                <span class="chip bg-color">spring boot</span>
                             </a>
                         
                     </div>
@@ -334,8 +330,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/linux/" class="post-category">
-                                linux
+                            <a href="/categories/java/" class="post-category">
+                                java
                             </a>
                         
                     </div>
@@ -347,7 +343,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-04-07
+                    2021-01-21
                 </div>
                 
 
@@ -356,7 +352,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    399
+                    9
                 </div>
                 
 
@@ -374,59 +370,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="centos安装RabbitMQ并配置环境"><a href="#centos安装RabbitMQ并配置环境" class="headerlink" title="centos安装RabbitMQ并配置环境"></a>centos安装RabbitMQ并配置环境</h1><p>之前我在网上搜罗了很多教程，但是大多都很繁琐，要么就是版本太老。</p>
-<p>这里我提供了一个非常简单的方法</p>
-<a id="more"></a>
-<h2 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h2><hr>
-<p>打开[官网地址]: (<a href="https://www.rabbitmq.com/releases/" target="_blank" rel="noopener">https://www.rabbitmq.com/releases/</a>)  </p>
-<p>如下图：</p>
-<p><img src="https://s2.ax1x.com/2019/04/14/AOb5kR.png" alt></p>
-<ul>
-<li>这里我们需要erlang和rabbitmq-server<ul>
-<li>打开对应网址下载最新的rpm安装包</li>
-</ul>
-</li>
-</ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><hr>
-<blockquote>
-<p>将安装包利用xftp传输到linux，注意不要直接拖拽，安装包容易出问题。</p>
-</blockquote>
-<ul>
-<li>在断网的时候安装erlang，因为我的centos7 的yum源会自动安装低版本的erlang。</li>
-</ul>
-<pre><code>yum install xxx  #安装软件
-yum list installed #查看利用yum安装的所有软件
-yum remove xxx #卸载软件
-rpm -ql [rabbitmq-server] #查看软件安装在那里
-</code></pre><ul>
-<li>在联机的情况下安装rabbitmq，因为他需要安装socat依赖。</li>
-</ul>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><hr>
-<p>由于我这里是用来做javaweb的消息中间件，所以我需要他可以http访问，所以需要添加插件</p>
-<pre><code>  rabbitmq-plugins enable rabbitmq_management
-</code></pre><p>启动rabbitmq程序</p>
-<pre><code>rabbitmq-server start
-</code></pre><p>其他命令</p>
-<pre><code>rabbitmq-server restart #重启
-rabbitmqctl stop   #停止
-rabbitmqctl status  #状态
-</code></pre><blockquote>
-<p>这里插播一条linux命令</p>
-<pre><code>ps -ef|grep xxx  #查询所有xxx的进程
-kill -9 xxx #杀死进程端口号为xxx的进程
-</code></pre></blockquote>
-<ul>
-<li>注意！默认guest guest账户已经不能允许在远程登陆，所以我们需要创建账号</li>
-</ul>
-<h2 id="配置rabbitmq"><a href="#配置rabbitmq" class="headerlink" title="配置rabbitmq"></a>配置rabbitmq</h2><hr>
-<p>下面我们创建账号，注意 这时候rabbitmq必须是启动状态</p>
-<h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3><hr>
-<pre><code>rabbitmqctl add_user root 111111 #创建账号
-rabbitmqctl set_user_tags root administrator #设置root为管理员
-rabbitmqctl list_users #查询所有用户
-</code></pre><h3 id="ui模式"><a href="#ui模式" class="headerlink" title="ui模式"></a>ui模式</h3><hr>
-<p><img src="https://s2.ax1x.com/2019/04/07/Afjlg1.png" alt="操作"></p>
-
+                <h1 id="springboot开发的一些小经验"><a href="#springboot开发的一些小经验" class="headerlink" title="springboot开发的一些小经验"></a>springboot开发的一些小经验</h1>
             </div>
             <hr>
 
@@ -451,7 +395,7 @@ rabbitmqctl list_users #查询所有用户
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/whoami1231/2019/04/07/centos7安装rabbitMQ/">https://github.com/whoami1231/2019/04/07/centos7安装rabbitMQ/</a>
+                    <a href="https://github.com/whoami1231/2021/01/21/springboot开发的一些小经验/">https://github.com/whoami1231/2021/01/21/springboot开发的一些小经验/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -489,12 +433,12 @@ rabbitmqctl list_users #查询所有用户
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/安装教程/">
-                                    <span class="chip bg-color">安装教程</span>
+                                <a href="/tags/java/">
+                                    <span class="chip bg-color">java</span>
                                 </a>
                             
-                                <a href="/tags/linux/">
-                                    <span class="chip bg-color">linux</span>
+                                <a href="/tags/spring-boot/">
+                                    <span class="chip bg-color">spring boot</span>
                                 </a>
                             
                         </div>
@@ -534,31 +478,28 @@ rabbitmqctl list_users #查询所有用户
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/04/08/java自定义线程池/">
+                <a href="/2021/01/21/springboot开发的一些小经验/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="java自定义线程池">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="springboot开发的一些小经验">
                         
-                        <span class="card-title">java自定义线程池</span>
+                        <span class="card-title">springboot开发的一些小经验</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            java线程池java初始定义线程
-java线程池源码分析
-/**
-     * Creates a new {@code ThreadPoolExecutor} with the given initial
-     * paramete
+                            springboot开发的一些小经验
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-04-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-21
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -571,15 +512,16 @@ java线程池源码分析
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java架构/">
-                        <span class="chip bg-color">java架构</span>
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
                     </a>
                     
-                    <a href="/tags/线程池/">
-                        <span class="chip bg-color">线程池</span>
+                    <a href="/tags/spring-boot/">
+                        <span class="chip bg-color">spring boot</span>
                     </a>
                     
                 </div>
@@ -593,30 +535,24 @@ java线程池源码分析
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/04/03/centos7下设置静态ip/">
+                <a href="/2021/01/14/树莓派的一档子事儿/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="centos7下设置静态ip">
+                        <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="树莓派的一档子事儿">
                         
-                        <span class="card-title">centos7下设置静态ip</span>
+                        <span class="card-title">树莓派的一档子事儿</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Linux设置固定IP
-一般我们想要拿本地的linux当做服务器用来测试，但是我们的ip设置规则时DHCP,即自动分配ip原则，所以为了方便，这里记录了如何固定ip的方法
-
-我们要设置ip，要知道VM的网络适配器有三种原则
-
-桥接模式
-主机
+                            树莓派的一档子事儿昨晚导师给我们安排了一下毕业设计的事儿，我选了一个类斗鱼的毕业设计。查找了半天资料，打算用obs进行推流，然后nginx+ rmtp协议搭建一个linux流服务器。但是由于我的电脑空间实在不够用了，重新启动一个Linux虚
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-14
                             </span>
                         <span class="publish-author">
                             
@@ -633,12 +569,16 @@ java线程池源码分析
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/安装教程/">
-                        <span class="chip bg-color">安装教程</span>
-                    </a>
-                    
                     <a href="/tags/linux/">
                         <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                    <a href="/tags/nginx/">
+                        <span class="chip bg-color">nginx</span>
+                    </a>
+                    
+                    <a href="/tags/树莓派/">
+                        <span class="chip bg-color">树莓派</span>
                     </a>
                     
                 </div>
