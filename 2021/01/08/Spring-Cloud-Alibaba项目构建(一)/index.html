@@ -361,7 +361,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    7 分
                 </div>
                 
 				
@@ -528,6 +528,11 @@
             &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
             &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
         &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+        &lt;/dependency&gt;
     &lt;/dependencies&gt;
 
 &lt;/project&gt;
@@ -596,6 +601,13 @@ public class DemoContoller {
         # 这里面的nacos地址是你自己的nacos-server的地址
 server:
   port: 8081
+
+# 健康监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: &#39;*&#39;
 
 
 

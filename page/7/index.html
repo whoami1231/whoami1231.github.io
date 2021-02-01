@@ -246,6 +246,174 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
+                    <a href="/2019/05/12/java内存模型初窥探/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/9.JPG" class="responsive-img" alt="java内存模型初窥探">
+                            
+                            <span class="card-title">java内存模型初窥探</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                java内存模型初探jdk1.8以前的内存模型是这样的，
+
+下面我分析一下他们的作用
+
+方法区方法区也叫永久区，一些类的信息：方法名 返回值什么的，常量，静态变量都放在里面，class文件加载
+这是是线程共享的 她其实是放在堆中的永久代中的
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-12
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/java架构/">
+                            <span class="chip bg-color">java架构</span>
+                        </a>
+                        
+                        <a href="/tags/JVM/">
+                            <span class="chip bg-color">JVM</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/05/09/java的一些常用编程思想/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="java的一些常用编程思想">
+                            
+                            <span class="card-title">java的一些常用编程思想</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+这一个文章单纯的是常见的一些编程思想的总结
+
+
+让一个变量重复的 非零即一
+int test = 1;
+test = test % 2;
+
+
+取三个数中间值
+if ((b - a) * (a - c) &gt;= 0) { //如果a是中
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-09
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/java/" class="post-category">
+                                    java
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/编程思想/">
+                            <span class="chip bg-color">编程思想</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/2019/05/08/qt-TCP-UDP-多线程笔记/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="qt TCP UDP-多线程笔记">
+                            
+                            <span class="card-title">qt TCP UDP-多线程笔记</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                qt TCP UDP 多线程解决并发思路TCP解决思路
+目的：每一个客户端连接都需要QTCPSocket开辟一条新的线程
+解决方法：
+
+分别继承QTCPServer和QTCPSocket来分别实现Server和Socket（我这里是mTCP
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/c/" class="post-category">
+                                    c++
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/qt/">
+                            <span class="chip bg-color">qt</span>
+                        </a>
+                        
+                        <a href="/tags/TCP-UDP/">
+                            <span class="chip bg-color">TCP UDP</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
                     <a href="/2019/05/03/centos7安装fastDFS/">
                         <div class="card-image">
                             
@@ -337,13 +505,13 @@ fastdfs-ng
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                
+                                java集合详解
 这里我们分析Collection和Map大图查看详情
 
 javaCollection的分析Collection是在java.util里面
 
 
-集合里面是一定是存放对象的，不能存放基本数据类型，像是int,也是先转换成Integer然后在放
+集合里面是一定是存放对象的，不能存放基本数据类型，像是int,也是先转换成Int
                             
                         </div>
                         <div class="publish-info">
@@ -652,199 +820,6 @@ Lock锁(轻量级锁) 和 synchronize(重量级锁)
                 </div>
             </div>
             
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/04/15/ssm-rabbitmq-分布式实例/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="ssm+rabbitmq 分布式实例">
-                            
-                            <span class="card-title">ssm+rabbitmq 分布式实例</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                在分布式架构下利用rabbitmq完成消息队列
-配置文件详解
-
-我们利用rabbit:admin直接代码绑定交换机和队列,这里是开发常用的方法最后我们会利用web端界面实现消息的分发实例
-
-
-生产者
-配置文件详解
-
-下面是rabbitmq的
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/j2EE/" class="post-category">
-                                    j2EE
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/ssm/">
-                            <span class="chip bg-color">ssm</span>
-                        </a>
-                        
-                        <a href="/tags/rabbitmq/">
-                            <span class="chip bg-color">rabbitmq</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/04/13/freemaker传输数据问题/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="freemaker传输数据问题">
-                            
-                            <span class="card-title">freemaker传输数据问题</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                FreeMaker传输数据问题
-
-正常输出方程式 ${XXX}
-如果页面需要字符串，那么我们需要 在变量两边加引号 ‘${XXX}’
-如果传输的是数字，在超出100的时候，会自行加逗号，例如1,400,解决办法： ${XXX?c}
-
-
-
-如
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/ssm错误笔记/" class="post-category">
-                                    ssm错误笔记
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/错误笔记/">
-                            <span class="chip bg-color">错误笔记</span>
-                        </a>
-                        
-                        <a href="/tags/ssm/">
-                            <span class="chip bg-color">ssm</span>
-                        </a>
-                        
-                        <a href="/tags/freemaker/">
-                            <span class="chip bg-color">freemaker</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/04/12/centos7安装solr服务/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="centos7安装solr服务">
-                            
-                            <span class="card-title">centos7安装solr服务</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                centos7 下安装solr服务1. 安装java环境
-
-将jdk扔到linux下，解压
-
-修改环境变量
-
-
-# 打开配置文件
-vim /etc/profile
-
-# 在文件末尾添加
-JAVA_HOME=/usr/local/java/j
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-04-12
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/linux/" class="post-category">
-                                    linux
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/安装教程/">
-                            <span class="chip bg-color">安装教程</span>
-                        </a>
-                        
-                        <a href="/tags/linux/">
-                            <span class="chip bg-color">linux</span>
-                        </a>
-                        
-                        <a href="/tags/java/">
-                            <span class="chip bg-color">java</span>
-                        </a>
-                        
-                        <a href="/tags/搜索服务/">
-                            <span class="chip bg-color">搜索服务</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
         </div>
     </article>
 
@@ -861,7 +836,7 @@ JAVA_HOME=/usr/local/java/j
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">7 / 8</div>
+            <div class="center-align b-text-gray">7 / 9</div>
         </div>
         <div class="col s6 m4 l4">
             
