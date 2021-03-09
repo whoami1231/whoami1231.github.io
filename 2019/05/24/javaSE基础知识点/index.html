@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="keywords" content="javaSE基础知识点, 逝痕">
     <meta name="description" content="javaSE基础知识点汇总
-final关键字的理解final如果赋给了变量，证明这个变量是不能修改的但是，要注意，如果给数组附上了final关键字，他的数组元素是可以修改的
-例如：
-public static void main(Strin">
+java数据类型八大基础数据类型： byte,char,short,int,long,float,double,boolean
+
+包装类型是类/对象，默认是Null,而int这种的基础数据类型默认为0(牛客中出现">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -351,14 +351,14 @@ public static void main(Strin">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    737
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    5 分
                 </div>
                 
 				
@@ -370,6 +370,48 @@ public static void main(Strin">
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="javaSE基础知识点汇总"><a href="#javaSE基础知识点汇总" class="headerlink" title="javaSE基础知识点汇总"></a>javaSE基础知识点汇总</h1><hr>
+<h2 id="java数据类型"><a href="#java数据类型" class="headerlink" title="java数据类型"></a>java数据类型</h2><p>八大基础数据类型： byte,char,short,int,long,float,double,boolean</p>
+<blockquote>
+<p>包装类型是类/对象，默认是Null,而int这种的基础数据类型默认为0(牛客中出现过)</p>
+</blockquote>
+<h2 id="String-详解"><a href="#String-详解" class="headerlink" title="String 详解"></a>String 详解</h2><h3 id="内存问题"><a href="#内存问题" class="headerlink" title="内存问题"></a>内存问题</h3><pre><code class="java">
+A:{
+    String a = &quot;a&quot;;
+    String b = &quot;a&quot;;
+}
+
+B:{
+    String a = new String(&quot;a&quot;);
+    String b = new String(&quot;a&quot;);
+}
+
+</code></pre>
+<p>上面两个代码块，有区别没？<br>答案肯定是有的，A代码块的执行原理是这样的</p>
+<p>首先在自己线程的栈帧中生成一个引用型变量a,然后再到堆里面的常量池中寻找有没有a的对象，如果有就把地址直接转向那里，如果没有，新建；b也是同理。</p>
+<blockquote>
+<p>注意，java中只要是那种包装数据类型都是创建一个相当于指针的东西。</p>
+</blockquote>
+<p><strong>提示</strong>这个是包装数据类型，如果是char这种的呢？则是直接存在栈中</p>
+<p>B代码块你就考虑只要是new，那肯定是直接再heap里面直接创建一个新的对象啦。</p>
+<h2 id="java编译"><a href="#java编译" class="headerlink" title="java编译"></a>java编译</h2><p>java编译命令: javac xxx.java</p>
+<p>编译后会生成class文件，生成的文件个数和源程序中类的<strong>个数一致</strong>。</p>
+<h2 id="java值传递和引用传递"><a href="#java值传递和引用传递" class="headerlink" title="java值传递和引用传递"></a>java值传递和引用传递</h2><p>网上的教程大多都是参差不齐，这里整理一下我自己的思路。</p>
+<p>值传递： 基本数据类型</p>
+<p>引用传递： String等各种对象，数组。</p>
+<h2 id="Java中Stream的使用"><a href="#Java中Stream的使用" class="headerlink" title="Java中Stream的使用"></a>Java中Stream的使用</h2><h3 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h3><p>这个我们肯定特别熟悉，遍历嘛。但是这里有一个注意的点，Collection包下面的集合都已经实现了forEach方法，也就是说，我们不需要将List对象先转换成stream对象，再用forEach方法</p>
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p>map对象，他可以做一个对数据的处理，最后return出来的那个东西变成了一个steam流,举个例子</p>
+<pre><code class="java">
+List&lt;User&gt; users;
+ // 这里是个有好多数据的user列表，我们想吧里面的属性转出两个来怎么办？直接用map
+
+// 假设UserChange里面就一个id和name,其他的都删掉了
+ List&lt;UserChange&gt; lists = users.stream().map(item-&gt;{
+     xxxxx //去掉那些属性
+     return A;
+ }).collect(Collections.toList());
+
+</code></pre>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>这个是筛选出来符合filter里面条件的list，这里不举例了</p>
 <h2 id="final关键字的理解"><a href="#final关键字的理解" class="headerlink" title="final关键字的理解"></a>final关键字的理解</h2><p>final如果赋给了变量，证明这个变量是不能修改的<br>但是，要注意，如果给数组附上了final关键字，他的数组元素是可以修改的</p>
 <p>例如：</p>
 <pre><code class="java">public static void main(String args[]){
@@ -598,8 +640,8 @@ public class MemoryLeak {
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/javaSE/">
-                        <span class="chip bg-color">javaSE</span>
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
                     </a>
                     
                 </div>
@@ -628,7 +670,7 @@ public class MemoryLeak {
                             java io 流的一些知识点整理
 java流类图总结
 
-字节流和字符流的区别字节流处理的是二进制文件，也就是说,二进制文件什么也能处理，比如文字和图片视频什么的。而字符流则只能处理文本类型，但是它可以处理编码问题，例如我们的字节流读取出来
+字节流和字符流的区别字节流(1byte 8bit)处理的是二进制文件，也就是说,二进制文件什么也能处理，比如文字和图片视频什么的。而字符流(1char,2byte,16bit)则只能
                         
                     </div>
                     <div class="publish-info">
@@ -650,8 +692,8 @@ java流类图总结
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/javaSE/">
-                        <span class="chip bg-color">javaSE</span>
+                    <a href="/tags/java/">
+                        <span class="chip bg-color">java</span>
                     </a>
                     
                 </div>
