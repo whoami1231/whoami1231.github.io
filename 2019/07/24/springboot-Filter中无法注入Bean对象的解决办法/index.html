@@ -396,7 +396,7 @@ public class StartLinster implements ApplicationListener&lt;ApplicationEvent&gt;
 <p>里面TokenService是Service层，也是我们想要注入的对象。</p>
 </blockquote>
 <p>这个是Filter启动的相应代码，可以看到，Listener启动顺序是最高的。</p>
-<pre><code class="java">@Bean
+<pre><code class="java">   @Bean
    public FilterRegistrationBean&lt;AuthenticationFilter&gt; initAuthenticationFilter(TokenService tokenService){
 
 

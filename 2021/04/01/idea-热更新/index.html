@@ -4,11 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="关于vuex传参的一些事情, 逝痕">
-    <meta name="description" content="关于vuex传参的一些事情之前没有说vuex，这里说一下它的传参问题吧。对于我来说,vuex其实就可以看成一个静态的类，类里面分成四个模块
-state =&amp;gt;  存放data的
-getters =&amp;gt; get函数，获取变量的
-mut">
+    <meta name="keywords" content="热更新, 逝痕">
+    <meta name="description" content="热更新 | 逝痕">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +13,7 @@ mut">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>关于vuex传参的一些事情 | 逝痕</title>
+    <title>热更新 | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -199,13 +196,13 @@ mut">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        关于vuex传参的一些事情
+                        热更新
                     </div>
                 </div>
             </div>
@@ -315,29 +312,12 @@ mut">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/前端/">
-                                <span class="chip bg-color">前端</span>
-                            </a>
-                        
-                            <a href="/tags/vuex/">
-                                <span class="chip bg-color">vuex</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/vue/" class="post-category">
-                                vue
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -346,7 +326,7 @@ mut">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-28
+                    2021-04-01
                 </div>
                 
 
@@ -355,14 +335,14 @@ mut">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    675
+                    0
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    1 分
                 </div>
                 
 				
@@ -373,30 +353,7 @@ mut">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="关于vuex传参的一些事情"><a href="#关于vuex传参的一些事情" class="headerlink" title="关于vuex传参的一些事情"></a>关于vuex传参的一些事情</h1><p>之前没有说vuex，这里说一下它的传参问题吧。对于我来说,vuex其实就可以看成一个静态的类，类里面分成四个模块</p>
-<p>state =&gt;  存放data的</p>
-<p>getters =&gt; get函数，获取变量的</p>
-<p>mutataions =&gt; set函数，设置变量的</p>
-<p>actions =&gt; 具体函数实现，比如利用axios之后将数据利用mutations提交的，也算是一个变相的set的函数吧</p>
-<h2 id="数据取不到？-一直undefined"><a href="#数据取不到？-一直undefined" class="headerlink" title="数据取不到？ 一直undefined?"></a>数据取不到？ 一直undefined?</h2><p>本以为按照上面的做法去弄来着，但是当我在做完登陆功能，将token存到state里面，然后在axios封装的js文件将token取出来并且当作header的时候，数据一直是undefined,机智的我发现事情并不这么简单。吓得我马上开始了百度。</p>
-<hr>
-<blockquote>
-<p>不出意料的是，百度总会在将你想要查询的东西替换成你最不想要的结果</p>
-</blockquote>
-<p>查了一顿，啥也没查出来，其实一堆文章都阐述了这个问题，但是他们大多都是将什么token存入到localStorage里面。是的，这也是一个解决办法，不过我以后的getter不还是取不到数据么！</p>
-<p>无奈下，打开gayhub,随便down一个大佬的vue项目，偷偷观察下(大佬不愧是大佬，代码结构清晰明了)。我发现大佬们的vuex代码无非是这种结构</p>
-<p><img src="https://s2.ax1x.com/2019/10/11/uHU6zV.png" alt></p>
-<p>moudles -&gt;  存放我们需要的一些数据，但是和上面我们想的不同的是，这些moudles里面并没有getters。而是单独抽出来了一个getters文件<br>getters -&gt; 抽象出来的getters对象</p>
-<p>index -&gt; 注册moudles和getters组件</p>
-<blockquote>
-<p>需要主要的是，这个getters组件是全局的，而我们在moudles里面写的state的局部的，所以仍然还是取不到任何东西，因此我们需要指明moudle名字<br>例如： avatarId: state =&gt; state.user.avatarId  和别的不一样的是，它在state后面又指明了user作用域</p>
-</blockquote>
-<h2 id="mutataions只接受一个参数"><a href="#mutataions只接受一个参数" class="headerlink" title="mutataions只接受一个参数"></a>mutataions只接受一个参数</h2><p>这个问题其实困扰了我一会，因为如果你在actions里面写这样的话</p>
-<p>commit(“xxx”, 变量1，变量2)</p>
-<p>并且那个xxx的函数是(state,变量1，变量2)的时候，是不会报错的！而且只接收变量1，其余的自动undefined，一开始我还以为是我的变量不对呢，后来才发现是这的原因，不过这样解决办法也很明显了，我们可以弄一个复杂json过去，就像这样</p>
-<p>commit(“xxx”,{1:xx,2:xx})</p>
-<p>然后接收的时候正常接收就行，注意！一定用一个变量名接收，血与泪的教训啊。。。。</p>
-
+                
             </div>
             <hr>
 
@@ -421,7 +378,7 @@ mut">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/whoami1231/2019/07/28/关于vuex传参的一些事情/">https://github.com/whoami1231/2019/07/28/关于vuex传参的一些事情/</a>
+                    <a href="https://github.com/whoami1231/2021/04/01/idea-热更新/">https://github.com/whoami1231/2021/04/01/idea-热更新/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -458,15 +415,7 @@ mut">
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/前端/">
-                                    <span class="chip bg-color">前端</span>
-                                </a>
-                            
-                                <a href="/tags/vuex/">
-                                    <span class="chip bg-color">vuex</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -504,27 +453,28 @@ mut">
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/07/28/记录springboot利用pagehepler失效的原因/">
+                <a href="/2021/04/01/idea-热更新/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="记录springboot利用pagehepler失效的原因">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="热更新">
                         
-                        <span class="card-title">记录springboot利用pagehepler失效的原因</span>
+                        <span class="card-title">热更新</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            记录springboot利用pagehepler失效的原因首先说一下记录这个博客的原因吧，之前用SSM的时候，也用过pageHepler，但是一切也OK,后来打算利用springboot搭建项目的时候在数据量小的时候(也就是数据还没有到分页
+                            
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-07-28
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -533,22 +483,7 @@ mut">
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/springboot/">
-                        <span class="chip bg-color">springboot</span>
-                    </a>
-                    
-                    <a href="/tags/pagehepler/">
-                        <span class="chip bg-color">pagehepler</span>
-                    </a>
-                    
-                    <a href="/tags/Mybatis/">
-                        <span class="chip bg-color">Mybatis</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -559,29 +494,27 @@ mut">
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/27/关于vue传参问题/">
+                <a href="/2021/03/25/vue走过的那些坑/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="关于vue传参问题">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="vue走过的那些坑">
                         
-                        <span class="card-title">关于vue传参问题</span>
+                        <span class="card-title">vue走过的那些坑</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            关于vue传参问题传参的时候我比较喜欢利用params方式传参
-比如
-
-标签式传参
-
-&lt;router-link :to=&quot;{name:&#39;xx&#39;,params:{xxx:xxx}}&quot;&gt;&lt;/
+                            vue走过的那些坑vue修改数组当我们想修改原数组的某一个元素的值得时候，并不会使页面动态渲染。
+像是这样：
+&lt;!-- 截取重要字段 --&gt;
+&lt;div v-for=(item ,index) in data&gt;{{it
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-07-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-25
                             </span>
                         <span class="publish-author">
                             
@@ -597,10 +530,6 @@ mut">
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/前后端分离/">
-                        <span class="chip bg-color">前后端分离</span>
-                    </a>
                     
                     <a href="/tags/vue/">
                         <span class="chip bg-color">vue</span>

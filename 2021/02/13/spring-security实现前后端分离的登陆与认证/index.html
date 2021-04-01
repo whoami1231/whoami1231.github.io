@@ -5,7 +5,10 @@
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
     <meta name="keywords" content="spring security实现前后端分离的登陆与认证, 逝痕">
-    <meta name="description" content="spring security实现前后端分离的登陆与认证 | 逝痕">
+    <meta name="description" content="
+强烈推荐兄弟们看这个帖子Spring Security做JWT认证和授权
+
+我的毕设项目是类斗鱼软件开发，所以我为了给我的项目增加亮点，权限认证与授权肯定就不能用之前的过滤器来弄了，现在我决定使用spring security来接管我的项">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -312,9 +315,17 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/spring-boot/">
+                                <span class="chip bg-color">spring boot</span>
+                            </a>
+                        
+                            <a href="/tags/spring-security/">
+                                <span class="chip bg-color">spring security</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -335,14 +346,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    4 分
                 </div>
                 
 				
@@ -353,7 +364,192 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <blockquote>
+<p>强烈推荐兄弟们看这个帖子<a href="https://www.jianshu.com/p/d5ce890c67f7" target="_blank" rel="noopener">Spring Security做JWT认证和授权</a></p>
+</blockquote>
+<p>我的毕设项目是类斗鱼软件开发，所以我为了给我的项目增加亮点，权限认证与授权肯定就不能用之前的过滤器来弄了，现在我决定使用spring security来接管我的项目。具体源码已经上传<a href="https://github.com/adroitwolf/spring-security-auth-example">Github</a></p>
+<h2 id="spring-security认证流程"><a href="#spring-security认证流程" class="headerlink" title="spring security认证流程"></a>spring security认证流程</h2><ol>
+<li><p>用户使用用户名和密码进行登录。</p>
+</li>
+<li><p>Spring Security将获取到的用户名和密码封装成一个实现了Authentication接口的UsernamePasswordAuthenticationToken。</p>
+</li>
+<li><p>将上述产生的token对象传递给AuthenticationManager进行登录认证。</p>
+</li>
+<li><p>AuthenticationManager认证成功后将会返回一个封装了用户权限等信息的Authentication对象。</p>
+</li>
+<li><p>通过调用SecurityContextHolder.getContext().setAuthentication(…)将AuthenticationManager返回的Authentication对象赋予给当前的SecurityContext。</p>
+</li>
+</ol>
+<h2 id="spring-security的基本组件与流程"><a href="#spring-security的基本组件与流程" class="headerlink" title="spring security的基本组件与流程"></a>spring security的基本组件与流程</h2><p>我们首先要知道，spring security是一个一个的过滤器，他的过滤流程是下面这样：</p>
+<p><a href="https://imgtu.com/i/yjsC8J" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/02/25/yjsC8J.png" alt="yjsC8J.png"></a></p>
+<h2 id="spring-security重要组件"><a href="#spring-security重要组件" class="headerlink" title="spring security重要组件"></a>spring security重要组件</h2><h3 id="UsernamePasswordAuthenticationFilter"><a href="#UsernamePasswordAuthenticationFilter" class="headerlink" title="UsernamePasswordAuthenticationFilter"></a>UsernamePasswordAuthenticationFilter</h3><p>首先就是我们的<strong>UsernamePasswordAuthenticationFilter</strong>,按照我的理解是，只要你在后面的configure函数里面设定了表单登录，你就得走着个过滤器，并且我们一般都会设置那个。</p>
+<p>他这个过滤器的关键函数就是attemptAuthentication，源码如下：</p>
+<pre><code class="java">
+public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        if (this.postOnly &amp;&amp; !request.getMethod().equals(&quot;POST&quot;)) {
+            throw new AuthenticationServiceException(&quot;Authentication method not supported: &quot; + request.getMethod());
+        } else {
+            String username = this.obtainUsername(request);
+            String password = this.obtainPassword(request);
+            if (username == null) {
+                username = &quot;&quot;;
+            }
+
+            if (password == null) {
+                password = &quot;&quot;;
+            }
+
+            username = username.trim();
+            UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+            this.setDetails(request, authRequest);
+            return this.getAuthenticationManager().authenticate(authRequest);
+        }
+    }
+</code></pre>
+<p>不算是很复杂，我们看到我们最熟悉的username和password，也就是说，他其实就是一个将请求获取一下用户名和密码的东西。</p>
+<p>所以，我自定义了这个文件，代码如下：</p>
+<pre><code class="java">
+public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
+    @Autowired
+    @Override
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        super.setAuthenticationManager(authenticationManager);
+    }
+
+        public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response){
+        JSONObject json = null;
+        try {
+            json = ServletUtils.getRequestJsonObject(request);
+        } catch (IOException e) {
+            throw  new AppException(&quot;服务器错误,请重试&quot;);
+        }
+
+//        获取json值
+        String username = json.getString(&quot;username&quot;);
+        String password = json.getString(&quot;password&quot;);
+        if (username == null) {
+            username = &quot;&quot;;
+        }
+
+        if (password == null) {
+            password = &quot;&quot;;
+        }
+
+
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+        this.setDetails(request, authRequest);
+        return this.getAuthenticationManager().authenticate(authRequest);
+    }
+
+}
+</code></pre>
+<p>这个ServletUtils请具体看我的源码，具体作用就是将请求过来的参数转化成为Json对象</p>
+<h3 id="登录成功和登录失败以及未登录"><a href="#登录成功和登录失败以及未登录" class="headerlink" title="登录成功和登录失败以及未登录"></a>登录成功和登录失败以及未登录</h3><ul>
+<li>登陆失败：AuthenticationFailureHandler</li>
+<li>登陆成功：AuthenticationSuccessHandler</li>
+<li>未登录：AuthenticationEntryPoint</li>
+<li>403没有权限: AccessDeniedHandler</li>
+</ul>
+<p>这三个是可以自定义状态返回结果，都需要自定义</p>
+<h3 id="WebSecurityConfigurerAdapter"><a href="#WebSecurityConfigurerAdapter" class="headerlink" title="WebSecurityConfigurerAdapter"></a>WebSecurityConfigurerAdapter</h3><p>我们将上面的东西都写完了，最后就是要组装了，集成上面这个类，实现configure方法，就可以做到这一点。</p>
+<pre><code class="java">@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    LoginSuccessHandler loginSuccessHandler;
+
+    @Autowired
+    LoginFailedHandler loginFailedHandler;
+
+
+    @Autowired
+    AuthenticationEntryPoint anonymousAuthenticationEntryPoint;
+
+
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return new UsrServiceImpl();
+    }
+
+//    @Autowired
+//    UsernamePasswordAuthenticationFilter customAuthenticationFilter;
+
+
+    @Bean
+    CustomAuthenticationFilter customAuthenticationFilter() throws Exception {
+        CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
+        filter.setAuthenticationSuccessHandler(loginSuccessHandler);
+        filter.setFilterProcessesUrl(&quot;/loginUsr&quot;);
+        filter.setAuthenticationManager(authenticationManager());
+        filter.setAuthenticationFailureHandler(loginFailedHandler);
+        return filter;
+    }
+
+    @Bean
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
+
+
+        @Bean
+    public BCryptPasswordEncoder getPW(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService());
+    }
+
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().and().cors().disable();
+        http
+                .authorizeRequests()
+                .antMatchers(&quot;/authTest&quot;).permitAll()
+                .anyRequest().authenticated()
+
+
+                .and()
+              .and()
+                .formLogin()
+//                .loginPage(&quot;/login&quot;)
+                .loginProcessingUrl(&quot;/loginUsr&quot;)
+
+                .permitAll();
+
+        http.exceptionHandling().authenticationEntryPoint(anonymousAuthenticationEntryPoint);
+
+        http.addFilterAt(customAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class);
+    }
+
+
+
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+//  这个会在上面的过滤器执行之前执行
+        web.ignoring().antMatchers(&quot;/loginUsr&quot;);
+    }
+
+
+}
+
+</code></pre>
+<h3 id="configure里面的注意事项"><a href="#configure里面的注意事项" class="headerlink" title="configure里面的注意事项"></a>configure里面的注意事项</h3><p>这个我单独拿出来说，因为特别重要</p>
+<ol>
+<li><p>由于我们不需要Spring security自带的登录页面，所以.loginPage()我们不需要写！！</p>
+</li>
+<li><p>这个.loginUsr我们不需要写一个controller，因为我们在访问这个网址的时候，spring security自动将请求进入这几个过滤器</p>
+</li>
+<li>.loginUsr需要在web.ignoring().antMatchers(“/loginUsr”);这段代码里面放行，而不是用 http.antMatchers里面写！</li>
+<li>因为我们自定义了UsernamePassword..那个过滤器，所以他的认证管理器如果我们new一个的话，他会直接报错，因为这个时候他自己的认证管理器已经指向不明确了。</li>
+</ol>
+<h2 id="鉴权"><a href="#鉴权" class="headerlink" title="鉴权"></a>鉴权</h2><p>上面只是告诉你了如何登录，现在就是我们的授权问题。<br>我的想法是，登录成功之后，返回给用户一个jwt，然后用户在请求头上面带着这个jwt直接验证。后端收到之后如果你这个jwt没有问题，直接放行，不需要去数据库再次进行验证(核心目标)。</p>
+
             </div>
             <hr>
 
@@ -415,7 +611,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/spring-boot/">
+                                    <span class="chip bg-color">spring boot</span>
+                                </a>
+                            
+                                <a href="/tags/spring-security/">
+                                    <span class="chip bg-color">spring security</span>
+                                </a>
+                            
                         </div>
                     
                 </div>

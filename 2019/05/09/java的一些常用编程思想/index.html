@@ -9,13 +9,11 @@
 这一个文章单纯的是常见的一些编程思想的总结
 
 
-让一个变量重复的 非零即一
-int test = 1;
+java的一些常用编程思想让一个变量重复的 非零即一int test = 1;
 test = test % 2;
 
 
-取三个数中间值
-if ((b - a) * (a - c) &amp;gt;= 0) { //如果a是中">
+取三个数中间值if ((b - a) * (a - c) &amp;gt;= 0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -358,7 +356,7 @@ if ((b - a) * (a - c) &amp;gt;= 0) { //如果a是中">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    232
+                    471
                 </div>
                 
 
@@ -380,13 +378,11 @@ if ((b - a) * (a - c) &amp;gt;= 0) { //如果a是中">
 <p>这一个文章单纯的是常见的一些编程思想的总结</p>
 </blockquote>
 <a id="more"></a>
-<p><strong>让一个变量重复的 非零即一</strong></p>
-<pre><code class="java">int test = 1;
+<h1 id="java的一些常用编程思想"><a href="#java的一些常用编程思想" class="headerlink" title="java的一些常用编程思想"></a>java的一些常用编程思想</h1><h2 id="让一个变量重复的-非零即一"><a href="#让一个变量重复的-非零即一" class="headerlink" title="让一个变量重复的 非零即一"></a>让一个变量重复的 非零即一</h2><pre><code class="java">int test = 1;
 test = test % 2;
 
 </code></pre>
-<p><strong>取三个数中间值</strong></p>
-<pre><code class="java">if ((b - a) * (a - c) &gt;= 0) { //如果a是中间数的话 b-a 和 a-c一定是相反数
+<h2 id="取三个数中间值"><a href="#取三个数中间值" class="headerlink" title="取三个数中间值"></a>取三个数中间值</h2><pre><code class="java">if ((b - a) * (a - c) &gt;= 0) { //如果a是中间数的话 b-a 和 a-c一定是相反数
             return a;
 } else if ((a - b) * (b - c) &gt;= 0) {
         return b;
@@ -394,19 +390,21 @@ test = test % 2;
         return c;
 }
 </code></pre>
-<p> <strong>循环队列</strong></p>
-<pre><code class="java">//加入一个队列rear有固定的空间，我现在让他循环存储可以用取模算法
+<h2 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h2><pre><code class="java">//加入一个队列rear有固定的空间，我现在让他循环存储可以用取模算法
 rear = (rear +1)%MAX
 </code></pre>
-<p><strong>数据库分表</strong></p>
-<p>假如现在有非常多数据，需要让他们放到不同的表中，可以用到取模算法</p>
+<h2 id="数据库分表"><a href="#数据库分表" class="headerlink" title="数据库分表"></a>数据库分表</h2><p>假如现在有非常多数据，需要让他们放到不同的表中，可以用到取模算法</p>
 <p>比如  我们有三个表， 在我们知道需要插入的具体id的时候，id%3就是他要存的表。</p>
-<p><strong>判断是否是奇数</strong></p>
-<p>我们通常用的是取模算法，但是还有一种是位与算法</p>
+<h2 id="判断是否是奇数"><a href="#判断是否是奇数" class="headerlink" title="判断是否是奇数"></a>判断是否是奇数</h2><p>我们通常用的是取模算法，但是还有一种是位与算法</p>
 <pre><code class="java">if(n&amp;1 == 1){
     //n就是奇数
 }
 </code></pre>
+<h2 id="优雅的将注解和属性值结合起来"><a href="#优雅的将注解和属性值结合起来" class="headerlink" title="优雅的将注解和属性值结合起来"></a>优雅的将注解和属性值结合起来</h2><p>当我们的注解写在我们的属性上面时，如何和实体类的属性一一映射着实是一个比较头疼的问题。<br>这里只提供一种思想去解决，不一定是最好的，但往往很有效。</p>
+<p>首先利用我们的Class.getDeclaredFields将我们的所有Field取出来，然后分别获取它们的注解。然后我们将Field.name()也就是我们的属性名和注解的值关联一下，比如放在同一个实体类里面。最后通过属性名获取到我们的get函数，最后通过代理获取get函数的值,最后做到关联。</p>
+<blockquote>
+<p>需要注意的是，通过反射或者代理获得到的值都是Object值，如何获取到我们get方法里面的类型，这里博主还没有考虑到。</p>
+</blockquote>
 
             </div>
             <hr>
