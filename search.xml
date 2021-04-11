@@ -4,13 +4,25 @@
   
     
     <entry>
-      <title>热更新</title>
+      <title>idea热更新</title>
       <link href="/2021/04/01/idea-%E7%83%AD%E6%9B%B4%E6%96%B0/"/>
       <url>/2021/04/01/idea-%E7%83%AD%E6%9B%B4%E6%96%B0/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="idea热更新手段"><a href="#idea热更新手段" class="headerlink" title="idea热更新手段"></a>idea热更新手段</h1><p>由于在调试或者开发程序的时候，经常会遇到一个小小的bug改半天的情况，所以要一遍又一遍的重启项目，小一点的项目还好，稍微那种起一次就得花一分钟的程序改起bug来简直就是要命。还好，idea有一个收费插件”JRebel”,可以让我们热更新</p><h2 id="下载JRelbel"><a href="#下载JRelbel" class="headerlink" title="下载JRelbel"></a>下载JRelbel</h2><p>在setting=&gt; plugins路径下，搜索 JRelbel，安装</p><h2 id="破解"><a href="#破解" class="headerlink" title="破解"></a>破解</h2><p>打开<a href="https://jrebel.qekang.com/，按照操作激活即可。" target="_blank" rel="noopener">https://jrebel.qekang.com/，按照操作激活即可。</a></p><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>通过JRebel的方式启动，当需要更新项目的时候，按下ctrl + shift + F9即可</p>]]></content>
       
       
+      <categories>
+          
+          <category> idea </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> idea </tag>
+            
+        </tags>
       
     </entry>
     
