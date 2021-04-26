@@ -351,7 +351,7 @@ java数据类型八大基础数据类型： byte,char,short,int,long,float,doubl
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.4k
                 </div>
                 
 
@@ -467,7 +467,7 @@ public boolean equals(Object anObject) {
 
 </code></pre>
 <p>标记如上文所示，在外层循环上面写上A标记，在内循环里面直接Break 标记，起到goto语句的作用。</p>
-<h3 id="JAVA加载顺序"><a href="#JAVA加载顺序" class="headerlink" title="JAVA加载顺序"></a>JAVA加载顺序</h3><p>父类静态代码块&gt;&gt; 子类静态代码块&gt;&gt; 父类代码块&gt;&gt; 父类构造函数&gt;&gt; 子类代码块&gt;&gt; 子类构造函数</p>
+<h2 id="JAVA加载顺序"><a href="#JAVA加载顺序" class="headerlink" title="JAVA加载顺序"></a>JAVA加载顺序</h2><p>父类静态代码块&gt;&gt; 子类静态代码块&gt;&gt; 父类代码块&gt;&gt; 父类构造函数&gt;&gt; 子类代码块&gt;&gt; 子类构造函数</p>
 <ul>
 <li>可以利用反射机制Class.forName(“包名”)理解class的消息</li>
 </ul>
@@ -498,6 +498,14 @@ public class MemoryLeak {
     }
 }
 </code></pre>
+<h2 id="String-StringBuilder-StringBuffer之间的区别"><a href="#String-StringBuilder-StringBuffer之间的区别" class="headerlink" title="String,StringBuilder,StringBuffer之间的区别"></a>String,StringBuilder,StringBuffer之间的区别</h2><p>String要注意他是一个final，也就是说不可继承的一个常量。</p>
+<p>String Builder线程不安全，但是效率高</p>
+<p>String buffer 线程安全，效率低</p>
+<h2 id="Vector-ArrayList之间的区别"><a href="#Vector-ArrayList之间的区别" class="headerlink" title="Vector,ArrayList之间的区别"></a>Vector,ArrayList之间的区别</h2><ul>
+<li>共同点： vector和arraylist创建一个固定大小的空间</li>
+<li>不同点： </li>
+</ul>
+<p>Vector线程安全,arrayList不安全；每次容量满了之后,arrayList容量扩张50%,Vector扩张一倍。</p>
 
             </div>
             <hr>

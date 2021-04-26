@@ -358,14 +358,14 @@ javaCollection的分析Collection是在java.util里面
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    780
+                    872
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    3 分
                 </div>
                 
 				
@@ -380,7 +380,7 @@ javaCollection的分析Collection是在java.util里面
 <p>这里我们分析Collection和Map<br><a href="https://img-blog.csdn.net/20160124221843905" target="_blank" rel="noopener">大图查看详情</a></p>
 </blockquote>
 <h1 id="javaCollection的分析"><a href="#javaCollection的分析" class="headerlink" title="javaCollection的分析"></a>javaCollection的分析</h1><p>Collection是在java.util里面</p>
-<p><img src="https://s2.ax1x.com/2019/04/02/AywLb6.png" alt="Java队列"></p>
+<p><a href="https://imgtu.com/i/gS5az4" target="_blank" rel="noopener"><img src="https://z3.ax1x.com/2021/04/26/gS5az4.jpg" alt="gS5az4.jpg"></a></p>
 <blockquote>
 <p>集合里面是一定是存放对象的，不能存放基本数据类型，像是int,也是先转换成Integer然后在放在集合中。</p>
 </blockquote>
@@ -388,7 +388,13 @@ javaCollection的分析Collection是在java.util里面
 <ul>
 <li>List是一个接口，而下面有ArrayList和LinkList两个实现类，关于Array和Linkd的区别，详见数据结构。</li>
 <li>List是有顺序的！</li>
-<li>Vector(同步) 非常类似ArrayList，但是Vector是同步的</li>
+<li>Vector(同步，即线程安全) 非常类似ArrayList，但是Vector是同步的,Vector并不推荐使用，原因：<ul>
+<li>vector是jdk 1.0的东西，非常老</li>
+<li>vector底层使用数组来实现，只能从尾部进行操作，效率特别低</li>
+<li>当需要扩容的时候，会扩容一倍，而ArrayList只扩容50%，很容易导致空间分配不足的问题</li>
+<li>已有的替代品：copyAndWriteList(Jdk1.5的东西)</li>
+</ul>
+</li>
 </ul>
 <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><ul>
 <li>Set也是一个接口，下面有HashSet和TreeSet两个实现类</li>
