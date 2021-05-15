@@ -375,7 +375,7 @@
                 <h1 id="ssh免密"><a href="#ssh免密" class="headerlink" title="ssh免密"></a>ssh免密</h1><p>最近由于经常用linux，尤其是git这一方面，需要经常的push项目，而没有ssh的时候经常会需要登陆密码登陆，很麻烦。</p>
 <p>查了一堆文章后，写了下面最适合我的这篇文章</p>
 <p>首先我们要有我们的ssh命令，在windows里面生成ssh的rsa密钥，具体命令如下：</p>
-<pre><code class="bash">ssh-keygon -t rsa -c &quot;&quot;
+<pre><code class="bash">ssh-keygen -t rsa -C &quot;&quot;
 # 引号里面是邮箱，外国人有毛病，什么玩意都要弄个邮箱，我就直接为null了
 
 </code></pre>

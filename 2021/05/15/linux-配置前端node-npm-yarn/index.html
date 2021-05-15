@@ -4,8 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="linux 配置前端node npm, 逝痕">
-    <meta name="description" content="linux 配置前端node npm | 逝痕">
+    <meta name="keywords" content="linux 配置前端node npm yarn, 逝痕">
+    <meta name="description" content="linux 配置前端node npm yarn这几天更新了windows系统，安装一下wsl,试一下之前就想用的zsh，感觉还不错。之后就直接用Linux接管windows命令。
+现在安装一下前端常用的工具 node npm hexo
+安装">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>linux 配置前端node npm | 逝痕</title>
+    <title>linux 配置前端node npm yarn | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -196,13 +198,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        linux 配置前端node npm
+                        linux 配置前端node npm yarn
                     </div>
                 </div>
             </div>
@@ -312,12 +314,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/linux/">
+                                <span class="chip bg-color">linux</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Linux/" class="post-category">
+                                Linux
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -335,7 +350,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    480
                 </div>
                 
 
@@ -353,7 +368,41 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="linux-配置前端node-npm-yarn"><a href="#linux-配置前端node-npm-yarn" class="headerlink" title="linux 配置前端node npm yarn"></a>linux 配置前端node npm yarn</h1><p>这几天更新了windows系统，安装一下wsl,试一下之前就想用的zsh，感觉还不错。之后就直接用Linux接管windows命令。</p>
+<p>现在安装一下前端常用的工具 node npm hexo</p>
+<h2 id="安装ndoe"><a href="#安装ndoe" class="headerlink" title="安装ndoe"></a>安装ndoe</h2><p>这里建议下载v12或者以前的版本，新版本在笔者写的这段时间内很不稳定，容易出问题。</p>
+<pre><code class="bash">
+wget https://nodejs.org/dist/v12.18.1/node-v12.18.1-linux-x64.tar.xz # 我这里下载到了/usr/local路径下
+
+tar -vxf node-v12.18.1-linux-x64.tar.xz
+
+cd node-v12.18.1-linux-x64
+</code></pre>
+<blockquote>
+<p>因为我现在用的是zsh shell，所以我不能在<strong>/etc/profile</strong>这个全局配置文件里面写node的全局命令，我需要在~/.profile里面写路径</p>
+</blockquote>
+<p>如果用的是正常的shell，直接在/etc/profile里面写，然后更新一下就ok</p>
+<pre><code class="bash">export PATH=$PATH:/user/local/node-v12.18.1-linux-x64/bin
+</code></pre>
+<p>然后我们去~/.zshbrc里面添加以下porfile文件</p>
+<pre><code class="bash">source ~/.profile
+</code></pre>
+<p>更新一下后验证node是否可以使用</p>
+<pre><code class="bash">ndoe -v #  出现版本号则证明配置完成
+</code></pre>
+<h3 id="安装npm"><a href="#安装npm" class="headerlink" title="安装npm"></a>安装npm</h3><p>因为我们安装node之后，node会自动安装npm依赖，所以我们直接用就行。</p>
+<p>但是有一点，如果我们使用sudo npm 的时候，会直接提示不存在npm。</p>
+<p>这是什么原因呢？</p>
+<p>我们之前安装node不是/usr/local路径下了么，这个是普通用户的bin目录<br>而sudo执行的是/usr/bin目录，这是root用户的目录</p>
+<p>所以使用sudo命令是识别不到这个命令的，我们可以使用以下方法来处理这个问题<br>我们在/usr/bin目录下面创建一个软连接</p>
+<pre><code class="bash">
+sudo ln -s /usr/local/node-v12.18.1-linux-x64/bin/node /usr/bin/node
+
+sudo ln -s /usr/local/node-v12.18.1-linux-x64/bin/npm /usr/bin/npm
+</code></pre>
+<p>问题解决。</p>
+<h2 id="安装yarn"><a href="#安装yarn" class="headerlink" title="安装yarn"></a>安装yarn</h2><p>一定要用npm安装，不能用apt或者yum工具安装</p>
+
             </div>
             <hr>
 
@@ -378,7 +427,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/adroitwolf/2021/05/15/linux-配置前端node-npm/">https://github.com/adroitwolf/2021/05/15/linux-配置前端node-npm/</a>
+                    <a href="https://github.com/adroitwolf/2021/05/15/linux-配置前端node-npm-yarn/">https://github.com/adroitwolf/2021/05/15/linux-配置前端node-npm-yarn/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -415,7 +464,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/linux/">
+                                    <span class="chip bg-color">linux</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -456,19 +509,21 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2021/05/15/linux-配置前端node-npm/">
+                <a href="/2021/05/15/linux-配置前端node-npm-yarn/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="linux 配置前端node npm">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="linux 配置前端node npm yarn">
                         
-                        <span class="card-title">linux 配置前端node npm</span>
+                        <span class="card-title">linux 配置前端node npm yarn</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            linux 配置前端node npm yarn这几天更新了windows系统，安装一下wsl,试一下之前就想用的zsh，感觉还不错。之后就直接用Linux接管windows命令。
+现在安装一下前端常用的工具 node npm hexo
+安装
                         
                     </div>
                     <div class="publish-info">
@@ -477,13 +532,25 @@
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            adroitwolf
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/linux/">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
