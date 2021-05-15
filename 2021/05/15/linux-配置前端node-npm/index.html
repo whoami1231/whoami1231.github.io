@@ -4,11 +4,8 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Spring Data Jpa 启动流程分析, 逝痕">
-    <meta name="description" content="Spring Data Jpa 启动流程分析EnableJpaRepositories目的是导入JpaRepositoriesRegistrar这个配置类
-
-@Import(JpaRepositoriesRegistrar.class)
-p">
+    <meta name="keywords" content="linux 配置前端node npm, 逝痕">
+    <meta name="description" content="linux 配置前端node npm | 逝痕">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +13,7 @@ p">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Spring Data Jpa 启动流程分析 | 逝痕</title>
+    <title>linux 配置前端node npm | 逝痕</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -199,13 +196,13 @@ p">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Spring Data Jpa 启动流程分析
+                        linux 配置前端node npm
                     </div>
                 </div>
             </div>
@@ -315,29 +312,12 @@ p">
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/spring-data-jpa/">
-                                <span class="chip bg-color">spring data jpa</span>
-                            </a>
-                        
-                            <a href="/tags/java/">
-                                <span class="chip bg-color">java</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/spring-data-jpa/" class="post-category">
-                                spring data jpa
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -346,7 +326,7 @@ p">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-03-03
+                    2021-05-15
                 </div>
                 
 
@@ -355,14 +335,14 @@ p">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    0
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    1 分
                 </div>
                 
 				
@@ -373,186 +353,7 @@ p">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Spring-Data-Jpa-启动流程分析"><a href="#Spring-Data-Jpa-启动流程分析" class="headerlink" title="Spring Data Jpa 启动流程分析"></a>Spring Data Jpa 启动流程分析</h1><h2 id="EnableJpaRepositories"><a href="#EnableJpaRepositories" class="headerlink" title="EnableJpaRepositories"></a>EnableJpaRepositories</h2><p>目的是导入JpaRepositoriesRegistrar这个配置类</p>
-<pre><code class="java">
-@Import(JpaRepositoriesRegistrar.class)
-public @interface EnableJpaRepositories {
-
-    String[] basePackages() default {};
-</code></pre>
-<blockquote>
-<p>通过JpaRepositoriesRegistrar的继承一步一步的往上走，发现最终实现了Spring 的ImportBeanDefinitionRegistrar接口</p>
-</blockquote>
-<pre><code class="java">
-class JpaRepositoriesRegistrar extends RepositoryBeanDefinitionRegistrarSupport {
-
-protected Class&lt;? extends Annotation&gt; getAnnotation() {  //给定EnableJpaRepositories注解
-return EnableJpaRepositories.class;
-}
-@Override 
-protected RepositoryConfigurationExtension getExtension() {
-    // 这个方法是通知给Spring 我这此次注册的是JpaRepositoryBeanFactory
-return new JpaRepositoryConfigExtension();
-}
-
-}
-</code></pre>
-<blockquote>
-<p>ImportBeanDefinitionRegistrar的作用就是自定义扫描文件将符合条件的注册成Bean</p>
-</blockquote>
-<p>下面这个是扫描文件的实现方法，我截取了一些重要片段</p>
-<pre><code class="java">public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry registry) {
-
-        AnnotationRepositoryConfigurationSource configurationSource = new AnnotationRepositoryConfigurationSource(
-                annotationMetadata, getAnnotation(), resourceLoader, environment, registry);
-
-        RepositoryConfigurationExtension extension = getExtension();
-        RepositoryConfigurationUtils.exposeRegistration(extension, registry, configurationSource);
-
-        RepositoryConfigurationDelegate delegate = new RepositoryConfigurationDelegate(configurationSource, resourceLoader,
-                environment);
-        // 看方法名字就知道 注册仓库
-        delegate.registerRepositoriesIn(registry, extension);
-    }
-
-</code></pre>
-<blockquote>
-<p>最重要的还是注册Bean，我们跟着registerRepositoriesIn方法进去</p>
-</blockquote>
-<blockquote>
-<p>方法注释：<br>Registers the found repositories in the given <strong>BeanDefinitionRegistry</strong>.<br>注释说的很明显了，通过那个BeanDefinitionRegistry注册那些发现的仓库</p>
-</blockquote>
-<pre><code class="java">extension.registerBeansForRoot(registry, configurationSource);
-
-        RepositoryBeanDefinitionBuilder builder = new RepositoryBeanDefinitionBuilder(registry, extension,
-                configurationSource, resourceLoader, environment);
-        List&lt;BeanComponentDefinition&gt; definitions = new ArrayList&lt;&gt;();
-
-        StopWatch watch = new StopWatch();
-
-
-        watch.start();
-
-
-        //这里查了一下资料，configurations获取了所有的仓库接口
-        Collection&lt;RepositoryConfiguration&lt;RepositoryConfigurationSource&gt;&gt; configurations = extension
-                .getRepositoryConfigurations(configurationSource, resourceLoader, inMultiStoreMode);
-
-        Map&lt;String, RepositoryConfiguration&lt;?&gt;&gt; configurationsByRepositoryName = new HashMap&lt;&gt;(configurations.size());
-
-        // 下面应该是说通过读取各种情况下的配置文件去导入仓库列表
-        for (RepositoryConfiguration&lt;? extends RepositoryConfigurationSource&gt; configuration : configurations) {
-
-            configurationsByRepositoryName.put(configuration.getRepositoryInterface(), configuration);
-
-            BeanDefinitionBuilder definitionBuilder = builder.build(configuration);
-
-            extension.postProcess(definitionBuilder, configurationSource);
-
-            if (isXml) {
-                extension.postProcess(definitionBuilder, (XmlRepositoryConfigurationSource) configurationSource);
-            } else {
-                extension.postProcess(definitionBuilder, (AnnotationRepositoryConfigurationSource) configurationSource);
-            }
-
-            AbstractBeanDefinition beanDefinition = definitionBuilder.getBeanDefinition();
-            String beanName = configurationSource.generateBeanName(beanDefinition);
-
-
-
-            beanDefinition.setAttribute(FACTORY_BEAN_OBJECT_TYPE, configuration.getRepositoryInterface());
-
-            registry.registerBeanDefinition(beanName, beanDefinition);
-            definitions.add(new BeanComponentDefinition(beanDefinition, beanName));
-        }
-
-        potentiallyLazifyRepositories(configurationsByRepositoryName, registry, configurationSource.getBootstrapMode());
-
-        watch.stop();
-
-
-
-        return definitions;
-
-</code></pre>
-<blockquote>
-<p>上面的大概意思就是说，我通过 读取了所有用户仓库的接口，然后definitionBuilder用这个注册了一个JpaRepositoryFactoryBean<br>然后等spring初始化的时候就会创建JpaRepositoryFactoryBean这种类型的Bean了</p>
-</blockquote>
-<blockquote>
-<p>通过查阅资料得知，spring 一开始就要初始化BeanFactory</p>
-</blockquote>
-<h2 id="RepositoryBeanDefinitionRegistrarSupport"><a href="#RepositoryBeanDefinitionRegistrarSupport" class="headerlink" title="RepositoryBeanDefinitionRegistrarSupport"></a>RepositoryBeanDefinitionRegistrarSupport</h2><p>上面我们一步步的将我们的用户仓库注册到Spring中，那我们的的那些Crud操作是如何自动代理到我们自定义的接口中呢？</p>
-<p>这就要重新到JpaRepositoriesRegistrar这个类来说了，他里面new了一个很重要的类JpaRepositoryConfigExtension</p>
-<pre><code class="java">
-@Override
-    public String getRepositoryFactoryBeanClassName() {
-        return JpaRepositoryFactoryBean.class.getName();
-    }
-</code></pre>
-<blockquote>
-<p>我们可以看到这里获得了JpaRepositoryFactoryBean的名字，这个方法是用在一个DefaultRepositoryConfiguration的类里面的<br>DefaultRepositoryConfiguration 的注释写着Default implementation of RepositoryConfiguration.<br>我们可以知道他其实是RepositoryConfiguration的实现</p>
-</blockquote>
-<p>那么，这个RepositoryConfiguration我们又是在哪里用到的呢?</p>
-<blockquote>
-<p>正式上面我们提到的registerBeansForRoot方法。</p>
-</blockquote>
-<pre><code class="java">
-Map&lt;String, RepositoryConfiguration&lt;?&gt;&gt;     Map&lt;String, RepositoryConfiguration&lt;?&gt;&gt; configurationsByRepositoryName = new HashMap&lt;&gt;(configurations.size());
-
-
-configurationsByRepositoryName.put(configuration.getRepositoryInterface(), configuration);
-</code></pre>
-<blockquote>
-<p>这个我们就很清楚了，我们通过registerBeansForRoot读取到用户仓库，然后通过上面的函数注册成JpaRepositoryFactoryBean，然后再托管到Spring容器里面。</p>
-</blockquote>
-<p>那现在的重点就是 JpaRepositoryFactoryBean这个东西</p>
-<h2 id="JpaRepositoryFactoryBean"><a href="#JpaRepositoryFactoryBean" class="headerlink" title="JpaRepositoryFactoryBean"></a>JpaRepositoryFactoryBean</h2><p>经过查阅知道 afterPropertiesSet()这个函数是重点，他是创建仓库的入口。在哪里进行<strong>动态代理</strong></p>
-<p>下面是afterPropertiesSet()方法执行过程中用到的一个重要函数，意思就是生成仓库</p>
-<pre><code class="java">public &lt;T&gt; T getRepository(Class&lt;T&gt; repositoryInterface, RepositoryFragments fragments) {
-
-
-        RepositoryMetadata metadata = getRepositoryMetadata(repositoryInterface);
-        RepositoryComposition composition = getRepositoryComposition(metadata, fragments);
-        RepositoryInformation information = getRepositoryInformation(metadata, composition);
-
-        validate(information, composition);
-
-        Object target = getTargetRepository(information);
-
-        // Create proxy
-        ProxyFactory result = new ProxyFactory();
-        result.setTarget(target);
-        result.setInterfaces(repositoryInterface, Repository.class, TransactionalProxy.class);
-
-        if (MethodInvocationValidator.supports(repositoryInterface)) {
-            result.addAdvice(new MethodInvocationValidator());
-        }
-
-        result.addAdvice(SurroundingTransactionDetectorMethodInterceptor.INSTANCE);
-        result.addAdvisor(ExposeInvocationInterceptor.ADVISOR);
-
-        postProcessors.forEach(processor -&gt; processor.postProcess(result, information));
-
-        result.addAdvice(new DefaultMethodInvokingMethodInterceptor());
-
-        ProjectionFactory projectionFactory = getProjectionFactory(classLoader, beanFactory);
-        result.addAdvice(new QueryExecutorMethodInterceptor(information, projectionFactory));
-
-        composition = composition.append(RepositoryFragment.implemented(target));
-        result.addAdvice(new ImplementationMethodExecutionInterceptor(composition));
-
-        T repository = (T) result.getProxy(classLoader);
-
-
-        return repository;
-    }
-
-</code></pre>
-<p>上面的方法中也有注释，creat proxy。真相大白。<br>ProxyFactory result = new ProxyFactory();</p>
-<h2 id="不通过-EnableJpaRepositories注解，JPA如何自动配置"><a href="#不通过-EnableJpaRepositories注解，JPA如何自动配置" class="headerlink" title="不通过@EnableJpaRepositories注解，JPA如何自动配置"></a>不通过@EnableJpaRepositories注解，JPA如何自动配置</h2><p>我发现我的spring boot 项目中即使不写@EnableJpaRepositories注解，照样可以启动成功。</p>
-<p>经过查阅知道 spring boot 里面有一个 spring-boot-autoconfigure包，包里面有一个spring.factories配置文件，里面就有Jpa的相关配置，所以即使不加注解，照样可以成功。</p>
-<p><a href="https://imgtu.com/i/6AJrsH" target="_blank" rel="noopener"><img src="https://s3.ax1x.com/2021/03/03/6AJrsH.png" alt="6AJrsH.png"></a></p>
-
+                
             </div>
             <hr>
 
@@ -577,7 +378,7 @@ configurationsByRepositoryName.put(configuration.getRepositoryInterface(), confi
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://github.com/adroitwolf/2021/03/03/Spring-Data-Jpa-启动流程分析/">https://github.com/adroitwolf/2021/03/03/Spring-Data-Jpa-启动流程分析/</a>
+                    <a href="https://github.com/adroitwolf/2021/05/15/linux-配置前端node-npm/">https://github.com/adroitwolf/2021/05/15/linux-配置前端node-npm/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -614,15 +415,7 @@ configurationsByRepositoryName.put(configuration.getRepositoryInterface(), confi
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/spring-data-jpa/">
-                                    <span class="chip bg-color">spring data jpa</span>
-                                </a>
-                            
-                                <a href="/tags/java/">
-                                    <span class="chip bg-color">java</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -660,50 +453,37 @@ configurationsByRepositoryName.put(configuration.getRepositoryInterface(), confi
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/03/25/vue走过的那些坑/">
+                <a href="/2021/05/15/linux-配置前端node-npm/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="vue走过的那些坑">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="linux 配置前端node npm">
                         
-                        <span class="card-title">vue走过的那些坑</span>
+                        <span class="card-title">linux 配置前端node npm</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            vue走过的那些坑vue修改数组当我们想修改原数组的某一个元素的值得时候，并不会使页面动态渲染。
-像是这样：
-&lt;!-- 截取重要字段 --&gt;
-&lt;div v-for=(item ,index) in data&gt;{{it
+                            
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-15
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/vue/" class="post-category">
-                                    vue
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            adroitwolf
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/vue/">
-                        <span class="chip bg-color">vue</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -714,31 +494,33 @@ configurationsByRepositoryName.put(configuration.getRepositoryInterface(), confi
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/02/24/关于springboot自动注入相关经验/">
+                <a href="/2021/04/01/idea-热更新/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="关于springboot自动注入相关经验">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="idea热更新">
                         
-                        <span class="card-title">关于springboot自动注入相关经验</span>
+                        <span class="card-title">idea热更新</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            关于spring boot 注入相关经验
-这里是最近重新学习Spring boot关于注入相关的经验博客，特此记录一下：
-JdbcTemplate注入在学习java web的时候，有使用过一个叫jdbcTemplate的东西。所以下面这个代
+                            idea热更新手段由于在调试或者开发程序的时候，经常会遇到一个小小的bug改半天的情况，所以要一遍又一遍的重启项目，小一点的项目还好，稍微那种起一次就得花一分钟的程序改起bug来简直就是要命。还好，idea有一个收费插件”JRebel”,可
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-01
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            adroitwolf
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/idea/" class="post-category">
+                                    idea
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -746,8 +528,8 @@ JdbcTemplate注入在学习java web的时候，有使用过一个叫jdbcTemplate
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/spring-boot/">
-                        <span class="chip bg-color">spring boot</span>
+                    <a href="/tags/idea/">
+                        <span class="chip bg-color">idea</span>
                     </a>
                     
                 </div>
