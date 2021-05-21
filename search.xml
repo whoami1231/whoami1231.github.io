@@ -95,9 +95,9 @@
       
         <tags>
             
-            <tag> spring data jpa </tag>
-            
             <tag> java </tag>
+            
+            <tag> spring data jpa </tag>
             
         </tags>
       
@@ -327,7 +327,7 @@
       <link href="/2021/01/09/%E7%AE%97%E6%B3%95%E5%BF%83%E5%BE%97/"/>
       <url>/2021/01/09/%E7%AE%97%E6%B3%95%E5%BF%83%E5%BE%97/</url>
       
-        <content type="html"><![CDATA[<h1 id="算法心得"><a href="#算法心得" class="headerlink" title="算法心得"></a>算法心得</h1><h2 id="选择排序与冒泡排序之间的关系"><a href="#选择排序与冒泡排序之间的关系" class="headerlink" title="选择排序与冒泡排序之间的关系"></a>选择排序与冒泡排序之间的关系</h2><p>这几天学习算法，发现了一个有意思的现象。选择排序与冒泡排序的时间复杂度都是O(n^2)</p><p>并且呢，冒泡排序是两两相邻的去比较。而选择排序是一次比较所有。</p><pre><code class="java">/**    * 功能描述: 选择排序算法  --&gt; int[] 是引用传递，即使不return input的指也会改变    * @Param: [input]     * @Return: int[]    * @Author: ADROITWOLF    * @Date: 2021/2/27 21:33     */    public static int[] selectSort(int [] input){        int min = 0;        for (int i =0;i&lt;input.length;i++ ){            min = i;            for(int j = i+1;j&lt;input.length;j++){                 min = input[min] &gt; input[j] ? j:min;            }            if(i != min){ //说明最小值已经是那啥了                int tmp = input[i];                input[i] = input[min];                input[min] = tmp;            }        }        return input;    }    /**    * 功能描述: 冒泡排序    * @Param: [input]    * @Return: int[]    * @Author: ADROITWOLF    * @Date: 2021/2/27 21:56     */    public static int[] bubbleSort(int [] input){        for (int i=0;i&lt;input.length;i++){            for(int j=0;j&lt;input.length-1;j++){                if(input[j] &gt; input[j+1]){                    int tmp = input[j];                    input [j] = input[j+1];                    input[j+1] = tmp;                }            }        }        return input;    }</code></pre><h2 id="为什么HashMap的时间复杂度可以为O-1"><a href="#为什么HashMap的时间复杂度可以为O-1" class="headerlink" title="为什么HashMap的时间复杂度可以为O(1)"></a>为什么HashMap的时间复杂度可以为O(1)</h2><p>通过《算法图解》这本书得知，散列表的查找时间复杂度是O(1)。具体实现方法是将输入数据和索引坐标做一个映射，并且散列表是通过数组来实现存储的，数组的查找时间复杂度为O(1)。HashMap的底层实现原理也是利用的散列表，所以他的时间复杂度为O(1).</p><p>并且，HashMap的使用极为广泛：</p><ol><li>用作去重</li><li>作为缓存</li><li>映射查找遍历。</li></ol><h2 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h2><p>尾递归说白了就是，在函数的后面直接return 自己，且没有任何的计算操作。举个例子：</p><pre><code class="java">public int recursion(int a){    if xxx{        return 1;    }else{        return recursion(a*x);    }}</code></pre><blockquote><p>我们都知道递归会将函数压栈，不仅消耗大量的时间，而且有很大的不确定性，稳定性无法保证。<br>尾递归，则是编译器自动的将不重复调用栈，而是直接覆盖函数栈，使空间复杂度从O(n)变成了O(1)</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<h1 id="算法心得"><a href="#算法心得" class="headerlink" title="算法心得"></a>算法心得</h1><h2 id="选择排序与冒泡排序之间的关系"><a href="#选择排序与冒泡排序之间的关系" class="headerlink" title="选择排序与冒泡排序之间的关系"></a>选择排序与冒泡排序之间的关系</h2><p>这几天学习算法，发现了一个有意思的现象。选择排序与冒泡排序的时间复杂度都是O(n^2)</p><p>并且呢，冒泡排序是两两相邻的去比较。而选择排序是一次比较所有。</p><pre><code class="java">/**    * 功能描述: 选择排序算法  --&gt; int[] 是引用传递，即使不return input的指也会改变    * @Param: [input]    * @Return: int[]    * @Author: ADROITWOLF    * @Date: 2021/2/27 21:33     */    public static int[] selectSort(int [] input){        int min = 0;        for (int i =0;i&lt;input.length;i++ ){            min = i;            for(int j = i+1;j&lt;input.length;j++){                min = input[min] &gt; input[j] ? j:min;            }            if(i != min){ //说明最小值已经是那啥了                int tmp = input[i];                input[i] = input[min];                input[min] = tmp;            }        }        return input;    }    /**    * 功能描述: 冒泡排序    * @Param: [input]    * @Return: int[]    * @Author: ADROITWOLF    * @Date: 2021/2/27 21:56     */    public static int[] bubbleSort(int [] input){        for (int i=0;i&lt;input.length;i++){            for(int j=0;j&lt;input.length-1;j++){                if(input[j] &gt; input[j+1]){                    int tmp = input[j];                    input [j] = input[j+1];                    input[j+1] = tmp;                }            }        }        return input;    }</code></pre><h2 id="为什么HashMap的时间复杂度可以为O-1"><a href="#为什么HashMap的时间复杂度可以为O-1" class="headerlink" title="为什么HashMap的时间复杂度可以为O(1)"></a>为什么HashMap的时间复杂度可以为O(1)</h2><p>通过《算法图解》这本书得知，散列表的查找时间复杂度是O(1)。具体实现方法是将输入数据和索引坐标做一个映射，并且散列表是通过数组来实现存储的，数组的查找时间复杂度为O(1)。HashMap的底层实现原理也是利用的散列表，所以他的时间复杂度为O(1).</p><p>并且，HashMap的使用极为广泛：</p><ol><li>用作去重</li><li>作为缓存</li><li>映射查找遍历。</li></ol><h2 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h2><p>尾递归说白了就是，在函数的后面直接return 自己，且没有任何的计算操作。举个例子：</p><pre><code class="java">public int recursion(int a){    if xxx{        return 1;    }else{        return recursion(a*x);    }}</code></pre><blockquote><p>我们都知道递归会将函数压栈，不仅消耗大量的时间，而且有很大的不确定性，稳定性无法保证。<br>尾递归，则是编译器自动的将不重复调用栈，而是直接覆盖函数栈，使空间复杂度从O(n)变成了O(1)</p></blockquote><h2 id="递归和迭代的区别"><a href="#递归和迭代的区别" class="headerlink" title="递归和迭代的区别"></a>递归和迭代的区别</h2><p>首先这里一定要忘记迭代就是要比递归牛逼的想法，我记得我们老师说，尽量不要用递归，<strong>这纯属瞎扯淡误人子弟。</strong></p><p>递归存在就有他的必要性，经过查阅发现，递归在用编译语言编写的时候更加的方便。对，就是方便！这是递归的非常大的优势。</p><p>并且只要能递归，就一定能转化成迭代，无非就是压栈的操作让我们手动模拟了而已。</p><h2 id="求子集算法-回溯"><a href="#求子集算法-回溯" class="headerlink" title="求子集算法(回溯)"></a>求子集算法(回溯)</h2><p>此题是leetcode 1886。</p><p>该题说白了，就是需要弄出一个决策树来，就像下面这样：</p><p><a href="https://imgtu.com/i/g70aEq" target="_blank" rel="noopener"><img src="https://z3.ax1x.com/2021/05/21/g70aEq.png" alt="g70aEq.png"></a></p><p>我们在遍历每个元素的时候都会面临着选和不选两个选项，这样我们就可以把子集就可以全部求出来了，具体代码如下(伪代码):</p><pre><code class="java">private int[][] res = new int [nums.length][nums.length];public dfs(int [] nums,int index,int [] temp){  if(index == nums.length){    // 把当前的集合添加到结果中    res.add(temp);  }  dfs(nums,index+1,temp.add(nums[index])); // 选择当前元素  dfs(nums,index+1,temp); // 不选择当前元素}</code></pre>]]></content>
       
       
       <categories>
@@ -680,9 +680,9 @@
             
             <tag> springboot </tag>
             
-            <tag> docker </tag>
-            
             <tag> nginx </tag>
+            
+            <tag> docker </tag>
             
             <tag> 运维 </tag>
             
@@ -1936,9 +1936,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -2239,9 +2239,9 @@
       
         <tags>
             
-            <tag> 多线程 </tag>
-            
             <tag> java </tag>
+            
+            <tag> 多线程 </tag>
             
         </tags>
       
@@ -2334,6 +2334,17 @@
     
     
     <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于</title>
       <link href="/about/index.html"/>
       <url>/about/index.html</url>
@@ -2348,17 +2359,6 @@
       <title>tags</title>
       <link href="/tags/index.html"/>
       <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       

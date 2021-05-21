@@ -360,14 +360,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    528
+                    819
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    3 分
                 </div>
                 
 				
@@ -383,7 +383,7 @@
 <pre><code class="java">
 /**
     * 功能描述: 选择排序算法  --&gt; int[] 是引用传递，即使不return input的指也会改变
-    * @Param: [input] 
+    * @Param: [input]
     * @Return: int[]
     * @Author: ADROITWOLF
     * @Date: 2021/2/27 21:33
@@ -392,7 +392,7 @@
         int min = 0;
         for (int i =0;i&lt;input.length;i++ ){
             min = i;
-            for(int j = i+1;j&lt;input.length;j++){ 
+            for(int j = i+1;j&lt;input.length;j++){
                 min = input[min] &gt; input[j] ? j:min;
             }
             if(i != min){ //说明最小值已经是那啥了
@@ -448,6 +448,26 @@ public int recursion(int a){
 <blockquote>
 <p>我们都知道递归会将函数压栈，不仅消耗大量的时间，而且有很大的不确定性，稳定性无法保证。<br>尾递归，则是编译器自动的将不重复调用栈，而是直接覆盖函数栈，使空间复杂度从O(n)变成了O(1)</p>
 </blockquote>
+<h2 id="递归和迭代的区别"><a href="#递归和迭代的区别" class="headerlink" title="递归和迭代的区别"></a>递归和迭代的区别</h2><p>首先这里一定要忘记迭代就是要比递归牛逼的想法，我记得我们老师说，尽量不要用递归，<strong>这纯属瞎扯淡误人子弟。</strong></p>
+<p>递归存在就有他的必要性，经过查阅发现，递归在用编译语言编写的时候更加的方便。对，就是方便！这是递归的非常大的优势。</p>
+<p>并且只要能递归，就一定能转化成迭代，无非就是压栈的操作让我们手动模拟了而已。</p>
+<h2 id="求子集算法-回溯"><a href="#求子集算法-回溯" class="headerlink" title="求子集算法(回溯)"></a>求子集算法(回溯)</h2><p>此题是leetcode 1886。</p>
+<p>该题说白了，就是需要弄出一个决策树来，就像下面这样：</p>
+<p><a href="https://imgtu.com/i/g70aEq" target="_blank" rel="noopener"><img src="https://z3.ax1x.com/2021/05/21/g70aEq.png" alt="g70aEq.png"></a></p>
+<p>我们在遍历每个元素的时候都会面临着选和不选两个选项，这样我们就可以把子集就可以全部求出来了，具体代码如下(伪代码):</p>
+<pre><code class="java">
+private int[][] res = new int [nums.length][nums.length];
+
+public dfs(int [] nums,int index,int [] temp){
+  if(index == nums.length){
+    // 把当前的集合添加到结果中
+    res.add(temp);
+  }
+
+  dfs(nums,index+1,temp.add(nums[index])); // 选择当前元素
+  dfs(nums,index+1,temp); // 不选择当前元素
+}
+</code></pre>
 
             </div>
             <hr>
